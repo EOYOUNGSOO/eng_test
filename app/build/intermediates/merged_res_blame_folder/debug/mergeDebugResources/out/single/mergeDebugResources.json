@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "com.example.engtest.app-debug-56:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.engtest.app-main-58:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.engtest.app-debug-56:/font_pretendard_bold.otf.flat",
+        "source": "com.example.engtest.app-main-58:/font/pretendard_bold.otf"
+    },
+    {
+        "merged": "com.example.engtest.app-debug-56:/font_pretendard_medium.otf.flat",
+        "source": "com.example.engtest.app-main-58:/font/pretendard_medium.otf"
+    }
+]

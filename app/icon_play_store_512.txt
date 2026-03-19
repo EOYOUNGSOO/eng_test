@@ -1,0 +1,6 @@
+Google Play Store 아이콘(512x512) 안내
+=====================================
+- 출시 시 Play Console에는 512x512 PNG 아이콘이 필요합니다.
+- 소스: app/src/main/res/drawable-nodpi/app_icon.png
+- Image Asset Studio에서 "Google Play Store" 아이콘 유형으로 512x512를 생성하거나,
+  이미지 편집 도구로 app_icon.png를 512x512로 리사이즈한 뒤 Play Console에 업로드하세요.

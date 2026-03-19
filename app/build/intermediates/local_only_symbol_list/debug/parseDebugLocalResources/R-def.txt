@@ -1,0 +1,7 @@
+R_DEF: Internal format may change without notice
+local
+drawable ic_launcher_foreground
+font pretendard_bold
+font pretendard_medium
+string app_name
+style Theme.EngTest

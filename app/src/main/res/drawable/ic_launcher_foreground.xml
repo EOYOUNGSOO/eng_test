@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Foreground: 첨부 아이콘(책+돋보기), 비율 유지를 위해 uniform scale 적용 -->
+<scale xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/app_icon"
+    android:scaleGravity="center_vertical|center_horizontal"
+    android:scaleWidth="80%"
+    android:scaleHeight="80%"
+    android:level="10000" />
