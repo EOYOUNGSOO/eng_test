@@ -540,7 +540,7 @@ ADDED from [androidx.core:core:1.12.0] C:\Users\user\.gradle\caches\8.13\transfo
 		ADDED from [androidx.core:core:1.12.0] C:\Users\user\.gradle\caches\8.13\transforms\65453221b1f2dca1433890f3b8909c54\transformed\core-1.12.0\AndroidManifest.xml:24:9-44
 	android:name
 		ADDED from [androidx.core:core:1.12.0] C:\Users\user\.gradle\caches\8.13\transforms\65453221b1f2dca1433890f3b8909c54\transformed\core-1.12.0\AndroidManifest.xml:23:9-81
-permission#com.example.engtest.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+permission#com.example.engtest.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
 ADDED from [androidx.core:core:1.12.0] C:\Users\user\.gradle\caches\8.13\transforms\65453221b1f2dca1433890f3b8909c54\transformed\core-1.12.0\AndroidManifest.xml:22:5-24:47
 	android:protectionLevel
 		ADDED from [androidx.core:core:1.12.0] C:\Users\user\.gradle\caches\8.13\transforms\65453221b1f2dca1433890f3b8909c54\transformed\core-1.12.0\AndroidManifest.xml:24:9-44
@@ -550,7 +550,7 @@ uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
 ADDED from [androidx.core:core:1.12.0] C:\Users\user\.gradle\caches\8.13\transforms\65453221b1f2dca1433890f3b8909c54\transformed\core-1.12.0\AndroidManifest.xml:26:5-97
 	android:name
 		ADDED from [androidx.core:core:1.12.0] C:\Users\user\.gradle\caches\8.13\transforms\65453221b1f2dca1433890f3b8909c54\transformed\core-1.12.0\AndroidManifest.xml:26:22-94
-uses-permission#com.example.engtest.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+uses-permission#com.example.engtest.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
 ADDED from [androidx.core:core:1.12.0] C:\Users\user\.gradle\caches\8.13\transforms\65453221b1f2dca1433890f3b8909c54\transformed\core-1.12.0\AndroidManifest.xml:26:5-97
 	android:name
 		ADDED from [androidx.core:core:1.12.0] C:\Users\user\.gradle\caches\8.13\transforms\65453221b1f2dca1433890f3b8909c54\transformed\core-1.12.0\AndroidManifest.xml:26:22-94

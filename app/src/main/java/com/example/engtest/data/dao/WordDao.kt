@@ -32,6 +32,10 @@ interface WordDao {
     @Query("SELECT * FROM words WHERE LOWER(word) = LOWER(:word) LIMIT 1")
     suspend fun getByWord(word: String): Word?
 
+    /** 영문 스펠링으로 단어 목록 조회 (중복 단어 지원, 대소문자 무시) */
+    @Query("SELECT * FROM words WHERE LOWER(word) = LOWER(:word)")
+    suspend fun getByWordAll(word: String): List<Word>
+
     /** id 목록에 해당하는 단어 일괄 조회 (N+1 방지, 기록 상세 등) */
     @Query("SELECT * FROM words WHERE id IN (:ids)")
     suspend fun getWordsByIds(ids: List<Long>): List<Word>

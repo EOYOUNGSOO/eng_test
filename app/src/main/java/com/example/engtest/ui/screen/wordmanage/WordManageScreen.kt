@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,15 +28,11 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.FilterChip
-import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -71,26 +68,17 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.engtest.EngTestApplication
 import com.example.engtest.data.entity.Word
 import com.example.engtest.data.entity.WordDifficulty
-import com.example.engtest.ui.components.AppActionButton
-import com.example.engtest.ui.components.AppActionButtonStyle
-import com.example.engtest.ui.components.AppFilterChip
+import com.example.engtest.ui.component.AppButton
+import com.example.engtest.ui.component.AppButtonStyle
+import com.example.engtest.ui.component.AppChipButton
+import com.example.engtest.ui.component.AppFullWidthButton
 import com.example.engtest.ui.components.AppTopBar
+import com.example.engtest.ui.theme.AppTheme
 import com.example.engtest.util.phoneticDisplayText
 import com.example.engtest.util.starCount
 import com.example.engtest.ui.worddetail.WordDetailBottomSheet
 import com.example.engtest.ui.worddetail.WordDetailViewModel
 import com.example.engtest.ui.worddetail.WordDetailViewModelFactory
-import com.example.engtest.ui.theme.BgCard
-import com.example.engtest.ui.theme.BgIcon
-import com.example.engtest.ui.theme.BgPrimary
-import com.example.engtest.ui.theme.BorderDefault
-import com.example.engtest.ui.theme.GreenMain
-import com.example.engtest.ui.theme.PinkMain
-import com.example.engtest.ui.theme.PurpleMain
-import com.example.engtest.ui.theme.TextDim
-import com.example.engtest.ui.theme.TextMuted
-import com.example.engtest.ui.theme.TextPrimary
-import com.example.engtest.ui.theme.TextSecondary
 import android.speech.tts.TextToSpeech
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.text.font.FontWeight
@@ -102,6 +90,7 @@ fun WordManageScreen(
     onBack: () -> Unit,
     onHome: () -> Unit = {}
 ) {
+    val colors = AppTheme.colors
     val context = LocalContext.current
     val app = context.applicationContext as EngTestApplication
     val viewModel: WordManageViewModel = viewModel(
@@ -131,7 +120,7 @@ fun WordManageScreen(
     val scope = rememberCoroutineScope()
 
     Scaffold(
-        containerColor = BgPrimary,
+        containerColor = colors.bgPrimary,
         topBar = {
             AppTopBar(
                 title = "단어 관리",
@@ -156,8 +145,8 @@ fun WordManageScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp)
-                        .background(BgCard, RoundedCornerShape(14.dp))
-                        .border(0.5.dp, BorderDefault, RoundedCornerShape(14.dp))
+                        .background(colors.bgCard, RoundedCornerShape(14.dp))
+                        .border(0.5.dp, colors.borderDefault, RoundedCornerShape(14.dp))
                         .padding(horizontal = 14.dp, vertical = 10.dp)
                 ) {
                     Row(
@@ -167,7 +156,7 @@ fun WordManageScreen(
                         Icon(
                             imageVector = Icons.Filled.Search,
                             contentDescription = null,
-                            tint = TextMuted,
+                            tint = colors.textMuted,
                             modifier = Modifier.size(16.dp)
                         )
                         BasicTextField(
@@ -176,16 +165,16 @@ fun WordManageScreen(
                             singleLine = true,
                             textStyle = androidx.compose.ui.text.TextStyle(
                                 fontSize = 14.sp,
-                                color = TextSecondary
+                                color = colors.textSecondary
                             ),
-                            cursorBrush = SolidColor(PurpleMain),
+                            cursorBrush = SolidColor(colors.purpleMain),
                             decorationBox = { innerTextField ->
                                 Box {
                                     if (searchQuery.isEmpty()) {
                                         Text(
                                             text = "영어 단어 검색",
                                             fontSize = 13.sp,
-                                            color = TextMuted
+                                            color = colors.textMuted
                                         )
                                     }
                                     innerTextField()
@@ -210,14 +199,17 @@ fun WordManageScreen(
                     }
                     levels.forEach { level ->
                         val isSelected = selectedLevel == level
-                        AppFilterChip(text = level, selected = isSelected) {
+                        AppChipButton(
+                            text = level,
+                            selected = isSelected,
+                            onClick = {
                             when (level) {
                                 "전체" -> viewModel.setFilter(null)
                                 "초등" -> viewModel.setFilter(WordDifficulty.ELEMENTARY)
                                 "중등" -> viewModel.setFilter(WordDifficulty.MIDDLE)
                                 "고등" -> viewModel.setFilter(WordDifficulty.HIGH)
                             }
-                        }
+                        })
                     }
                 }
 
@@ -263,33 +255,37 @@ fun WordManageScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(BgPrimary)
+                        .background(colors.bgPrimary)
                         .padding(horizontal = 16.dp, vertical = 12.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    AppActionButton(
+                    if (!showInitButton) {
+                        Spacer(modifier = Modifier.weight(0.5f))
+                    }
+                    AppFullWidthButton(
                         text = "단어추가",
                         modifier = Modifier.weight(1f),
                         enabled = syncState !is SyncUiState.Loading,
-                        style = AppActionButtonStyle.Primary
-                    ) { showAddWordDialog = true }
-                    AppActionButton(
+                        style = AppButtonStyle.PRIMARY,
+                        onClick = { showAddWordDialog = true }
+                    )
+                    AppFullWidthButton(
                         text = "홈",
                         modifier = Modifier.weight(1f),
                         enabled = syncState !is SyncUiState.Loading,
-                        style = AppActionButtonStyle.Secondary,
+                        style = AppButtonStyle.SECONDARY,
                         onClick = onHome
                     )
                     if (showInitButton) {
-                        AppActionButton(
+                        AppFullWidthButton(
                             text = "초기화",
                             modifier = Modifier.weight(1f),
                             enabled = syncState !is SyncUiState.Loading,
-                            style = AppActionButtonStyle.Muted,
+                            style = AppButtonStyle.DANGER,
                             onClick = { showConfirmDialog = true }
                         )
                     } else {
-                        Spacer(modifier = Modifier.weight(1f))
+                        Spacer(modifier = Modifier.weight(0.5f))
                     }
                 }
             }
@@ -460,31 +456,41 @@ private fun WordListItem(
     onEdit: () -> Unit,
     onDelete: () -> Unit
 ) {
+    @Suppress("DEPRECATION")
+    val volumeUpIcon = Icons.Filled.VolumeUp
+    val colors = AppTheme.colors
     val word = item.word
+    val (correct, wrong) = remember(item.totalCount, item.correctRate, item.wrongRate) {
+        if (item.totalCount > 0) {
+            (item.correctRate!! * 100).toInt() to (item.wrongRate!! * 100).toInt()
+        } else {
+            0 to 0
+        }
+    }
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(if (isRecentlyAdded) Color(0xFF1A1025) else BgCard, RoundedCornerShape(16.dp))
-            .border(0.5.dp, BorderDefault, RoundedCornerShape(16.dp))
+            .background(if (isRecentlyAdded) colors.bgCardAccent else colors.bgCard, RoundedCornerShape(16.dp))
+            .border(0.5.dp, colors.borderDefault, RoundedCornerShape(16.dp))
             .padding(14.dp)
     ) {
         Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             Column(modifier = Modifier.weight(1f)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Text(text = word.word, fontSize = 16.sp, fontWeight = FontWeight.Medium, color = PurpleMain)
+                    Text(text = word.word, fontSize = 16.sp, fontWeight = FontWeight.Medium, color = colors.purpleMain)
                     Box(
                         modifier = Modifier
-                            .background(BgIcon, RoundedCornerShape(10.dp))
+                            .background(colors.bgIcon, RoundedCornerShape(10.dp))
                             .padding(horizontal = 7.dp, vertical = 2.dp)
-                    ) { Text(text = word.partOfSpeech, fontSize = 10.sp, color = TextMuted) }
-                    if (isRecentlyAdded) Text(text = "★", fontSize = 11.sp, color = PinkMain)
+                    ) { Text(text = word.partOfSpeech, fontSize = 10.sp, color = colors.textMuted) }
+                    if (isRecentlyAdded) Text(text = "★", fontSize = 11.sp, color = colors.pinkMain)
                 }
-                Text(text = word.phoneticDisplayText(), fontSize = 11.sp, color = TextDim, modifier = Modifier.padding(top = 2.dp))
+                Text(text = word.phoneticDisplayText(), fontSize = 11.sp, color = colors.textDim, modifier = Modifier.padding(top = 2.dp))
                 Text(
                     text = word.meaning,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium,
-                    color = TextSecondary,
+                    color = colors.textSecondary,
                     modifier = Modifier.padding(top = 4.dp)
                 )
                 Row(
@@ -492,42 +498,34 @@ private fun WordListItem(
                     horizontalArrangement = Arrangement.spacedBy(6.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    val correct = if (item.totalCount > 0) (item.correctRate!! * 100).toInt() else 0
-                    val wrong = if (item.totalCount > 0) (item.wrongRate!! * 100).toInt() else 0
-                    Text(text = "정답 ${correct}%", fontSize = 10.sp, color = GreenMain)
-                    Text(text = "·", fontSize = 10.sp, color = TextMuted)
-                    Text(text = "오답 ${wrong}%", fontSize = 10.sp, color = PinkMain)
-                    Text(text = "·", fontSize = 10.sp, color = TextMuted)
-                    Text(text = "시도 ${item.totalCount}회", fontSize = 10.sp, color = TextMuted)
+                    Text(text = "정답 ${correct}%", fontSize = 10.sp, color = colors.greenMain)
+                    Text(text = "·", fontSize = 10.sp, color = colors.textMuted)
+                    Text(text = "오답 ${wrong}%", fontSize = 10.sp, color = colors.pinkMain)
+                    Text(text = "·", fontSize = 10.sp, color = colors.textMuted)
+                    Text(text = "시도 ${item.totalCount}회", fontSize = 10.sp, color = colors.textMuted)
                 }
             }
             Column(verticalArrangement = Arrangement.spacedBy(6.dp), horizontalAlignment = Alignment.End) {
                 Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     IconActionBox(onClick = { onSpeak(word.word) }) {
-                        Icon(imageVector = Icons.Filled.VolumeUp, contentDescription = "발음 듣기", tint = PurpleMain, modifier = Modifier.size(13.dp))
+                        Icon(imageVector = volumeUpIcon, contentDescription = "발음 듣기", tint = colors.purpleMain, modifier = Modifier.size(13.dp))
                     }
                     IconActionBox(onClick = onDetail) {
-                        Icon(imageVector = Icons.Filled.Info, contentDescription = "상세 정보", tint = PurpleMain, modifier = Modifier.size(13.dp))
+                        Icon(imageVector = Icons.Filled.Info, contentDescription = "상세 정보", tint = colors.purpleMain, modifier = Modifier.size(13.dp))
                     }
                 }
-                Box(
-                    modifier = Modifier
-                        .background(BgIcon, RoundedCornerShape(8.dp))
-                        .border(0.5.dp, BorderDefault, RoundedCornerShape(8.dp))
-                        .clickable(onClick = onEdit)
-                        .padding(horizontal = 10.dp, vertical = 4.dp)
-                ) {
-                    Text("편집", fontSize = 10.sp, color = PurpleMain)
-                }
-                Box(
-                    modifier = Modifier
-                        .background(BgIcon, RoundedCornerShape(8.dp))
-                        .border(0.5.dp, BorderDefault, RoundedCornerShape(8.dp))
-                        .clickable(onClick = onDelete)
-                        .padding(horizontal = 10.dp, vertical = 4.dp)
-                ) {
-                    Text("삭제", fontSize = 10.sp, color = PinkMain)
-                }
+                AppButton(
+                    text = "편집",
+                    onClick = onEdit,
+                    style = AppButtonStyle.SECONDARY,
+                    modifier = Modifier.wrapContentWidth()
+                )
+                AppButton(
+                    text = "삭제",
+                    onClick = onDelete,
+                    style = AppButtonStyle.DANGER,
+                    modifier = Modifier.wrapContentWidth()
+                )
             }
         }
     }
@@ -538,10 +536,11 @@ private fun IconActionBox(
     onClick: () -> Unit,
     content: @Composable () -> Unit
 ) {
+    val colors = AppTheme.colors
     Box(
         modifier = Modifier
             .size(28.dp)
-            .background(BgIcon, RoundedCornerShape(8.dp))
+            .background(colors.bgIcon, RoundedCornerShape(8.dp))
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {
@@ -555,6 +554,7 @@ private fun WordEditDialog(
     onDismiss: () -> Unit,
     onSave: (Word) -> Unit
 ) {
+    val colors = AppTheme.colors
     var wordText by remember { mutableStateOf("") }
     var posText by remember { mutableStateOf("") }
     var meaningText by remember { mutableStateOf("") }
@@ -572,22 +572,22 @@ private fun WordEditDialog(
         imeAction = ImeAction.Default
     )
 
-    val modalBg = BgPrimary
-    val inputBg = BgCard
-    val dividerColor = BorderDefault
+    val modalBg = colors.bgPrimary
+    val inputBg = colors.bgCard
+    val dividerColor = colors.borderDefault
     val textFieldColors = OutlinedTextFieldDefaults.colors(
         unfocusedContainerColor = inputBg,
         focusedContainerColor = inputBg,
         unfocusedBorderColor = dividerColor,
-        focusedBorderColor = MaterialTheme.colorScheme.primary,
+        focusedBorderColor = colors.purpleMain,
         unfocusedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
         focusedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
         unfocusedLabelColor = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f),
-        focusedLabelColor = MaterialTheme.colorScheme.primary
+        focusedLabelColor = colors.purpleMain
     )
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("단어 편집", color = TextPrimary) },
+        title = { Text("단어 편집", color = colors.textPrimary) },
         text = {
             Column(
                 modifier = Modifier
@@ -659,10 +659,10 @@ private fun WordEditDialog(
                             WordDifficulty.MIDDLE to "중등",
                             WordDifficulty.HIGH to "고등"
                         ).forEach { (d, label) ->
-                            FilterChip(
+                            AppChipButton(
+                                text = label,
                                 selected = difficulty == d,
-                                onClick = { difficulty = d },
-                                label = { Text(label) }
+                                onClick = { difficulty = d }
                             )
                         }
                     }
@@ -670,30 +670,38 @@ private fun WordEditDialog(
                 HorizontalDivider(color = dividerColor, thickness = 1.dp)
             }
         },
-        confirmButton = {
-            TextButton(
-                onClick = {
-                    val trimmedWord = wordText.trim()
-                    val phonetic = if (trimmedWord == word.word) word.phonetic else null
-                    onSave(
-                        word.copy(
-                            word = trimmedWord,
-                            partOfSpeech = posText.trim(),
-                            meaning = meaningText.trim(),
-                            difficulty = difficulty,
-                            phonetic = phonetic
-                        )
-                    )
-                }
+        dismissButton = {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Text("저장", color = MaterialTheme.colorScheme.primary)
+                AppFullWidthButton(
+                    text = "취소",
+                    onClick = onDismiss,
+                    style = AppButtonStyle.SECONDARY,
+                    modifier = Modifier.weight(1f)
+                )
+                AppFullWidthButton(
+                    text = "저장",
+                    onClick = {
+                        val trimmedWord = wordText.trim()
+                        val phonetic = if (trimmedWord == word.word) word.phonetic else null
+                        onSave(
+                            word.copy(
+                                word = trimmedWord,
+                                partOfSpeech = posText.trim(),
+                                meaning = meaningText.trim(),
+                                difficulty = difficulty,
+                                phonetic = phonetic
+                            )
+                        )
+                    },
+                    style = AppButtonStyle.PRIMARY,
+                    modifier = Modifier.weight(1f)
+                )
             }
         },
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text("취소", color = TextMuted)
-            }
-        }
+        confirmButton = {}
     )
 }
 
@@ -703,6 +711,7 @@ private fun AddWordDialog(
     onDismiss: () -> Unit,
     onSave: (Word) -> Unit
 ) {
+    val colors = AppTheme.colors
     var wordText by remember { mutableStateOf("") }
     var posText by remember { mutableStateOf("") }
     var meaningText by remember { mutableStateOf("") }
@@ -716,7 +725,7 @@ private fun AddWordDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("신규 단어 추가", color = TextPrimary) },
+        title = { Text("신규 단어 추가", color = colors.textPrimary) },
         text = {
             Column(
                 modifier = Modifier
@@ -753,45 +762,53 @@ private fun AddWordDialog(
                         WordDifficulty.MIDDLE to "중등",
                         WordDifficulty.HIGH to "고등"
                     ).forEach { (d, label) ->
-                        FilterChip(
+                        AppChipButton(
+                            text = label,
                             selected = difficulty == d,
-                            onClick = { difficulty = d },
-                            label = { Text(label) }
+                            onClick = { difficulty = d }
                         )
                     }
                 }
-            }
-        },
-        confirmButton = {
-            TextButton(
-                onClick = {
-                    val w = wordText.trim()
-                    val p = posText.trim()
-                    val m = meaningText.trim()
-                    if (w.isBlank() || m.isBlank()) {
-                        scope.launch {
-                            snackbarHostState.showSnackbar("단어와 뜻을 입력하세요")
-                        }
-                        return@TextButton
-                    }
-                    onSave(
-                        Word(
-                            id = 0,
-                            word = w,
-                            partOfSpeech = p.ifBlank { "-" },
-                            meaning = m,
-                            difficulty = difficulty
-                        )
-                    )
-                }
-            ) {
-                Text("저장", color = MaterialTheme.colorScheme.primary)
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text("취소", color = TextMuted)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                AppFullWidthButton(
+                    text = "취소",
+                    onClick = onDismiss,
+                    style = AppButtonStyle.SECONDARY,
+                    modifier = Modifier.weight(1f)
+                )
+                AppFullWidthButton(
+                    text = "저장",
+                    onClick = {
+                        val w = wordText.trim()
+                        val p = posText.trim()
+                        val m = meaningText.trim()
+                        if (w.isBlank() || m.isBlank()) {
+                            scope.launch {
+                                snackbarHostState.showSnackbar("단어와 뜻을 입력하세요")
+                            }
+                            return@AppFullWidthButton
+                        }
+                        onSave(
+                            Word(
+                                id = 0,
+                                word = w,
+                                partOfSpeech = p.ifBlank { "-" },
+                                meaning = m,
+                                difficulty = difficulty
+                            )
+                        )
+                    },
+                    style = AppButtonStyle.PRIMARY,
+                    modifier = Modifier.weight(1f)
+                )
             }
-        }
+        },
+        confirmButton = {}
     )
 }

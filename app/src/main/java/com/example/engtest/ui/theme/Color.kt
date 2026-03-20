@@ -2,29 +2,48 @@ package com.example.engtest.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// 배경 계열
-val BgPrimary = Color(0xFF0D0D0D)
-val BgCard = Color(0xFF16151F)
-val BgCardAccent = Color(0xFF1A1025)
-val BgIcon = Color(0xFF1E1A2E)
-val BgIconGreen = Color(0xFF1A1F18)
+// LIGHT THEME
+val Light_BgPrimary = Color(0xFFF5F3EF)
+val Light_BgCard = Color(0xFFFFFFFF)
+val Light_BgIcon = Color(0xFFEEEDFE)
+val Light_BgIconGreen = Color(0xFFE1F5EE)
+val Light_BgCardAccent = Color(0xFFEEEDFE)
 
-// 보더 계열
-val BorderDefault = Color(0xFF2A2740)
-val BorderAccent = Color(0xFF3B2D5A)
+val Light_BorderDefault = Color(0xFFE0DDD8)
+val Light_BorderAccent = Color(0xFFAFA9EC)
 
-// 포인트 컬러
-val PurpleMain = Color(0xFFA78BFA)
-val PurpleLight = Color(0xFFC084FC)
-val GreenMain = Color(0xFF34D399)
-val PinkMain = Color(0xFFF472B6)
+val Light_PurpleMain = Color(0xFF5B4FCF)
+val Light_PurpleLight = Color(0xFF7F77DD)
+val Light_GreenMain = Color(0xFF0F9E75)
+val Light_PinkMain = Color(0xFFD4537E)
 
-// 텍스트 계열
-val TextPrimary = Color(0xFFF0EEFF)
-val TextSecondary = Color(0xFFE8E6FF)
-val TextMuted = Color(0xFF4E4D62)
-val TextDim = Color(0xFF6B6B7A)
+val Light_TextPrimary = Color(0xFF1E1B3A)
+val Light_TextSecondary = Color(0xFF3A3460)
+val Light_TextMuted = Color(0xFF9996B0)
+val Light_TextDim = Color(0xFFB8B6CC)
 
-// 뱃지
-val BadgePurpleBg = Color(0xFF2A1545)
-val BadgePurpleText = Color(0xFFC084FC)
+val Light_BadgePurpleBg = Color(0xFFEEEDFE)
+val Light_BadgePurpleText = Color(0xFF3C3489)
+
+// DARK THEME
+val Dark_BgPrimary = Color(0xFF0F1620)
+val Dark_BgCard = Color(0xFF162030)
+val Dark_BgIcon = Color(0xFF0F1E2C)
+val Dark_BgIconGreen = Color(0xFF0D1F1A)
+val Dark_BgCardAccent = Color(0xFF0F1E2C)
+
+val Dark_BorderDefault = Color(0xFF1E2D3D)
+val Dark_BorderAccent = Color(0xFF1E3A4A)
+
+val Dark_PurpleMain = Color(0xFF38BDF8)
+val Dark_PurpleLight = Color(0xFF7DD3FC)
+val Dark_GreenMain = Color(0xFF34D399)
+val Dark_PinkMain = Color(0xFFFB923C)
+
+val Dark_TextPrimary = Color(0xFFE8F4FD)
+val Dark_TextSecondary = Color(0xFFC8DFF0)
+val Dark_TextMuted = Color(0xFF4A6580)
+val Dark_TextDim = Color(0xFF2A4055)
+
+val Dark_BadgePurpleBg = Color(0xFF162030)
+val Dark_BadgePurpleText = Color(0xFF38BDF8)

@@ -23,14 +23,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.engtest.ui.theme.BgCard
-import com.example.engtest.ui.theme.BgPrimary
-import com.example.engtest.ui.theme.BorderDefault
+import com.example.engtest.ui.theme.AppTheme
 import com.example.engtest.ui.theme.AppDimens
-import com.example.engtest.ui.theme.PurpleMain
-import com.example.engtest.ui.theme.TextDim
-import com.example.engtest.ui.theme.TextPrimary
-import com.example.engtest.ui.theme.TextSecondary
 
 enum class AppActionButtonStyle { Primary, Secondary, Muted }
 
@@ -41,13 +35,14 @@ fun AppTopBar(
     onBackClick: () -> Unit,
     trailingBadgeText: String? = null
 ) {
+    val colors = AppTheme.colors
     TopAppBar(
         title = {
             Text(
                 text = title,
                 fontSize = AppDimens.topBarTitleFont,
                 fontWeight = FontWeight.Medium,
-                color = TextPrimary
+                color = colors.textPrimary
             )
         },
         navigationIcon = {
@@ -55,15 +50,15 @@ fun AppTopBar(
                 modifier = Modifier
                     .padding(start = 8.dp)
                     .size(AppDimens.topBarBackBoxSize)
-                    .background(BgCard, RoundedCornerShape(AppDimens.topBarBackCorner))
-                    .border(AppDimens.appCardBorder, BorderDefault, RoundedCornerShape(AppDimens.topBarBackCorner))
+                    .background(colors.bgCard, RoundedCornerShape(AppDimens.topBarBackCorner))
+                    .border(AppDimens.appCardBorder, colors.borderDefault, RoundedCornerShape(AppDimens.topBarBackCorner))
                     .clickable(onClick = onBackClick),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = Icons.Filled.ChevronLeft,
                     contentDescription = "뒤로가기",
-                    tint = PurpleMain,
+                    tint = colors.purpleMain,
                     modifier = Modifier.size(AppDimens.topBarBackIconSize)
                 )
             }
@@ -73,34 +68,37 @@ fun AppTopBar(
                 Box(
                     modifier = Modifier
                         .padding(end = 16.dp)
-                        .background(BgCard, RoundedCornerShape(AppDimens.topBarBadgeCorner))
-                        .border(AppDimens.appCardBorder, BorderDefault, RoundedCornerShape(AppDimens.topBarBadgeCorner))
+                        .background(colors.bgCard, RoundedCornerShape(AppDimens.topBarBadgeCorner))
+                        .border(AppDimens.appCardBorder, colors.borderDefault, RoundedCornerShape(AppDimens.topBarBadgeCorner))
                         .padding(
                             horizontal = AppDimens.topBarBadgePaddingH,
                             vertical = AppDimens.topBarBadgePaddingV
                         )
                 ) {
-                    Text(text = it, fontSize = AppDimens.topBarBadgeFont, color = PurpleMain)
+                    Text(text = it, fontSize = AppDimens.topBarBadgeFont, color = colors.purpleMain)
                 }
             }
         },
-        colors = TopAppBarDefaults.topAppBarColors(containerColor = BgPrimary)
+        colors = TopAppBarDefaults.topAppBarColors(containerColor = colors.bgPrimary)
     )
 }
 
 @Composable
 fun AppCard(
     modifier: Modifier = Modifier,
-    containerColor: Color = BgCard,
-    borderColor: Color = BorderDefault,
+    containerColor: Color? = null,
+    borderColor: Color? = null,
     onClick: (() -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
+    val colors = AppTheme.colors
+    val resolvedContainerColor = containerColor ?: colors.bgCard
+    val resolvedBorderColor = borderColor ?: colors.borderDefault
     val clickableModifier = if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier
     Box(
         modifier = modifier
-            .background(containerColor, RoundedCornerShape(AppDimens.appCardCorner))
-            .border(AppDimens.appCardBorder, borderColor, RoundedCornerShape(AppDimens.appCardCorner))
+            .background(resolvedContainerColor, RoundedCornerShape(AppDimens.appCardCorner))
+            .border(AppDimens.appCardBorder, resolvedBorderColor, RoundedCornerShape(AppDimens.appCardCorner))
             .then(clickableModifier)
             .padding(AppDimens.appCardPadding)
     ) {
@@ -116,19 +114,20 @@ fun AppActionButton(
     style: AppActionButtonStyle = AppActionButtonStyle.Secondary,
     onClick: () -> Unit
 ) {
+    val colors = AppTheme.colors
     val base = when (style) {
         AppActionButtonStyle.Primary -> Modifier.background(
-            brush = Brush.horizontalGradient(listOf(Color(0xFF8B5CF6), PurpleMain)),
+            brush = Brush.horizontalGradient(listOf(Color(0xFF8B5CF6), colors.purpleMain)),
             shape = RoundedCornerShape(AppDimens.actionButtonCorner)
         )
         AppActionButtonStyle.Secondary,
-        AppActionButtonStyle.Muted -> Modifier.background(BgCard, RoundedCornerShape(AppDimens.actionButtonCorner))
-            .border(AppDimens.actionButtonBorder, BorderDefault, RoundedCornerShape(AppDimens.actionButtonCorner))
+        AppActionButtonStyle.Muted -> Modifier.background(colors.bgCard, RoundedCornerShape(AppDimens.actionButtonCorner))
+            .border(AppDimens.actionButtonBorder, colors.borderDefault, RoundedCornerShape(AppDimens.actionButtonCorner))
     }
     val textColor = when (style) {
         AppActionButtonStyle.Primary -> Color.White
-        AppActionButtonStyle.Secondary -> TextSecondary
-        AppActionButtonStyle.Muted -> TextDim
+        AppActionButtonStyle.Secondary -> colors.textSecondary
+        AppActionButtonStyle.Muted -> colors.textDim
     }
     Box(
         modifier = modifier
@@ -141,7 +140,7 @@ fun AppActionButton(
             text = text,
             fontSize = AppDimens.actionButtonFont,
             fontWeight = FontWeight.Medium,
-            color = if (enabled) textColor else TextDim
+            color = if (enabled) textColor else colors.textDim
         )
     }
 }
@@ -152,14 +151,15 @@ fun AppFilterChip(
     selected: Boolean,
     onClick: () -> Unit
 ) {
+    val colors = AppTheme.colors
     Box(
         modifier = Modifier
             .background(
-                color = if (selected) PurpleMain else BgCard,
+                color = if (selected) colors.purpleMain else colors.bgCard,
                 shape = RoundedCornerShape(AppDimens.filterChipCorner)
             )
             .then(
-                if (!selected) Modifier.border(AppDimens.filterChipBorder, BorderDefault, RoundedCornerShape(AppDimens.filterChipCorner))
+                if (!selected) Modifier.border(AppDimens.filterChipBorder, colors.borderDefault, RoundedCornerShape(AppDimens.filterChipCorner))
                 else Modifier
             )
             .clickable(onClick = onClick)
@@ -169,7 +169,7 @@ fun AppFilterChip(
             text = text,
             fontSize = AppDimens.filterChipFont,
             fontWeight = if (selected) FontWeight.Medium else FontWeight.Normal,
-            color = if (selected) BgPrimary else TextDim
+            color = if (selected) colors.bgPrimary else colors.textDim
         )
     }
 }

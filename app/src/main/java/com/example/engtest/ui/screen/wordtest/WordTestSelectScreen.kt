@@ -33,17 +33,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.engtest.ui.components.AppActionButton
-import com.example.engtest.ui.components.AppActionButtonStyle
+import com.example.engtest.ui.component.AppButton
+import com.example.engtest.ui.component.AppButtonStyle
 import com.example.engtest.ui.components.AppCard
 import com.example.engtest.ui.components.AppTopBar
-import com.example.engtest.ui.theme.BgCard
-import com.example.engtest.ui.theme.BgPrimary
-import com.example.engtest.ui.theme.BorderDefault
-import com.example.engtest.ui.theme.PurpleMain
-import com.example.engtest.ui.theme.TextMuted
-import com.example.engtest.ui.theme.TextPrimary
-import com.example.engtest.ui.theme.TextSecondary
+import com.example.engtest.ui.theme.AppTheme
 
 /** 난이도 선택 값: Nav 인자로 전달 */
 const val DIFFICULTY_ALL = "all"
@@ -65,8 +59,9 @@ fun WordTestSelectScreen(
     onBack: () -> Unit,
     onHome: () -> Unit
 ) {
+    val colors = AppTheme.colors
     Scaffold(
-        containerColor = BgPrimary,
+        containerColor = colors.bgPrimary,
         topBar = {
             AppTopBar(title = "단어 테스트", onBackClick = onBack)
         }
@@ -76,13 +71,13 @@ fun WordTestSelectScreen(
                 .fillMaxSize()
                 .padding(padding)
                 .padding(horizontal = 24.dp)
-                .background(BgPrimary)
+                .background(colors.bgPrimary)
         ) {
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = "난이도를 선택하세요",
                 style = MaterialTheme.typography.bodyLarge,
-                color = TextSecondary
+                color = colors.textSecondary
             )
             Spacer(modifier = Modifier.height(24.dp))
 
@@ -94,6 +89,7 @@ fun WordTestSelectScreen(
             ).forEach { option ->
                 DifficultyCard(
                     option = option,
+                    colors = colors,
                     onClick = { onSelectDifficulty(option.key) }
                 )
                 Spacer(modifier = Modifier.height(12.dp))
@@ -107,10 +103,9 @@ fun WordTestSelectScreen(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                AppActionButton(
+                AppButton(
                     text = "홈",
-                    modifier = Modifier.height(48.dp),
-                    style = AppActionButtonStyle.Secondary,
+                    style = AppButtonStyle.SECONDARY,
                     onClick = onHome
                 )
             }
@@ -121,12 +116,13 @@ fun WordTestSelectScreen(
 @Composable
 private fun DifficultyCard(
     option: DifficultyOption,
+    colors: com.example.engtest.ui.theme.AppColors,
     onClick: () -> Unit
 ) {
     AppCard(
         modifier = Modifier.fillMaxWidth(),
-        containerColor = BgCard,
-        borderColor = BorderDefault,
+        containerColor = colors.bgCard,
+        borderColor = colors.borderDefault,
         onClick = onClick
     ) {
         Row(
@@ -155,12 +151,12 @@ private fun DifficultyCard(
                     text = option.label,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    color = TextPrimary
+                    color = colors.textPrimary
                 )
                 Text(
                     text = option.subtitle,
                     style = MaterialTheme.typography.bodySmall,
-                    color = TextMuted
+                    color = colors.textMuted
                 )
             }
         }

@@ -27,10 +27,15 @@ class WordSyncManager(
             val newPos = item.pos.trim()
             val newMeaning = item.meaning.trim()
             val newDifficulty = levelToDifficulty(item.level)
-            val existing = db.wordDao().getByWord(normalizedWord)
+            val sameWordEntries = db.wordDao().getByWordAll(normalizedWord)
+            val exactMatch = sameWordEntries.firstOrNull { existing ->
+                existing.partOfSpeech.trim() == newPos &&
+                    existing.meaning.trim() == newMeaning &&
+                    existing.difficulty == newDifficulty
+            }
 
             when {
-                existing == null -> {
+                exactMatch == null -> {
                     db.wordDao().insert(
                         Word(
                             word = normalizedWord,
@@ -55,39 +60,6 @@ class WordSyncManager(
                     )
                     addedCount++
                 }
-
-                isCoreChanged(
-                    existing = existing,
-                    incomingWord = normalizedWord,
-                    incomingPos = newPos,
-                    incomingMeaning = newMeaning,
-                    incomingDifficulty = newDifficulty
-                ) -> {
-                    db.wordDao().updateWord(
-                        word = normalizedWord,
-                        partOfSpeech = newPos,
-                        meaning = newMeaning,
-                        difficulty = newDifficulty,
-                        updatedAt = now,
-                        sourceVersion = sourceVersion
-                    )
-                    historyList.add(
-                        WordHistoryEntity(
-                            word = normalizedWord,
-                            action = "UPDATED",
-                            beforePos = existing.partOfSpeech,
-                            beforeMeaning = existing.meaning,
-                            beforeLevel = difficultyToLevel(existing.difficulty),
-                            afterPos = newPos,
-                            afterMeaning = newMeaning,
-                            afterLevel = item.level,
-                            sourceVersion = sourceVersion,
-                            recordedAt = now
-                        )
-                    )
-                    updatedCount++
-                }
-
                 else -> skippedCount++
             }
         }
@@ -116,22 +88,5 @@ class WordSyncManager(
         WordDifficulty.ELEMENTARY -> "초등"
         WordDifficulty.MIDDLE -> "중등"
         WordDifficulty.HIGH -> "고등"
-    }
-
-    /**
-     * 변경 감지는 핵심 단어 정보(단어/품사/뜻/난이도)만 사용한다.
-     * phonetic, 상세 캐시(word_details), timestamp 등 부가 정보는 카운트에 영향 없음.
-     */
-    private fun isCoreChanged(
-        existing: Word,
-        incomingWord: String,
-        incomingPos: String,
-        incomingMeaning: String,
-        incomingDifficulty: WordDifficulty
-    ): Boolean {
-        return existing.word.trim().lowercase() != incomingWord ||
-            existing.partOfSpeech.trim() != incomingPos ||
-            existing.meaning.trim() != incomingMeaning ||
-            existing.difficulty != incomingDifficulty
     }
 }

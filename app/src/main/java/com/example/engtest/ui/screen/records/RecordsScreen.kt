@@ -68,21 +68,11 @@ import com.example.engtest.EngTestApplication
 import com.example.engtest.data.entity.TestResult
 import com.example.engtest.data.entity.Word
 import com.example.engtest.data.entity.WordDifficulty
-import com.example.engtest.ui.components.AppActionButton
-import com.example.engtest.ui.components.AppActionButtonStyle
+import com.example.engtest.ui.component.AppButton
+import com.example.engtest.ui.component.AppButtonStyle
 import com.example.engtest.ui.components.AppTopBar
+import com.example.engtest.ui.theme.AppTheme
 import com.example.engtest.ui.theme.AppDimens
-import com.example.engtest.ui.theme.BgCard
-import com.example.engtest.ui.theme.BgIcon
-import com.example.engtest.ui.theme.BgPrimary
-import com.example.engtest.ui.theme.BorderDefault
-import com.example.engtest.ui.theme.GreenMain
-import com.example.engtest.ui.theme.PinkMain
-import com.example.engtest.ui.theme.PurpleMain
-import com.example.engtest.ui.theme.TextDim
-import com.example.engtest.ui.theme.TextMuted
-import com.example.engtest.ui.theme.TextPrimary
-import com.example.engtest.ui.theme.TextSecondary
 import com.example.engtest.ui.worddetail.WordDetailBottomSheet
 import com.example.engtest.ui.worddetail.WordDetailViewModel
 import com.example.engtest.ui.worddetail.WordDetailViewModelFactory
@@ -102,6 +92,7 @@ fun RecordsScreen(
     onBack: () -> Unit,
     onBackToHome: () -> Unit
 ) {
+    val colors = AppTheme.colors
     val context = LocalContext.current
     val app = context.applicationContext as EngTestApplication
     val viewModel: RecordsViewModel = viewModel(factory = RecordsViewModelFactory(app))
@@ -115,7 +106,7 @@ fun RecordsScreen(
     val resultWordStats by viewModel.resultWordStats.collectAsStateWithLifecycle()
 
     Scaffold(
-        containerColor = BgPrimary,
+        containerColor = colors.bgPrimary,
         topBar = {
             AppTopBar(
                 title = if (selectedResult != null) "테스트 결과" else "기록 및 통계",
@@ -154,10 +145,9 @@ fun RecordsScreen(
                             .padding(16.dp),
                         horizontalArrangement = Arrangement.Center
                     ) {
-                        AppActionButton(
+                        AppButton(
                             text = "홈",
-                            modifier = Modifier.height(48.dp),
-                            style = AppActionButtonStyle.Secondary,
+                            style = AppButtonStyle.SECONDARY,
                             onClick = onBackToHome
                         )
                     }
@@ -226,6 +216,7 @@ private fun DateBox(
     shadowColor: Color,
     onClick: () -> Unit
 ) {
+    val colors = AppTheme.colors
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
     val scale by animateFloatAsState(
@@ -246,7 +237,7 @@ private fun DateBox(
             modifier = Modifier
                 .fillMaxWidth()
                 .scale(scale)
-                .border(0.5.dp, BorderDefault, RoundedCornerShape(16.dp))
+                .border(0.5.dp, colors.borderDefault, RoundedCornerShape(16.dp))
                 .clip(RoundedCornerShape(16.dp))
                 .clickable(
                     interactionSource = interactionSource,
@@ -254,7 +245,7 @@ private fun DateBox(
                     onClick = onClick
                 ),
             shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = BgCard),
+            colors = CardDefaults.cardColors(containerColor = colors.bgCard),
             elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
         ) {
             Row(
@@ -267,13 +258,13 @@ private fun DateBox(
                     Text(
                         text = label,
                         style = MaterialTheme.typography.labelSmall,
-                        color = TextMuted
+                        color = colors.textMuted
                     )
                     Text(
                         text = dateText,
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
-                        color = TextSecondary
+                        color = colors.textSecondary
                     )
                 }
                 IconButton(
@@ -386,16 +377,17 @@ private fun ResultListItem(
     result: TestResult,
     onClick: () -> Unit
 ) {
+    val colors = AppTheme.colors
     val dateFormat = SimpleDateFormat("yyyy. M. d. HH:mm", Locale.getDefault())
     Card(
         onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
-            .border(0.5.dp, BorderDefault, RoundedCornerShape(AppDimens.cardCornerRadius)),
+            .border(0.5.dp, colors.borderDefault, RoundedCornerShape(AppDimens.cardCornerRadius)),
         shape = RoundedCornerShape(AppDimens.cardCornerRadius),
         elevation = CardDefaults.cardElevation(defaultElevation = AppDimens.cardElevation),
         colors = CardDefaults.cardColors(
-            containerColor = BgCard
+            containerColor = colors.bgCard
         )
     ) {
         Row(
@@ -411,7 +403,7 @@ private fun ResultListItem(
             Text(
                 text = "${result.score * 10}점",
                 style = MaterialTheme.typography.titleMedium,
-                color = PurpleMain
+                color = colors.purpleMain
             )
         }
     }
@@ -426,6 +418,7 @@ private fun ResultDetailContent(
     onHome: () -> Unit,
     onList: () -> Unit
 ) {
+    val colors = AppTheme.colors
     val context = LocalContext.current
     var ttsReady by remember { mutableStateOf(false) }
     val tts = remember {
@@ -453,13 +446,13 @@ private fun ResultDetailContent(
         Text(
             text = "점수: ${result.score * 10}점",
             style = MaterialTheme.typography.headlineSmall,
-            color = PurpleMain
+            color = colors.purpleMain
         )
         val dateFormat = SimpleDateFormat("yyyy. M. d. HH:mm", Locale.getDefault())
         Text(
             text = dateFormat.format(Date(result.testDateMillis)),
             style = MaterialTheme.typography.bodyMedium,
-            color = TextMuted
+            color = colors.textMuted
         )
         if (resultWords.isEmpty()) {
             Box(
@@ -469,7 +462,7 @@ private fun ResultDetailContent(
                 Text(
                     text = "단어 정보를 불러오는 중이거나 없습니다.",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = TextMuted
+                    color = colors.textMuted
                 )
             }
         } else {
@@ -500,17 +493,15 @@ private fun ResultDetailContent(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            AppActionButton(
+            AppButton(
                 text = "홈",
-                modifier = Modifier.height(48.dp),
-                style = AppActionButtonStyle.Secondary,
+                style = AppButtonStyle.SECONDARY,
                 onClick = onHome
             )
             Spacer(modifier = Modifier.size(12.dp))
-            AppActionButton(
+            AppButton(
                 text = "목록",
-                modifier = Modifier.height(48.dp),
-                style = AppActionButtonStyle.Muted,
+                style = AppButtonStyle.SECONDARY,
                 onClick = onList
             )
         }
@@ -532,14 +523,15 @@ private fun ResultWordItem(
     onSpeak: () -> Unit,
     onDetail: () -> Unit
 ) {
+    val colors = AppTheme.colors
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .border(0.5.dp, BorderDefault, RoundedCornerShape(AppDimens.cardCornerRadius)),
+            .border(0.5.dp, colors.borderDefault, RoundedCornerShape(AppDimens.cardCornerRadius)),
         shape = RoundedCornerShape(AppDimens.cardCornerRadius),
         elevation = CardDefaults.cardElevation(defaultElevation = AppDimens.cardElevation),
         colors = CardDefaults.cardColors(
-            containerColor = BgCard
+            containerColor = colors.bgCard
         )
     ) {
         Row(
@@ -559,12 +551,12 @@ private fun ResultWordItem(
                         text = word.word,
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
-                        color = PurpleMain
+                        color = colors.purpleMain
                     )
                     Text(
                         text = word.phoneticDisplayText(),
                         style = MaterialTheme.typography.bodySmall,
-                        color = TextDim
+                        color = colors.textDim
                     )
                 }
                 // 2줄: 품사 · 단어뜻 · 난이도(별) · 스피커
@@ -577,19 +569,19 @@ private fun ResultWordItem(
                         Text(
                             text = word.partOfSpeech,
                             style = MaterialTheme.typography.labelSmall,
-                            color = TextMuted
+                            color = colors.textMuted
                         )
                     }
                     Text(
                         text = word.meaning,
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Medium,
-                        color = TextSecondary
+                        color = colors.textSecondary
                     )
                     Text(
                         text = "(${"★".repeat(word.difficulty.starCount)})",
                         style = MaterialTheme.typography.bodySmall,
-                        color = PinkMain
+                        color = colors.pinkMain
                     )
                     IconButton(
                         onClick = onSpeak,
@@ -598,7 +590,7 @@ private fun ResultWordItem(
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.VolumeUp,
                             contentDescription = "발음 재생",
-                            tint = PurpleMain
+                            tint = colors.purpleMain
                         )
                     }
                 }
@@ -614,7 +606,7 @@ private fun ResultWordItem(
                     },
                     modifier = Modifier.padding(top = 4.dp),
                     style = MaterialTheme.typography.labelSmall,
-                    color = TextMuted
+                    color = colors.textMuted
                 )
             }
             Row(
@@ -629,7 +621,7 @@ private fun ResultWordItem(
                     Icon(
                         imageVector = Icons.Filled.Info,
                         contentDescription = "상세보기",
-                        tint = PurpleMain
+                        tint = colors.purpleMain
                     )
                 }
                 // O / X — 목록 항목 높이의 45% 크기
@@ -647,7 +639,7 @@ private fun ResultWordItem(
                             text = if (known) "O" else "X",
                             style = MaterialTheme.typography.displayMedium,
                             fontWeight = FontWeight.Bold,
-                            color = if (known) GreenMain else PinkMain
+                            color = if (known) colors.greenMain else colors.pinkMain
                         )
                     }
                 }

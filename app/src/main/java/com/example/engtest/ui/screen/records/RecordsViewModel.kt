@@ -10,6 +10,7 @@ import com.example.engtest.data.entity.Word
 import com.example.engtest.data.repository.PhoneticRepository
 import com.example.engtest.util.TestResultDetailsParser
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.StateFlow
@@ -25,6 +26,7 @@ import java.util.Locale
 
 private const val TAG = "RecordsVM"
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class RecordsViewModel(
     private val application: EngTestApplication
 ) : ViewModel() {

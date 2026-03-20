@@ -1,0 +1,4 @@
+#Sat Mar 21 06:38:55 KST 2026
+base.0=E\:\\gitSrc\\eng_test\\.build-tmp\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
