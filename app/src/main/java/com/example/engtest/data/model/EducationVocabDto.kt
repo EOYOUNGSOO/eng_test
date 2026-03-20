@@ -5,8 +5,13 @@ import com.google.gson.annotations.SerializedName
 /**
  * 교육부_필수어휘_초중고.json 루트 구조.
  * - vocabulary: 단어 배열
+ * 상위 메타 필드는 동기화 시 사용하지 않으나, Gson 매핑·ProGuard 환경에서 필드명 보존용.
  */
 data class EducationVocabRoot(
+    @SerializedName("title") val title: String? = null,
+    @SerializedName("source") val source: String? = null,
+    @SerializedName("description") val description: String? = null,
+    @SerializedName("total") val total: Int? = null,
     @SerializedName("vocabulary") val vocabulary: List<EducationVocabItem>
 )
 

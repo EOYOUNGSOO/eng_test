@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.engtest.data.AppDatabase
 import com.example.engtest.data.entity.WordDetailEntity
+import com.example.engtest.data.remote.model.DictionaryResponse
 import com.example.engtest.data.remote.RetrofitClient
 import com.example.engtest.domain.model.toUiModel
 import com.google.gson.Gson
@@ -32,17 +33,29 @@ class WordDetailViewModel(
             _uiState.value = WordDetailUiState.Loading
             try {
                 val response = RetrofitClient.instance.getWordDetail(query)
+                val gson = Gson()
                 when {
-                    response.isSuccessful && !response.body().isNullOrEmpty() -> {
-                        val result = response.body()!!.first()
-                        db.wordDetailDao().insert(
-                            WordDetailEntity(
-                                word = result.word.lowercase(),
-                                phonetic = result.phonetic,
-                                meaningsJson = Gson().toJson(result.meanings)
-                            )
-                        )
-                        _uiState.value = WordDetailUiState.Success(result.toUiModel())
+                    response.isSuccessful -> {
+                        val raw = response.body()?.string().orEmpty()
+                        val list = runCatching {
+                            gson.fromJson(raw, Array<DictionaryResponse>::class.java)?.toList()
+                        }.getOrNull()
+                        when {
+                            !list.isNullOrEmpty() -> {
+                                val result = list.first()
+                                db.wordDetailDao().insert(
+                                    WordDetailEntity(
+                                        word = result.word.lowercase(),
+                                        phonetic = result.phonetic,
+                                        meaningsJson = gson.toJson(result.meanings)
+                                    )
+                                )
+                                _uiState.value = WordDetailUiState.Success(result.toUiModel())
+                            }
+                            raw.isBlank() -> _uiState.value = WordDetailUiState.NotFound
+                            else -> _uiState.value =
+                                WordDetailUiState.Error("단어 정보를 해석할 수 없습니다")
+                        }
                     }
 
                     response.code() == 404 -> _uiState.value = WordDetailUiState.NotFound

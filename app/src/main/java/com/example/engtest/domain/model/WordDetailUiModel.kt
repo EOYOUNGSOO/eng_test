@@ -4,7 +4,6 @@ import com.example.engtest.data.entity.WordDetailEntity
 import com.example.engtest.data.remote.model.DictionaryResponse
 import com.example.engtest.data.remote.model.MeaningResponse
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 
 data class WordDetailUiModel(
     val word: String,
@@ -53,8 +52,16 @@ fun DictionaryResponse.toUiModel(): WordDetailUiModel {
 }
 
 fun WordDetailEntity.toUiModel(): WordDetailUiModel {
-    val type = object : TypeToken<List<MeaningResponse>>() {}.type
-    val meanings: List<MeaningResponse> = Gson().fromJson(meaningsJson, type)
+    val gson = Gson()
+    // TypeToken<List<T>> / getParameterized 는 R8 환경에서 제네릭 메타데이터 손상 시 실패할 수 있음.
+    // Array<T> 파싱 후 toList() 가 ProGuard 안전.
+    val meanings: List<MeaningResponse> = try {
+        gson.fromJson(meaningsJson, Array<MeaningResponse>::class.java)
+            ?.toList()
+            ?: emptyList()
+    } catch (_: Exception) {
+        emptyList()
+    }
     return DictionaryResponse(
         word = word,
         phonetic = phonetic,

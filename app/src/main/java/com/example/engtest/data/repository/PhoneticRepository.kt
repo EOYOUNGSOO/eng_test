@@ -1,7 +1,9 @@
 package com.example.engtest.data.repository
 
 import com.example.engtest.data.remote.DictionaryApiService
+import com.example.engtest.data.remote.DictionaryEntryDto
 import com.example.engtest.util.AppLogger
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -22,9 +24,14 @@ class PhoneticRepository(
         val trimmed = word.trim()
         if (trimmed.isBlank()) return@withContext null
         runCatching {
+            val gson = Gson()
             api.getEntries(trimmed).let { response ->
                 if (!response.isSuccessful) return@runCatching null
-                response.body()?.firstOrNull()
+                val raw = response.body()?.string().orEmpty()
+                val entries = runCatching {
+                    gson.fromJson(raw, Array<DictionaryEntryDto>::class.java)?.toList()
+                }.getOrNull().orEmpty()
+                entries.firstOrNull()
                     ?.phonetics
                     ?.firstOrNull { it.text?.isNotBlank() == true }
                     ?.text
