@@ -6,7 +6,8 @@ import com.example.engtest.EngTestApplication
 import com.example.engtest.data.entity.PHONETIC_UNAVAILABLE
 import com.example.engtest.data.entity.Word
 import com.example.engtest.data.entity.WordDifficulty
-import com.example.engtest.data.loader.WordAssetLoader
+import com.example.engtest.data.repository.WordSyncManager
+import com.example.engtest.domain.model.SyncResult
 import com.example.engtest.util.AppLogger
 import com.example.engtest.data.repository.PhoneticRepository
 import com.example.engtest.util.TestResultDetailsParser
@@ -40,6 +41,7 @@ class WordManageViewModel(
     private val wordDao = application.database.wordDao()
     private val testResultDao = application.database.testResultDao()
     private val phoneticRepository: PhoneticRepository = application.phoneticRepository
+    private val syncManager = WordSyncManager(application.database)
 
     /** 등록된 단어 목록 (전체) */
     private val allWords: StateFlow<List<Word>> = wordDao
@@ -118,11 +120,17 @@ class WordManageViewModel(
         initialValue = emptyList()
     )
 
-    private val _isLoading = MutableStateFlow(false)
-    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
-
-    private val _loadResult = MutableStateFlow<Int?>(null)
-    val loadResult: StateFlow<Int?> = _loadResult.asStateFlow()
+    private val _syncState = MutableStateFlow<SyncUiState>(SyncUiState.Idle)
+    val syncState: StateFlow<SyncUiState> = _syncState.asStateFlow()
+    private val _showInitButton = MutableStateFlow(true)
+    val showInitButton: StateFlow<Boolean> = _showInitButton.asStateFlow()
+    val totalCount: StateFlow<Int> = wordDao
+        .getCountFlow()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = 0
+        )
 
     /** 편집할 단어 (null이 아니면 편집 다이얼로그 표시) */
     private val _wordToEdit = MutableStateFlow<Word?>(null)
@@ -162,6 +170,7 @@ class WordManageViewModel(
                 withContext(Dispatchers.IO) { wordDao.update(toSave) }
                 _recentlyAddedWords.value = _recentlyAddedWords.value.map { if (it.id == toSave.id) toSave else it }
                 _wordToEdit.value = null
+                _showInitButton.value = true
             } catch (e: Exception) {
                 AppLogger.e(TAG, "updateWord failed", e)
             }
@@ -192,6 +201,7 @@ class WordManageViewModel(
             val newId = withContext(Dispatchers.IO) { wordDao.insert(toInsert) }
             val newWord = toInsert.copy(id = newId)
             _recentlyAddedWords.value = _recentlyAddedWords.value + newWord
+            _showInitButton.value = true
             true
         }.onFailure { e -> AppLogger.e(TAG, "addWordIfNew failed", e) }.getOrElse { false }
     }
@@ -211,29 +221,38 @@ class WordManageViewModel(
 
     fun loadInitialWords() {
         viewModelScope.launch {
-            _isLoading.value = true
-            _loadResult.value = null
+            _syncState.value = SyncUiState.Loading
             try {
-                val count = withContext(Dispatchers.IO) {
-                    WordAssetLoader.loadEducationVocabFromAssets(
-                        application.applicationContext,
-                        wordDao
-                    )
+                val jsonString = withContext(Dispatchers.IO) {
+                    val assets = application.applicationContext.assets
+                    val fileName = runCatching { assets.open("교육부_필수어휘_3000.json").close(); "교육부_필수어휘_3000.json" }
+                        .getOrElse { "교육부_필수어휘_초중고.json" }
+                    assets.open(fileName).bufferedReader().use { it.readText() }
                 }
-                _loadResult.value = count
+                val result = withContext(Dispatchers.IO) { syncManager.sync(jsonString) }
+                _syncState.value = SyncUiState.Success(result)
+                if (result.addedCount > 0) {
+                    _showInitButton.value = false
+                }
             } catch (e: Exception) {
                 AppLogger.e(TAG, "loadInitialWords failed", e)
-            } finally {
-                _isLoading.value = false
+                _syncState.value = SyncUiState.Error("초기화 실패: ${e.message}")
             }
         }
     }
 
-    fun clearLoadResult() {
-        _loadResult.value = null
+    fun resetSyncState() {
+        _syncState.value = SyncUiState.Idle
     }
 
     private companion object {
         const val TAG = "WordManageVM"
     }
+}
+
+sealed class SyncUiState {
+    data object Idle : SyncUiState()
+    data object Loading : SyncUiState()
+    data class Success(val result: SyncResult) : SyncUiState()
+    data class Error(val message: String) : SyncUiState()
 }

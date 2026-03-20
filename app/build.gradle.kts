@@ -7,8 +7,9 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
-// OneDrive 등에서 build 폴더 잠금 시 clean 실패 방지: 빌드 출력을 %TEMP%로 이동
-val customBuildDir = file("${System.getenv("TEMP") ?: System.getProperty("java.io.tmpdir")}/eng_test_build/app").also { it.mkdirs() }
+// KSP(Room) on Windows can fail when build output root is on different drive than project.
+// Also avoid app/build lock contention by using a dedicated in-repo build directory.
+val customBuildDir = file("${rootDir}/.build-tmp/app").also { it.mkdirs() }
 layout.buildDirectory.set(customBuildDir)
 
 // Pretendard 폰트 자동 다운로드 (res/font, 무료 오픈소스)
@@ -90,6 +91,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
 
     // Room DB
     implementation(libs.androidx.room.runtime)

@@ -10,6 +10,8 @@ import com.example.engtest.data.AppDatabase
 import com.example.engtest.data.MIGRATION_1_2
 import com.example.engtest.data.MIGRATION_2_3
 import com.example.engtest.data.MIGRATION_3_4
+import com.example.engtest.data.MIGRATION_4_5
+import com.example.engtest.data.MIGRATION_5_6
 import com.example.engtest.data.loader.WordAssetLoader
 import com.example.engtest.data.remote.DictionaryApiService
 import com.example.engtest.worker.PhoneticFetchWorker
@@ -40,7 +42,7 @@ class EngTestApplication : Application() {
             AppDatabase::class.java,
             "eng_test_db"
         )
-            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
             .fallbackToDestructiveMigration()
             .build()
     }

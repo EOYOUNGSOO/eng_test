@@ -1,6 +1,7 @@
 package com.example.engtest.ui.screen.wordtest
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.School
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -22,7 +22,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -34,6 +33,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.engtest.ui.components.AppActionButton
+import com.example.engtest.ui.components.AppActionButtonStyle
+import com.example.engtest.ui.components.AppCard
+import com.example.engtest.ui.components.AppTopBar
+import com.example.engtest.ui.theme.BgCard
+import com.example.engtest.ui.theme.BgPrimary
+import com.example.engtest.ui.theme.BorderDefault
+import com.example.engtest.ui.theme.PurpleMain
+import com.example.engtest.ui.theme.TextMuted
+import com.example.engtest.ui.theme.TextPrimary
+import com.example.engtest.ui.theme.TextSecondary
 
 /** 난이도 선택 값: Nav 인자로 전달 */
 const val DIFFICULTY_ALL = "all"
@@ -55,24 +65,10 @@ fun WordTestSelectScreen(
     onBack: () -> Unit,
     onHome: () -> Unit
 ) {
-    // 단어 관리 상세와 동일: surface (Scaffold 기본값)
-    val bg = MaterialTheme.colorScheme.surface
-
     Scaffold(
-        containerColor = bg,
+        containerColor = BgPrimary,
         topBar = {
-            TopAppBar(
-                title = { Text("단어 테스트", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.onSurface) },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "뒤로", tint = MaterialTheme.colorScheme.onSurface)
-                    }
-                },
-                colors = androidx.compose.material3.TopAppBarDefaults.topAppBarColors(
-                    containerColor = bg,
-                    titleContentColor = MaterialTheme.colorScheme.onSurface
-                )
-            )
+            AppTopBar(title = "단어 테스트", onBackClick = onBack)
         }
     ) { padding ->
         Column(
@@ -80,12 +76,13 @@ fun WordTestSelectScreen(
                 .fillMaxSize()
                 .padding(padding)
                 .padding(horizontal = 24.dp)
+                .background(BgPrimary)
         ) {
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = "난이도를 선택하세요",
                 style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurface
+                color = TextSecondary
             )
             Spacer(modifier = Modifier.height(24.dp))
 
@@ -110,18 +107,12 @@ fun WordTestSelectScreen(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                val buttonColors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                )
-                Button(
-                    onClick = onHome,
+                AppActionButton(
+                    text = "홈",
                     modifier = Modifier.height(48.dp),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = buttonColors
-                ) {
-                    Text("홈")
-                }
+                    style = AppActionButtonStyle.Secondary,
+                    onClick = onHome
+                )
             }
         }
     }
@@ -132,18 +123,16 @@ private fun DifficultyCard(
     option: DifficultyOption,
     onClick: () -> Unit
 ) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick),
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+    AppCard(
+        modifier = Modifier.fillMaxWidth(),
+        containerColor = BgCard,
+        borderColor = BorderDefault,
+        onClick = onClick
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(20.dp),
+                .padding(6.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
@@ -166,12 +155,12 @@ private fun DifficultyCard(
                     text = option.label,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = TextPrimary
                 )
                 Text(
                     text = option.subtitle,
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = TextMuted
                 )
             }
         }

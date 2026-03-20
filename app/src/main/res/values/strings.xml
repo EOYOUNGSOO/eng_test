@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">영어단어 테스트</string>
+    <string name="app_name">영어단어 암기장</string>
 
     <!-- 메인 -->
-    <string name="main_subtitle">단어를 관리하고 테스트해 보세요</string>
-    <string name="stat_words">전체 단어 수</string>
-    <string name="stat_tests">테스트 건수</string>
+    <string name="main_subtitle">내 손안의 영단어 파트너 📖</string>
+    <string name="stat_words">전체 단어</string>
+    <string name="stat_tests">테스트 횟수</string>
     <string name="stat_avg_score">평균 점수</string>
     <string name="menu_word_manage">단어 관리</string>
-    <string name="menu_word_manage_desc">단어 추가·수정·삭제 및 초기 데이터로 초기화</string>
+    <string name="menu_word_manage_desc">단어 탐색 · 즐겨찾기 · 초기화</string>
     <string name="menu_word_test">단어 테스트</string>
-    <string name="menu_word_test_desc">10개 단어로 테스트 진행</string>
+    <string name="menu_word_test_desc">10문제 · 랜덤 출제 · 레벨 선택</string>
     <string name="menu_records">기록 및 통계</string>
-    <string name="menu_records_desc">테스트 이력과 점수 확인</string>
+    <string name="menu_records_desc">점수 분석 · 취약 단어 · 성장 그래프</string>
     <string name="copyright">© 2026. %1$s. All rights reserved.</string>
     <string name="quick_test">퀵 테스트 시작</string>
     <string name="back">뒤로</string>

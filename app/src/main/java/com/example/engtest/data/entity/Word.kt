@@ -28,6 +28,12 @@ data class Word(
      * ELEMENTARY = 초등, MIDDLE = 중등, HIGH = 고등
      */
     val difficulty: WordDifficulty,
+    /** 최초 DB 등록 시각 (epoch millis), 이후 변경하지 않음 */
+    val addedAt: Long = System.currentTimeMillis(),
+    /** 마지막 수정 시각 (epoch millis), 수정 시 갱신 */
+    val updatedAt: Long = System.currentTimeMillis(),
+    /** 데이터 출처 버전 (어휘 파일 버전) */
+    val sourceVersion: String = "1.0",
     /**
      * 발음 기호 (IPA 등). Free Dictionary API 등으로 조회.
      * null/빈 문자열: 미조회 → "[발음 확인 중...]"

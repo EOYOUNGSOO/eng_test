@@ -20,7 +20,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.outlined.RadioButtonUnchecked
@@ -53,7 +52,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.engtest.data.entity.Word
+import com.example.engtest.ui.components.AppActionButton
+import com.example.engtest.ui.components.AppActionButtonStyle
+import com.example.engtest.ui.components.AppTopBar
 import com.example.engtest.ui.theme.AppDimens
+import com.example.engtest.ui.theme.BgCard
+import com.example.engtest.ui.theme.BgPrimary
+import com.example.engtest.ui.theme.BorderDefault
+import com.example.engtest.ui.theme.GreenMain
+import com.example.engtest.ui.theme.PinkMain
+import com.example.engtest.ui.theme.PurpleMain
+import com.example.engtest.ui.theme.TextDim
+import com.example.engtest.ui.theme.TextMuted
+import com.example.engtest.ui.theme.TextPrimary
+import com.example.engtest.ui.theme.TextSecondary
 import com.example.engtest.util.phoneticDisplayText
 import com.example.engtest.util.starCount
 import android.speech.tts.TextToSpeech
@@ -92,28 +104,14 @@ fun WordTestScreen(
     val answers by viewModel.answers.collectAsStateWithLifecycle()
     val testStartTime by viewModel.testStartTime.collectAsStateWithLifecycle()
 
-    // 홈과 동일한 테마 배경 (다크 모드 시 #121212 갤럭시 스타일)
-    val testBackground = MaterialTheme.colorScheme.background
+    val testBackground = BgPrimary
 
     Scaffold(
         containerColor = testBackground,
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = if (showResult) "테스트 결과" else "단어 테스트",
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = { if (showResult) onTestFinished() else onBack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "뒤로")
-                    }
-                },
-                colors = androidx.compose.material3.TopAppBarDefaults.topAppBarColors(
-                    containerColor = testBackground,
-                    titleContentColor = MaterialTheme.colorScheme.onBackground
-                )
+            AppTopBar(
+                title = if (showResult) "테스트 결과" else "단어 테스트",
+                onBackClick = { if (showResult) onTestFinished() else onBack() }
             )
         }
     ) { padding ->
@@ -142,7 +140,7 @@ fun WordTestScreen(
                         Text(
                             text = "단어를 불러오는 중...",
                             style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = TextMuted
                         )
                     }
                 }
@@ -154,7 +152,7 @@ fun WordTestScreen(
                         Text(
                             text = "테스트가 완료되었습니다.",
                             style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = TextMuted
                         )
                     }
                 }
@@ -173,7 +171,7 @@ fun WordTestScreen(
                         Text(
                             text = "${currentIndex + 1} / $total",
                             style = MaterialTheme.typography.labelLarge,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            color = TextMuted,
                             modifier = Modifier.padding(top = 8.dp)
                         )
                         Spacer(modifier = Modifier.height(6.dp))
@@ -184,7 +182,7 @@ fun WordTestScreen(
                                 .height(10.dp)
                                 .clip(RoundedCornerShape(5.dp)),
                             color = MaterialTheme.colorScheme.primary,
-                            trackColor = MaterialTheme.colorScheme.surfaceVariant
+                            trackColor = BgCard
                         )
                         Spacer(modifier = Modifier.height(28.dp))
 
@@ -195,12 +193,12 @@ fun WordTestScreen(
                                     .fillMaxWidth()
                                     .border(
                                         2.dp,
-                                        MaterialTheme.colorScheme.outline,
+                                        BorderDefault,
                                         RoundedCornerShape(24.dp)
                                     )
                                     .clip(RoundedCornerShape(24.dp)),
                                 shape = RoundedCornerShape(24.dp),
-                                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                                colors = CardDefaults.cardColors(containerColor = BgCard),
                                 elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
                             ) {
                                 Column(
@@ -214,7 +212,7 @@ fun WordTestScreen(
                                         Text(
                                             text = "남은 시간: ${remainingSeconds}초",
                                             style = MaterialTheme.typography.titleSmall,
-                                            color = MaterialTheme.colorScheme.primary,
+                                            color = PurpleMain,
                                             modifier = Modifier.padding(bottom = 16.dp)
                                         )
                                     }
@@ -231,7 +229,7 @@ fun WordTestScreen(
                                             else -> 20.sp
                                         },
                                         fontWeight = FontWeight.Bold,
-                                        color = MaterialTheme.colorScheme.onSurface,
+                                        color = TextPrimary,
                                         maxLines = 1
                                     )
                                     if (showingMeaning) {
@@ -239,12 +237,12 @@ fun WordTestScreen(
                                         Text(
                                             text = word.meaning,
                                             style = MaterialTheme.typography.titleLarge,
-                                            color = MaterialTheme.colorScheme.primary
+                                            color = PurpleMain
                                         )
                                         Text(
                                             text = word.phoneticDisplayText(),
                                             style = MaterialTheme.typography.bodyMedium,
-                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            color = TextDim,
                                             modifier = Modifier.padding(top = 4.dp)
                                         )
                                         if (word.partOfSpeech.isNotBlank()) {
@@ -256,7 +254,7 @@ fun WordTestScreen(
                                                 Text(
                                                     text = word.partOfSpeech,
                                                     style = MaterialTheme.typography.bodyMedium,
-                                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                                    color = TextMuted
                                                 )
                                                 IconButton(
                                                     onClick = { if (ttsReady) tts.speak(word.word, TextToSpeech.QUEUE_FLUSH, null, null) },
@@ -265,7 +263,7 @@ fun WordTestScreen(
                                                     Icon(
                                                         imageVector = Icons.AutoMirrored.Filled.VolumeUp,
                                                         contentDescription = "발음 재생",
-                                                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                                        tint = PurpleMain
                                                     )
                                                 }
                                             }
@@ -276,11 +274,11 @@ fun WordTestScreen(
                         if (!showingMeaning) {
                             // 카드 아래 65% 영역: 체크/엑스 버튼 구간
                             Spacer(modifier = Modifier.weight(0.15f))
-                            val checkBlue = Color(0xFF2196F3)
-                            val xRed = Color(0xFFE53935)
+                            val checkBlue = GreenMain
+                            val xRed = PinkMain
                             val iconBtnColors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                                containerColor = BgCard,
+                                contentColor = TextSecondary
                             )
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
@@ -323,8 +321,8 @@ fun WordTestScreen(
                             val lastAnswerKnown = answers.isNotEmpty() && answers.last()
                             val xRed = Color(0xFFE53935)
                             val iconBtnColors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                                containerColor = BgCard,
+                                contentColor = TextSecondary
                             )
                             Spacer(modifier = Modifier.height(12.dp))
                             Row(
@@ -395,12 +393,12 @@ private fun TestResultContent(
         Text(
             text = "점수: ${score}점",
             style = MaterialTheme.typography.headlineSmall,
-            color = MaterialTheme.colorScheme.primary
+            color = PurpleMain
         )
         Text(
             text = dateFormat.format(Date(testStartTimeMillis)),
             style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            color = TextMuted
         )
         Spacer(modifier = Modifier.height(AppDimens.screenPadding))
 
@@ -424,13 +422,12 @@ private fun TestResultContent(
                 .padding(top = AppDimens.screenPadding),
             horizontalArrangement = Arrangement.Center
         ) {
-            Button(
-                onClick = onFinish,
+            AppActionButton(
+                text = "완료",
                 modifier = Modifier.height(48.dp),
-                shape = RoundedCornerShape(16.dp)
-            ) {
-                Text("완료")
-            }
+                style = AppActionButtonStyle.Secondary,
+                onClick = onFinish
+            )
         }
     }
 }
@@ -446,11 +443,11 @@ private fun ResultWordItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .border(1.dp, MaterialTheme.colorScheme.outline, RoundedCornerShape(AppDimens.cardCornerRadius)),
+            .border(0.5.dp, BorderDefault, RoundedCornerShape(AppDimens.cardCornerRadius)),
         shape = RoundedCornerShape(AppDimens.cardCornerRadius),
         elevation = CardDefaults.cardElevation(defaultElevation = AppDimens.cardElevation),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.outline
+            containerColor = BgCard
         )
     ) {
         Row(
@@ -470,12 +467,12 @@ private fun ResultWordItem(
                         text = word.word,
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
+                        color = PurpleMain
                     )
                     Text(
                         text = word.phoneticDisplayText(),
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = TextDim
                     )
                 }
                 // 2줄: 품사 · 단어뜻 · 난이도(별) · 스피커
@@ -488,19 +485,19 @@ private fun ResultWordItem(
                         Text(
                             text = word.partOfSpeech,
                             style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            color = TextMuted
                         )
                     }
                     Text(
                         text = word.meaning,
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Medium,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = TextSecondary
                     )
                     Text(
                         text = "(${"★".repeat(word.difficulty.starCount)})",
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.primary
+                        color = PurpleMain
                     )
                     IconButton(
                         onClick = onSpeak,
@@ -509,7 +506,7 @@ private fun ResultWordItem(
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.VolumeUp,
                             contentDescription = "발음 재생",
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            tint = PurpleMain
                         )
                     }
                 }
@@ -525,7 +522,7 @@ private fun ResultWordItem(
                     },
                     modifier = Modifier.padding(top = 4.dp),
                     style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = TextMuted
                 )
             }
             // O / X — 목록 항목 높이의 45% 크기
@@ -544,7 +541,7 @@ private fun ResultWordItem(
                         text = if (known) "O" else "X",
                         style = MaterialTheme.typography.displayMedium,
                         fontWeight = FontWeight.Bold,
-                        color = if (known) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
+                        color = if (known) GreenMain else PinkMain
                     )
                 }
             }

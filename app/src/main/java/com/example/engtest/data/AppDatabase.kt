@@ -5,9 +5,13 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.engtest.data.dao.TestResultDao
+import com.example.engtest.data.dao.WordDetailDao
+import com.example.engtest.data.dao.WordHistoryDao
 import com.example.engtest.data.dao.WordDao
 import com.example.engtest.data.entity.TestResult
 import com.example.engtest.data.entity.Word
+import com.example.engtest.data.entity.WordDetailEntity
+import com.example.engtest.data.entity.WordHistoryEntity
 
 val MIGRATION_1_2 = object : Migration(1, 2) {
     override fun migrate(db: SupportSQLiteDatabase) {
@@ -29,17 +33,60 @@ val MIGRATION_3_4 = object : Migration(3, 4) {
     }
 }
 
+val MIGRATION_4_5 = object : Migration(4, 5) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        val migrationNow = System.currentTimeMillis()
+        db.execSQL("ALTER TABLE words ADD COLUMN addedAt INTEGER NOT NULL DEFAULT $migrationNow")
+        db.execSQL("ALTER TABLE words ADD COLUMN updatedAt INTEGER NOT NULL DEFAULT $migrationNow")
+        db.execSQL("ALTER TABLE words ADD COLUMN sourceVersion TEXT NOT NULL DEFAULT '1.0'")
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS word_history (
+                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                word TEXT NOT NULL,
+                action TEXT NOT NULL,
+                beforePos TEXT,
+                beforeMeaning TEXT,
+                beforeLevel TEXT,
+                afterPos TEXT,
+                afterMeaning TEXT,
+                afterLevel TEXT,
+                sourceVersion TEXT NOT NULL DEFAULT '1.0',
+                recordedAt INTEGER NOT NULL
+            )
+            """.trimIndent()
+        )
+    }
+}
+
+val MIGRATION_5_6 = object : Migration(5, 6) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS word_details (
+                word TEXT NOT NULL PRIMARY KEY,
+                phonetic TEXT,
+                meaningsJson TEXT NOT NULL,
+                fetchedAt INTEGER NOT NULL
+            )
+            """.trimIndent()
+        )
+    }
+}
+
 /**
  * Room DB 정의.
  * Entity: Word, TestResult
  * 버전 올릴 때는 version 증가 + Migration 처리.
  */
 @Database(
-    entities = [Word::class, TestResult::class],
-    version = 4,
+    entities = [Word::class, TestResult::class, WordHistoryEntity::class, WordDetailEntity::class],
+    version = 6,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun wordDao(): WordDao
     abstract fun testResultDao(): TestResultDao
+    abstract fun wordHistoryDao(): WordHistoryDao
+    abstract fun wordDetailDao(): WordDetailDao
 }
