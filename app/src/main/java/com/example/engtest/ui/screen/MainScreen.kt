@@ -29,6 +29,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -54,7 +57,8 @@ import com.example.engtest.ui.theme.EngTestTheme
 fun MainScreen(
     onNavigateToWordManage: () -> Unit,
     onNavigateToWordTest: () -> Unit,
-    onNavigateToRecords: () -> Unit
+    onNavigateToRecords: () -> Unit,
+    onNavigateToLogViewer: () -> Unit = {}
 ) {
     @Suppress("DEPRECATION")
     val menuBookIcon = Icons.Outlined.MenuBook
@@ -63,6 +67,7 @@ fun MainScreen(
     val app = context.applicationContext as EngTestApplication
     val viewModel: MainViewModel = viewModel(factory = MainViewModelFactory(app))
     val stats by viewModel.stats.collectAsStateWithLifecycle()
+    var debugTapCount by remember { mutableIntStateOf(0) }
 
     Box(
         modifier = Modifier
@@ -139,7 +144,15 @@ fun MainScreen(
                 fontSize = 10.sp,
                 color = Color(0xFF2E2D3D),
                 textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        debugTapCount++
+                        if (debugTapCount >= 5) {
+                            debugTapCount = 0
+                            onNavigateToLogViewer()
+                        }
+                    }
             )
         }
     }
@@ -342,7 +355,8 @@ private fun MainScreenPreview() {
         MainScreen(
             onNavigateToWordManage = {},
             onNavigateToWordTest = {},
-            onNavigateToRecords = {}
+            onNavigateToRecords = {},
+            onNavigateToLogViewer = {}
         )
     }
 }

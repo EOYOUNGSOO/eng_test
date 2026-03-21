@@ -1,11 +1,12 @@
 package com.example.engtest.data.repository
 
+import com.example.engtest.data.json.AppJson
 import com.example.engtest.data.remote.DictionaryApiService
 import com.example.engtest.data.remote.DictionaryEntryDto
 import com.example.engtest.util.AppLogger
-import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.builtins.ListSerializer
 
 /**
  * Free Dictionary API를 사용해 영어 단어의 발음 기호(IPA)를 조회하는 Repository.
@@ -23,23 +24,27 @@ class PhoneticRepository(
     suspend fun getPhonetic(word: String): String? = withContext(Dispatchers.IO) {
         val trimmed = word.trim()
         if (trimmed.isBlank()) return@withContext null
-        runCatching {
-            val gson = Gson()
-            api.getEntries(trimmed).let { response ->
-                if (!response.isSuccessful) return@runCatching null
-                val raw = response.body()?.string().orEmpty()
-                val entries = runCatching {
-                    gson.fromJson(raw, Array<DictionaryEntryDto>::class.java)?.toList()
-                }.getOrNull().orEmpty()
-                entries.firstOrNull()
-                    ?.phonetics
-                    ?.firstOrNull { it.text?.isNotBlank() == true }
-                    ?.text
-                    ?.trim()
+        try {
+            val response = api.getEntries(trimmed).execute()
+            if (!response.isSuccessful) {
+                AppLogger.w(TAG, "HTTP ${response.code()}: word=$word")
+                return@withContext null
             }
-        }.onFailure { e ->
-            AppLogger.w(TAG, "getPhonetic failed: word=$word", e)
-        }.getOrNull()
+            val bodyString = response.body()?.string() ?: return@withContext null
+            val entries = AppJson.json.decodeFromString(
+                ListSerializer(DictionaryEntryDto.serializer()),
+                bodyString
+            )
+            val entry = entries.firstOrNull() ?: return@withContext null
+            entry.phonetics
+                .firstOrNull { it.text?.isNotBlank() == true }
+                ?.text
+                ?.trim()
+                ?: entry.phonetic?.takeIf { it.isNotBlank() }?.trim()
+        } catch (e: Exception) {
+            AppLogger.e(TAG, "getPhonetic failed: word=$word", e)
+            null
+        }
     }
 
     private companion object {

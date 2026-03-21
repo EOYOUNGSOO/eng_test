@@ -4,13 +4,15 @@ import android.content.Context
 import com.example.engtest.data.dao.WordDao
 import com.example.engtest.data.entity.Word
 import com.example.engtest.data.entity.WordDifficulty
+import com.example.engtest.data.json.AppJson
 import com.example.engtest.data.model.EducationVocabRoot
 import com.example.engtest.util.AppLogger
 import com.example.engtest.util.AssetsUtil
-import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.builtins.ListSerializer
 import java.io.InputStreamReader
 
 /**
@@ -41,15 +43,17 @@ object WordAssetLoader {
                 val jsonString = context.assets.open(ASSET_FILE_NAME).use { input ->
                     InputStreamReader(input, Charsets.UTF_8).use { it.readText() }
                 }
-                val words = Gson().fromJson(jsonString, Array<WordJson>::class.java)
-                    .map { json ->
-                        Word(
-                            word = json.word,
-                            partOfSpeech = json.partOfSpeech,
-                            meaning = json.meaning,
-                            difficulty = WordDifficulty.valueOf(json.difficulty)
-                        )
-                    }
+                val words = AppJson.json.decodeFromString(
+                    ListSerializer(WordJson.serializer()),
+                    jsonString
+                ).map { json ->
+                    Word(
+                        word = json.word,
+                        partOfSpeech = json.partOfSpeech,
+                        meaning = json.meaning,
+                        difficulty = WordDifficulty.valueOf(json.difficulty)
+                    )
+                }
                 wordDao.insertAll(words)
                 words.size
             }.onFailure { e ->
@@ -88,16 +92,16 @@ object WordAssetLoader {
                 wordDao.deleteAll()
                 val jsonString = AssetsUtil.readAsString(context, ASSET_EDUCATION_VOCAB)
                 if (jsonString.isBlank()) return@runCatching 0
-                val words = Gson().fromJson(jsonString, EducationVocabRoot::class.java).vocabulary
-                    .map { item ->
-                        Word(
-                            id = item.id.toLong(),
-                            word = item.word,
-                            partOfSpeech = item.pos,
-                            meaning = item.meaning,
-                            difficulty = levelToDifficulty(item.level)
-                        )
-                    }
+                val root = AppJson.json.decodeFromString(EducationVocabRoot.serializer(), jsonString)
+                val words = root.vocabulary.map { item ->
+                    Word(
+                        id = item.id.toLong(),
+                        word = item.word,
+                        partOfSpeech = item.pos,
+                        meaning = item.meaning,
+                        difficulty = levelToDifficulty(item.level)
+                    )
+                }
                 wordDao.insertAll(words)
                 words.size
             }.onFailure { e ->
@@ -112,15 +116,13 @@ object WordAssetLoader {
         else -> WordDifficulty.ELEMENTARY
     }
 
-    /**
-     * JSON 파싱용 DTO (id 없음, DB에서 자동 생성)
-     */
     private const val TAG = "WordAssetLoader"
 
+    @Serializable
     private data class WordJson(
         val word: String,
-        @SerializedName("partOfSpeech") val partOfSpeech: String,
+        @SerialName("partOfSpeech") val partOfSpeech: String,
         val meaning: String,
-        val difficulty: String  // "ELEMENTARY" | "MIDDLE" | "HIGH"
+        val difficulty: String // "ELEMENTARY" | "MIDDLE" | "HIGH"
     )
 }

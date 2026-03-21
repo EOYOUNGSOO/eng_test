@@ -1,21 +1,27 @@
 package com.example.engtest.data.remote.model
 
-import com.google.gson.annotations.SerializedName
+import com.example.engtest.data.remote.PhoneticDto
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class DictionaryResponse(
-    @SerializedName("word") val word: String,
-    @SerializedName("phonetic") val phonetic: String?,
-    @SerializedName("meanings") val meanings: List<MeaningResponse>
+    @SerialName("word") val word: String,
+    @SerialName("phonetic") val phonetic: String? = null,
+    @SerialName("phonetics") val phonetics: List<PhoneticDto>? = null,
+    @SerialName("meanings") val meanings: List<MeaningResponse> = emptyList()
 )
 
+@Serializable
 data class MeaningResponse(
-    @SerializedName("partOfSpeech") val partOfSpeech: String,
-    @SerializedName("definitions") val definitions: List<DefinitionResponse>,
-    @SerializedName("synonyms") val synonyms: List<String> = emptyList(),
-    @SerializedName("antonyms") val antonyms: List<String> = emptyList()
+    @SerialName("partOfSpeech") val partOfSpeech: String = "",
+    @SerialName("definitions") val definitions: List<DefinitionResponse> = emptyList(),
+    @SerialName("synonyms") val synonyms: List<String> = emptyList(),
+    @SerialName("antonyms") val antonyms: List<String> = emptyList()
 )
 
+@Serializable
 data class DefinitionResponse(
-    @SerializedName("definition") val definition: String,
-    @SerializedName("example") val example: String?
+    @SerialName("definition") val definition: String = "",
+    @SerialName("example") val example: String? = null
 )

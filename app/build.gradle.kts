@@ -4,13 +4,12 @@ import java.net.URL
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ksp)
 }
 
-// KSP(Room) on Windows can fail when build output root is on different drive than project.
-// Also avoid app/build lock contention by using a dedicated in-repo build directory.
-val customBuildDir = file("${rootDir}/.build-tmp/app").also { it.mkdirs() }
-layout.buildDirectory.set(customBuildDir)
+// 빌드 출력은 기본 `app/build` 사용.
+// (이전 `.build-tmp/app` 커스텀 경로는 Windows에서 lint 캐시 JAR 잠금으로 `:clean` 실패가 잦음.)
 
 // Pretendard 폰트 자동 다운로드 (res/font, 무료 오픈소스)
 val fontDir = file("src/main/res/font")
@@ -93,12 +92,11 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended")
     implementation(libs.androidx.navigation.compose)
 
-    // JSON 파싱 (assets 단어 데이터 로드용)
-    implementation(libs.gson)
+    // JSON (컴파일 타임 직렬화, 수동 파싱·Retrofit ResponseBody와 함께 사용)
+    implementation(libs.kotlinx.serialization.json)
 
     // Free Dictionary API (발음 기호 조회)
     implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
 

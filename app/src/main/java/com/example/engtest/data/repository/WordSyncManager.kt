@@ -4,17 +4,30 @@ import com.example.engtest.data.AppDatabase
 import com.example.engtest.data.entity.Word
 import com.example.engtest.data.entity.WordDifficulty
 import com.example.engtest.data.entity.WordHistoryEntity
+import com.example.engtest.data.json.AppJson
 import com.example.engtest.data.model.EducationVocabRoot
 import com.example.engtest.domain.model.SyncResult
-import com.google.gson.Gson
+import com.example.engtest.util.AppLogger
 
 class WordSyncManager(
     private val db: AppDatabase
 ) {
     private val sourceVersion = "1.0"
 
+    private companion object {
+        const val TAG = "WordSync"
+    }
+
     suspend fun sync(jsonString: String): SyncResult {
-        val vocabList = Gson().fromJson(jsonString, EducationVocabRoot::class.java).vocabulary
+        val root: EducationVocabRoot = try {
+            AppJson.json.decodeFromString(EducationVocabRoot.serializer(), jsonString).also {
+                AppLogger.i(TAG, "JSON 파싱 완료: ${it.vocabulary.size}개")
+            }
+        } catch (e: Exception) {
+            AppLogger.e(TAG, "JSON 파싱 실패", e)
+            throw IllegalStateException("어휘 파일 파싱 실패: ${e.message}", e)
+        }
+        val vocabList = root.vocabulary
 
         var addedCount = 0
         var updatedCount = 0
@@ -84,6 +97,7 @@ class WordSyncManager(
         else -> WordDifficulty.ELEMENTARY
     }
 
+    @Suppress("unused")
     private fun difficultyToLevel(difficulty: WordDifficulty): String = when (difficulty) {
         WordDifficulty.ELEMENTARY -> "초등"
         WordDifficulty.MIDDLE -> "중등"

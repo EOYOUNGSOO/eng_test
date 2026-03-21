@@ -1,17 +1,26 @@
 package com.example.engtest.data.remote
 
-import com.google.gson.annotations.SerializedName
+import com.example.engtest.data.remote.model.MeaningResponse
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
- * Free Dictionary API (https://api.dictionaryapi.dev/api/v2/entries/en/{word}) 응답 DTO.
- * 발음 기호(phonetics[].text) 추출용.
+ * Free Dictionary API 배열 항목 — 발음(phonetics) 추출용.
+ * 전체 응답과 동일 스키마이나, 파싱 시 필요한 필드만 사용.
  */
+@Serializable
 data class DictionaryEntryDto(
-    @SerializedName("word") val word: String? = null,
-    @SerializedName("phonetics") val phonetics: List<PhoneticDto>? = null
+    @SerialName("word") val word: String = "",
+    @SerialName("phonetic") val phonetic: String? = null,
+    @SerialName("phonetics") val phonetics: List<PhoneticDto> = emptyList(),
+    @SerialName("meanings") val meanings: List<MeaningResponse> = emptyList()
 )
 
+/**
+ * Free Dictionary API 응답 내 `phonetics` 배열 항목.
+ */
+@Serializable
 data class PhoneticDto(
-    @SerializedName("text") val text: String? = null,
-    @SerializedName("audio") val audio: String? = null
+    @SerialName("text") val text: String? = null,
+    @SerialName("audio") val audio: String? = null
 )

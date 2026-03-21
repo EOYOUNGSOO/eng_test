@@ -74,6 +74,13 @@ val MIGRATION_5_6 = object : Migration(5, 6) {
     }
 }
 
+/** Gson → kotlinx.serialization 전환으로 meaningsJson 형식이 달라짐: 기존 캐시 무효화 */
+val MIGRATION_6_7 = object : Migration(6, 7) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("DELETE FROM word_details")
+    }
+}
+
 /**
  * Room DB 정의.
  * Entity: Word, TestResult
@@ -81,7 +88,7 @@ val MIGRATION_5_6 = object : Migration(5, 6) {
  */
 @Database(
     entities = [Word::class, TestResult::class, WordHistoryEntity::class, WordDetailEntity::class],
-    version = 6,
+    version = 7,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

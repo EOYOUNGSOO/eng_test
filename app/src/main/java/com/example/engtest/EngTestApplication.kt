@@ -12,18 +12,22 @@ import com.example.engtest.data.MIGRATION_2_3
 import com.example.engtest.data.MIGRATION_3_4
 import com.example.engtest.data.MIGRATION_4_5
 import com.example.engtest.data.MIGRATION_5_6
+import com.example.engtest.data.MIGRATION_6_7
 import com.example.engtest.data.loader.WordAssetLoader
 import com.example.engtest.data.remote.DictionaryApiService
-import com.example.engtest.worker.PhoneticFetchWorker
 import com.example.engtest.data.repository.PhoneticRepository
+import com.example.engtest.worker.PhoneticFetchWorker
+import okhttp3.OkHttpClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import retrofit2.Retrofit
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import java.util.concurrent.TimeUnit
-import retrofit2.converter.gson.GsonConverterFactory
 
 /**
  * 앱 전역 Application.
@@ -42,16 +46,27 @@ class EngTestApplication : Application() {
             AppDatabase::class.java,
             "eng_test_db"
         )
-            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
+            .addMigrations(
+                MIGRATION_1_2,
+                MIGRATION_2_3,
+                MIGRATION_3_4,
+                MIGRATION_4_5,
+                MIGRATION_5_6,
+                MIGRATION_6_7
+            )
             .fallbackToDestructiveMigration()
             .build()
     }
 
-    /** Free Dictionary API용 Retrofit 싱글톤 (OkHttp 클라이언트는 Retrofit 기본 사용). */
+    /** Free Dictionary API용 Retrofit 싱글톤 */
     private val dictionaryRetrofit: Retrofit by lazy {
+        val client = OkHttpClient.Builder()
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .build()
         Retrofit.Builder()
             .baseUrl("https://api.dictionaryapi.dev/")
-            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
             .build()
     }
 
@@ -61,9 +76,38 @@ class EngTestApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
+            AppLogger.e(
+                tag = "CRASH",
+                msg = "미처리 예외 발생 (Thread: ${thread.name})",
+                throwable = throwable
+            )
+            saveCrashLog(throwable)
+            defaultHandler?.uncaughtException(thread, throwable)
+        }
+
         warmUpDatabaseOnBackground()
         loadInitialWordsIfNeeded()
         schedulePhoneticFetchWork()
+    }
+
+    private fun saveCrashLog(throwable: Throwable) {
+        try {
+            val prefs = getSharedPreferences("crash_log", MODE_PRIVATE)
+            val fmt = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+            val log = buildString {
+                append("시각: ${fmt.format(Date())}\n")
+                append("오류: ${throwable.javaClass.simpleName}\n")
+                append("메시지: ${throwable.message}\n\n")
+                append("스택트레이스:\n")
+                append(throwable.stackTraceToString())
+            }
+            prefs.edit().putString("last_crash", log).apply()
+        } catch (_: Exception) {
+            // 저장 실패 시 무시
+        }
     }
 
     /** 와이파이 시 15분마다 발음기호 없는 단어 최대 10개 API 조회 (WorkManager 최소 주기 15분) */
