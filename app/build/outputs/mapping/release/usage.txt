@@ -29519,226 +29519,226 @@ androidx.work.multiprocess.IWorkManagerImplCallback$Stub
 androidx.work.multiprocess.IWorkManagerImplCallback
 androidx.work.multiprocess.RemoteWorkContinuation
 androidx.work.multiprocess.RemoteWorkManager
-com.example.engtest.BuildConfig
-com.example.engtest.EngTestApplication:
+com.euysoo.engtest.BuildConfig
+com.euysoo.engtest.EngTestApplication:
     public static final java.lang.String TAG
-com.example.engtest.MainActivity:
+com.euysoo.engtest.MainActivity:
     public static final int $stable
-com.example.engtest.R$color
-com.example.engtest.R$dimen
-com.example.engtest.R$drawable
-com.example.engtest.R$font
-com.example.engtest.R$mipmap
-com.example.engtest.R$string
-com.example.engtest.R$style
-com.example.engtest.R
-com.example.engtest.data.AppDatabase:
+com.euysoo.engtest.R$color
+com.euysoo.engtest.R$dimen
+com.euysoo.engtest.R$drawable
+com.euysoo.engtest.R$font
+com.euysoo.engtest.R$mipmap
+com.euysoo.engtest.R$string
+com.euysoo.engtest.R$style
+com.euysoo.engtest.R
+com.euysoo.engtest.data.AppDatabase:
     public static final int $stable
-com.example.engtest.data.AppDatabase_Impl:
+com.euysoo.engtest.data.AppDatabase_Impl:
     public void clearAllTables()
-com.example.engtest.data.dao.ActionSummary
-com.example.engtest.data.dao.TestResultDao:
+com.euysoo.engtest.data.dao.ActionSummary
+com.euysoo.engtest.data.dao.TestResultDao:
     public abstract kotlinx.coroutines.flow.Flow getRecentResults(int)
     public abstract java.lang.Object getResultById(long,kotlin.coroutines.Continuation)
-com.example.engtest.data.dao.TestResultDao_Impl$5
-com.example.engtest.data.dao.TestResultDao_Impl$6
-com.example.engtest.data.dao.TestResultDao_Impl:
+com.euysoo.engtest.data.dao.TestResultDao_Impl$5
+com.euysoo.engtest.data.dao.TestResultDao_Impl$6
+com.euysoo.engtest.data.dao.TestResultDao_Impl:
     public kotlinx.coroutines.flow.Flow getRecentResults(int)
     public java.lang.Object getResultById(long,kotlin.coroutines.Continuation)
-com.example.engtest.data.dao.WordDao:
+com.euysoo.engtest.data.dao.WordDao:
     public abstract java.lang.Object clearAll(kotlin.coroutines.Continuation)
     public abstract java.lang.Object getByWord(java.lang.String,kotlin.coroutines.Continuation)
     public abstract java.lang.Object getWordById(long,kotlin.coroutines.Continuation)
-    public abstract kotlinx.coroutines.flow.Flow getWordsByDifficulty(com.example.engtest.data.entity.WordDifficulty)
+    public abstract kotlinx.coroutines.flow.Flow getWordsByDifficulty(com.euysoo.engtest.data.entity.WordDifficulty)
     public abstract java.lang.Object getWordsPaginated(int,int,kotlin.coroutines.Continuation)
-    public abstract java.lang.Object updateWord(java.lang.String,java.lang.String,java.lang.String,com.example.engtest.data.entity.WordDifficulty,long,java.lang.String,kotlin.coroutines.Continuation)
-com.example.engtest.data.dao.WordDao_Impl$10
-com.example.engtest.data.dao.WordDao_Impl$12
-com.example.engtest.data.dao.WordDao_Impl$14
-com.example.engtest.data.dao.WordDao_Impl$15
-com.example.engtest.data.dao.WordDao_Impl$16
-com.example.engtest.data.dao.WordDao_Impl$19
-com.example.engtest.data.dao.WordDao_Impl:
+    public abstract java.lang.Object updateWord(java.lang.String,java.lang.String,java.lang.String,com.euysoo.engtest.data.entity.WordDifficulty,long,java.lang.String,kotlin.coroutines.Continuation)
+com.euysoo.engtest.data.dao.WordDao_Impl$10
+com.euysoo.engtest.data.dao.WordDao_Impl$12
+com.euysoo.engtest.data.dao.WordDao_Impl$14
+com.euysoo.engtest.data.dao.WordDao_Impl$15
+com.euysoo.engtest.data.dao.WordDao_Impl$16
+com.euysoo.engtest.data.dao.WordDao_Impl$19
+com.euysoo.engtest.data.dao.WordDao_Impl:
     public java.lang.Object clearAll(kotlin.coroutines.Continuation)
     public java.lang.Object getByWord(java.lang.String,kotlin.coroutines.Continuation)
     public java.lang.Object getWordById(long,kotlin.coroutines.Continuation)
-    public kotlinx.coroutines.flow.Flow getWordsByDifficulty(com.example.engtest.data.entity.WordDifficulty)
+    public kotlinx.coroutines.flow.Flow getWordsByDifficulty(com.euysoo.engtest.data.entity.WordDifficulty)
     public java.lang.Object getWordsPaginated(int,int,kotlin.coroutines.Continuation)
-    public java.lang.Object updateWord(java.lang.String,java.lang.String,java.lang.String,com.example.engtest.data.entity.WordDifficulty,long,java.lang.String,kotlin.coroutines.Continuation)
-com.example.engtest.data.dao.WordDetailDao:
+    public java.lang.Object updateWord(java.lang.String,java.lang.String,java.lang.String,com.euysoo.engtest.data.entity.WordDifficulty,long,java.lang.String,kotlin.coroutines.Continuation)
+com.euysoo.engtest.data.dao.WordDetailDao:
     public abstract java.lang.Object clearAll(kotlin.coroutines.Continuation)
     public abstract java.lang.Object getCachedCount(kotlin.coroutines.Continuation)
-com.example.engtest.data.dao.WordDetailDao_Impl$4
-com.example.engtest.data.dao.WordDetailDao_Impl$6
-com.example.engtest.data.dao.WordDetailDao_Impl:
+com.euysoo.engtest.data.dao.WordDetailDao_Impl$4
+com.euysoo.engtest.data.dao.WordDetailDao_Impl$6
+com.euysoo.engtest.data.dao.WordDetailDao_Impl:
     public java.lang.Object clearAll(kotlin.coroutines.Continuation)
     public java.lang.Object getCachedCount(kotlin.coroutines.Continuation)
-com.example.engtest.data.dao.WordHistoryDao:
+com.euysoo.engtest.data.dao.WordHistoryDao:
     public abstract java.lang.Object clearAll(kotlin.coroutines.Continuation)
     public abstract java.lang.Object getHistoryByAction(java.lang.String,kotlin.coroutines.Continuation)
     public abstract java.lang.Object getHistoryByWord(java.lang.String,kotlin.coroutines.Continuation)
     public abstract java.lang.Object getSummaryAfter(long,kotlin.coroutines.Continuation)
-    public abstract java.lang.Object insert(com.example.engtest.data.entity.WordHistoryEntity,kotlin.coroutines.Continuation)
-com.example.engtest.data.dao.WordHistoryDao_Impl$3
-com.example.engtest.data.dao.WordHistoryDao_Impl$5
-com.example.engtest.data.dao.WordHistoryDao_Impl$6
-com.example.engtest.data.dao.WordHistoryDao_Impl$7
-com.example.engtest.data.dao.WordHistoryDao_Impl$8
-com.example.engtest.data.dao.WordHistoryDao_Impl:
+    public abstract java.lang.Object insert(com.euysoo.engtest.data.entity.WordHistoryEntity,kotlin.coroutines.Continuation)
+com.euysoo.engtest.data.dao.WordHistoryDao_Impl$3
+com.euysoo.engtest.data.dao.WordHistoryDao_Impl$5
+com.euysoo.engtest.data.dao.WordHistoryDao_Impl$6
+com.euysoo.engtest.data.dao.WordHistoryDao_Impl$7
+com.euysoo.engtest.data.dao.WordHistoryDao_Impl$8
+com.euysoo.engtest.data.dao.WordHistoryDao_Impl:
     public java.lang.Object clearAll(kotlin.coroutines.Continuation)
     public java.lang.Object getHistoryByAction(java.lang.String,kotlin.coroutines.Continuation)
     public java.lang.Object getHistoryByWord(java.lang.String,kotlin.coroutines.Continuation)
     public java.lang.Object getSummaryAfter(long,kotlin.coroutines.Continuation)
-    public java.lang.Object insert(com.example.engtest.data.entity.WordHistoryEntity,kotlin.coroutines.Continuation)
-com.example.engtest.data.remote.DictionaryEntryDto$$serializer:
+    public java.lang.Object insert(com.euysoo.engtest.data.entity.WordHistoryEntity,kotlin.coroutines.Continuation)
+com.euysoo.engtest.data.remote.DictionaryEntryDto$$serializer:
     public static final int $stable
-com.example.engtest.data.remote.PhoneticDto$$serializer:
+com.euysoo.engtest.data.remote.PhoneticDto$$serializer:
     public static final int $stable
-com.example.engtest.data.remote.RetrofitClient:
+com.euysoo.engtest.data.remote.RetrofitClient:
     private static final java.lang.String BASE_URL
-com.example.engtest.data.repository.PhoneticRepository:
+com.euysoo.engtest.data.repository.PhoneticRepository:
     public static final java.lang.String TAG
-com.example.engtest.data.repository.WordSyncManager$WhenMappings
-com.example.engtest.data.repository.WordSyncManager:
+com.euysoo.engtest.data.repository.WordSyncManager$WhenMappings
+com.euysoo.engtest.data.repository.WordSyncManager:
     public static final int $stable
     public static final java.lang.String TAG
-    private final java.lang.String difficultyToLevel(com.example.engtest.data.entity.WordDifficulty)
-com.example.engtest.ui.component.AppButtonStyle:
+    private final java.lang.String difficultyToLevel(com.euysoo.engtest.data.entity.WordDifficulty)
+com.euysoo.engtest.ui.component.AppButtonStyle:
     public static kotlin.enums.EnumEntries getEntries()
-com.example.engtest.ui.components.AppActionButtonStyle
-com.example.engtest.ui.components.AppUiComponentsKt$AppActionButton$2
-com.example.engtest.ui.components.AppUiComponentsKt$AppFilterChip$2
-com.example.engtest.ui.components.AppUiComponentsKt$WhenMappings
-com.example.engtest.ui.components.AppUiComponentsKt:
-    public static final void AppActionButton(java.lang.String,androidx.compose.ui.Modifier,boolean,com.example.engtest.ui.components.AppActionButtonStyle,kotlin.jvm.functions.Function0,androidx.compose.runtime.Composer,int,int)
+com.euysoo.engtest.ui.components.AppActionButtonStyle
+com.euysoo.engtest.ui.components.AppUiComponentsKt$AppActionButton$2
+com.euysoo.engtest.ui.components.AppUiComponentsKt$AppFilterChip$2
+com.euysoo.engtest.ui.components.AppUiComponentsKt$WhenMappings
+com.euysoo.engtest.ui.components.AppUiComponentsKt:
+    public static final void AppActionButton(java.lang.String,androidx.compose.ui.Modifier,boolean,com.euysoo.engtest.ui.components.AppActionButtonStyle,kotlin.jvm.functions.Function0,androidx.compose.runtime.Composer,int,int)
     public static final void AppFilterChip(java.lang.String,boolean,kotlin.jvm.functions.Function0,androidx.compose.runtime.Composer,int)
-com.example.engtest.ui.debug.ComposableSingletons$LogViewerScreenKt$lambda-1$1
-com.example.engtest.ui.debug.ComposableSingletons$LogViewerScreenKt$lambda-2$1
-com.example.engtest.ui.debug.ComposableSingletons$LogViewerScreenKt$lambda-3$1
-com.example.engtest.ui.debug.ComposableSingletons$LogViewerScreenKt$lambda-4$1
-com.example.engtest.ui.debug.ComposableSingletons$LogViewerScreenKt$lambda-5$1
-com.example.engtest.ui.debug.ComposableSingletons$LogViewerScreenKt$lambda-6$1
-com.example.engtest.ui.debug.ComposableSingletons$LogViewerScreenKt
-com.example.engtest.ui.debug.LogViewerScreenKt$LogEntryRow$2
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$1$1
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$2
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$3$1
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$3$2$1$allLogs$1
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$3$2$1
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$3$2$2$1
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$3$2
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$3
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$1$1$1
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$1$2
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$1$3$1
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$1$4
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$1
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$3$1$1
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$3$1$invoke$$inlined$itemsIndexed$default$1
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$3$1$invoke$$inlined$itemsIndexed$default$2
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$3$1$invoke$$inlined$itemsIndexed$default$3
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$3$1
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$4$1$1
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$4$1$2
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4
-com.example.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$5
-com.example.engtest.ui.debug.LogViewerScreenKt
-com.example.engtest.ui.navigation.NavRoutes:
+com.euysoo.engtest.ui.debug.ComposableSingletons$LogViewerScreenKt$lambda-1$1
+com.euysoo.engtest.ui.debug.ComposableSingletons$LogViewerScreenKt$lambda-2$1
+com.euysoo.engtest.ui.debug.ComposableSingletons$LogViewerScreenKt$lambda-3$1
+com.euysoo.engtest.ui.debug.ComposableSingletons$LogViewerScreenKt$lambda-4$1
+com.euysoo.engtest.ui.debug.ComposableSingletons$LogViewerScreenKt$lambda-5$1
+com.euysoo.engtest.ui.debug.ComposableSingletons$LogViewerScreenKt$lambda-6$1
+com.euysoo.engtest.ui.debug.ComposableSingletons$LogViewerScreenKt
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogEntryRow$2
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$1$1
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$2
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$3$1
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$3$2$1$allLogs$1
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$3$2$1
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$3$2$2$1
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$3$2
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$3
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$1$1$1
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$1$2
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$1$3$1
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$1$4
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$1
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$3$1$1
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$3$1$invoke$$inlined$itemsIndexed$default$1
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$3$1$invoke$$inlined$itemsIndexed$default$2
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$3$1$invoke$$inlined$itemsIndexed$default$3
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$3$1
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$4$1$1
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4$1$4$1$2
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$4
+com.euysoo.engtest.ui.debug.LogViewerScreenKt$LogViewerScreen$5
+com.euysoo.engtest.ui.debug.LogViewerScreenKt
+com.euysoo.engtest.ui.navigation.NavRoutes:
     public static final int $stable
     public static final java.lang.String Main
     public static final java.lang.String Records
     public static final java.lang.String WordManage
     public static final java.lang.String WordTest
     public static final java.lang.String WordTestSelect
-com.example.engtest.ui.screen.ComposableSingletons$MainScreenKt:
+com.euysoo.engtest.ui.screen.ComposableSingletons$MainScreenKt:
     public final kotlin.jvm.functions.Function2 getLambda-3$app_release()
-com.example.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt$lambda-1$1
-com.example.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt$lambda-2$1
-com.example.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt$lambda-3$1
-com.example.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt$lambda-4$1
-com.example.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt$lambda-5$1
-com.example.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt$lambda-6$1
-com.example.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt$lambda-7$1
-com.example.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt$lambda-8$1
-com.example.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt$lambda-9$1
-com.example.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt
-com.example.engtest.ui.screen.HomeStats:
+com.euysoo.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt$lambda-1$1
+com.euysoo.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt$lambda-2$1
+com.euysoo.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt$lambda-3$1
+com.euysoo.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt$lambda-4$1
+com.euysoo.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt$lambda-5$1
+com.euysoo.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt$lambda-6$1
+com.euysoo.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt$lambda-7$1
+com.euysoo.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt$lambda-8$1
+com.euysoo.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt$lambda-9$1
+com.euysoo.engtest.ui.screen.ComposableSingletons$PlaceholderScreensKt
+com.euysoo.engtest.ui.screen.HomeStats:
     public static final int $stable
     public final int component1()
     public final int component2()
     public final float component3()
-    public final com.example.engtest.ui.screen.HomeStats copy(int,int,float)
-    public static synthetic com.example.engtest.ui.screen.HomeStats copy$default(com.example.engtest.ui.screen.HomeStats,int,int,float,int,java.lang.Object)
-com.example.engtest.ui.screen.MainScreenKt$MainScreenPreview$1
-com.example.engtest.ui.screen.MainScreenKt:
+    public final com.euysoo.engtest.ui.screen.HomeStats copy(int,int,float)
+    public static synthetic com.euysoo.engtest.ui.screen.HomeStats copy$default(com.euysoo.engtest.ui.screen.HomeStats,int,int,float,int,java.lang.Object)
+com.euysoo.engtest.ui.screen.MainScreenKt$MainScreenPreview$1
+com.euysoo.engtest.ui.screen.MainScreenKt:
     private static final void MainScreenPreview(androidx.compose.runtime.Composer,int)
     public static final synthetic void access$MainScreenPreview(androidx.compose.runtime.Composer,int)
-com.example.engtest.ui.screen.PlaceholderScreensKt$RecordsPlaceholderScreen$1$1
-com.example.engtest.ui.screen.PlaceholderScreensKt$RecordsPlaceholderScreen$1
-com.example.engtest.ui.screen.PlaceholderScreensKt$RecordsPlaceholderScreen$2
-com.example.engtest.ui.screen.PlaceholderScreensKt$WordManagePlaceholderScreen$1$1
-com.example.engtest.ui.screen.PlaceholderScreensKt$WordManagePlaceholderScreen$1
-com.example.engtest.ui.screen.PlaceholderScreensKt$WordManagePlaceholderScreen$2
-com.example.engtest.ui.screen.PlaceholderScreensKt$WordTestPlaceholderScreen$1$1
-com.example.engtest.ui.screen.PlaceholderScreensKt$WordTestPlaceholderScreen$1
-com.example.engtest.ui.screen.PlaceholderScreensKt$WordTestPlaceholderScreen$2
-com.example.engtest.ui.screen.PlaceholderScreensKt
-com.example.engtest.ui.screen.records.RecordsViewModel:
+com.euysoo.engtest.ui.screen.PlaceholderScreensKt$RecordsPlaceholderScreen$1$1
+com.euysoo.engtest.ui.screen.PlaceholderScreensKt$RecordsPlaceholderScreen$1
+com.euysoo.engtest.ui.screen.PlaceholderScreensKt$RecordsPlaceholderScreen$2
+com.euysoo.engtest.ui.screen.PlaceholderScreensKt$WordManagePlaceholderScreen$1$1
+com.euysoo.engtest.ui.screen.PlaceholderScreensKt$WordManagePlaceholderScreen$1
+com.euysoo.engtest.ui.screen.PlaceholderScreensKt$WordManagePlaceholderScreen$2
+com.euysoo.engtest.ui.screen.PlaceholderScreensKt$WordTestPlaceholderScreen$1$1
+com.euysoo.engtest.ui.screen.PlaceholderScreensKt$WordTestPlaceholderScreen$1
+com.euysoo.engtest.ui.screen.PlaceholderScreensKt$WordTestPlaceholderScreen$2
+com.euysoo.engtest.ui.screen.PlaceholderScreensKt
+com.euysoo.engtest.ui.screen.records.RecordsViewModel:
     public final void setDateRange(long,long)
-com.example.engtest.ui.screen.records.RecordsViewModelKt
-com.example.engtest.ui.screen.wordmanage.SyncUiState$Error:
+com.euysoo.engtest.ui.screen.records.RecordsViewModelKt
+com.euysoo.engtest.ui.screen.wordmanage.SyncUiState$Error:
     public static final int $stable
     public final java.lang.String component1()
-    public final com.example.engtest.ui.screen.wordmanage.SyncUiState$Error copy(java.lang.String)
-    public static synthetic com.example.engtest.ui.screen.wordmanage.SyncUiState$Error copy$default(com.example.engtest.ui.screen.wordmanage.SyncUiState$Error,java.lang.String,int,java.lang.Object)
-com.example.engtest.ui.screen.wordmanage.SyncUiState$Idle:
+    public final com.euysoo.engtest.ui.screen.wordmanage.SyncUiState$Error copy(java.lang.String)
+    public static synthetic com.euysoo.engtest.ui.screen.wordmanage.SyncUiState$Error copy$default(com.euysoo.engtest.ui.screen.wordmanage.SyncUiState$Error,java.lang.String,int,java.lang.Object)
+com.euysoo.engtest.ui.screen.wordmanage.SyncUiState$Idle:
     public static final int $stable
-com.example.engtest.ui.screen.wordmanage.SyncUiState$Loading:
+com.euysoo.engtest.ui.screen.wordmanage.SyncUiState$Loading:
     public static final int $stable
-com.example.engtest.ui.screen.wordmanage.SyncUiState$Success:
+com.euysoo.engtest.ui.screen.wordmanage.SyncUiState$Success:
     public static final int $stable
-    public final com.example.engtest.domain.model.SyncResult component1()
-    public final com.example.engtest.ui.screen.wordmanage.SyncUiState$Success copy(com.example.engtest.domain.model.SyncResult)
-    public static synthetic com.example.engtest.ui.screen.wordmanage.SyncUiState$Success copy$default(com.example.engtest.ui.screen.wordmanage.SyncUiState$Success,com.example.engtest.domain.model.SyncResult,int,java.lang.Object)
-com.example.engtest.ui.screen.wordmanage.SyncUiState:
+    public final com.euysoo.engtest.domain.model.SyncResult component1()
+    public final com.euysoo.engtest.ui.screen.wordmanage.SyncUiState$Success copy(com.euysoo.engtest.domain.model.SyncResult)
+    public static synthetic com.euysoo.engtest.ui.screen.wordmanage.SyncUiState$Success copy$default(com.euysoo.engtest.ui.screen.wordmanage.SyncUiState$Success,com.euysoo.engtest.domain.model.SyncResult,int,java.lang.Object)
+com.euysoo.engtest.ui.screen.wordmanage.SyncUiState:
     public static final int $stable
-com.example.engtest.ui.screen.wordmanage.WordManageViewModel$addWord$1$1
-com.example.engtest.ui.screen.wordmanage.WordManageViewModel$addWord$1
-com.example.engtest.ui.screen.wordmanage.WordManageViewModel$fetchPhoneticForWordIfNeeded$1$1
-com.example.engtest.ui.screen.wordmanage.WordManageViewModel$fetchPhoneticForWordIfNeeded$1
-com.example.engtest.ui.screen.wordmanage.WordManageViewModel$special$$inlined$map$1$2$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModel$addWord$1$1
+com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModel$addWord$1
+com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModel$fetchPhoneticForWordIfNeeded$1$1
+com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModel$fetchPhoneticForWordIfNeeded$1
+com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModel$special$$inlined$map$1$2$1:
     java.lang.Object L$0
-com.example.engtest.ui.screen.wordmanage.WordManageViewModel:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModel:
     public static final java.lang.String TAG
-    public final void addWord(com.example.engtest.data.entity.Word)
-    public final void fetchPhoneticForWordIfNeeded(com.example.engtest.data.entity.Word)
-com.example.engtest.ui.screen.wordmanage.WordWithStats:
+    public final void addWord(com.euysoo.engtest.data.entity.Word)
+    public final void fetchPhoneticForWordIfNeeded(com.euysoo.engtest.data.entity.Word)
+com.euysoo.engtest.ui.screen.wordmanage.WordWithStats:
     public static final int $stable
-    public final com.example.engtest.data.entity.Word component1()
+    public final com.euysoo.engtest.data.entity.Word component1()
     public final int component2()
     public final int component3()
-    public final com.example.engtest.ui.screen.wordmanage.WordWithStats copy(com.example.engtest.data.entity.Word,int,int)
-    public static synthetic com.example.engtest.ui.screen.wordmanage.WordWithStats copy$default(com.example.engtest.ui.screen.wordmanage.WordWithStats,com.example.engtest.data.entity.Word,int,int,int,java.lang.Object)
+    public final com.euysoo.engtest.ui.screen.wordmanage.WordWithStats copy(com.euysoo.engtest.data.entity.Word,int,int)
+    public static synthetic com.euysoo.engtest.ui.screen.wordmanage.WordWithStats copy$default(com.euysoo.engtest.ui.screen.wordmanage.WordWithStats,com.euysoo.engtest.data.entity.Word,int,int,int,java.lang.Object)
     public final int getCorrectCount()
-com.example.engtest.ui.screen.wordtest.DifficultyOption:
+com.euysoo.engtest.ui.screen.wordtest.DifficultyOption:
     public static final int $stable
     public final java.lang.String component1()
     public final java.lang.String component2()
     public final java.lang.String component3()
     public final long component4-0d7_KjU()
-    public final com.example.engtest.ui.screen.wordtest.DifficultyOption copy-g2O1Hgs(java.lang.String,java.lang.String,java.lang.String,long)
-    public static synthetic com.example.engtest.ui.screen.wordtest.DifficultyOption copy-g2O1Hgs$default(com.example.engtest.ui.screen.wordtest.DifficultyOption,java.lang.String,java.lang.String,java.lang.String,long,int,java.lang.Object)
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$TestResultContent$2$1$invoke$$inlined$itemsIndexed$default$1
-com.example.engtest.ui.screen.wordtest.WordTestSelectScreenKt:
+    public final com.euysoo.engtest.ui.screen.wordtest.DifficultyOption copy-g2O1Hgs(java.lang.String,java.lang.String,java.lang.String,long)
+    public static synthetic com.euysoo.engtest.ui.screen.wordtest.DifficultyOption copy-g2O1Hgs$default(com.euysoo.engtest.ui.screen.wordtest.DifficultyOption,java.lang.String,java.lang.String,java.lang.String,long,int,java.lang.Object)
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$TestResultContent$2$1$invoke$$inlined$itemsIndexed$default$1
+com.euysoo.engtest.ui.screen.wordtest.WordTestSelectScreenKt:
     public static final java.lang.String DIFFICULTY_ALL
     public static final java.lang.String DIFFICULTY_ELEMENTARY
     public static final java.lang.String DIFFICULTY_HIGH
     public static final java.lang.String DIFFICULTY_MIDDLE
-com.example.engtest.ui.screen.wordtest.WordTestViewModel:
+com.euysoo.engtest.ui.screen.wordtest.WordTestViewModel:
     public static final java.lang.String TAG
     public final java.lang.String getTitleString()
     private final void nextWord()
-com.example.engtest.ui.theme.AppColors:
+com.euysoo.engtest.ui.theme.AppColors:
     public static final int $stable
     public final long component1-0d7_KjU()
     public final long component10-0d7_KjU()
@@ -29757,11 +29757,11 @@ com.example.engtest.ui.theme.AppColors:
     public final long component7-0d7_KjU()
     public final long component8-0d7_KjU()
     public final long component9-0d7_KjU()
-    public final com.example.engtest.ui.theme.AppColors copy-OG5zQOY(long,long,long,long,long,long,long,long,long,long,long,long,long,long,long,long,long)
-    public static synthetic com.example.engtest.ui.theme.AppColors copy-OG5zQOY$default(com.example.engtest.ui.theme.AppColors,long,long,long,long,long,long,long,long,long,long,long,long,long,long,long,long,long,int,java.lang.Object)
+    public final com.euysoo.engtest.ui.theme.AppColors copy-OG5zQOY(long,long,long,long,long,long,long,long,long,long,long,long,long,long,long,long,long)
+    public static synthetic com.euysoo.engtest.ui.theme.AppColors copy-OG5zQOY$default(com.euysoo.engtest.ui.theme.AppColors,long,long,long,long,long,long,long,long,long,long,long,long,long,long,long,long,long,int,java.lang.Object)
     public final long getBadgePurpleBg-0d7_KjU()
     public final long getBadgePurpleText-0d7_KjU()
-com.example.engtest.ui.theme.AppDimens:
+com.euysoo.engtest.ui.theme.AppDimens:
     public static final int $stable
     public final float getActionButtonBorder-D9Ej5fM()
     public final float getActionButtonCorner-D9Ej5fM()
@@ -29773,50 +29773,50 @@ com.example.engtest.ui.theme.AppDimens:
     public final float getFilterChipPaddingH-D9Ej5fM()
     public final float getFilterChipPaddingV-D9Ej5fM()
     public final float getScreenPaddingLarge-D9Ej5fM()
-com.example.engtest.ui.theme.AppTheme:
+com.euysoo.engtest.ui.theme.AppTheme:
     public static final int $stable
-com.example.engtest.ui.theme.ThemeKt:
-    public static final com.example.engtest.ui.theme.AppColors getDarkAppColors()
-com.example.engtest.ui.worddetail.WordDetailUiState$Error:
+com.euysoo.engtest.ui.theme.ThemeKt:
+    public static final com.euysoo.engtest.ui.theme.AppColors getDarkAppColors()
+com.euysoo.engtest.ui.worddetail.WordDetailUiState$Error:
     public static final int $stable
     public final java.lang.String component1()
-    public final com.example.engtest.ui.worddetail.WordDetailUiState$Error copy(java.lang.String)
-    public static synthetic com.example.engtest.ui.worddetail.WordDetailUiState$Error copy$default(com.example.engtest.ui.worddetail.WordDetailUiState$Error,java.lang.String,int,java.lang.Object)
-com.example.engtest.ui.worddetail.WordDetailUiState$Idle:
+    public final com.euysoo.engtest.ui.worddetail.WordDetailUiState$Error copy(java.lang.String)
+    public static synthetic com.euysoo.engtest.ui.worddetail.WordDetailUiState$Error copy$default(com.euysoo.engtest.ui.worddetail.WordDetailUiState$Error,java.lang.String,int,java.lang.Object)
+com.euysoo.engtest.ui.worddetail.WordDetailUiState$Idle:
     public static final int $stable
-com.example.engtest.ui.worddetail.WordDetailUiState$Loading:
+com.euysoo.engtest.ui.worddetail.WordDetailUiState$Loading:
     public static final int $stable
-com.example.engtest.ui.worddetail.WordDetailUiState$NotFound:
+com.euysoo.engtest.ui.worddetail.WordDetailUiState$NotFound:
     public static final int $stable
-com.example.engtest.ui.worddetail.WordDetailUiState$Success:
-    public final com.example.engtest.domain.model.WordDetailUiModel component1()
-    public final com.example.engtest.ui.worddetail.WordDetailUiState$Success copy(com.example.engtest.domain.model.WordDetailUiModel)
-    public static synthetic com.example.engtest.ui.worddetail.WordDetailUiState$Success copy$default(com.example.engtest.ui.worddetail.WordDetailUiState$Success,com.example.engtest.domain.model.WordDetailUiModel,int,java.lang.Object)
-com.example.engtest.ui.worddetail.WordDetailUiState:
+com.euysoo.engtest.ui.worddetail.WordDetailUiState$Success:
+    public final com.euysoo.engtest.domain.model.WordDetailUiModel component1()
+    public final com.euysoo.engtest.ui.worddetail.WordDetailUiState$Success copy(com.euysoo.engtest.domain.model.WordDetailUiModel)
+    public static synthetic com.euysoo.engtest.ui.worddetail.WordDetailUiState$Success copy$default(com.euysoo.engtest.ui.worddetail.WordDetailUiState$Success,com.euysoo.engtest.domain.model.WordDetailUiModel,int,java.lang.Object)
+com.euysoo.engtest.ui.worddetail.WordDetailUiState:
     public static final int $stable
-com.example.engtest.util.AppLogger$LogEntry:
+com.euysoo.engtest.util.AppLogger$LogEntry:
     public static final int $stable
     public final java.lang.String component1()
     public final java.lang.String component2()
     public final java.lang.String component3()
     public final long component4()
-    public final com.example.engtest.util.AppLogger$LogEntry copy(java.lang.String,java.lang.String,java.lang.String,long)
-    public static synthetic com.example.engtest.util.AppLogger$LogEntry copy$default(com.example.engtest.util.AppLogger$LogEntry,java.lang.String,java.lang.String,java.lang.String,long,int,java.lang.Object)
+    public final com.euysoo.engtest.util.AppLogger$LogEntry copy(java.lang.String,java.lang.String,java.lang.String,long)
+    public static synthetic com.euysoo.engtest.util.AppLogger$LogEntry copy$default(com.euysoo.engtest.util.AppLogger$LogEntry,java.lang.String,java.lang.String,java.lang.String,long,int,java.lang.Object)
     public final java.lang.String getLevel()
     public final java.lang.String getMessage()
     public final java.lang.String getTag()
     public final long getTimestamp()
-com.example.engtest.util.AppLogger:
+com.euysoo.engtest.util.AppLogger:
     private static final int MAX_LOG_SIZE
     public final void clear()
-    public static synthetic void e$default(com.example.engtest.util.AppLogger,java.lang.String,java.lang.String,java.lang.Throwable,int,java.lang.Object)
+    public static synthetic void e$default(com.euysoo.engtest.util.AppLogger,java.lang.String,java.lang.String,java.lang.Throwable,int,java.lang.Object)
     public final void eRelease(java.lang.String,java.lang.String,java.lang.Throwable)
     public final java.util.List getLogs()
-com.example.engtest.util.AssetsUtil:
+com.euysoo.engtest.util.AssetsUtil:
     public static final int $stable
-com.example.engtest.util.TestResultDetailsParser:
+com.euysoo.engtest.util.TestResultDetailsParser:
     public static final int $stable
-com.example.engtest.worker.PhoneticFetchWorker:
+com.euysoo.engtest.worker.PhoneticFetchWorker:
     public static final int $stable
     private static final java.lang.String TAG
 kotlin.ArrayIntrinsicsKt
@@ -40034,6 +40034,7 @@ androidx.compose.foundation.layout.WrapContentNode:
     public final void setDirection()
     public static void setUnbounded()
 androidx.compose.foundation.lazy.LazyDslKt$LazyColumn$1:
+    public final synthetic int $$changed
     public final synthetic int $$default
     public final synthetic boolean $reverseLayout
     public final void invoke$2()
@@ -52927,69 +52928,69 @@ androidx.work.impl.utils.taskexecutor.WorkManagerTaskExecutor:
     public static kotlinx.coroutines.CoroutineDispatcher getTaskCoroutineDispatcher()
 androidx.work.impl.workers.ConstraintTrackingWorkerKt:
     public static final void access$setFailed(androidx.work.impl.utils.futures.SettableFuture)
-com.example.engtest.ComposableSingletons$MainActivityKt$lambda-1$1:
+com.euysoo.engtest.ComposableSingletons$MainActivityKt$lambda-1$1:
     public final void invoke$2()
-com.example.engtest.ComposableSingletons$MainActivityKt$lambda-2$1:
+com.euysoo.engtest.ComposableSingletons$MainActivityKt$lambda-2$1:
     public final void invoke$2()
-com.example.engtest.ComposableSingletons$MainActivityKt:
-    public static final com.example.engtest.ComposableSingletons$MainActivityKt INSTANCE
+com.euysoo.engtest.ComposableSingletons$MainActivityKt:
+    public static final com.euysoo.engtest.ComposableSingletons$MainActivityKt INSTANCE
     public static kotlin.jvm.functions.Function2 getLambda-1$app_release()
     public static kotlin.jvm.functions.Function2 getLambda-2$app_release()
-com.example.engtest.EngTestApplication$Companion
-com.example.engtest.EngTestApplication$database$2:
-    public static com.example.engtest.data.AppDatabase invoke()
-com.example.engtest.EngTestApplication$dictionaryRetrofit$2:
+com.euysoo.engtest.EngTestApplication$Companion
+com.euysoo.engtest.EngTestApplication$database$2:
+    public static com.euysoo.engtest.data.AppDatabase invoke()
+com.euysoo.engtest.EngTestApplication$dictionaryRetrofit$2:
     public static retrofit2.Retrofit invoke()
-com.example.engtest.EngTestApplication$loadInitialWordsIfNeeded$1:
+com.euysoo.engtest.EngTestApplication$loadInitialWordsIfNeeded$1:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.EngTestApplication$phoneticRepository$2:
-    public static com.example.engtest.data.repository.PhoneticRepository invoke()
-com.example.engtest.EngTestApplication$warmUpDatabaseOnBackground$1:
+com.euysoo.engtest.EngTestApplication$phoneticRepository$2:
+    public static com.euysoo.engtest.data.repository.PhoneticRepository invoke()
+com.euysoo.engtest.EngTestApplication$warmUpDatabaseOnBackground$1:
     public int label
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.EngTestApplication:
+com.euysoo.engtest.EngTestApplication:
     public static final int $stable
-    public static final com.example.engtest.EngTestApplication$Companion Companion
+    public static final com.euysoo.engtest.EngTestApplication$Companion Companion
     static void <clinit>()
-    public final com.example.engtest.data.repository.PhoneticRepository getPhoneticRepository()
-com.example.engtest.MainActivity$onCreate$1$1$1:
+    public final com.euysoo.engtest.data.repository.PhoneticRepository getPhoneticRepository()
+com.euysoo.engtest.MainActivity$onCreate$1$1$1:
     public final void invoke()
-com.example.engtest.MainActivity$onCreate$1:
+com.euysoo.engtest.MainActivity$onCreate$1:
     public final void invoke$2()
-com.example.engtest.MainActivity:
+com.euysoo.engtest.MainActivity:
     static void <clinit>()
-com.example.engtest.data.AppDatabase:
+com.euysoo.engtest.data.AppDatabase:
     static void <clinit>()
-com.example.engtest.data.AppDatabaseKt:
+com.euysoo.engtest.data.AppDatabaseKt:
     public static final androidx.room.migration.Migration getMIGRATION_1_2()
     public static final androidx.room.migration.Migration getMIGRATION_2_3()
     public static final androidx.room.migration.Migration getMIGRATION_3_4()
     public static final androidx.room.migration.Migration getMIGRATION_4_5()
     public static final androidx.room.migration.Migration getMIGRATION_5_6()
     public static final androidx.room.migration.Migration getMIGRATION_6_7()
-com.example.engtest.data.AppDatabase_Impl$1:
+com.euysoo.engtest.data.AppDatabase_Impl$1:
     public final void onPostMigrate()
-com.example.engtest.data.dao.TestResultDao
-com.example.engtest.data.dao.TestResultDao_Impl$1:
-    public final synthetic com.example.engtest.data.dao.TestResultDao_Impl this$0
+com.euysoo.engtest.data.dao.TestResultDao
+com.euysoo.engtest.data.dao.TestResultDao_Impl$1:
+    public final synthetic com.euysoo.engtest.data.dao.TestResultDao_Impl this$0
     public static void bind$7()
-com.example.engtest.data.dao.TestResultDao_Impl$2:
+com.euysoo.engtest.data.dao.TestResultDao_Impl$2:
     public static java.lang.Long call()
-com.example.engtest.data.dao.TestResultDao_Impl$3:
+com.euysoo.engtest.data.dao.TestResultDao_Impl$3:
     public static java.util.List call()
-com.example.engtest.data.dao.TestResultDao_Impl$4:
+com.euysoo.engtest.data.dao.TestResultDao_Impl$4:
     public static java.util.List call()
-com.example.engtest.data.dao.TestResultDao_Impl$7:
+com.euysoo.engtest.data.dao.TestResultDao_Impl$7:
     public static java.lang.Integer call()
-com.example.engtest.data.dao.TestResultDao_Impl$8:
+com.euysoo.engtest.data.dao.TestResultDao_Impl$8:
     public static java.lang.Float call()
-com.example.engtest.data.dao.TestResultDao_Impl:
+com.euysoo.engtest.data.dao.TestResultDao_Impl:
     public final kotlinx.coroutines.flow.SafeFlow getAllResults()
     public static kotlinx.coroutines.flow.Flow getAverageScoreFlow()
     public static kotlinx.coroutines.flow.Flow getCountFlow()
     public static kotlinx.coroutines.flow.Flow getResultsBetween()
     public static java.lang.Object insert()
-com.example.engtest.data.dao.WordDao:
+com.euysoo.engtest.data.dao.WordDao:
     public abstract java.lang.Object countByWord()
     public abstract java.lang.Object delete()
     public abstract java.lang.Object deleteAll(kotlin.coroutines.jvm.internal.SuspendLambda)
@@ -52998,54 +52999,54 @@ com.example.engtest.data.dao.WordDao:
     public abstract java.lang.Object getCount()
     public abstract kotlinx.coroutines.flow.SafeFlow getCountFlow()
     public abstract java.lang.Object getRandomWords()
-    public abstract java.lang.Object getRandomWordsByDifficulty(com.example.engtest.data.entity.WordDifficulty,com.example.engtest.ui.screen.wordtest.WordTestViewModel$1$list$1)
+    public abstract java.lang.Object getRandomWordsByDifficulty(com.euysoo.engtest.data.entity.WordDifficulty,com.euysoo.engtest.ui.screen.wordtest.WordTestViewModel$1$list$1)
     public abstract java.lang.Object getWordsByIds()
     public abstract java.lang.Object getWordsWithEmptyPhonetic()
-    public abstract java.lang.Object insert(com.example.engtest.data.entity.Word,kotlin.coroutines.jvm.internal.ContinuationImpl)
+    public abstract java.lang.Object insert(com.euysoo.engtest.data.entity.Word,kotlin.coroutines.jvm.internal.ContinuationImpl)
     public abstract java.lang.Object insertAll(java.util.ArrayList,kotlin.coroutines.jvm.internal.SuspendLambda)
-    public abstract java.lang.Object update(com.example.engtest.data.entity.Word,kotlin.coroutines.jvm.internal.SuspendLambda)
-com.example.engtest.data.dao.WordDao_Impl$11:
+    public abstract java.lang.Object update(com.euysoo.engtest.data.entity.Word,kotlin.coroutines.jvm.internal.SuspendLambda)
+com.euysoo.engtest.data.dao.WordDao_Impl$11:
     public static kotlin.Unit call()
-com.example.engtest.data.dao.WordDao_Impl$13:
+com.euysoo.engtest.data.dao.WordDao_Impl$13:
     public static java.util.List call()
-com.example.engtest.data.dao.WordDao_Impl$17:
+com.euysoo.engtest.data.dao.WordDao_Impl$17:
     public static java.util.List call()
-com.example.engtest.data.dao.WordDao_Impl$18:
+com.euysoo.engtest.data.dao.WordDao_Impl$18:
     public static java.util.List call()
-com.example.engtest.data.dao.WordDao_Impl$1:
-    public final synthetic com.example.engtest.data.dao.WordDao_Impl this$0
+com.euysoo.engtest.data.dao.WordDao_Impl$1:
+    public final synthetic com.euysoo.engtest.data.dao.WordDao_Impl this$0
     public final void bind$8()
-com.example.engtest.data.dao.WordDao_Impl$20:
+com.euysoo.engtest.data.dao.WordDao_Impl$20:
     public static java.util.List call()
-com.example.engtest.data.dao.WordDao_Impl$21:
+com.euysoo.engtest.data.dao.WordDao_Impl$21:
     public static java.util.List call()
-com.example.engtest.data.dao.WordDao_Impl$22:
+com.euysoo.engtest.data.dao.WordDao_Impl$22:
     public static java.lang.Integer call()
-com.example.engtest.data.dao.WordDao_Impl$23:
+com.euysoo.engtest.data.dao.WordDao_Impl$23:
     public static java.lang.Integer call()
-com.example.engtest.data.dao.WordDao_Impl$24:
+com.euysoo.engtest.data.dao.WordDao_Impl$24:
     public static java.lang.Integer call()
-com.example.engtest.data.dao.WordDao_Impl$25:
+com.euysoo.engtest.data.dao.WordDao_Impl$25:
     public static java.util.List call()
-com.example.engtest.data.dao.WordDao_Impl$2:
-    public final synthetic com.example.engtest.data.dao.WordDao_Impl this$0
+com.euysoo.engtest.data.dao.WordDao_Impl$2:
+    public final synthetic com.euysoo.engtest.data.dao.WordDao_Impl this$0
     public final void bind$8()
-com.example.engtest.data.dao.WordDao_Impl$3:
-    public final synthetic com.example.engtest.data.dao.WordDao_Impl this$0
+com.euysoo.engtest.data.dao.WordDao_Impl$3:
+    public final synthetic com.euysoo.engtest.data.dao.WordDao_Impl this$0
     public final void bind$8()
-com.example.engtest.data.dao.WordDao_Impl$4:
-    public final synthetic com.example.engtest.data.dao.WordDao_Impl this$0
-com.example.engtest.data.dao.WordDao_Impl$5:
-    public final synthetic com.example.engtest.data.dao.WordDao_Impl this$0
-com.example.engtest.data.dao.WordDao_Impl$6:
+com.euysoo.engtest.data.dao.WordDao_Impl$4:
+    public final synthetic com.euysoo.engtest.data.dao.WordDao_Impl this$0
+com.euysoo.engtest.data.dao.WordDao_Impl$5:
+    public final synthetic com.euysoo.engtest.data.dao.WordDao_Impl this$0
+com.euysoo.engtest.data.dao.WordDao_Impl$6:
     public static java.lang.Long call()
-com.example.engtest.data.dao.WordDao_Impl$7:
+com.euysoo.engtest.data.dao.WordDao_Impl$7:
     public static kotlin.Unit call()
-com.example.engtest.data.dao.WordDao_Impl$8:
+com.euysoo.engtest.data.dao.WordDao_Impl$8:
     public static kotlin.Unit call()
-com.example.engtest.data.dao.WordDao_Impl$9:
+com.euysoo.engtest.data.dao.WordDao_Impl$9:
     public static kotlin.Unit call()
-com.example.engtest.data.dao.WordDao_Impl:
+com.euysoo.engtest.data.dao.WordDao_Impl:
     public final androidx.room.SharedSQLiteStatement __preparedStmtOfUpdateWord
     public final java.lang.Object countByWord()
     public final java.lang.Object delete()
@@ -53057,325 +53058,325 @@ com.example.engtest.data.dao.WordDao_Impl:
     public final java.lang.Object getRandomWords()
     public final java.lang.Object getWordsByIds()
     public final java.lang.Object getWordsWithEmptyPhonetic()
-    public final java.lang.Object insert(com.example.engtest.data.entity.Word,kotlin.coroutines.jvm.internal.ContinuationImpl)
+    public final java.lang.Object insert(com.euysoo.engtest.data.entity.Word,kotlin.coroutines.jvm.internal.ContinuationImpl)
     public final java.lang.Object insertAll(java.util.ArrayList,kotlin.coroutines.jvm.internal.SuspendLambda)
-    public final java.lang.Object update(com.example.engtest.data.entity.Word,kotlin.coroutines.jvm.internal.SuspendLambda)
-com.example.engtest.data.dao.WordDetailDao
-com.example.engtest.data.dao.WordDetailDao_Impl$1:
-    public final synthetic com.example.engtest.data.dao.WordDetailDao_Impl this$0
+    public final java.lang.Object update(com.euysoo.engtest.data.entity.Word,kotlin.coroutines.jvm.internal.SuspendLambda)
+com.euysoo.engtest.data.dao.WordDetailDao
+com.euysoo.engtest.data.dao.WordDetailDao_Impl$1:
+    public final synthetic com.euysoo.engtest.data.dao.WordDetailDao_Impl this$0
     public static void bind$9()
-com.example.engtest.data.dao.WordDetailDao_Impl$2:
-    public final synthetic com.example.engtest.data.dao.WordDetailDao_Impl this$0
-com.example.engtest.data.dao.WordDetailDao_Impl$3:
+com.euysoo.engtest.data.dao.WordDetailDao_Impl$2:
+    public final synthetic com.euysoo.engtest.data.dao.WordDetailDao_Impl this$0
+com.euysoo.engtest.data.dao.WordDetailDao_Impl$3:
     public static kotlin.Unit call()
-com.example.engtest.data.dao.WordDetailDao_Impl$5:
-    public static com.example.engtest.data.entity.WordDetailEntity call()
-com.example.engtest.data.dao.WordDetailDao_Impl:
+com.euysoo.engtest.data.dao.WordDetailDao_Impl$5:
+    public static com.euysoo.engtest.data.entity.WordDetailEntity call()
+com.euysoo.engtest.data.dao.WordDetailDao_Impl:
     public final androidx.room.SharedSQLiteStatement __preparedStmtOfClearAll
     public static java.lang.Object getByWord()
     public static java.lang.Object insert()
-com.example.engtest.data.dao.WordHistoryDao
-com.example.engtest.data.dao.WordHistoryDao_Impl$1:
-    public final synthetic com.example.engtest.data.dao.WordHistoryDao_Impl this$0
+com.euysoo.engtest.data.dao.WordHistoryDao
+com.euysoo.engtest.data.dao.WordHistoryDao_Impl$1:
+    public final synthetic com.euysoo.engtest.data.dao.WordHistoryDao_Impl this$0
     public static void bind$10()
-com.example.engtest.data.dao.WordHistoryDao_Impl$2:
-    public final synthetic com.example.engtest.data.dao.WordHistoryDao_Impl this$0
-com.example.engtest.data.dao.WordHistoryDao_Impl$4:
+com.euysoo.engtest.data.dao.WordHistoryDao_Impl$2:
+    public final synthetic com.euysoo.engtest.data.dao.WordHistoryDao_Impl this$0
+com.euysoo.engtest.data.dao.WordHistoryDao_Impl$4:
     public static kotlin.Unit call()
-com.example.engtest.data.dao.WordHistoryDao_Impl:
+com.euysoo.engtest.data.dao.WordHistoryDao_Impl:
     public final androidx.room.SharedSQLiteStatement __preparedStmtOfClearAll
     public static java.lang.Object insertAll()
-com.example.engtest.data.entity.TestResult:
+com.euysoo.engtest.data.entity.TestResult:
     static void <clinit>()
-com.example.engtest.data.entity.Word:
+com.euysoo.engtest.data.entity.Word:
     static void <clinit>()
-com.example.engtest.data.entity.WordDetailEntity:
+com.euysoo.engtest.data.entity.WordDetailEntity:
     static void <clinit>()
-com.example.engtest.data.entity.WordHistoryEntity:
+com.euysoo.engtest.data.entity.WordHistoryEntity:
     static void <clinit>()
-com.example.engtest.data.json.AppJson$json$1
-com.example.engtest.data.json.AppJson:
+com.euysoo.engtest.data.json.AppJson$json$1
+com.euysoo.engtest.data.json.AppJson:
     public static final int $stable
-    public static final com.example.engtest.data.json.AppJson INSTANCE
+    public static final com.euysoo.engtest.data.json.AppJson INSTANCE
     public static kotlinx.serialization.json.Json getJson()
-com.example.engtest.data.remote.DictionaryEntryDto$$serializer:
-    public static com.example.engtest.data.remote.DictionaryEntryDto deserialize()
+com.euysoo.engtest.data.remote.DictionaryEntryDto$$serializer:
+    public static com.euysoo.engtest.data.remote.DictionaryEntryDto deserialize()
     public static void serialize()
-com.example.engtest.data.remote.PhoneticDto$$serializer:
-    public static com.example.engtest.data.remote.PhoneticDto deserialize()
+com.euysoo.engtest.data.remote.PhoneticDto$$serializer:
+    public static com.euysoo.engtest.data.remote.PhoneticDto deserialize()
     public static void serialize$1()
-com.example.engtest.data.remote.RetrofitClient$instance$2:
-    public static com.example.engtest.data.remote.DictionaryApiService invoke()
-com.example.engtest.data.remote.RetrofitClient:
+com.euysoo.engtest.data.remote.RetrofitClient$instance$2:
+    public static com.euysoo.engtest.data.remote.DictionaryApiService invoke()
+com.euysoo.engtest.data.remote.RetrofitClient:
     public static final int $stable
-    public static final com.example.engtest.data.remote.RetrofitClient INSTANCE
+    public static final com.euysoo.engtest.data.remote.RetrofitClient INSTANCE
     public static final okhttp3.logging.HttpLoggingInterceptor loggingInterceptor
-    public static com.example.engtest.data.remote.DictionaryApiService getInstance()
-com.example.engtest.data.repository.PhoneticRepository$Companion
-com.example.engtest.data.repository.PhoneticRepository$getPhonetic$2:
+    public static com.euysoo.engtest.data.remote.DictionaryApiService getInstance()
+com.euysoo.engtest.data.repository.PhoneticRepository$Companion
+com.euysoo.engtest.data.repository.PhoneticRepository$getPhonetic$2:
     public int label
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.data.repository.PhoneticRepository:
+com.euysoo.engtest.data.repository.PhoneticRepository:
     public static final int $stable
-    public static final com.example.engtest.data.repository.PhoneticRepository$Companion Companion
+    public static final com.euysoo.engtest.data.repository.PhoneticRepository$Companion Companion
     static void <clinit>()
     public final java.lang.Object getPhonetic(java.lang.String,kotlin.coroutines.jvm.internal.ContinuationImpl)
-com.example.engtest.data.repository.WordSyncManager$Companion
-com.example.engtest.data.repository.WordSyncManager:
-    public static final com.example.engtest.data.repository.WordSyncManager$Companion Companion
+com.euysoo.engtest.data.repository.WordSyncManager$Companion
+com.euysoo.engtest.data.repository.WordSyncManager:
+    public static final com.euysoo.engtest.data.repository.WordSyncManager$Companion Companion
     public final java.lang.String sourceVersion
     static void <clinit>()
-com.example.engtest.domain.model.MeaningUiModel:
+com.euysoo.engtest.domain.model.MeaningUiModel:
     static void <clinit>()
-com.example.engtest.domain.model.SyncResult:
+com.euysoo.engtest.domain.model.SyncResult:
     static void <clinit>()
-com.example.engtest.domain.model.WordDetailUiModel:
+com.euysoo.engtest.domain.model.WordDetailUiModel:
     static void <clinit>()
-com.example.engtest.ui.component.AppButtonKt$AppButton$2:
+com.euysoo.engtest.ui.component.AppButtonKt$AppButton$2:
     public final void invoke$2()
-com.example.engtest.ui.component.AppButtonKt$AppChipButton$2:
+com.euysoo.engtest.ui.component.AppButtonKt$AppChipButton$2:
     public final synthetic int $$changed
     public final synthetic int $$default
     public final void invoke$2()
-com.example.engtest.ui.component.AppButtonKt$AppFullWidthButton$2:
+com.euysoo.engtest.ui.component.AppButtonKt$AppFullWidthButton$2:
     public final void invoke$2()
-com.example.engtest.ui.component.AppButtonStyle:
+com.euysoo.engtest.ui.component.AppButtonStyle:
     public static final synthetic kotlin.enums.EnumEntries $ENTRIES
-com.example.engtest.ui.components.AppUiComponentsKt$AppCard$2:
+com.euysoo.engtest.ui.components.AppUiComponentsKt$AppCard$2:
     public final synthetic int $$default
     public final void invoke$2()
-com.example.engtest.ui.components.AppUiComponentsKt$AppTopBar$1:
+com.euysoo.engtest.ui.components.AppUiComponentsKt$AppTopBar$1:
     public final void invoke$2()
-com.example.engtest.ui.components.AppUiComponentsKt$AppTopBar$2:
+com.euysoo.engtest.ui.components.AppUiComponentsKt$AppTopBar$2:
     public final void invoke$2()
-com.example.engtest.ui.components.AppUiComponentsKt$AppTopBar$3:
+com.euysoo.engtest.ui.components.AppUiComponentsKt$AppTopBar$3:
     public final void invoke$29()
-com.example.engtest.ui.components.AppUiComponentsKt$AppTopBar$4:
+com.euysoo.engtest.ui.components.AppUiComponentsKt$AppTopBar$4:
     public final void invoke$2()
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$1$1:
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$1$1:
     public final void invoke()
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$1$2:
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$1$2:
     public final void invoke()
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$1$3:
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$1$3:
     public final void invoke()
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$1:
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$1:
     public final void invoke$77()
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$2$1:
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$2$1:
     public final void invoke()
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$2$2:
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$2$2:
     public final void invoke()
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$2:
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$2:
     public final void invoke$77()
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$3$1:
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$3$1:
     public final void invoke$80()
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$3$2:
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$3$2:
     public final void invoke()
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$3$3:
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$3$3:
     public final void invoke()
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$3:
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$3:
     public final void invoke$77()
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$4
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$5$1:
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$4
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$5$1:
     public final void invoke()
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$5$2:
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$5$2:
     public final void invoke()
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$5:
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$5:
     public final void invoke$77()
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$6$1:
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$6$1:
     public final void invoke()
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$6$2:
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$6$2:
     public final void invoke()
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$6:
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1$6:
     public final void invoke$77()
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1:
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$1:
     public static void invoke$82()
-com.example.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$2:
+com.euysoo.engtest.ui.navigation.EngTestNavHostKt$EngTestNavHost$2:
     public final synthetic int $$changed
     public final synthetic int $$default
     public final void invoke$2()
-com.example.engtest.ui.navigation.NavRoutes
-com.example.engtest.ui.screen.ComposableSingletons$MainScreenKt$lambda-1$1:
+com.euysoo.engtest.ui.navigation.NavRoutes
+com.euysoo.engtest.ui.screen.ComposableSingletons$MainScreenKt$lambda-1$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.ComposableSingletons$MainScreenKt$lambda-2$1:
+com.euysoo.engtest.ui.screen.ComposableSingletons$MainScreenKt$lambda-2$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.ComposableSingletons$MainScreenKt$lambda-3$1$1
-com.example.engtest.ui.screen.ComposableSingletons$MainScreenKt$lambda-3$1$2
-com.example.engtest.ui.screen.ComposableSingletons$MainScreenKt$lambda-3$1$3
-com.example.engtest.ui.screen.ComposableSingletons$MainScreenKt$lambda-3$1
-com.example.engtest.ui.screen.ComposableSingletons$MainScreenKt:
-    public static final com.example.engtest.ui.screen.ComposableSingletons$MainScreenKt INSTANCE
+com.euysoo.engtest.ui.screen.ComposableSingletons$MainScreenKt$lambda-3$1$1
+com.euysoo.engtest.ui.screen.ComposableSingletons$MainScreenKt$lambda-3$1$2
+com.euysoo.engtest.ui.screen.ComposableSingletons$MainScreenKt$lambda-3$1$3
+com.euysoo.engtest.ui.screen.ComposableSingletons$MainScreenKt$lambda-3$1
+com.euysoo.engtest.ui.screen.ComposableSingletons$MainScreenKt:
+    public static final com.euysoo.engtest.ui.screen.ComposableSingletons$MainScreenKt INSTANCE
     public static kotlin.jvm.functions.Function2 lambda-3
     public static kotlin.jvm.functions.Function2 getLambda-1$app_release()
     public static kotlin.jvm.functions.Function2 getLambda-2$app_release()
-com.example.engtest.ui.screen.HomeStats:
+com.euysoo.engtest.ui.screen.HomeStats:
     static void <clinit>()
     public static float getAverageScore()
     public static int getTestCount()
     public static int getWordCount()
-com.example.engtest.ui.screen.MainScreenKt$AppHeader$2:
+com.euysoo.engtest.ui.screen.MainScreenKt$AppHeader$2:
     public final synthetic int $$changed
     public final void invoke$2()
-com.example.engtest.ui.screen.MainScreenKt$ChevronIcon$1:
+com.euysoo.engtest.ui.screen.MainScreenKt$ChevronIcon$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.MainScreenKt$MainScreen$1$1$1$1:
+com.euysoo.engtest.ui.screen.MainScreenKt$MainScreen$1$1$1$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.MainScreenKt$MainScreen$2:
+com.euysoo.engtest.ui.screen.MainScreenKt$MainScreen$2:
     public final void invoke$2()
-com.example.engtest.ui.screen.MainScreenKt$MenuCard$2:
+com.euysoo.engtest.ui.screen.MainScreenKt$MenuCard$2:
     public final synthetic int $$default
     public final void invoke$2()
-com.example.engtest.ui.screen.MainScreenKt$StatCard$2:
+com.euysoo.engtest.ui.screen.MainScreenKt$StatCard$2:
     public final synthetic int $$changed
     public final synthetic int $$default
     public final void invoke$2()
-com.example.engtest.ui.screen.MainScreenKt$StatCardRow$2:
+com.euysoo.engtest.ui.screen.MainScreenKt$StatCardRow$2:
     public final synthetic int $$changed
     public final void invoke$2()
-com.example.engtest.ui.screen.MainViewModel$stats$1:
+com.euysoo.engtest.ui.screen.MainViewModel$stats$1:
     public int label
     public static java.lang.Object invoke$41()
-com.example.engtest.ui.screen.MainViewModel:
+com.euysoo.engtest.ui.screen.MainViewModel:
     public static final int $stable
-    public final com.example.engtest.EngTestApplication application
-    public final com.example.engtest.data.dao.TestResultDao_Impl testResultDao
-    public final com.example.engtest.data.dao.WordDao wordDao
+    public final com.euysoo.engtest.EngTestApplication application
+    public final com.euysoo.engtest.data.dao.TestResultDao_Impl testResultDao
+    public final com.euysoo.engtest.data.dao.WordDao wordDao
     static void <clinit>()
     public static kotlinx.coroutines.flow.StateFlow getStats()
-com.example.engtest.ui.screen.MainViewModelFactory:
+com.euysoo.engtest.ui.screen.MainViewModelFactory:
     public static final int $stable
     static void <clinit>()
-com.example.engtest.ui.screen.records.ComposableSingletons$RecordsScreenKt$lambda-1$1:
+com.euysoo.engtest.ui.screen.records.ComposableSingletons$RecordsScreenKt$lambda-1$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.records.ComposableSingletons$RecordsScreenKt$lambda-2$1:
+com.euysoo.engtest.ui.screen.records.ComposableSingletons$RecordsScreenKt$lambda-2$1:
     public final void invoke$29()
-com.example.engtest.ui.screen.records.ComposableSingletons$RecordsScreenKt$lambda-3$1:
+com.euysoo.engtest.ui.screen.records.ComposableSingletons$RecordsScreenKt$lambda-3$1:
     public final void invoke$29()
-com.example.engtest.ui.screen.records.ComposableSingletons$RecordsScreenKt:
-    public static final com.example.engtest.ui.screen.records.ComposableSingletons$RecordsScreenKt INSTANCE
+com.euysoo.engtest.ui.screen.records.ComposableSingletons$RecordsScreenKt:
+    public static final com.euysoo.engtest.ui.screen.records.ComposableSingletons$RecordsScreenKt INSTANCE
     public static kotlin.jvm.functions.Function2 getLambda-1$app_release()
     public static kotlin.jvm.functions.Function3 getLambda-2$app_release()
     public static kotlin.jvm.functions.Function3 getLambda-3$app_release()
-com.example.engtest.ui.screen.records.RecordsScreenKt$DateBox$1$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$DateBox$1$1:
     public final void invoke$83()
-com.example.engtest.ui.screen.records.RecordsScreenKt$DateBox$2:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$DateBox$2:
     public final synthetic int $$default
     public final void invoke$2()
-com.example.engtest.ui.screen.records.RecordsScreenKt$DateRangeRow$2:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$DateRangeRow$2:
     public final synthetic java.lang.String $fromLabel
     public final synthetic java.lang.String $toLabel
     public final void invoke$2()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsListContent$1$1$1
-com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsListContent$1$1$2$1$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsListContent$1$1$1
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsListContent$1$1$2$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsListContent$1$1$invoke$$inlined$itemsIndexed$default$1:
-    public final synthetic com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsListContent$1$1$1 $key
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsListContent$1$1$invoke$$inlined$itemsIndexed$default$1:
+    public final synthetic com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsListContent$1$1$1 $key
     public final java.lang.Object invoke$43()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsListContent$1$1$invoke$$inlined$itemsIndexed$default$2:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsListContent$1$1$invoke$$inlined$itemsIndexed$default$2:
     public final java.lang.Object invoke$43()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsListContent$1$1$invoke$$inlined$itemsIndexed$default$3:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsListContent$1$1$invoke$$inlined$itemsIndexed$default$3:
     public final void invoke$33()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsListContent$1$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsListContent$1$1:
     public final void invoke$34()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsListContent$2:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsListContent$2:
     public final synthetic int $$default
     public final void invoke$2()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$1$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$2$1$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$2$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$2$1$2$1$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$2$1$2$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$2$1$2$2$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$2$1$2$2$1:
     public final void invoke()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$2$1$2$3:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$2$1$2$3:
     public static void invoke$84()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$2$1$3:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$2$1$3:
     public final void invoke$7()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$2$1$4$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$2$1$4$1:
     public final void invoke()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$2$1$5:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$2$1$5:
     public final void invoke$7()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$2$1$6$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$2$1$6$1:
     public final void invoke()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$2:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$2:
     public static final void access$invoke$lambda$12$lambda$2(androidx.compose.runtime.MutableState,boolean)
     public static final void access$invoke$lambda$12$lambda$5(androidx.compose.runtime.MutableState,boolean)
     public final void invoke$85()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$3:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RecordsScreen$3:
     public final synthetic int $$changed
     public final void invoke$2()
-com.example.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$1:
     public final androidx.compose.runtime.DisposableEffectResult invoke()
-com.example.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$2:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$2:
     public int label
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$3$2$1
-com.example.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$3$2$2$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$3$2$1
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$3$2$2$1:
     public final void invoke()
-com.example.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$3$2$2$2$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$3$2$2$2$1:
     public final void invoke()
-com.example.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$3$2$invoke$$inlined$itemsIndexed$default$1:
-    public final synthetic com.example.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$3$2$1 $key
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$3$2$invoke$$inlined$itemsIndexed$default$1:
+    public final synthetic com.euysoo.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$3$2$1 $key
     public final java.lang.Object invoke$43()
-com.example.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$3$2$invoke$$inlined$itemsIndexed$default$2:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$3$2$invoke$$inlined$itemsIndexed$default$2:
     public final java.lang.Object invoke$43()
-com.example.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$3$2$invoke$$inlined$itemsIndexed$default$3:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$3$2$invoke$$inlined$itemsIndexed$default$3:
     public final void invoke$33()
-com.example.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$3$2:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$3$2:
     public final void invoke$34()
-com.example.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$4$1$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$4$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$5:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$ResultDetailContent$5:
     public final void invoke$2()
-com.example.engtest.ui.screen.records.RecordsScreenKt$ResultListItem$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$ResultListItem$1:
     public final void invoke$83()
-com.example.engtest.ui.screen.records.RecordsScreenKt$ResultListItem$2:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$ResultListItem$2:
     public final void invoke$2()
-com.example.engtest.ui.screen.records.RecordsScreenKt$ResultWordItem$1$1$1$2$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$ResultWordItem$1$1$1$2$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.records.RecordsScreenKt$ResultWordItem$1$1$2$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$ResultWordItem$1$1$2$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.records.RecordsScreenKt$ResultWordItem$1$1$2$2:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$ResultWordItem$1$1$2$2:
     public final void invoke$37()
-com.example.engtest.ui.screen.records.RecordsScreenKt$ResultWordItem$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$ResultWordItem$1:
     public final void invoke$83()
-com.example.engtest.ui.screen.records.RecordsScreenKt$ResultWordItem$2:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$ResultWordItem$2:
     public final void invoke$2()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RoundedDatePickerDialog$1$1$1$1$1$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RoundedDatePickerDialog$1$1$1$1$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RoundedDatePickerDialog$1$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RoundedDatePickerDialog$1$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RoundedDatePickerDialog$1:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RoundedDatePickerDialog$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.records.RecordsScreenKt$RoundedDatePickerDialog$2:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt$RoundedDatePickerDialog$2:
     public final void invoke$2()
-com.example.engtest.ui.screen.records.RecordsScreenKt:
+com.euysoo.engtest.ui.screen.records.RecordsScreenKt:
     public static final boolean ResultDetailContent$lambda$13(androidx.compose.runtime.MutableState)
-com.example.engtest.ui.screen.records.RecordsViewModel$1:
+com.euysoo.engtest.ui.screen.records.RecordsViewModel$1:
     public int label
     public static java.lang.Object invoke$45()
-com.example.engtest.ui.screen.records.RecordsViewModel$3:
+com.euysoo.engtest.ui.screen.records.RecordsViewModel$3:
     public int label
     public final java.lang.Object invoke$46()
-com.example.engtest.ui.screen.records.RecordsViewModel$loadWordStatsMap$2:
+com.euysoo.engtest.ui.screen.records.RecordsViewModel$loadWordStatsMap$2:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.records.RecordsViewModel$setSelectedResult$1$1:
+com.euysoo.engtest.ui.screen.records.RecordsViewModel$setSelectedResult$1$1:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.records.RecordsViewModel$setSelectedResult$1$2:
+com.euysoo.engtest.ui.screen.records.RecordsViewModel$setSelectedResult$1$2:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.records.RecordsViewModel$setSelectedResult$1$3$1:
+com.euysoo.engtest.ui.screen.records.RecordsViewModel$setSelectedResult$1$3$1:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.records.RecordsViewModel$setSelectedResult$1$4:
+com.euysoo.engtest.ui.screen.records.RecordsViewModel$setSelectedResult$1$4:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.records.RecordsViewModel$setSelectedResult$1:
+com.euysoo.engtest.ui.screen.records.RecordsViewModel$setSelectedResult$1:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.records.RecordsViewModel$special$$inlined$flatMapLatest$1:
+com.euysoo.engtest.ui.screen.records.RecordsViewModel$special$$inlined$flatMapLatest$1:
     public final java.lang.Object invoke$47()
-com.example.engtest.ui.screen.records.RecordsViewModel:
+com.euysoo.engtest.ui.screen.records.RecordsViewModel:
     public static final int $stable
-    public final com.example.engtest.EngTestApplication application
+    public final com.euysoo.engtest.EngTestApplication application
     static void <clinit>()
     public static kotlinx.coroutines.flow.StateFlow getFromMillis()
     public static kotlinx.coroutines.flow.StateFlow getResultWordStats()
@@ -53386,51 +53387,51 @@ com.example.engtest.ui.screen.records.RecordsViewModel:
     public static void setFromMillis()
     public static void setSelectedResult()
     public static void setToMillis()
-com.example.engtest.ui.screen.records.RecordsViewModelFactory:
+com.euysoo.engtest.ui.screen.records.RecordsViewModelFactory:
     public static final int $stable
     static void <clinit>()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-1$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-1$1:
     public final void invoke$29()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-10$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-10$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-11$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-11$1:
     public final void invoke$29()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-12$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-12$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-13$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-13$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-14$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-14$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-15$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-15$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-16$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-16$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-17$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-17$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-18$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-18$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-19$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-19$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-2$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-2$1:
     public final void invoke$29()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-20$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-20$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-3$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-3$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-4$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-4$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-5$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-5$1:
     public final void invoke$29()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-6$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-6$1:
     public final void invoke$29()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-7$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-7$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-8$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-8$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-9$1:
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt$lambda-9$1:
     public final void invoke$29()
-com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt:
-    public static final com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt INSTANCE
+com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt:
+    public static final com.euysoo.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt INSTANCE
     public static kotlin.jvm.functions.Function3 getLambda-1$app_release()
     public static kotlin.jvm.functions.Function2 getLambda-10$app_release()
     public static kotlin.jvm.functions.Function3 getLambda-11$app_release()
@@ -53451,203 +53452,203 @@ com.example.engtest.ui.screen.wordmanage.ComposableSingletons$WordManageScreenKt
     public static kotlin.jvm.functions.Function2 getLambda-7$app_release()
     public static kotlin.jvm.functions.Function2 getLambda-8$app_release()
     public static kotlin.jvm.functions.Function3 getLambda-9$app_release()
-com.example.engtest.ui.screen.wordmanage.SyncUiState$Error:
+com.euysoo.engtest.ui.screen.wordmanage.SyncUiState$Error:
     static void <clinit>()
     public static java.lang.String getMessage()
-com.example.engtest.ui.screen.wordmanage.SyncUiState$Success:
+com.euysoo.engtest.ui.screen.wordmanage.SyncUiState$Success:
     static void <clinit>()
-    public static com.example.engtest.domain.model.SyncResult getResult()
-com.example.engtest.ui.screen.wordmanage.SyncUiState:
+    public static com.euysoo.engtest.domain.model.SyncResult getResult()
+com.euysoo.engtest.ui.screen.wordmanage.SyncUiState:
     static void <clinit>()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$1$1$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$1$1$1$1:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$1$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$1$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$2:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$2:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$3$1$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$3$1$1$1:
     public final void invoke$80()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$3$1$2$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$3$1$2$1:
     public final void invoke$80()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$3$1$3$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$3$1$3$1:
     public final void invoke$80()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$3$1$4$1$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$3$1$4$1$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$3:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$3:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$4:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$AddWordDialog$4:
     public final synthetic int $$changed
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$IconActionBox$2:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$IconActionBox$2:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$SyncResultDialog$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$SyncResultDialog$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$SyncResultDialog$2:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$SyncResultDialog$2:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$SyncResultDialog$3:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$SyncResultDialog$3:
     public final synthetic int $$changed
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$SyncResultRow$2:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$SyncResultRow$2:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$1$1:
     public int label
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$2$1$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$2$1$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$2:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$2:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$3:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$3:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$4$1$1$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$4$1$1$1$1:
     public final void invoke$80()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$4$1$2$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$4$1$2$1$1:
     public final void invoke$80()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$4$1$3$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$4$1$3$1$1:
     public final void invoke$80()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$4$1$4$1$1$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$4$1$4$1$1$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$4:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$4:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$5:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordEditDialog$5:
     public final synthetic int $$changed
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordListItem$2$1$2$1$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordListItem$2$1$2$1$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordListItem$2$1$2$1$2:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordListItem$2$1$2$1$2:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordListItem$2$1$2$1$3:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordListItem$2$1$2$1$3:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordListItem$3:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordListItem$3:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$10$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$10$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$10$2:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$10$2:
     public final void invoke$86()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$11$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$11$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$12$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$12$1:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$12:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$12:
     public final void invoke$86()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$13:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$13:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$14:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$14:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$15$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$15$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$15:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$15:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$16:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$16:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$17$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$17$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$18:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$18:
     public final synthetic int $$changed
     public final synthetic int $$default
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$1
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$2:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$1
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$2:
     public int label
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$3:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$3:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$4:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$4:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$1$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$1$1$1:
     public final void invoke$80()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$1$1$2:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$1$1$2:
     public final void invoke$20()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$2$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$2$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$3:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$3:
     public int label
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$4:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$4:
     public final androidx.compose.runtime.DisposableEffectResult invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5$1
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5$2$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5$1
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5$2$1:
     public final void invoke$80()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5$2$2$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5$2$2$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5$2$3:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5$2$3:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5$2$4$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5$2$4$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5$invoke$$inlined$itemsIndexed$default$1:
-    public final synthetic com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5$1 $key
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5$invoke$$inlined$itemsIndexed$default$1:
+    public final synthetic com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5$1 $key
     public final java.lang.Object invoke$43()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5$invoke$$inlined$itemsIndexed$default$2:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5$invoke$$inlined$itemsIndexed$default$2:
     public final java.lang.Object invoke$43()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5$invoke$$inlined$itemsIndexed$default$3:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5$invoke$$inlined$itemsIndexed$default$3:
     public final void invoke$33()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$5:
     public final void invoke$34()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$6$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$6$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$6$2$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5$1$1$6$2$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$5:
     public final void invoke$85()
     public static final boolean invoke$lambda$14$lambda$12$lambda$5(androidx.compose.runtime.MutableState)
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$6$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$6$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$7$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$7$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$7:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$7:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$8$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$8$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$8:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$8:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$9$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$9$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$9$2$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$9$2$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$9$2:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$9$2:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$9$3$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$9$3$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$9$3:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt$WordManageScreen$9$3:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordmanage.WordManageScreenKt:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageScreenKt:
     public static final void access$WordManageScreen$lambda$10(androidx.compose.runtime.MutableState,boolean)
     public static final void access$WordManageScreen$lambda$13(androidx.compose.runtime.MutableState,boolean)
     public static final boolean access$WordManageScreen$lambda$4(androidx.compose.runtime.State)
-    public static final com.example.engtest.ui.screen.wordmanage.SyncUiState access$WordManageScreen$lambda$7(androidx.compose.runtime.State)
-com.example.engtest.ui.screen.wordmanage.WordManageViewModel$1:
+    public static final com.euysoo.engtest.ui.screen.wordmanage.SyncUiState access$WordManageScreen$lambda$7(androidx.compose.runtime.State)
+com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModel$1:
     public int label
     public final java.lang.Object invoke$46()
-com.example.engtest.ui.screen.wordmanage.WordManageViewModel$Companion
-com.example.engtest.ui.screen.wordmanage.WordManageViewModel$addWordIfNew$2$newId$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModel$Companion
+com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModel$addWordIfNew$2$newId$1:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.wordmanage.WordManageViewModel$deleteWord$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModel$deleteWord$1$1:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.wordmanage.WordManageViewModel$deleteWord$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModel$deleteWord$1:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.wordmanage.WordManageViewModel$loadInitialWords$1$jsonString$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModel$loadInitialWords$1$jsonString$1:
     public int label
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.wordmanage.WordManageViewModel$loadInitialWords$1$result$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModel$loadInitialWords$1$result$1:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.wordmanage.WordManageViewModel$loadInitialWords$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModel$loadInitialWords$1:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.wordmanage.WordManageViewModel$updateWord$1$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModel$updateWord$1$1:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.wordmanage.WordManageViewModel$updateWord$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModel$updateWord$1:
     public long J$0
     public long J$1
     public long J$2
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.wordmanage.WordManageViewModel$wordsWithStats$1:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModel$wordsWithStats$1:
     public int label
     public static java.lang.Object invoke$49()
-com.example.engtest.ui.screen.wordmanage.WordManageViewModel:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModel:
     public static final int $stable
-    public static final com.example.engtest.ui.screen.wordmanage.WordManageViewModel$Companion Companion
+    public static final com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModel$Companion Companion
     public final kotlinx.coroutines.flow.ReadonlyStateFlow allWords
-    public final com.example.engtest.data.dao.TestResultDao_Impl testResultDao
+    public final com.euysoo.engtest.data.dao.TestResultDao_Impl testResultDao
     static void <clinit>()
     public static void clearRecentlyAdded()
     public static void deleteWord()
@@ -53662,123 +53663,123 @@ com.example.engtest.ui.screen.wordmanage.WordManageViewModel:
     public static void loadInitialWords()
     public final void resetSyncState()
     public static void setSearchQuery()
-    public final void setWordToEdit(com.example.engtest.data.entity.Word)
+    public final void setWordToEdit(com.euysoo.engtest.data.entity.Word)
     public static void updateWord()
-com.example.engtest.ui.screen.wordmanage.WordManageViewModelFactory:
+com.euysoo.engtest.ui.screen.wordmanage.WordManageViewModelFactory:
     public static final int $stable
     static void <clinit>()
-com.example.engtest.ui.screen.wordmanage.WordWithStats:
+com.euysoo.engtest.ui.screen.wordmanage.WordWithStats:
     static void <clinit>()
     public final java.lang.Float getCorrectRate()
     public final int getTotalCount()
-    public final com.example.engtest.data.entity.Word getWord()
+    public final com.euysoo.engtest.data.entity.Word getWord()
     public final java.lang.Float getWrongRate()
-com.example.engtest.ui.screen.wordtest.ComposableSingletons$WordTestScreenKt$lambda-1$1:
+com.euysoo.engtest.ui.screen.wordtest.ComposableSingletons$WordTestScreenKt$lambda-1$1:
     public final void invoke$29()
-com.example.engtest.ui.screen.wordtest.ComposableSingletons$WordTestScreenKt:
-    public static final com.example.engtest.ui.screen.wordtest.ComposableSingletons$WordTestScreenKt INSTANCE
+com.euysoo.engtest.ui.screen.wordtest.ComposableSingletons$WordTestScreenKt:
+    public static final com.euysoo.engtest.ui.screen.wordtest.ComposableSingletons$WordTestScreenKt INSTANCE
     public static kotlin.jvm.functions.Function3 getLambda-1$app_release()
-com.example.engtest.ui.screen.wordtest.DifficultyOption:
+com.euysoo.engtest.ui.screen.wordtest.DifficultyOption:
     static void <clinit>()
     public static java.lang.String getKey()
     public static java.lang.String getLabel()
     public static java.lang.String getSubtitle()
     public static long getTint-0d7_KjU()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$ResultWordItem$1$1$1$2$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$ResultWordItem$1$1$1$2$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$ResultWordItem$1$1$2:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$ResultWordItem$1$1$2:
     public final void invoke$37()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$ResultWordItem$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$ResultWordItem$1:
     public final void invoke$83()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$ResultWordItem$2:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$ResultWordItem$2:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$TestResultContent$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$TestResultContent$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$TestResultContent$2$1$1$2$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$TestResultContent$2$1$1$2$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$TestResultContent$2$1$invoke$$inlined$itemsIndexed$default$2:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$TestResultContent$2$1$invoke$$inlined$itemsIndexed$default$2:
     public final java.lang.Object invoke$43()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$TestResultContent$2$1$invoke$$inlined$itemsIndexed$default$3:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$TestResultContent$2$1$invoke$$inlined$itemsIndexed$default$3:
     public final void invoke$33()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$TestResultContent$2$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$TestResultContent$2$1:
     public final void invoke$34()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$TestResultContent$3:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$TestResultContent$3:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$1:
     public final androidx.compose.runtime.DisposableEffectResult invoke()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$2:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$2:
     public int label
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$3$1$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$3$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$3:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$3:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$1:
     public final void invoke$86()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$1$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$1$1:
     public final java.lang.Float invoke$1()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$2$1$1$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$2$1$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$2$1$1$2:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$2$1$1$2:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$2:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$2:
     public final void invoke$83()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$3$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$3$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$3$2:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$3$2:
     public final void invoke$29()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$3$3:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$3$3:
     public final void invoke()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$3$4:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$3$4:
     public final void invoke$29()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$4$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$4$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$4$2:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$4$2:
     public final void invoke$29()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$5$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4$1$4$5$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$4:
     public final void invoke$85()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$5:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt$WordTestScreen$5:
     public final synthetic int $$changed
     public final void invoke$2()
-com.example.engtest.ui.screen.wordtest.WordTestScreenKt:
+com.euysoo.engtest.ui.screen.wordtest.WordTestScreenKt:
     public static final boolean WordTestScreen$lambda$1(androidx.compose.runtime.MutableState)
     public static final java.util.List access$WordTestScreen$lambda$10(androidx.compose.runtime.State)
     public static final java.util.List access$WordTestScreen$lambda$5(androidx.compose.runtime.State)
     public static final int access$WordTestScreen$lambda$6(androidx.compose.runtime.State)
     public static final boolean access$WordTestScreen$lambda$8(androidx.compose.runtime.State)
     public static final boolean access$WordTestScreen$lambda$9(androidx.compose.runtime.State)
-com.example.engtest.ui.screen.wordtest.WordTestSelectScreenKt$DifficultyCard$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestSelectScreenKt$DifficultyCard$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordtest.WordTestSelectScreenKt$DifficultyCard$2:
+com.euysoo.engtest.ui.screen.wordtest.WordTestSelectScreenKt$DifficultyCard$2:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordtest.WordTestSelectScreenKt$WordTestSelectScreen$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestSelectScreenKt$WordTestSelectScreen$1:
     public final void invoke$2()
-com.example.engtest.ui.screen.wordtest.WordTestSelectScreenKt$WordTestSelectScreen$2$1$1$1$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestSelectScreenKt$WordTestSelectScreen$2$1$1$1$1:
     public final void invoke()
-com.example.engtest.ui.screen.wordtest.WordTestSelectScreenKt$WordTestSelectScreen$2:
+com.euysoo.engtest.ui.screen.wordtest.WordTestSelectScreenKt$WordTestSelectScreen$2:
     public final void invoke$85()
-com.example.engtest.ui.screen.wordtest.WordTestSelectScreenKt$WordTestSelectScreen$3:
+com.euysoo.engtest.ui.screen.wordtest.WordTestSelectScreenKt$WordTestSelectScreen$3:
     public final synthetic int $$changed
     public final void invoke$2()
-com.example.engtest.ui.screen.wordtest.WordTestViewModel$1$list$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestViewModel$1$list$1:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.wordtest.WordTestViewModel$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestViewModel$1:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.wordtest.WordTestViewModel$Companion
-com.example.engtest.ui.screen.wordtest.WordTestViewModel$saveResultAndShowResultScreen$1$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestViewModel$Companion
+com.euysoo.engtest.ui.screen.wordtest.WordTestViewModel$saveResultAndShowResultScreen$1$1:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.wordtest.WordTestViewModel$saveResultAndShowResultScreen$1$details$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestViewModel$saveResultAndShowResultScreen$1$details$1:
     public static java.lang.CharSequence invoke$4()
-com.example.engtest.ui.screen.wordtest.WordTestViewModel$saveResultAndShowResultScreen$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestViewModel$saveResultAndShowResultScreen$1:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.wordtest.WordTestViewModel$startTimer$1:
+com.euysoo.engtest.ui.screen.wordtest.WordTestViewModel$startTimer$1:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.screen.wordtest.WordTestViewModel:
+com.euysoo.engtest.ui.screen.wordtest.WordTestViewModel:
     public static final int $stable
-    public static final com.example.engtest.ui.screen.wordtest.WordTestViewModel$Companion Companion
-    public final com.example.engtest.EngTestApplication application
+    public static final com.euysoo.engtest.ui.screen.wordtest.WordTestViewModel$Companion Companion
+    public final com.euysoo.engtest.EngTestApplication application
     static void <clinit>()
     public static void changeLastAnswerToUnknown()
     public static void confirmAndProceed()
@@ -53791,10 +53792,10 @@ com.example.engtest.ui.screen.wordtest.WordTestViewModel:
     public static kotlinx.coroutines.flow.StateFlow getTestStartTime()
     public static kotlinx.coroutines.flow.StateFlow getWords()
     public static void onTimeUp()
-com.example.engtest.ui.screen.wordtest.WordTestViewModelFactory:
+com.euysoo.engtest.ui.screen.wordtest.WordTestViewModelFactory:
     public static final int $stable
     static void <clinit>()
-com.example.engtest.ui.theme.AppColors:
+com.euysoo.engtest.ui.theme.AppColors:
     static void <clinit>()
     public final long getBgCard-0d7_KjU()
     public final long getBgCardAccent-0d7_KjU()
@@ -53811,8 +53812,8 @@ com.example.engtest.ui.theme.AppColors:
     public final long getTextMuted-0d7_KjU()
     public static long getTextPrimary-0d7_KjU()
     public final long getTextSecondary-0d7_KjU()
-com.example.engtest.ui.theme.AppDimens:
-    public static final com.example.engtest.ui.theme.AppDimens INSTANCE
+com.euysoo.engtest.ui.theme.AppDimens:
+    public static final com.euysoo.engtest.ui.theme.AppDimens INSTANCE
     public static final float actionButtonBorder
     public static final float actionButtonCorner
     public static final long actionButtonFont
@@ -53840,80 +53841,83 @@ com.example.engtest.ui.theme.AppDimens:
     public static float getTopBarBadgePaddingH-D9Ej5fM()
     public static float getTopBarBadgePaddingV-D9Ej5fM()
     public static long getTopBarTitleFont-XSAIIZE()
-com.example.engtest.ui.theme.AppTheme
-com.example.engtest.ui.theme.ThemeKt$EngTestTheme$1:
+com.euysoo.engtest.ui.theme.AppTheme
+com.euysoo.engtest.ui.theme.ThemeKt$EngTestTheme$1:
     public final synthetic androidx.compose.runtime.internal.ComposableLambdaImpl $content
     public final void invoke$2()
-com.example.engtest.ui.theme.ThemeKt$EngTestTheme$2:
+com.euysoo.engtest.ui.theme.ThemeKt$EngTestTheme$2:
     public final synthetic int $$changed
     public final synthetic int $$default
     public final synthetic androidx.compose.runtime.internal.ComposableLambdaImpl $content
     public final void invoke$2()
-com.example.engtest.ui.theme.ThemeKt$LocalAppColors$1:
-    public static com.example.engtest.ui.theme.AppColors invoke()
-com.example.engtest.ui.theme.TypeKt:
+com.euysoo.engtest.ui.theme.ThemeKt$LocalAppColors$1:
+    public static com.euysoo.engtest.ui.theme.AppColors invoke()
+com.euysoo.engtest.ui.theme.TypeKt:
     public static final androidx.compose.ui.text.font.DefaultFontFamily AppFontFamily
-com.example.engtest.ui.worddetail.ComposableSingletons$WordDetailBottomSheetKt$lambda-1$1:
+com.euysoo.engtest.ui.worddetail.ComposableSingletons$WordDetailBottomSheetKt$lambda-1$1:
     public final void invoke$29()
-com.example.engtest.ui.worddetail.ComposableSingletons$WordDetailBottomSheetKt:
-    public static final com.example.engtest.ui.worddetail.ComposableSingletons$WordDetailBottomSheetKt INSTANCE
+com.euysoo.engtest.ui.worddetail.ComposableSingletons$WordDetailBottomSheetKt:
+    public static final com.euysoo.engtest.ui.worddetail.ComposableSingletons$WordDetailBottomSheetKt INSTANCE
     public static kotlin.jvm.functions.Function3 getLambda-1$app_release()
-com.example.engtest.ui.worddetail.WordDetailBottomSheetKt$WordDetailBottomSheet$1:
+com.euysoo.engtest.ui.worddetail.WordDetailBottomSheetKt$WordDetailBottomSheet$1:
     public int label
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.worddetail.WordDetailBottomSheetKt$WordDetailBottomSheet$2:
+com.euysoo.engtest.ui.worddetail.WordDetailBottomSheetKt$WordDetailBottomSheet$2:
     public final void invoke()
-com.example.engtest.ui.worddetail.WordDetailBottomSheetKt$WordDetailBottomSheet$3$1$3$1$1:
+com.euysoo.engtest.ui.worddetail.WordDetailBottomSheetKt$WordDetailBottomSheet$3$1$3$1$1:
     public final void invoke()
-com.example.engtest.ui.worddetail.WordDetailBottomSheetKt$WordDetailBottomSheet$3:
+com.euysoo.engtest.ui.worddetail.WordDetailBottomSheetKt$WordDetailBottomSheet$3:
     public final void invoke$83()
-com.example.engtest.ui.worddetail.WordDetailBottomSheetKt$WordDetailBottomSheet$4:
+com.euysoo.engtest.ui.worddetail.WordDetailBottomSheetKt$WordDetailBottomSheet$4:
+    public final synthetic int $$changed
     public final void invoke$2()
-com.example.engtest.ui.worddetail.WordDetailBottomSheetKt$WordDetailContent$1$1$1:
+com.euysoo.engtest.ui.worddetail.WordDetailBottomSheetKt$WordDetailContent$1$1$1:
     public final void invoke$2()
-com.example.engtest.ui.worddetail.WordDetailBottomSheetKt$WordDetailContent$1$1$3$1:
+com.euysoo.engtest.ui.worddetail.WordDetailBottomSheetKt$WordDetailContent$1$1$3$1:
     public final void invoke$2()
-com.example.engtest.ui.worddetail.WordDetailBottomSheetKt$WordDetailContent$2:
+com.euysoo.engtest.ui.worddetail.WordDetailBottomSheetKt$WordDetailContent$2:
+    public final synthetic int $$changed
     public final void invoke$2()
-com.example.engtest.ui.worddetail.WordDetailUiState$Error:
+com.euysoo.engtest.ui.worddetail.WordDetailUiState$Error:
     static void <clinit>()
     public static java.lang.String getMessage()
-com.example.engtest.ui.worddetail.WordDetailUiState$Success:
+com.euysoo.engtest.ui.worddetail.WordDetailUiState$Success:
     public static final int $stable
     static void <clinit>()
-    public static com.example.engtest.domain.model.WordDetailUiModel getData()
-com.example.engtest.ui.worddetail.WordDetailUiState:
+    public static com.euysoo.engtest.domain.model.WordDetailUiModel getData()
+com.euysoo.engtest.ui.worddetail.WordDetailUiState:
     static void <clinit>()
-com.example.engtest.ui.worddetail.WordDetailViewModel$loadWordDetail$1$response$1:
+com.euysoo.engtest.ui.worddetail.WordDetailViewModel$loadWordDetail$1$response$1:
     public int label
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.worddetail.WordDetailViewModel$loadWordDetail$1:
+com.euysoo.engtest.ui.worddetail.WordDetailViewModel$loadWordDetail$1:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.ui.worddetail.WordDetailViewModel:
+com.euysoo.engtest.ui.worddetail.WordDetailViewModel:
     public static final int $stable
     static void <clinit>()
     public static kotlinx.coroutines.flow.StateFlow getUiState()
     public static void resetState()
-com.example.engtest.ui.worddetail.WordDetailViewModelFactory:
+com.euysoo.engtest.ui.worddetail.WordDetailViewModelFactory:
     public static final int $stable
-com.example.engtest.util.AppLogger$LogEntry:
     static void <clinit>()
-com.example.engtest.util.AppLogger:
+com.euysoo.engtest.util.AppLogger$LogEntry:
+    static void <clinit>()
+com.euysoo.engtest.util.AppLogger:
     public static final int $stable
-    public static final com.example.engtest.util.AppLogger INSTANCE
+    public static final com.euysoo.engtest.util.AppLogger INSTANCE
     public static void i()
     public static void w(java.lang.String,java.lang.String)
-com.example.engtest.util.AssetsUtil:
-    public static final com.example.engtest.util.AssetsUtil INSTANCE
+com.euysoo.engtest.util.AssetsUtil:
+    public static final com.euysoo.engtest.util.AssetsUtil INSTANCE
     static void <clinit>()
-com.example.engtest.util.TestResultDetailsParser:
-    public static final com.example.engtest.util.TestResultDetailsParser INSTANCE
+com.euysoo.engtest.util.TestResultDetailsParser:
+    public static final com.euysoo.engtest.util.TestResultDetailsParser INSTANCE
     static void <clinit>()
-com.example.engtest.worker.PhoneticFetchWorker$Companion
-com.example.engtest.worker.PhoneticFetchWorker$doWork$2:
+com.euysoo.engtest.worker.PhoneticFetchWorker$Companion
+com.euysoo.engtest.worker.PhoneticFetchWorker$doWork$2:
     public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation)
-com.example.engtest.worker.PhoneticFetchWorker:
-    public static final com.example.engtest.worker.PhoneticFetchWorker$Companion Companion
+com.euysoo.engtest.worker.PhoneticFetchWorker:
+    public static final com.euysoo.engtest.worker.PhoneticFetchWorker$Companion Companion
     static void <clinit>()
 kotlin.DeepRecursiveFunction
 kotlin.DeepRecursiveScope

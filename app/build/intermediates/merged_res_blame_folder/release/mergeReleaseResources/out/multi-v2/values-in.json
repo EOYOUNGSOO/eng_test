@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.engtest.app-mergeReleaseResources-55:/values-in/values-in.xml",
+            "outputFile": "com.euysoo.engtest.app-mergeReleaseResources-55:/values-in/values-in.xml",
             "map": [
                 {
                     "source": "C:\\Users\\user\\.gradle\\caches\\8.13\\transforms\\38689052def08371024cdac9a0de670d\\transformed\\material3-release\\res\\values-in\\values-in.xml",

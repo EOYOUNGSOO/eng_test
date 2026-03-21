@@ -35,12 +35,12 @@ tasks.register("downloadPretendard") {
 tasks.named("preBuild").configure { dependsOn("downloadPretendard") }
 
 android {
-    namespace = "com.example.engtest"
-    compileSdk = 34
+    namespace = "com.euysoo.engtest"
+    compileSdk = 35
     defaultConfig {
-        applicationId = "com.example.engtest"
+        applicationId = "com.euysoo.engtest"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
     }

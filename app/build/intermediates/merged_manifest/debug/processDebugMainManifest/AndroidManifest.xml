@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.engtest.debug"
+    package="com.euysoo.engtest.debug"
     android:versionCode="1"
     android:versionName="1.0-DEBUG" >
 
     <uses-sdk
         android:minSdkVersion="26"
-        android:targetSdkVersion="34" />
+        android:targetSdkVersion="35" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,13 +15,13 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <permission
-        android:name="com.example.engtest.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:name="com.euysoo.engtest.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.example.engtest.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+    <uses-permission android:name="com.euysoo.engtest.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
-        android:name="com.example.engtest.EngTestApplication"
+        android:name="com.euysoo.engtest.EngTestApplication"
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
@@ -33,7 +33,7 @@
         android:testOnly="true"
         android:theme="@style/Theme.EngTest" >
         <activity
-            android:name="com.example.engtest.MainActivity"
+            android:name="com.euysoo.engtest.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.EngTest" >
             <intent-filter>
@@ -45,7 +45,7 @@
 
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.example.engtest.debug.androidx-startup"
+            android:authorities="com.euysoo.engtest.debug.androidx-startup"
             android:exported="false" >
             <meta-data
                 android:name="androidx.work.WorkManagerInitializer"

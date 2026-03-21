@@ -13,5 +13,5 @@
 -keep class androidx.work.impl.diagnostics.DiagnosticsReceiver { <init>(); }
 -keep class androidx.work.impl.foreground.SystemForegroundService { <init>(); }
 -keep class androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver { <init>(); }
--keep class com.example.engtest.EngTestApplication { <init>(); }
--keep class com.example.engtest.MainActivity { <init>(); }
+-keep class com.euysoo.engtest.EngTestApplication { <init>(); }
+-keep class com.euysoo.engtest.MainActivity { <init>(); }

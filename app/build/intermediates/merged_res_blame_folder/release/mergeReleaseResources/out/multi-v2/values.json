@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.engtest.app-mergeReleaseResources-55:/values/values.xml",
+            "outputFile": "com.euysoo.engtest.app-mergeReleaseResources-55:/values/values.xml",
             "map": [
                 {
                     "source": "E:\\gitSrc\\eng_test\\app\\src\\main\\res\\values\\colors.xml",

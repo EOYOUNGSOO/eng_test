@@ -20,25 +20,25 @@
 }
 
 # ── data 모델 (JSON 직렬화) ──
--keep class com.example.engtest.data.model.** { *; }
--keepclassmembers class com.example.engtest.data.model.** { *; }
+-keep class com.euysoo.engtest.data.model.** { *; }
+-keepclassmembers class com.euysoo.engtest.data.model.** { *; }
 
--keep class com.example.engtest.data.remote.model.** { *; }
--keepclassmembers class com.example.engtest.data.remote.model.** { *; }
+-keep class com.euysoo.engtest.data.remote.model.** { *; }
+-keepclassmembers class com.euysoo.engtest.data.remote.model.** { *; }
 
--keep interface com.example.engtest.data.remote.DictionaryApiService { *; }
--keep class com.example.engtest.data.remote.DictionaryEntryDto { *; }
--keep class com.example.engtest.data.remote.PhoneticDto { *; }
+-keep interface com.euysoo.engtest.data.remote.DictionaryApiService { *; }
+-keep class com.euysoo.engtest.data.remote.DictionaryEntryDto { *; }
+-keep class com.euysoo.engtest.data.remote.PhoneticDto { *; }
 
 # WordAssetLoader 내부 직렬화 DTO
--keep class com.example.engtest.data.loader.** { *; }
+-keep class com.euysoo.engtest.data.loader.** { *; }
 
 # ── Room Entity ──
--keep class com.example.engtest.data.entity.** { *; }
--keepclassmembers class com.example.engtest.data.entity.** { *; }
+-keep class com.euysoo.engtest.data.entity.** { *; }
+-keepclassmembers class com.euysoo.engtest.data.entity.** { *; }
 
 # 도메인 모델
--keep class com.example.engtest.domain.model.** { *; }
+-keep class com.euysoo.engtest.domain.model.** { *; }
 
 # Retrofit
 -dontwarn retrofit2.**
