@@ -1,17 +1,17 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.engtest.app-mergeReleaseResources-50:/values-night-v8/values-night-v8.xml",
+            "outputFile": "com.example.engtest.app-mergeReleaseResources-55:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\user\\OneDrive\\문서\\git\\eng_test\\app\\src\\main\\res\\values-night\\themes.xml",
+                    "source": "E:\\gitSrc\\eng_test\\app\\src\\main\\res\\values-night\\themes.xml",
                     "from": {
                         "startLines": "3",
                         "startColumns": "4",
                         "startOffsets": "100",
                         "endLines": "10",
                         "endColumns": "12",
-                        "endOffsets": "558"
+                        "endOffsets": "598"
                     },
                     "to": {
                         "startLines": "2",
@@ -19,7 +19,7 @@
                         "startOffsets": "55",
                         "endLines": "9",
                         "endColumns": "12",
-                        "endOffsets": "513"
+                        "endOffsets": "553"
                     }
                 }
             ]

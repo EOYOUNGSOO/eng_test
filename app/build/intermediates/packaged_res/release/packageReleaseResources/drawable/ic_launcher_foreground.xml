@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="108dp"
-    android:height="108dp"
-    android:viewportWidth="108"
-    android:viewportHeight="108">
-    <path
-        android:fillColor="#2196F3"
-        android:pathData="M54,42 L66,42 L66,54 L54,54 Z M54,54 L66,54 L66,66 L54,66 Z M42,54 L54,54 L54,66 L42,66 Z M42,42 L54,42 L54,54 L42,54 Z" />
-</vector>
+<!-- Foreground: 첨부 아이콘(책+돋보기), 비율 유지를 위해 uniform scale 적용 -->
+<scale xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/app_icon"
+    android:scaleGravity="center_vertical|center_horizontal"
+    android:scaleWidth="80%"
+    android:scaleHeight="80%"
+    android:level="10000" />

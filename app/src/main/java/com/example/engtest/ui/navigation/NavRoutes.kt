@@ -2,7 +2,6 @@ package com.example.engtest.ui.navigation
 
 object NavRoutes {
     const val Main = "main"
-    const val LogViewer = "log_viewer"
     const val WordManage = "word_manage"
     const val WordTestSelect = "word_test_select"
     const val WordTest = "word_test"

@@ -9,7 +9,6 @@ import com.example.engtest.data.remote.RetrofitClient
 import com.example.engtest.data.remote.model.DictionaryResponse
 import com.example.engtest.data.remote.model.MeaningResponse
 import com.example.engtest.domain.model.toUiModel
-import com.example.engtest.util.AppLogger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,9 +23,6 @@ class WordDetailViewModel(
     private val db: AppDatabase
 ) : ViewModel() {
 
-    private companion object {
-        const val TAG = "WordDetailVM"
-    }
     private val _uiState = MutableStateFlow<WordDetailUiState>(WordDetailUiState.Idle)
     val uiState: StateFlow<WordDetailUiState> = _uiState.asStateFlow()
 
@@ -58,14 +54,14 @@ class WordDetailViewModel(
                                 ListSerializer(DictionaryResponse.serializer()),
                                 bodyString
                             )
-                        } catch (e: Exception) {
-                            val preview = bodyString.take(500)
-                            AppLogger.e(TAG, "JSON 파싱 실패 (앞 500자): $preview", e)
+                        } catch (_: Exception) {
+                            // val preview = bodyString.take(500)
+                            // AppLogger.e(TAG, "JSON 파싱 실패 (앞 500자): $preview", e)
                             _uiState.value = WordDetailUiState.Error("데이터 파싱 오류")
                             return@launch
                         }
 
-                        AppLogger.i(TAG, "API 파싱 완료: code=${response.code()}, entries=${entries.size}")
+                        // AppLogger.i(TAG, "API 파싱 완료: code=${response.code()}, entries=${entries.size}")
 
                         if (entries.isEmpty()) {
                             _uiState.value = WordDetailUiState.NotFound
@@ -84,7 +80,7 @@ class WordDetailViewModel(
                                 meaningsJson = meaningsJson
                             )
                         )
-                        AppLogger.i(TAG, "캐시 저장 완료: ${result.word.lowercase()}")
+                        // AppLogger.i(TAG, "캐시 저장 완료: ${result.word.lowercase()}")
                         _uiState.value = WordDetailUiState.Success(result.toUiModel())
                     }
 
@@ -96,7 +92,7 @@ class WordDetailViewModel(
             } catch (_: SocketTimeoutException) {
                 _uiState.value = WordDetailUiState.Error("서버 응답 시간이 초과되었습니다")
             } catch (e: Exception) {
-                AppLogger.e(TAG, "loadWordDetail failed", e)
+                // AppLogger.e(TAG, "loadWordDetail failed", e)
                 _uiState.value = WordDetailUiState.Error("오류: ${e.message}")
             }
         }

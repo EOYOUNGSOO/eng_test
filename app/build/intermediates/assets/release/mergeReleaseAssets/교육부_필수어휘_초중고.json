@@ -2,11 +2,11 @@
   "title": "교육부 지정 영어 필수어휘",
   "source": "교육부 고시 별책14 (2015 개정 교육과정)",
   "description": "초등(3~6학년), 중등(중학교 1~3학년), 고등(고등학교) 필수어휘 통합 목록",
-  "total": 1907,
+  "total": 3000,
   "summary": {
-    "초등": 671,
-    "중등": 803,
-    "고등": 433
+    "초등": 790,
+    "중등": 1151,
+    "고등": 1059
   },
   "vocabulary": [
     {
@@ -13356,6 +13356,7657 @@
       "word": "withstand",
       "pos": "동사",
       "meaning": "견디다",
+      "level": "고등"
+    },
+    {
+      "id": 1908,
+      "word": "absolute",
+      "pos": "형용사",
+      "meaning": "절대적인",
+      "level": "고등"
+    },
+    {
+      "id": 1909,
+      "word": "access",
+      "pos": "명사/동사",
+      "meaning": "접근, 접근하다",
+      "level": "고등"
+    },
+    {
+      "id": 1910,
+      "word": "accompany",
+      "pos": "동사",
+      "meaning": "동반하다",
+      "level": "고등"
+    },
+    {
+      "id": 1911,
+      "word": "acquire",
+      "pos": "동사",
+      "meaning": "획득하다",
+      "level": "고등"
+    },
+    {
+      "id": 1912,
+      "word": "admire",
+      "pos": "동사",
+      "meaning": "존경하다",
+      "level": "고등"
+    },
+    {
+      "id": 1913,
+      "word": "alert",
+      "pos": "형용사/동사",
+      "meaning": "경계하는, 경보",
+      "level": "고등"
+    },
+    {
+      "id": 1914,
+      "word": "ambition",
+      "pos": "명사",
+      "meaning": "야망",
+      "level": "고등"
+    },
+    {
+      "id": 1915,
+      "word": "apply",
+      "pos": "동사",
+      "meaning": "적용하다, 지원하다",
+      "level": "고등"
+    },
+    {
+      "id": 1916,
+      "word": "approach",
+      "pos": "동사/명사",
+      "meaning": "접근하다, 접근법",
+      "level": "고등"
+    },
+    {
+      "id": 1917,
+      "word": "approximately",
+      "pos": "부사",
+      "meaning": "대략",
+      "level": "고등"
+    },
+    {
+      "id": 1918,
+      "word": "architecture",
+      "pos": "명사",
+      "meaning": "건축",
+      "level": "고등"
+    },
+    {
+      "id": 1919,
+      "word": "arise",
+      "pos": "동사",
+      "meaning": "발생하다",
+      "level": "고등"
+    },
+    {
+      "id": 1920,
+      "word": "assign",
+      "pos": "동사",
+      "meaning": "할당하다",
+      "level": "고등"
+    },
+    {
+      "id": 1921,
+      "word": "assure",
+      "pos": "동사",
+      "meaning": "확신시키다",
+      "level": "고등"
+    },
+    {
+      "id": 1922,
+      "word": "atmosphere",
+      "pos": "명사",
+      "meaning": "분위기, 대기",
+      "level": "고등"
+    },
+    {
+      "id": 1923,
+      "word": "attach",
+      "pos": "동사",
+      "meaning": "붙이다",
+      "level": "고등"
+    },
+    {
+      "id": 1924,
+      "word": "attempt",
+      "pos": "동사/명사",
+      "meaning": "시도하다, 시도",
+      "level": "고등"
+    },
+    {
+      "id": 1925,
+      "word": "available",
+      "pos": "형용사",
+      "meaning": "이용 가능한",
+      "level": "고등"
+    },
+    {
+      "id": 1926,
+      "word": "behave",
+      "pos": "동사",
+      "meaning": "행동하다",
+      "level": "고등"
+    },
+    {
+      "id": 1927,
+      "word": "breakthrough",
+      "pos": "명사",
+      "meaning": "돌파구",
+      "level": "고등"
+    },
+    {
+      "id": 1928,
+      "word": "capacity",
+      "pos": "명사",
+      "meaning": "용량, 능력",
+      "level": "고등"
+    },
+    {
+      "id": 1929,
+      "word": "cease",
+      "pos": "동사",
+      "meaning": "그치다, 멈추다",
+      "level": "고등"
+    },
+    {
+      "id": 1930,
+      "word": "civilization",
+      "pos": "명사",
+      "meaning": "문명",
+      "level": "고등"
+    },
+    {
+      "id": 1931,
+      "word": "compete",
+      "pos": "동사",
+      "meaning": "경쟁하다",
+      "level": "고등"
+    },
+    {
+      "id": 1932,
+      "word": "complicated",
+      "pos": "형용사",
+      "meaning": "복잡한",
+      "level": "고등"
+    },
+    {
+      "id": 1933,
+      "word": "concentrate",
+      "pos": "동사",
+      "meaning": "집중하다",
+      "level": "고등"
+    },
+    {
+      "id": 1934,
+      "word": "confident",
+      "pos": "형용사",
+      "meaning": "자신감 있는",
+      "level": "고등"
+    },
+    {
+      "id": 1935,
+      "word": "conquer",
+      "pos": "동사",
+      "meaning": "정복하다",
+      "level": "고등"
+    },
+    {
+      "id": 1936,
+      "word": "considerable",
+      "pos": "형용사",
+      "meaning": "상당한",
+      "level": "고등"
+    },
+    {
+      "id": 1937,
+      "word": "consist",
+      "pos": "동사",
+      "meaning": "구성되다",
+      "level": "고등"
+    },
+    {
+      "id": 1938,
+      "word": "constant",
+      "pos": "형용사",
+      "meaning": "일정한, 지속적인",
+      "level": "고등"
+    },
+    {
+      "id": 1939,
+      "word": "contract",
+      "pos": "명사/동사",
+      "meaning": "계약, 수축하다",
+      "level": "고등"
+    },
+    {
+      "id": 1940,
+      "word": "contrary",
+      "pos": "형용사/명사",
+      "meaning": "반대의, 반대",
+      "level": "고등"
+    },
+    {
+      "id": 1941,
+      "word": "correspond",
+      "pos": "동사",
+      "meaning": "일치하다, 해당하다",
+      "level": "고등"
+    },
+    {
+      "id": 1942,
+      "word": "countless",
+      "pos": "형용사",
+      "meaning": "무수한",
+      "level": "고등"
+    },
+    {
+      "id": 1943,
+      "word": "curiosity",
+      "pos": "명사",
+      "meaning": "호기심",
+      "level": "고등"
+    },
+    {
+      "id": 1944,
+      "word": "decay",
+      "pos": "동사/명사",
+      "meaning": "부패하다, 부패",
+      "level": "고등"
+    },
+    {
+      "id": 1945,
+      "word": "defend",
+      "pos": "동사",
+      "meaning": "방어하다",
+      "level": "고등"
+    },
+    {
+      "id": 1946,
+      "word": "detect",
+      "pos": "동사",
+      "meaning": "감지하다",
+      "level": "고등"
+    },
+    {
+      "id": 1947,
+      "word": "diagnose",
+      "pos": "동사",
+      "meaning": "진단하다",
+      "level": "고등"
+    },
+    {
+      "id": 1948,
+      "word": "dismiss",
+      "pos": "동사",
+      "meaning": "무시하다, 해고하다",
+      "level": "고등"
+    },
+    {
+      "id": 1949,
+      "word": "dispute",
+      "pos": "명사/동사",
+      "meaning": "분쟁, 논쟁하다",
+      "level": "고등"
+    },
+    {
+      "id": 1950,
+      "word": "diverse",
+      "pos": "형용사",
+      "meaning": "다양한",
+      "level": "고등"
+    },
+    {
+      "id": 1951,
+      "word": "donation",
+      "pos": "명사",
+      "meaning": "기부",
+      "level": "고등"
+    },
+    {
+      "id": 1952,
+      "word": "drift",
+      "pos": "동사/명사",
+      "meaning": "표류하다, 표류",
+      "level": "고등"
+    },
+    {
+      "id": 1953,
+      "word": "due",
+      "pos": "형용사",
+      "meaning": "~때문인, 예정된",
+      "level": "고등"
+    },
+    {
+      "id": 1954,
+      "word": "examine",
+      "pos": "동사",
+      "meaning": "검사하다",
+      "level": "고등"
+    },
+    {
+      "id": 1955,
+      "word": "exhibit",
+      "pos": "동사/명사",
+      "meaning": "전시하다, 전시",
+      "level": "고등"
+    },
+    {
+      "id": 1956,
+      "word": "extensive",
+      "pos": "형용사",
+      "meaning": "광범위한",
+      "level": "고등"
+    },
+    {
+      "id": 1957,
+      "word": "external",
+      "pos": "형용사",
+      "meaning": "외부의",
+      "level": "고등"
+    },
+    {
+      "id": 1958,
+      "word": "fade",
+      "pos": "동사",
+      "meaning": "희미해지다",
+      "level": "고등"
+    },
+    {
+      "id": 1959,
+      "word": "forbid",
+      "pos": "동사",
+      "meaning": "금지하다",
+      "level": "고등"
+    },
+    {
+      "id": 1960,
+      "word": "forecast",
+      "pos": "동사/명사",
+      "meaning": "예측하다, 예보",
+      "level": "고등"
+    },
+    {
+      "id": 1961,
+      "word": "framework",
+      "pos": "명사",
+      "meaning": "틀, 체계",
+      "level": "고등"
+    },
+    {
+      "id": 1962,
+      "word": "frustrate",
+      "pos": "동사",
+      "meaning": "좌절시키다",
+      "level": "고등"
+    },
+    {
+      "id": 1963,
+      "word": "genetic",
+      "pos": "형용사",
+      "meaning": "유전적인",
+      "level": "고등"
+    },
+    {
+      "id": 1964,
+      "word": "guideline",
+      "pos": "명사",
+      "meaning": "지침",
+      "level": "고등"
+    },
+    {
+      "id": 1965,
+      "word": "illegal",
+      "pos": "형용사",
+      "meaning": "불법적인",
+      "level": "고등"
+    },
+    {
+      "id": 1966,
+      "word": "imagination",
+      "pos": "명사",
+      "meaning": "상상력",
+      "level": "고등"
+    },
+    {
+      "id": 1967,
+      "word": "immediate",
+      "pos": "형용사",
+      "meaning": "즉각적인",
+      "level": "고등"
+    },
+    {
+      "id": 1968,
+      "word": "immigrate",
+      "pos": "동사",
+      "meaning": "이민 오다",
+      "level": "고등"
+    },
+    {
+      "id": 1969,
+      "word": "impress",
+      "pos": "동사",
+      "meaning": "감동시키다",
+      "level": "고등"
+    },
+    {
+      "id": 1970,
+      "word": "incident",
+      "pos": "명사",
+      "meaning": "사건",
+      "level": "고등"
+    },
+    {
+      "id": 1971,
+      "word": "injure",
+      "pos": "동사",
+      "meaning": "부상을 입히다",
+      "level": "고등"
+    },
+    {
+      "id": 1972,
+      "word": "interaction",
+      "pos": "명사",
+      "meaning": "상호 작용",
+      "level": "고등"
+    },
+    {
+      "id": 1973,
+      "word": "invest",
+      "pos": "동사",
+      "meaning": "투자하다",
+      "level": "고등"
+    },
+    {
+      "id": 1974,
+      "word": "invisible",
+      "pos": "형용사",
+      "meaning": "보이지 않는",
+      "level": "고등"
+    },
+    {
+      "id": 1975,
+      "word": "landscape",
+      "pos": "명사",
+      "meaning": "풍경",
+      "level": "고등"
+    },
+    {
+      "id": 1976,
+      "word": "limitation",
+      "pos": "명사",
+      "meaning": "한계, 제한",
+      "level": "고등"
+    },
+    {
+      "id": 1977,
+      "word": "majority",
+      "pos": "명사",
+      "meaning": "다수",
+      "level": "고등"
+    },
+    {
+      "id": 1978,
+      "word": "mature",
+      "pos": "형용사/동사",
+      "meaning": "성숙한, 성숙하다",
+      "level": "고등"
+    },
+    {
+      "id": 1979,
+      "word": "migrate",
+      "pos": "동사",
+      "meaning": "이동하다, 이주하다",
+      "level": "고등"
+    },
+    {
+      "id": 1980,
+      "word": "minimum",
+      "pos": "명사/형용사",
+      "meaning": "최소, 최소의",
+      "level": "고등"
+    },
+    {
+      "id": 1981,
+      "word": "mission",
+      "pos": "명사",
+      "meaning": "임무",
+      "level": "고등"
+    },
+    {
+      "id": 1982,
+      "word": "native",
+      "pos": "형용사/명사",
+      "meaning": "원래의, 원주민",
+      "level": "고등"
+    },
+    {
+      "id": 1983,
+      "word": "nuclear",
+      "pos": "형용사",
+      "meaning": "핵의",
+      "level": "고등"
+    },
+    {
+      "id": 1984,
+      "word": "numerous",
+      "pos": "형용사",
+      "meaning": "수많은",
+      "level": "고등"
+    },
+    {
+      "id": 1985,
+      "word": "occupy",
+      "pos": "동사",
+      "meaning": "차지하다",
+      "level": "고등"
+    },
+    {
+      "id": 1986,
+      "word": "opponent",
+      "pos": "명사",
+      "meaning": "상대방",
+      "level": "고등"
+    },
+    {
+      "id": 1987,
+      "word": "pollute",
+      "pos": "동사",
+      "meaning": "오염시키다",
+      "level": "고등"
+    },
+    {
+      "id": 1988,
+      "word": "potential",
+      "pos": "명사/형용사",
+      "meaning": "잠재력, 잠재적인",
+      "level": "고등"
+    },
+    {
+      "id": 1989,
+      "word": "predict",
+      "pos": "동사",
+      "meaning": "예측하다",
+      "level": "고등"
+    },
+    {
+      "id": 1990,
+      "word": "preserve",
+      "pos": "동사",
+      "meaning": "보존하다",
+      "level": "고등"
+    },
+    {
+      "id": 1991,
+      "word": "productive",
+      "pos": "형용사",
+      "meaning": "생산적인",
+      "level": "고등"
+    },
+    {
+      "id": 1992,
+      "word": "prohibit",
+      "pos": "동사",
+      "meaning": "금지하다",
+      "level": "고등"
+    },
+    {
+      "id": 1993,
+      "word": "quantity",
+      "pos": "명사",
+      "meaning": "양",
+      "level": "고등"
+    },
+    {
+      "id": 1994,
+      "word": "realistic",
+      "pos": "형용사",
+      "meaning": "현실적인",
+      "level": "고등"
+    },
+    {
+      "id": 1995,
+      "word": "release",
+      "pos": "동사/명사",
+      "meaning": "방출하다, 발표",
+      "level": "고등"
+    },
+    {
+      "id": 1996,
+      "word": "restore",
+      "pos": "동사",
+      "meaning": "복원하다",
+      "level": "고등"
+    },
+    {
+      "id": 1997,
+      "word": "revolution",
+      "pos": "명사",
+      "meaning": "혁명",
+      "level": "고등"
+    },
+    {
+      "id": 1998,
+      "word": "rural",
+      "pos": "형용사",
+      "meaning": "시골의",
+      "level": "고등"
+    },
+    {
+      "id": 1999,
+      "word": "scenario",
+      "pos": "명사",
+      "meaning": "시나리오",
+      "level": "고등"
+    },
+    {
+      "id": 2000,
+      "word": "sensitive",
+      "pos": "형용사",
+      "meaning": "민감한",
+      "level": "고등"
+    },
+    {
+      "id": 2001,
+      "word": "sophisticated",
+      "pos": "형용사",
+      "meaning": "정교한",
+      "level": "고등"
+    },
+    {
+      "id": 2002,
+      "word": "strength",
+      "pos": "명사",
+      "meaning": "강점, 힘",
+      "level": "고등"
+    },
+    {
+      "id": 2003,
+      "word": "subsequent",
+      "pos": "형용사",
+      "meaning": "그 다음의",
+      "level": "고등"
+    },
+    {
+      "id": 2004,
+      "word": "summarize",
+      "pos": "동사",
+      "meaning": "요약하다",
+      "level": "고등"
+    },
+    {
+      "id": 2005,
+      "word": "superior",
+      "pos": "형용사",
+      "meaning": "우월한",
+      "level": "고등"
+    },
+    {
+      "id": 2006,
+      "word": "supply",
+      "pos": "동사/명사",
+      "meaning": "공급하다, 공급",
+      "level": "고등"
+    },
+    {
+      "id": 2007,
+      "word": "symbolize",
+      "pos": "동사",
+      "meaning": "상징하다",
+      "level": "고등"
+    },
+    {
+      "id": 2008,
+      "word": "tackle",
+      "pos": "동사",
+      "meaning": "다루다, 해결하다",
+      "level": "고등"
+    },
+    {
+      "id": 2009,
+      "word": "temporary",
+      "pos": "형용사",
+      "meaning": "일시적인",
+      "level": "고등"
+    },
+    {
+      "id": 2010,
+      "word": "tend",
+      "pos": "동사",
+      "meaning": "~하는 경향이 있다",
+      "level": "고등"
+    },
+    {
+      "id": 2011,
+      "word": "tension",
+      "pos": "명사",
+      "meaning": "긴장",
+      "level": "고등"
+    },
+    {
+      "id": 2012,
+      "word": "tremendous",
+      "pos": "형용사",
+      "meaning": "엄청난",
+      "level": "고등"
+    },
+    {
+      "id": 2013,
+      "word": "undergo",
+      "pos": "동사",
+      "meaning": "겪다",
+      "level": "고등"
+    },
+    {
+      "id": 2014,
+      "word": "urban",
+      "pos": "형용사",
+      "meaning": "도시의",
+      "level": "고등"
+    },
+    {
+      "id": 2015,
+      "word": "utilize",
+      "pos": "동사",
+      "meaning": "활용하다",
+      "level": "고등"
+    },
+    {
+      "id": 2016,
+      "word": "violate",
+      "pos": "동사",
+      "meaning": "위반하다",
+      "level": "고등"
+    },
+    {
+      "id": 2017,
+      "word": "vision",
+      "pos": "명사",
+      "meaning": "비전, 시각",
+      "level": "고등"
+    },
+    {
+      "id": 2018,
+      "word": "vital",
+      "pos": "형용사",
+      "meaning": "필수적인",
+      "level": "고등"
+    },
+    {
+      "id": 2019,
+      "word": "vivid",
+      "pos": "형용사",
+      "meaning": "생생한",
+      "level": "고등"
+    },
+    {
+      "id": 2020,
+      "word": "voluntary",
+      "pos": "형용사",
+      "meaning": "자발적인",
+      "level": "고등"
+    },
+    {
+      "id": 2021,
+      "word": "yield",
+      "pos": "동사/명사",
+      "meaning": "생산하다, 산출량",
+      "level": "고등"
+    },
+    {
+      "id": 2022,
+      "word": "abundant",
+      "pos": "형용사",
+      "meaning": "풍부한",
+      "level": "고등"
+    },
+    {
+      "id": 2023,
+      "word": "activate",
+      "pos": "동사",
+      "meaning": "활성화하다",
+      "level": "고등"
+    },
+    {
+      "id": 2024,
+      "word": "acute",
+      "pos": "형용사",
+      "meaning": "심각한, 예리한",
+      "level": "고등"
+    },
+    {
+      "id": 2025,
+      "word": "addiction",
+      "pos": "명사",
+      "meaning": "중독",
+      "level": "고등"
+    },
+    {
+      "id": 2026,
+      "word": "adjacent",
+      "pos": "형용사",
+      "meaning": "인접한",
+      "level": "고등"
+    },
+    {
+      "id": 2027,
+      "word": "adoption",
+      "pos": "명사",
+      "meaning": "채택, 입양",
+      "level": "고등"
+    },
+    {
+      "id": 2028,
+      "word": "adverse",
+      "pos": "형용사",
+      "meaning": "불리한",
+      "level": "고등"
+    },
+    {
+      "id": 2029,
+      "word": "affirm",
+      "pos": "동사",
+      "meaning": "확언하다",
+      "level": "고등"
+    },
+    {
+      "id": 2030,
+      "word": "aggravate",
+      "pos": "동사",
+      "meaning": "악화시키다",
+      "level": "고등"
+    },
+    {
+      "id": 2031,
+      "word": "alienate",
+      "pos": "동사",
+      "meaning": "소외시키다",
+      "level": "고등"
+    },
+    {
+      "id": 2032,
+      "word": "alter",
+      "pos": "동사",
+      "meaning": "변경하다",
+      "level": "고등"
+    },
+    {
+      "id": 2033,
+      "word": "amend",
+      "pos": "동사",
+      "meaning": "수정하다",
+      "level": "고등"
+    },
+    {
+      "id": 2034,
+      "word": "anatomy",
+      "pos": "명사",
+      "meaning": "해부학",
+      "level": "고등"
+    },
+    {
+      "id": 2035,
+      "word": "anchor",
+      "pos": "명사/동사",
+      "meaning": "닻, 고정시키다",
+      "level": "고등"
+    },
+    {
+      "id": 2036,
+      "word": "apparent",
+      "pos": "형용사",
+      "meaning": "명백한",
+      "level": "고등"
+    },
+    {
+      "id": 2037,
+      "word": "aptitude",
+      "pos": "명사",
+      "meaning": "적성",
+      "level": "고등"
+    },
+    {
+      "id": 2038,
+      "word": "arena",
+      "pos": "명사",
+      "meaning": "분야, 경기장",
+      "level": "고등"
+    },
+    {
+      "id": 2039,
+      "word": "artifact",
+      "pos": "명사",
+      "meaning": "인공물, 유물",
+      "level": "고등"
+    },
+    {
+      "id": 2040,
+      "word": "asset",
+      "pos": "명사",
+      "meaning": "자산",
+      "level": "고등"
+    },
+    {
+      "id": 2041,
+      "word": "associate",
+      "pos": "동사",
+      "meaning": "연관시키다",
+      "level": "고등"
+    },
+    {
+      "id": 2042,
+      "word": "astronomy",
+      "pos": "명사",
+      "meaning": "천문학",
+      "level": "고등"
+    },
+    {
+      "id": 2043,
+      "word": "authentic",
+      "pos": "형용사",
+      "meaning": "진짜의",
+      "level": "고등"
+    },
+    {
+      "id": 2044,
+      "word": "autonomy",
+      "pos": "명사",
+      "meaning": "자율성",
+      "level": "고등"
+    },
+    {
+      "id": 2045,
+      "word": "basis",
+      "pos": "명사",
+      "meaning": "근거, 기초",
+      "level": "고등"
+    },
+    {
+      "id": 2046,
+      "word": "biodiversity",
+      "pos": "명사",
+      "meaning": "생물 다양성",
+      "level": "고등"
+    },
+    {
+      "id": 2047,
+      "word": "bond",
+      "pos": "명사/동사",
+      "meaning": "결합, 유대",
+      "level": "고등"
+    },
+    {
+      "id": 2048,
+      "word": "bureaucracy",
+      "pos": "명사",
+      "meaning": "관료제",
+      "level": "고등"
+    },
+    {
+      "id": 2049,
+      "word": "capitalism",
+      "pos": "명사",
+      "meaning": "자본주의",
+      "level": "고등"
+    },
+    {
+      "id": 2050,
+      "word": "caution",
+      "pos": "명사/동사",
+      "meaning": "주의, 경고하다",
+      "level": "고등"
+    },
+    {
+      "id": 2051,
+      "word": "chaos",
+      "pos": "명사",
+      "meaning": "혼돈",
+      "level": "고등"
+    },
+    {
+      "id": 2052,
+      "word": "chemistry",
+      "pos": "명사",
+      "meaning": "화학",
+      "level": "고등"
+    },
+    {
+      "id": 2053,
+      "word": "climate",
+      "pos": "명사",
+      "meaning": "기후",
+      "level": "고등"
+    },
+    {
+      "id": 2054,
+      "word": "coincide",
+      "pos": "동사",
+      "meaning": "일치하다",
+      "level": "고등"
+    },
+    {
+      "id": 2055,
+      "word": "compatible",
+      "pos": "형용사",
+      "meaning": "호환되는",
+      "level": "고등"
+    },
+    {
+      "id": 2056,
+      "word": "component",
+      "pos": "명사",
+      "meaning": "구성 요소",
+      "level": "고등"
+    },
+    {
+      "id": 2057,
+      "word": "comprehension",
+      "pos": "명사",
+      "meaning": "이해",
+      "level": "고등"
+    },
+    {
+      "id": 2058,
+      "word": "compulsory",
+      "pos": "형용사",
+      "meaning": "의무적인",
+      "level": "고등"
+    },
+    {
+      "id": 2059,
+      "word": "conceal",
+      "pos": "동사",
+      "meaning": "숨기다",
+      "level": "고등"
+    },
+    {
+      "id": 2060,
+      "word": "confine",
+      "pos": "동사",
+      "meaning": "제한하다, 가두다",
+      "level": "고등"
+    },
+    {
+      "id": 2061,
+      "word": "confront",
+      "pos": "동사",
+      "meaning": "직면하다",
+      "level": "고등"
+    },
+    {
+      "id": 2062,
+      "word": "contemporary",
+      "pos": "형용사/명사",
+      "meaning": "현대의, 동시대인",
+      "level": "고등"
+    },
+    {
+      "id": 2063,
+      "word": "contradict",
+      "pos": "동사",
+      "meaning": "모순되다",
+      "level": "고등"
+    },
+    {
+      "id": 2064,
+      "word": "conventional",
+      "pos": "형용사",
+      "meaning": "전통적인, 관습적인",
+      "level": "고등"
+    },
+    {
+      "id": 2065,
+      "word": "coordinate",
+      "pos": "동사/명사",
+      "meaning": "조정하다, 좌표",
+      "level": "고등"
+    },
+    {
+      "id": 2066,
+      "word": "correlation",
+      "pos": "명사",
+      "meaning": "상관관계",
+      "level": "고등"
+    },
+    {
+      "id": 2067,
+      "word": "creativity",
+      "pos": "명사",
+      "meaning": "창의성",
+      "level": "고등"
+    },
+    {
+      "id": 2068,
+      "word": "credible",
+      "pos": "형용사",
+      "meaning": "믿을 만한",
+      "level": "고등"
+    },
+    {
+      "id": 2069,
+      "word": "criteria",
+      "pos": "명사",
+      "meaning": "기준 (복수)",
+      "level": "고등"
+    },
+    {
+      "id": 2070,
+      "word": "demand",
+      "pos": "동사/명사",
+      "meaning": "요구하다, 수요",
+      "level": "고등"
+    },
+    {
+      "id": 2071,
+      "word": "deplete",
+      "pos": "동사",
+      "meaning": "고갈시키다",
+      "level": "고등"
+    },
+    {
+      "id": 2072,
+      "word": "depression",
+      "pos": "명사",
+      "meaning": "우울, 불황",
+      "level": "고등"
+    },
+    {
+      "id": 2073,
+      "word": "destiny",
+      "pos": "명사",
+      "meaning": "운명",
+      "level": "고등"
+    },
+    {
+      "id": 2074,
+      "word": "dialect",
+      "pos": "명사",
+      "meaning": "방언",
+      "level": "고등"
+    },
+    {
+      "id": 2075,
+      "word": "dilemma",
+      "pos": "명사",
+      "meaning": "딜레마",
+      "level": "고등"
+    },
+    {
+      "id": 2076,
+      "word": "diplomacy",
+      "pos": "명사",
+      "meaning": "외교",
+      "level": "고등"
+    },
+    {
+      "id": 2077,
+      "word": "discard",
+      "pos": "동사",
+      "meaning": "버리다",
+      "level": "고등"
+    },
+    {
+      "id": 2078,
+      "word": "discomfort",
+      "pos": "명사",
+      "meaning": "불편함",
+      "level": "고등"
+    },
+    {
+      "id": 2079,
+      "word": "discourse",
+      "pos": "명사",
+      "meaning": "담론",
+      "level": "고등"
+    },
+    {
+      "id": 2080,
+      "word": "discrimination",
+      "pos": "명사",
+      "meaning": "차별",
+      "level": "고등"
+    },
+    {
+      "id": 2081,
+      "word": "disorder",
+      "pos": "명사",
+      "meaning": "장애, 무질서",
+      "level": "고등"
+    },
+    {
+      "id": 2082,
+      "word": "economics",
+      "pos": "명사",
+      "meaning": "경제학",
+      "level": "고등"
+    },
+    {
+      "id": 2083,
+      "word": "ecosystem",
+      "pos": "명사",
+      "meaning": "생태계",
+      "level": "고등"
+    },
+    {
+      "id": 2084,
+      "word": "element",
+      "pos": "명사",
+      "meaning": "요소",
+      "level": "고등"
+    },
+    {
+      "id": 2085,
+      "word": "emission",
+      "pos": "명사",
+      "meaning": "배출",
+      "level": "고등"
+    },
+    {
+      "id": 2086,
+      "word": "empathy",
+      "pos": "명사",
+      "meaning": "공감",
+      "level": "고등"
+    },
+    {
+      "id": 2087,
+      "word": "enterprise",
+      "pos": "명사",
+      "meaning": "기업",
+      "level": "고등"
+    },
+    {
+      "id": 2088,
+      "word": "epidemic",
+      "pos": "명사/형용사",
+      "meaning": "전염병, 유행성의",
+      "level": "고등"
+    },
+    {
+      "id": 2089,
+      "word": "equity",
+      "pos": "명사",
+      "meaning": "형평성",
+      "level": "고등"
+    },
+    {
+      "id": 2090,
+      "word": "essential",
+      "pos": "형용사",
+      "meaning": "필수적인",
+      "level": "고등"
+    },
+    {
+      "id": 2091,
+      "word": "estimate",
+      "pos": "동사/명사",
+      "meaning": "추정하다, 추정",
+      "level": "고등"
+    },
+    {
+      "id": 2092,
+      "word": "ethics",
+      "pos": "명사",
+      "meaning": "윤리",
+      "level": "고등"
+    },
+    {
+      "id": 2093,
+      "word": "exclude",
+      "pos": "동사",
+      "meaning": "제외하다",
+      "level": "고등"
+    },
+    {
+      "id": 2094,
+      "word": "execute",
+      "pos": "동사",
+      "meaning": "실행하다",
+      "level": "고등"
+    },
+    {
+      "id": 2095,
+      "word": "exhaust",
+      "pos": "동사",
+      "meaning": "고갈시키다, 지치게 하다",
+      "level": "고등"
+    },
+    {
+      "id": 2096,
+      "word": "exhibition",
+      "pos": "명사",
+      "meaning": "전시회",
+      "level": "고등"
+    },
+    {
+      "id": 2097,
+      "word": "expectation",
+      "pos": "명사",
+      "meaning": "기대",
+      "level": "고등"
+    },
+    {
+      "id": 2098,
+      "word": "expertise",
+      "pos": "명사",
+      "meaning": "전문 지식",
+      "level": "고등"
+    },
+    {
+      "id": 2099,
+      "word": "extinction",
+      "pos": "명사",
+      "meaning": "멸종",
+      "level": "고등"
+    },
+    {
+      "id": 2100,
+      "word": "finance",
+      "pos": "명사/동사",
+      "meaning": "재정, 자금을 조달하다",
+      "level": "고등"
+    },
+    {
+      "id": 2101,
+      "word": "fossil",
+      "pos": "명사/형용사",
+      "meaning": "화석, 화석의",
+      "level": "고등"
+    },
+    {
+      "id": 2102,
+      "word": "friction",
+      "pos": "명사",
+      "meaning": "마찰",
+      "level": "고등"
+    },
+    {
+      "id": 2103,
+      "word": "fulfill",
+      "pos": "동사",
+      "meaning": "이행하다",
+      "level": "고등"
+    },
+    {
+      "id": 2104,
+      "word": "genome",
+      "pos": "명사",
+      "meaning": "게놈",
+      "level": "고등"
+    },
+    {
+      "id": 2105,
+      "word": "globalization",
+      "pos": "명사",
+      "meaning": "세계화",
+      "level": "고등"
+    },
+    {
+      "id": 2106,
+      "word": "graduate",
+      "pos": "동사/명사",
+      "meaning": "졸업하다, 졸업생",
+      "level": "고등"
+    },
+    {
+      "id": 2107,
+      "word": "gravity",
+      "pos": "명사",
+      "meaning": "중력",
+      "level": "고등"
+    },
+    {
+      "id": 2108,
+      "word": "greenhouse",
+      "pos": "명사",
+      "meaning": "온실",
+      "level": "고등"
+    },
+    {
+      "id": 2109,
+      "word": "harmony",
+      "pos": "명사",
+      "meaning": "조화",
+      "level": "고등"
+    },
+    {
+      "id": 2110,
+      "word": "hazard",
+      "pos": "명사",
+      "meaning": "위험",
+      "level": "고등"
+    },
+    {
+      "id": 2111,
+      "word": "humanity",
+      "pos": "명사",
+      "meaning": "인류",
+      "level": "고등"
+    },
+    {
+      "id": 2112,
+      "word": "immune",
+      "pos": "형용사",
+      "meaning": "면역의",
+      "level": "고등"
+    },
+    {
+      "id": 2113,
+      "word": "intense",
+      "pos": "형용사",
+      "meaning": "강렬한",
+      "level": "고등"
+    },
+    {
+      "id": 2114,
+      "word": "intervention",
+      "pos": "명사",
+      "meaning": "개입",
+      "level": "고등"
+    },
+    {
+      "id": 2115,
+      "word": "isolation",
+      "pos": "명사",
+      "meaning": "고립",
+      "level": "고등"
+    },
+    {
+      "id": 2116,
+      "word": "linear",
+      "pos": "형용사",
+      "meaning": "선형의",
+      "level": "고등"
+    },
+    {
+      "id": 2117,
+      "word": "literacy",
+      "pos": "명사",
+      "meaning": "문해력",
+      "level": "고등"
+    },
+    {
+      "id": 2118,
+      "word": "margin",
+      "pos": "명사",
+      "meaning": "여백, 차이",
+      "level": "고등"
+    },
+    {
+      "id": 2119,
+      "word": "medication",
+      "pos": "명사",
+      "meaning": "약물",
+      "level": "고등"
+    },
+    {
+      "id": 2120,
+      "word": "microscope",
+      "pos": "명사",
+      "meaning": "현미경",
+      "level": "고등"
+    },
+    {
+      "id": 2121,
+      "word": "migration",
+      "pos": "명사",
+      "meaning": "이주",
+      "level": "고등"
+    },
+    {
+      "id": 2122,
+      "word": "military",
+      "pos": "형용사/명사",
+      "meaning": "군사적인, 군대",
+      "level": "고등"
+    },
+    {
+      "id": 2123,
+      "word": "molecule",
+      "pos": "명사",
+      "meaning": "분자",
+      "level": "고등"
+    },
+    {
+      "id": 2124,
+      "word": "momentum",
+      "pos": "명사",
+      "meaning": "모멘텀, 기세",
+      "level": "고등"
+    },
+    {
+      "id": 2125,
+      "word": "neural",
+      "pos": "형용사",
+      "meaning": "신경의",
+      "level": "고등"
+    },
+    {
+      "id": 2126,
+      "word": "offspring",
+      "pos": "명사",
+      "meaning": "자손",
+      "level": "고등"
+    },
+    {
+      "id": 2127,
+      "word": "ongoing",
+      "pos": "형용사",
+      "meaning": "진행 중인",
+      "level": "고등"
+    },
+    {
+      "id": 2128,
+      "word": "option",
+      "pos": "명사",
+      "meaning": "선택지",
+      "level": "고등"
+    },
+    {
+      "id": 2129,
+      "word": "output",
+      "pos": "명사",
+      "meaning": "산출",
+      "level": "고등"
+    },
+    {
+      "id": 2130,
+      "word": "overall",
+      "pos": "형용사/부사",
+      "meaning": "전반적인, 전체적으로",
+      "level": "고등"
+    },
+    {
+      "id": 2131,
+      "word": "parallel",
+      "pos": "형용사/명사",
+      "meaning": "평행한, 유사점",
+      "level": "고등"
+    },
+    {
+      "id": 2132,
+      "word": "parameter",
+      "pos": "명사",
+      "meaning": "매개변수",
+      "level": "고등"
+    },
+    {
+      "id": 2133,
+      "word": "perception",
+      "pos": "명사",
+      "meaning": "인식",
+      "level": "고등"
+    },
+    {
+      "id": 2134,
+      "word": "persistent",
+      "pos": "형용사",
+      "meaning": "지속적인",
+      "level": "고등"
+    },
+    {
+      "id": 2135,
+      "word": "precaution",
+      "pos": "명사",
+      "meaning": "예방조치",
+      "level": "고등"
+    },
+    {
+      "id": 2136,
+      "word": "prejudice",
+      "pos": "명사",
+      "meaning": "편견",
+      "level": "고등"
+    },
+    {
+      "id": 2137,
+      "word": "privilege",
+      "pos": "명사",
+      "meaning": "특권",
+      "level": "고등"
+    },
+    {
+      "id": 2138,
+      "word": "proportion",
+      "pos": "명사",
+      "meaning": "비율",
+      "level": "고등"
+    },
+    {
+      "id": 2139,
+      "word": "psychology",
+      "pos": "명사",
+      "meaning": "심리학",
+      "level": "고등"
+    },
+    {
+      "id": 2140,
+      "word": "reaction",
+      "pos": "명사",
+      "meaning": "반응",
+      "level": "고등"
+    },
+    {
+      "id": 2141,
+      "word": "reject",
+      "pos": "동사",
+      "meaning": "거부하다",
+      "level": "고등"
+    },
+    {
+      "id": 2142,
+      "word": "renewable",
+      "pos": "형용사",
+      "meaning": "재생 가능한",
+      "level": "고등"
+    },
+    {
+      "id": 2143,
+      "word": "resistance",
+      "pos": "명사",
+      "meaning": "저항",
+      "level": "고등"
+    },
+    {
+      "id": 2144,
+      "word": "rigid",
+      "pos": "형용사",
+      "meaning": "엄격한",
+      "level": "고등"
+    },
+    {
+      "id": 2145,
+      "word": "scale",
+      "pos": "명사/동사",
+      "meaning": "규모, 측정하다",
+      "level": "고등"
+    },
+    {
+      "id": 2146,
+      "word": "sequence",
+      "pos": "명사",
+      "meaning": "순서",
+      "level": "고등"
+    },
+    {
+      "id": 2147,
+      "word": "shift",
+      "pos": "동사/명사",
+      "meaning": "변화하다, 변화",
+      "level": "고등"
+    },
+    {
+      "id": 2148,
+      "word": "social",
+      "pos": "형용사",
+      "meaning": "사회적인",
+      "level": "고등"
+    },
+    {
+      "id": 2149,
+      "word": "species",
+      "pos": "명사",
+      "meaning": "종",
+      "level": "고등"
+    },
+    {
+      "id": 2150,
+      "word": "sphere",
+      "pos": "명사",
+      "meaning": "영역, 구",
+      "level": "고등"
+    },
+    {
+      "id": 2151,
+      "word": "status",
+      "pos": "명사",
+      "meaning": "지위, 상태",
+      "level": "고등"
+    },
+    {
+      "id": 2152,
+      "word": "stimulus",
+      "pos": "명사",
+      "meaning": "자극",
+      "level": "고등"
+    },
+    {
+      "id": 2153,
+      "word": "substitute",
+      "pos": "동사/명사",
+      "meaning": "대체하다, 대체품",
+      "level": "고등"
+    },
+    {
+      "id": 2154,
+      "word": "sympathy",
+      "pos": "명사",
+      "meaning": "동정",
+      "level": "고등"
+    },
+    {
+      "id": 2155,
+      "word": "tolerance",
+      "pos": "명사",
+      "meaning": "관용",
+      "level": "고등"
+    },
+    {
+      "id": 2156,
+      "word": "tradition",
+      "pos": "명사",
+      "meaning": "전통",
+      "level": "고등"
+    },
+    {
+      "id": 2157,
+      "word": "underestimate",
+      "pos": "동사",
+      "meaning": "과소평가하다",
+      "level": "고등"
+    },
+    {
+      "id": 2158,
+      "word": "universal",
+      "pos": "형용사",
+      "meaning": "보편적인",
+      "level": "고등"
+    },
+    {
+      "id": 2159,
+      "word": "unstable",
+      "pos": "형용사",
+      "meaning": "불안정한",
+      "level": "고등"
+    },
+    {
+      "id": 2160,
+      "word": "usage",
+      "pos": "명사",
+      "meaning": "사용법",
+      "level": "고등"
+    },
+    {
+      "id": 2161,
+      "word": "utility",
+      "pos": "명사",
+      "meaning": "유용성",
+      "level": "고등"
+    },
+    {
+      "id": 2162,
+      "word": "vaccine",
+      "pos": "명사",
+      "meaning": "백신",
+      "level": "고등"
+    },
+    {
+      "id": 2163,
+      "word": "variable",
+      "pos": "명사/형용사",
+      "meaning": "변수, 변하기 쉬운",
+      "level": "고등"
+    },
+    {
+      "id": 2164,
+      "word": "vegetation",
+      "pos": "명사",
+      "meaning": "초목",
+      "level": "고등"
+    },
+    {
+      "id": 2165,
+      "word": "version",
+      "pos": "명사",
+      "meaning": "버전",
+      "level": "고등"
+    },
+    {
+      "id": 2166,
+      "word": "virtual",
+      "pos": "형용사",
+      "meaning": "가상의",
+      "level": "고등"
+    },
+    {
+      "id": 2167,
+      "word": "visible",
+      "pos": "형용사",
+      "meaning": "눈에 보이는",
+      "level": "고등"
+    },
+    {
+      "id": 2168,
+      "word": "wealth",
+      "pos": "명사",
+      "meaning": "부",
+      "level": "고등"
+    },
+    {
+      "id": 2169,
+      "word": "workforce",
+      "pos": "명사",
+      "meaning": "노동력",
+      "level": "고등"
+    },
+    {
+      "id": 2170,
+      "word": "worldwide",
+      "pos": "형용사/부사",
+      "meaning": "전 세계적인",
+      "level": "고등"
+    },
+    {
+      "id": 2171,
+      "word": "aim",
+      "pos": "동사/명사",
+      "meaning": "겨냥하다, 목표",
+      "level": "중등"
+    },
+    {
+      "id": 2172,
+      "word": "author",
+      "pos": "명사",
+      "meaning": "저자",
+      "level": "중등"
+    },
+    {
+      "id": 2173,
+      "word": "basic",
+      "pos": "형용사",
+      "meaning": "기본적인",
+      "level": "중등"
+    },
+    {
+      "id": 2174,
+      "word": "beauty",
+      "pos": "명사",
+      "meaning": "아름다움",
+      "level": "중등"
+    },
+    {
+      "id": 2175,
+      "word": "beginning",
+      "pos": "명사",
+      "meaning": "시작",
+      "level": "중등"
+    },
+    {
+      "id": 2176,
+      "word": "business",
+      "pos": "명사",
+      "meaning": "사업, 일",
+      "level": "중등"
+    },
+    {
+      "id": 2177,
+      "word": "character",
+      "pos": "명사",
+      "meaning": "성격, 등장인물",
+      "level": "중등"
+    },
+    {
+      "id": 2178,
+      "word": "communication",
+      "pos": "명사",
+      "meaning": "의사소통",
+      "level": "중등"
+    },
+    {
+      "id": 2179,
+      "word": "dangerous",
+      "pos": "형용사",
+      "meaning": "위험한",
+      "level": "중등"
+    },
+    {
+      "id": 2180,
+      "word": "destination",
+      "pos": "명사",
+      "meaning": "목적지",
+      "level": "중등"
+    },
+    {
+      "id": 2181,
+      "word": "difficulty",
+      "pos": "명사",
+      "meaning": "어려움",
+      "level": "중등"
+    },
+    {
+      "id": 2182,
+      "word": "disagree",
+      "pos": "동사",
+      "meaning": "반대하다",
+      "level": "중등"
+    },
+    {
+      "id": 2183,
+      "word": "enough",
+      "pos": "형용사/부사",
+      "meaning": "충분한, 충분히",
+      "level": "중등"
+    },
+    {
+      "id": 2184,
+      "word": "everybody",
+      "pos": "대명사",
+      "meaning": "모든 사람",
+      "level": "중등"
+    },
+    {
+      "id": 2185,
+      "word": "fact",
+      "pos": "명사",
+      "meaning": "사실",
+      "level": "중등"
+    },
+    {
+      "id": 2186,
+      "word": "favorite",
+      "pos": "형용사/명사",
+      "meaning": "좋아하는, 최애",
+      "level": "중등"
+    },
+    {
+      "id": 2187,
+      "word": "first",
+      "pos": "서수",
+      "meaning": "첫 번째",
+      "level": "중등"
+    },
+    {
+      "id": 2188,
+      "word": "floor",
+      "pos": "명사",
+      "meaning": "바닥, 층",
+      "level": "중등"
+    },
+    {
+      "id": 2189,
+      "word": "forward",
+      "pos": "부사/형용사",
+      "meaning": "앞으로",
+      "level": "중등"
+    },
+    {
+      "id": 2190,
+      "word": "helpful",
+      "pos": "형용사",
+      "meaning": "도움이 되는",
+      "level": "중등"
+    },
+    {
+      "id": 2191,
+      "word": "import",
+      "pos": "동사/명사",
+      "meaning": "수입하다, 수입",
+      "level": "중등"
+    },
+    {
+      "id": 2192,
+      "word": "international",
+      "pos": "형용사",
+      "meaning": "국제적인",
+      "level": "중등"
+    },
+    {
+      "id": 2193,
+      "word": "land",
+      "pos": "명사/동사",
+      "meaning": "땅, 착륙하다",
+      "level": "중등"
+    },
+    {
+      "id": 2194,
+      "word": "late",
+      "pos": "형용사/부사",
+      "meaning": "늦은, 늦게",
+      "level": "중등"
+    },
+    {
+      "id": 2195,
+      "word": "later",
+      "pos": "부사",
+      "meaning": "나중에",
+      "level": "중등"
+    },
+    {
+      "id": 2196,
+      "word": "level",
+      "pos": "명사",
+      "meaning": "수준",
+      "level": "중등"
+    },
+    {
+      "id": 2197,
+      "word": "light",
+      "pos": "명사/형용사",
+      "meaning": "빛, 가벼운",
+      "level": "중등"
+    },
+    {
+      "id": 2198,
+      "word": "line",
+      "pos": "명사",
+      "meaning": "선, 줄",
+      "level": "중등"
+    },
+    {
+      "id": 2199,
+      "word": "lonely",
+      "pos": "형용사",
+      "meaning": "외로운",
+      "level": "중등"
+    },
+    {
+      "id": 2200,
+      "word": "loud",
+      "pos": "형용사",
+      "meaning": "큰 소리의",
+      "level": "중등"
+    },
+    {
+      "id": 2201,
+      "word": "meaning",
+      "pos": "명사",
+      "meaning": "의미",
+      "level": "중등"
+    },
+    {
+      "id": 2202,
+      "word": "model",
+      "pos": "명사",
+      "meaning": "모델",
+      "level": "중등"
+    },
+    {
+      "id": 2203,
+      "word": "moment",
+      "pos": "명사",
+      "meaning": "순간",
+      "level": "중등"
+    },
+    {
+      "id": 2204,
+      "word": "month",
+      "pos": "명사",
+      "meaning": "달, 월",
+      "level": "중등"
+    },
+    {
+      "id": 2205,
+      "word": "natural",
+      "pos": "형용사",
+      "meaning": "자연스러운",
+      "level": "중등"
+    },
+    {
+      "id": 2206,
+      "word": "newspaper",
+      "pos": "명사",
+      "meaning": "신문",
+      "level": "중등"
+    },
+    {
+      "id": 2207,
+      "word": "noise",
+      "pos": "명사",
+      "meaning": "소음",
+      "level": "중등"
+    },
+    {
+      "id": 2208,
+      "word": "note",
+      "pos": "명사/동사",
+      "meaning": "메모, 주목하다",
+      "level": "중등"
+    },
+    {
+      "id": 2209,
+      "word": "nothing",
+      "pos": "대명사",
+      "meaning": "아무것도 없는",
+      "level": "중등"
+    },
+    {
+      "id": 2210,
+      "word": "novel",
+      "pos": "명사/형용사",
+      "meaning": "소설, 새로운",
+      "level": "중등"
+    },
+    {
+      "id": 2211,
+      "word": "pain",
+      "pos": "명사",
+      "meaning": "고통",
+      "level": "중등"
+    },
+    {
+      "id": 2212,
+      "word": "part",
+      "pos": "명사",
+      "meaning": "부분",
+      "level": "중등"
+    },
+    {
+      "id": 2213,
+      "word": "pass",
+      "pos": "동사",
+      "meaning": "지나가다, 합격하다",
+      "level": "중등"
+    },
+    {
+      "id": 2214,
+      "word": "pay",
+      "pos": "동사/명사",
+      "meaning": "지불하다, 임금",
+      "level": "중등"
+    },
+    {
+      "id": 2215,
+      "word": "pick",
+      "pos": "동사",
+      "meaning": "고르다",
+      "level": "중등"
+    },
+    {
+      "id": 2216,
+      "word": "point",
+      "pos": "명사/동사",
+      "meaning": "점, 가리키다",
+      "level": "중등"
+    },
+    {
+      "id": 2217,
+      "word": "price",
+      "pos": "명사",
+      "meaning": "가격",
+      "level": "중등"
+    },
+    {
+      "id": 2218,
+      "word": "prize",
+      "pos": "명사",
+      "meaning": "상",
+      "level": "중등"
+    },
+    {
+      "id": 2219,
+      "word": "probably",
+      "pos": "부사",
+      "meaning": "아마",
+      "level": "중등"
+    },
+    {
+      "id": 2220,
+      "word": "public",
+      "pos": "형용사",
+      "meaning": "공공의",
+      "level": "중등"
+    },
+    {
+      "id": 2221,
+      "word": "quickly",
+      "pos": "부사",
+      "meaning": "빨리",
+      "level": "중등"
+    },
+    {
+      "id": 2222,
+      "word": "ready",
+      "pos": "형용사",
+      "meaning": "준비된",
+      "level": "중등"
+    },
+    {
+      "id": 2223,
+      "word": "really",
+      "pos": "부사",
+      "meaning": "정말로",
+      "level": "중등"
+    },
+    {
+      "id": 2224,
+      "word": "report",
+      "pos": "명사/동사",
+      "meaning": "보고서, 보고하다",
+      "level": "중등"
+    },
+    {
+      "id": 2225,
+      "word": "ride",
+      "pos": "동사/명사",
+      "meaning": "타다, 타기",
+      "level": "중등"
+    },
+    {
+      "id": 2226,
+      "word": "seat",
+      "pos": "명사",
+      "meaning": "좌석",
+      "level": "중등"
+    },
+    {
+      "id": 2227,
+      "word": "secret",
+      "pos": "명사/형용사",
+      "meaning": "비밀, 비밀의",
+      "level": "중등"
+    },
+    {
+      "id": 2228,
+      "word": "sentence",
+      "pos": "명사",
+      "meaning": "문장",
+      "level": "중등"
+    },
+    {
+      "id": 2229,
+      "word": "sometimes",
+      "pos": "부사",
+      "meaning": "때때로",
+      "level": "중등"
+    },
+    {
+      "id": 2230,
+      "word": "sound",
+      "pos": "명사/동사",
+      "meaning": "소리, 들리다",
+      "level": "중등"
+    },
+    {
+      "id": 2231,
+      "word": "success",
+      "pos": "명사",
+      "meaning": "성공",
+      "level": "중등"
+    },
+    {
+      "id": 2232,
+      "word": "suddenly",
+      "pos": "부사",
+      "meaning": "갑자기",
+      "level": "중등"
+    },
+    {
+      "id": 2233,
+      "word": "surprise",
+      "pos": "동사/명사",
+      "meaning": "놀라게 하다, 놀라움",
+      "level": "중등"
+    },
+    {
+      "id": 2234,
+      "word": "taste",
+      "pos": "명사/동사",
+      "meaning": "맛, 맛보다",
+      "level": "중등"
+    },
+    {
+      "id": 2235,
+      "word": "team",
+      "pos": "명사",
+      "meaning": "팀",
+      "level": "중등"
+    },
+    {
+      "id": 2236,
+      "word": "test",
+      "pos": "명사/동사",
+      "meaning": "시험, 시험하다",
+      "level": "중등"
+    },
+    {
+      "id": 2237,
+      "word": "though",
+      "pos": "접속사",
+      "meaning": "비록 ~이지만",
+      "level": "중등"
+    },
+    {
+      "id": 2238,
+      "word": "through",
+      "pos": "전치사",
+      "meaning": "~을 통해",
+      "level": "중등"
+    },
+    {
+      "id": 2239,
+      "word": "total",
+      "pos": "형용사/명사",
+      "meaning": "총, 합계",
+      "level": "중등"
+    },
+    {
+      "id": 2240,
+      "word": "touch",
+      "pos": "동사/명사",
+      "meaning": "만지다, 접촉",
+      "level": "중등"
+    },
+    {
+      "id": 2241,
+      "word": "treat",
+      "pos": "동사/명사",
+      "meaning": "대하다, 치료하다",
+      "level": "중등"
+    },
+    {
+      "id": 2242,
+      "word": "unfortunately",
+      "pos": "부사",
+      "meaning": "불행히도",
+      "level": "중등"
+    },
+    {
+      "id": 2243,
+      "word": "voice",
+      "pos": "명사",
+      "meaning": "목소리",
+      "level": "중등"
+    },
+    {
+      "id": 2244,
+      "word": "wake",
+      "pos": "동사",
+      "meaning": "깨다",
+      "level": "중등"
+    },
+    {
+      "id": 2245,
+      "word": "warm",
+      "pos": "형용사",
+      "meaning": "따뜻한",
+      "level": "중등"
+    },
+    {
+      "id": 2246,
+      "word": "wear",
+      "pos": "동사",
+      "meaning": "입다",
+      "level": "중등"
+    },
+    {
+      "id": 2247,
+      "word": "week",
+      "pos": "명사",
+      "meaning": "주",
+      "level": "중등"
+    },
+    {
+      "id": 2248,
+      "word": "wide",
+      "pos": "형용사",
+      "meaning": "넓은",
+      "level": "중등"
+    },
+    {
+      "id": 2249,
+      "word": "wonderful",
+      "pos": "형용사",
+      "meaning": "훌륭한",
+      "level": "중등"
+    },
+    {
+      "id": 2250,
+      "word": "yard",
+      "pos": "명사",
+      "meaning": "마당",
+      "level": "중등"
+    },
+    {
+      "id": 2251,
+      "word": "yesterday",
+      "pos": "명사/부사",
+      "meaning": "어제",
+      "level": "중등"
+    },
+    {
+      "id": 2252,
+      "word": "abrupt",
+      "pos": "형용사",
+      "meaning": "갑작스러운",
+      "level": "고등"
+    },
+    {
+      "id": 2253,
+      "word": "absence",
+      "pos": "명사",
+      "meaning": "부재, 결석",
+      "level": "고등"
+    },
+    {
+      "id": 2254,
+      "word": "academic",
+      "pos": "형용사",
+      "meaning": "학문적인",
+      "level": "고등"
+    },
+    {
+      "id": 2255,
+      "word": "acclaim",
+      "pos": "동사/명사",
+      "meaning": "칭찬하다, 갈채",
+      "level": "고등"
+    },
+    {
+      "id": 2256,
+      "word": "accuracy",
+      "pos": "명사",
+      "meaning": "정확성",
+      "level": "고등"
+    },
+    {
+      "id": 2257,
+      "word": "accusation",
+      "pos": "명사",
+      "meaning": "비난",
+      "level": "고등"
+    },
+    {
+      "id": 2258,
+      "word": "achievement",
+      "pos": "명사",
+      "meaning": "성취",
+      "level": "고등"
+    },
+    {
+      "id": 2259,
+      "word": "adaptation",
+      "pos": "명사",
+      "meaning": "적응, 각색",
+      "level": "고등"
+    },
+    {
+      "id": 2260,
+      "word": "adherence",
+      "pos": "명사",
+      "meaning": "준수",
+      "level": "고등"
+    },
+    {
+      "id": 2261,
+      "word": "adjustment",
+      "pos": "명사",
+      "meaning": "조정",
+      "level": "고등"
+    },
+    {
+      "id": 2262,
+      "word": "advancement",
+      "pos": "명사",
+      "meaning": "진전",
+      "level": "고등"
+    },
+    {
+      "id": 2263,
+      "word": "adversity",
+      "pos": "명사",
+      "meaning": "역경",
+      "level": "고등"
+    },
+    {
+      "id": 2264,
+      "word": "affection",
+      "pos": "명사",
+      "meaning": "애정",
+      "level": "고등"
+    },
+    {
+      "id": 2265,
+      "word": "affluent",
+      "pos": "형용사",
+      "meaning": "부유한",
+      "level": "고등"
+    },
+    {
+      "id": 2266,
+      "word": "aggression",
+      "pos": "명사",
+      "meaning": "공격성",
+      "level": "고등"
+    },
+    {
+      "id": 2267,
+      "word": "alongside",
+      "pos": "전치사",
+      "meaning": "~와 함께",
+      "level": "고등"
+    },
+    {
+      "id": 2268,
+      "word": "anticipation",
+      "pos": "명사",
+      "meaning": "예상",
+      "level": "고등"
+    },
+    {
+      "id": 2269,
+      "word": "appeal",
+      "pos": "동사/명사",
+      "meaning": "호소하다, 매력",
+      "level": "고등"
+    },
+    {
+      "id": 2270,
+      "word": "appetite",
+      "pos": "명사",
+      "meaning": "식욕, 욕구",
+      "level": "고등"
+    },
+    {
+      "id": 2271,
+      "word": "appreciation",
+      "pos": "명사",
+      "meaning": "감사",
+      "level": "고등"
+    },
+    {
+      "id": 2272,
+      "word": "aspiration",
+      "pos": "명사",
+      "meaning": "열망",
+      "level": "고등"
+    },
+    {
+      "id": 2273,
+      "word": "assert",
+      "pos": "동사",
+      "meaning": "주장하다",
+      "level": "고등"
+    },
+    {
+      "id": 2274,
+      "word": "assumption",
+      "pos": "명사",
+      "meaning": "가정",
+      "level": "고등"
+    },
+    {
+      "id": 2275,
+      "word": "astronomical",
+      "pos": "형용사",
+      "meaning": "천문학적인",
+      "level": "고등"
+    },
+    {
+      "id": 2276,
+      "word": "attachment",
+      "pos": "명사",
+      "meaning": "애착",
+      "level": "고등"
+    },
+    {
+      "id": 2277,
+      "word": "attentive",
+      "pos": "형용사",
+      "meaning": "주의 깊은",
+      "level": "고등"
+    },
+    {
+      "id": 2278,
+      "word": "auditory",
+      "pos": "형용사",
+      "meaning": "청각의",
+      "level": "고등"
+    },
+    {
+      "id": 2279,
+      "word": "automation",
+      "pos": "명사",
+      "meaning": "자동화",
+      "level": "고등"
+    },
+    {
+      "id": 2280,
+      "word": "backlash",
+      "pos": "명사",
+      "meaning": "반발",
+      "level": "고등"
+    },
+    {
+      "id": 2281,
+      "word": "bankruptcy",
+      "pos": "명사",
+      "meaning": "파산",
+      "level": "고등"
+    },
+    {
+      "id": 2282,
+      "word": "behavioral",
+      "pos": "형용사",
+      "meaning": "행동의",
+      "level": "고등"
+    },
+    {
+      "id": 2283,
+      "word": "beneficial",
+      "pos": "형용사",
+      "meaning": "유익한",
+      "level": "고등"
+    },
+    {
+      "id": 2284,
+      "word": "biodegradable",
+      "pos": "형용사",
+      "meaning": "생분해성의",
+      "level": "고등"
+    },
+    {
+      "id": 2285,
+      "word": "blueprint",
+      "pos": "명사",
+      "meaning": "청사진",
+      "level": "고등"
+    },
+    {
+      "id": 2286,
+      "word": "bold",
+      "pos": "형용사",
+      "meaning": "대담한",
+      "level": "고등"
+    },
+    {
+      "id": 2287,
+      "word": "boredom",
+      "pos": "명사",
+      "meaning": "권태",
+      "level": "고등"
+    },
+    {
+      "id": 2288,
+      "word": "brittle",
+      "pos": "형용사",
+      "meaning": "부서지기 쉬운",
+      "level": "고등"
+    },
+    {
+      "id": 2289,
+      "word": "broaden",
+      "pos": "동사",
+      "meaning": "넓히다",
+      "level": "고등"
+    },
+    {
+      "id": 2290,
+      "word": "bypass",
+      "pos": "동사/명사",
+      "meaning": "우회하다, 우회로",
+      "level": "고등"
+    },
+    {
+      "id": 2291,
+      "word": "careless",
+      "pos": "형용사",
+      "meaning": "부주의한",
+      "level": "고등"
+    },
+    {
+      "id": 2292,
+      "word": "cautious",
+      "pos": "형용사",
+      "meaning": "조심스러운",
+      "level": "고등"
+    },
+    {
+      "id": 2293,
+      "word": "centralize",
+      "pos": "동사",
+      "meaning": "집중화하다",
+      "level": "고등"
+    },
+    {
+      "id": 2294,
+      "word": "certainty",
+      "pos": "명사",
+      "meaning": "확실성",
+      "level": "고등"
+    },
+    {
+      "id": 2295,
+      "word": "charitable",
+      "pos": "형용사",
+      "meaning": "자선의",
+      "level": "고등"
+    },
+    {
+      "id": 2296,
+      "word": "clarity",
+      "pos": "명사",
+      "meaning": "명확성",
+      "level": "고등"
+    },
+    {
+      "id": 2297,
+      "word": "clinical",
+      "pos": "형용사",
+      "meaning": "임상의",
+      "level": "고등"
+    },
+    {
+      "id": 2298,
+      "word": "coalition",
+      "pos": "명사",
+      "meaning": "연합",
+      "level": "고등"
+    },
+    {
+      "id": 2299,
+      "word": "coexistence",
+      "pos": "명사",
+      "meaning": "공존",
+      "level": "고등"
+    },
+    {
+      "id": 2300,
+      "word": "collective",
+      "pos": "형용사/명사",
+      "meaning": "집단적인, 집합체",
+      "level": "고등"
+    },
+    {
+      "id": 2301,
+      "word": "collision",
+      "pos": "명사",
+      "meaning": "충돌",
+      "level": "고등"
+    },
+    {
+      "id": 2302,
+      "word": "colonial",
+      "pos": "형용사",
+      "meaning": "식민지의",
+      "level": "고등"
+    },
+    {
+      "id": 2303,
+      "word": "combat",
+      "pos": "동사/명사",
+      "meaning": "싸우다, 전투",
+      "level": "고등"
+    },
+    {
+      "id": 2304,
+      "word": "commerce",
+      "pos": "명사",
+      "meaning": "상업",
+      "level": "고등"
+    },
+    {
+      "id": 2305,
+      "word": "common sense",
+      "pos": "명사",
+      "meaning": "상식",
+      "level": "고등"
+    },
+    {
+      "id": 2306,
+      "word": "communal",
+      "pos": "형용사",
+      "meaning": "공동의",
+      "level": "고등"
+    },
+    {
+      "id": 2307,
+      "word": "comparison",
+      "pos": "명사",
+      "meaning": "비교",
+      "level": "고등"
+    },
+    {
+      "id": 2308,
+      "word": "compassionate",
+      "pos": "형용사",
+      "meaning": "자비로운",
+      "level": "고등"
+    },
+    {
+      "id": 2309,
+      "word": "composition",
+      "pos": "명사",
+      "meaning": "구성, 작문",
+      "level": "고등"
+    },
+    {
+      "id": 2310,
+      "word": "compromise",
+      "pos": "동사/명사",
+      "meaning": "타협하다, 타협",
+      "level": "고등"
+    },
+    {
+      "id": 2311,
+      "word": "conceptual",
+      "pos": "형용사",
+      "meaning": "개념적인",
+      "level": "고등"
+    },
+    {
+      "id": 2312,
+      "word": "conclusive",
+      "pos": "형용사",
+      "meaning": "결정적인",
+      "level": "고등"
+    },
+    {
+      "id": 2313,
+      "word": "conduct",
+      "pos": "동사/명사",
+      "meaning": "수행하다, 행동",
+      "level": "고등"
+    },
+    {
+      "id": 2314,
+      "word": "connotation",
+      "pos": "명사",
+      "meaning": "함축",
+      "level": "고등"
+    },
+    {
+      "id": 2315,
+      "word": "conservative",
+      "pos": "형용사",
+      "meaning": "보수적인",
+      "level": "고등"
+    },
+    {
+      "id": 2316,
+      "word": "consistency",
+      "pos": "명사",
+      "meaning": "일관성",
+      "level": "고등"
+    },
+    {
+      "id": 2317,
+      "word": "constraint",
+      "pos": "명사",
+      "meaning": "제약",
+      "level": "고등"
+    },
+    {
+      "id": 2318,
+      "word": "consumer",
+      "pos": "명사",
+      "meaning": "소비자",
+      "level": "고등"
+    },
+    {
+      "id": 2319,
+      "word": "contrast",
+      "pos": "명사/동사",
+      "meaning": "대조, 대조하다",
+      "level": "고등"
+    },
+    {
+      "id": 2320,
+      "word": "contribution",
+      "pos": "명사",
+      "meaning": "기여",
+      "level": "고등"
+    },
+    {
+      "id": 2321,
+      "word": "corrupt",
+      "pos": "형용사/동사",
+      "meaning": "부패한, 부패시키다",
+      "level": "고등"
+    },
+    {
+      "id": 2322,
+      "word": "craft",
+      "pos": "명사/동사",
+      "meaning": "공예, 만들다",
+      "level": "고등"
+    },
+    {
+      "id": 2323,
+      "word": "criminal",
+      "pos": "형용사/명사",
+      "meaning": "범죄의, 범죄자",
+      "level": "고등"
+    },
+    {
+      "id": 2324,
+      "word": "critique",
+      "pos": "명사/동사",
+      "meaning": "비평, 비평하다",
+      "level": "고등"
+    },
+    {
+      "id": 2325,
+      "word": "cultural",
+      "pos": "형용사",
+      "meaning": "문화적인",
+      "level": "고등"
+    },
+    {
+      "id": 2326,
+      "word": "curriculum",
+      "pos": "명사",
+      "meaning": "교육과정",
+      "level": "고등"
+    },
+    {
+      "id": 2327,
+      "word": "deception",
+      "pos": "명사",
+      "meaning": "속임수",
+      "level": "고등"
+    },
+    {
+      "id": 2328,
+      "word": "decisive",
+      "pos": "형용사",
+      "meaning": "결단력 있는",
+      "level": "고등"
+    },
+    {
+      "id": 2329,
+      "word": "dedicated",
+      "pos": "형용사",
+      "meaning": "헌신적인",
+      "level": "고등"
+    },
+    {
+      "id": 2330,
+      "word": "defense",
+      "pos": "명사",
+      "meaning": "방어",
+      "level": "고등"
+    },
+    {
+      "id": 2331,
+      "word": "demoralize",
+      "pos": "동사",
+      "meaning": "사기를 꺾다",
+      "level": "고등"
+    },
+    {
+      "id": 2332,
+      "word": "density",
+      "pos": "명사",
+      "meaning": "밀도",
+      "level": "고등"
+    },
+    {
+      "id": 2333,
+      "word": "desirable",
+      "pos": "형용사",
+      "meaning": "바람직한",
+      "level": "고등"
+    },
+    {
+      "id": 2334,
+      "word": "destructive",
+      "pos": "형용사",
+      "meaning": "파괴적인",
+      "level": "고등"
+    },
+    {
+      "id": 2335,
+      "word": "diligent",
+      "pos": "형용사",
+      "meaning": "부지런한",
+      "level": "고등"
+    },
+    {
+      "id": 2336,
+      "word": "discrepancy",
+      "pos": "명사",
+      "meaning": "불일치",
+      "level": "고등"
+    },
+    {
+      "id": 2337,
+      "word": "distinction",
+      "pos": "명사",
+      "meaning": "구별, 탁월함",
+      "level": "고등"
+    },
+    {
+      "id": 2338,
+      "word": "distribution",
+      "pos": "명사",
+      "meaning": "분배",
+      "level": "고등"
+    },
+    {
+      "id": 2339,
+      "word": "division",
+      "pos": "명사",
+      "meaning": "분열, 나눗셈",
+      "level": "고등"
+    },
+    {
+      "id": 2340,
+      "word": "drawback",
+      "pos": "명사",
+      "meaning": "단점",
+      "level": "고등"
+    },
+    {
+      "id": 2341,
+      "word": "durable",
+      "pos": "형용사",
+      "meaning": "내구성 있는",
+      "level": "고등"
+    },
+    {
+      "id": 2342,
+      "word": "economic",
+      "pos": "형용사",
+      "meaning": "경제적인",
+      "level": "고등"
+    },
+    {
+      "id": 2343,
+      "word": "educational",
+      "pos": "형용사",
+      "meaning": "교육적인",
+      "level": "고등"
+    },
+    {
+      "id": 2344,
+      "word": "emotional",
+      "pos": "형용사",
+      "meaning": "감정적인",
+      "level": "고등"
+    },
+    {
+      "id": 2345,
+      "word": "encouragement",
+      "pos": "명사",
+      "meaning": "격려",
+      "level": "고등"
+    },
+    {
+      "id": 2346,
+      "word": "engagement",
+      "pos": "명사",
+      "meaning": "참여",
+      "level": "고등"
+    },
+    {
+      "id": 2347,
+      "word": "enlighten",
+      "pos": "동사",
+      "meaning": "계몽하다",
+      "level": "고등"
+    },
+    {
+      "id": 2348,
+      "word": "envy",
+      "pos": "명사/동사",
+      "meaning": "부러움, 부러워하다",
+      "level": "고등"
+    },
+    {
+      "id": 2349,
+      "word": "exceptional",
+      "pos": "형용사",
+      "meaning": "예외적인",
+      "level": "고등"
+    },
+    {
+      "id": 2350,
+      "word": "expectancy",
+      "pos": "명사",
+      "meaning": "기대",
+      "level": "고등"
+    },
+    {
+      "id": 2351,
+      "word": "expenditure",
+      "pos": "명사",
+      "meaning": "지출",
+      "level": "고등"
+    },
+    {
+      "id": 2352,
+      "word": "exposure",
+      "pos": "명사",
+      "meaning": "노출",
+      "level": "고등"
+    },
+    {
+      "id": 2353,
+      "word": "exquisite",
+      "pos": "형용사",
+      "meaning": "정교한",
+      "level": "고등"
+    },
+    {
+      "id": 2354,
+      "word": "extravagant",
+      "pos": "형용사",
+      "meaning": "사치스러운",
+      "level": "고등"
+    },
+    {
+      "id": 2355,
+      "word": "fairness",
+      "pos": "명사",
+      "meaning": "공정성",
+      "level": "고등"
+    },
+    {
+      "id": 2356,
+      "word": "favorable",
+      "pos": "형용사",
+      "meaning": "유리한",
+      "level": "고등"
+    },
+    {
+      "id": 2357,
+      "word": "feedback",
+      "pos": "명사",
+      "meaning": "피드백",
+      "level": "고등"
+    },
+    {
+      "id": 2358,
+      "word": "fiction",
+      "pos": "명사",
+      "meaning": "소설, 허구",
+      "level": "고등"
+    },
+    {
+      "id": 2359,
+      "word": "forthcoming",
+      "pos": "형용사",
+      "meaning": "다가오는",
+      "level": "고등"
+    },
+    {
+      "id": 2360,
+      "word": "fossil fuel",
+      "pos": "명사",
+      "meaning": "화석연료",
+      "level": "고등"
+    },
+    {
+      "id": 2361,
+      "word": "generosity",
+      "pos": "명사",
+      "meaning": "관대함",
+      "level": "고등"
+    },
+    {
+      "id": 2362,
+      "word": "global warming",
+      "pos": "명사",
+      "meaning": "지구 온난화",
+      "level": "고등"
+    },
+    {
+      "id": 2363,
+      "word": "gratitude",
+      "pos": "명사",
+      "meaning": "감사함",
+      "level": "고등"
+    },
+    {
+      "id": 2364,
+      "word": "greed",
+      "pos": "명사",
+      "meaning": "탐욕",
+      "level": "고등"
+    },
+    {
+      "id": 2365,
+      "word": "grief",
+      "pos": "명사",
+      "meaning": "슬픔",
+      "level": "고등"
+    },
+    {
+      "id": 2366,
+      "word": "guilt",
+      "pos": "명사",
+      "meaning": "죄책감",
+      "level": "고등"
+    },
+    {
+      "id": 2367,
+      "word": "hallmark",
+      "pos": "명사",
+      "meaning": "특징",
+      "level": "고등"
+    },
+    {
+      "id": 2368,
+      "word": "hardship",
+      "pos": "명사",
+      "meaning": "역경",
+      "level": "고등"
+    },
+    {
+      "id": 2369,
+      "word": "hazardous",
+      "pos": "형용사",
+      "meaning": "위험한",
+      "level": "고등"
+    },
+    {
+      "id": 2370,
+      "word": "hesitate",
+      "pos": "동사",
+      "meaning": "망설이다",
+      "level": "고등"
+    },
+    {
+      "id": 2371,
+      "word": "horizontal",
+      "pos": "형용사",
+      "meaning": "수평의",
+      "level": "고등"
+    },
+    {
+      "id": 2372,
+      "word": "hostile",
+      "pos": "형용사",
+      "meaning": "적대적인",
+      "level": "고등"
+    },
+    {
+      "id": 2373,
+      "word": "humility",
+      "pos": "명사",
+      "meaning": "겸손",
+      "level": "고등"
+    },
+    {
+      "id": 2374,
+      "word": "identification",
+      "pos": "명사",
+      "meaning": "확인, 신분증",
+      "level": "고등"
+    },
+    {
+      "id": 2375,
+      "word": "imbalance",
+      "pos": "명사",
+      "meaning": "불균형",
+      "level": "고등"
+    },
+    {
+      "id": 2376,
+      "word": "implementation",
+      "pos": "명사",
+      "meaning": "실행",
+      "level": "고등"
+    },
+    {
+      "id": 2377,
+      "word": "incompatible",
+      "pos": "형용사",
+      "meaning": "양립할 수 없는",
+      "level": "고등"
+    },
+    {
+      "id": 2378,
+      "word": "inconsistency",
+      "pos": "명사",
+      "meaning": "불일치",
+      "level": "고등"
+    },
+    {
+      "id": 2379,
+      "word": "indifference",
+      "pos": "명사",
+      "meaning": "무관심",
+      "level": "고등"
+    },
+    {
+      "id": 2380,
+      "word": "indispensable",
+      "pos": "형용사",
+      "meaning": "필수불가결한",
+      "level": "고등"
+    },
+    {
+      "id": 2381,
+      "word": "inflammation",
+      "pos": "명사",
+      "meaning": "염증",
+      "level": "고등"
+    },
+    {
+      "id": 2382,
+      "word": "insightful",
+      "pos": "형용사",
+      "meaning": "통찰력 있는",
+      "level": "고등"
+    },
+    {
+      "id": 2383,
+      "word": "integrity",
+      "pos": "명사",
+      "meaning": "성실성",
+      "level": "고등"
+    },
+    {
+      "id": 2384,
+      "word": "intentional",
+      "pos": "형용사",
+      "meaning": "의도적인",
+      "level": "고등"
+    },
+    {
+      "id": 2385,
+      "word": "jeopardize",
+      "pos": "동사",
+      "meaning": "위험에 빠뜨리다",
+      "level": "고등"
+    },
+    {
+      "id": 2386,
+      "word": "judgement",
+      "pos": "명사",
+      "meaning": "판단",
+      "level": "고등"
+    },
+    {
+      "id": 2387,
+      "word": "legislative",
+      "pos": "형용사",
+      "meaning": "입법의",
+      "level": "고등"
+    },
+    {
+      "id": 2388,
+      "word": "leverage",
+      "pos": "명사/동사",
+      "meaning": "레버리지, 활용하다",
+      "level": "고등"
+    },
+    {
+      "id": 2389,
+      "word": "liberate",
+      "pos": "동사",
+      "meaning": "해방시키다",
+      "level": "고등"
+    },
+    {
+      "id": 2390,
+      "word": "likelihood",
+      "pos": "명사",
+      "meaning": "가능성",
+      "level": "고등"
+    },
+    {
+      "id": 2391,
+      "word": "longevity",
+      "pos": "명사",
+      "meaning": "장수",
+      "level": "고등"
+    },
+    {
+      "id": 2392,
+      "word": "loyalty",
+      "pos": "명사",
+      "meaning": "충성심",
+      "level": "고등"
+    },
+    {
+      "id": 2393,
+      "word": "luxury",
+      "pos": "명사/형용사",
+      "meaning": "사치, 사치스러운",
+      "level": "고등"
+    },
+    {
+      "id": 2394,
+      "word": "manipulation",
+      "pos": "명사",
+      "meaning": "조작",
+      "level": "고등"
+    },
+    {
+      "id": 2395,
+      "word": "manuscript",
+      "pos": "명사",
+      "meaning": "원고",
+      "level": "고등"
+    },
+    {
+      "id": 2396,
+      "word": "meaningful",
+      "pos": "형용사",
+      "meaning": "의미 있는",
+      "level": "고등"
+    },
+    {
+      "id": 2397,
+      "word": "meditation",
+      "pos": "명사",
+      "meaning": "명상",
+      "level": "고등"
+    },
+    {
+      "id": 2398,
+      "word": "merchandise",
+      "pos": "명사",
+      "meaning": "상품",
+      "level": "고등"
+    },
+    {
+      "id": 2399,
+      "word": "misconception",
+      "pos": "명사",
+      "meaning": "오해",
+      "level": "고등"
+    },
+    {
+      "id": 2400,
+      "word": "modesty",
+      "pos": "명사",
+      "meaning": "겸손",
+      "level": "고등"
+    },
+    {
+      "id": 2401,
+      "word": "monopoly",
+      "pos": "명사",
+      "meaning": "독점",
+      "level": "고등"
+    },
+    {
+      "id": 2402,
+      "word": "morale",
+      "pos": "명사",
+      "meaning": "사기",
+      "level": "고등"
+    },
+    {
+      "id": 2403,
+      "word": "negligence",
+      "pos": "명사",
+      "meaning": "부주의",
+      "level": "고등"
+    },
+    {
+      "id": 2404,
+      "word": "neutralize",
+      "pos": "동사",
+      "meaning": "중화하다",
+      "level": "고등"
+    },
+    {
+      "id": 2405,
+      "word": "nonverbal",
+      "pos": "형용사",
+      "meaning": "비언어적인",
+      "level": "고등"
+    },
+    {
+      "id": 2406,
+      "word": "observation",
+      "pos": "명사",
+      "meaning": "관찰",
+      "level": "고등"
+    },
+    {
+      "id": 2407,
+      "word": "opposition",
+      "pos": "명사",
+      "meaning": "반대",
+      "level": "고등"
+    },
+    {
+      "id": 2408,
+      "word": "optimistic",
+      "pos": "형용사",
+      "meaning": "낙관적인",
+      "level": "고등"
+    },
+    {
+      "id": 2409,
+      "word": "originality",
+      "pos": "명사",
+      "meaning": "독창성",
+      "level": "고등"
+    },
+    {
+      "id": 2410,
+      "word": "outweigh",
+      "pos": "동사",
+      "meaning": "더 중요하다",
+      "level": "고등"
+    },
+    {
+      "id": 2411,
+      "word": "overwhelm",
+      "pos": "동사",
+      "meaning": "압도하다",
+      "level": "고등"
+    },
+    {
+      "id": 2412,
+      "word": "paramount",
+      "pos": "형용사",
+      "meaning": "가장 중요한",
+      "level": "고등"
+    },
+    {
+      "id": 2413,
+      "word": "patience",
+      "pos": "명사",
+      "meaning": "인내",
+      "level": "고등"
+    },
+    {
+      "id": 2414,
+      "word": "peculiar",
+      "pos": "형용사",
+      "meaning": "특이한",
+      "level": "고등"
+    },
+    {
+      "id": 2415,
+      "word": "persistence",
+      "pos": "명사",
+      "meaning": "지속성",
+      "level": "고등"
+    },
+    {
+      "id": 2416,
+      "word": "pessimistic",
+      "pos": "형용사",
+      "meaning": "비관적인",
+      "level": "고등"
+    },
+    {
+      "id": 2417,
+      "word": "philanthropy",
+      "pos": "명사",
+      "meaning": "자선",
+      "level": "고등"
+    },
+    {
+      "id": 2418,
+      "word": "ponder",
+      "pos": "동사",
+      "meaning": "숙고하다",
+      "level": "고등"
+    },
+    {
+      "id": 2419,
+      "word": "presumption",
+      "pos": "명사",
+      "meaning": "추정",
+      "level": "고등"
+    },
+    {
+      "id": 2420,
+      "word": "prevail",
+      "pos": "동사",
+      "meaning": "만연하다",
+      "level": "고등"
+    },
+    {
+      "id": 2421,
+      "word": "proficient",
+      "pos": "형용사",
+      "meaning": "능숙한",
+      "level": "고등"
+    },
+    {
+      "id": 2422,
+      "word": "progressive",
+      "pos": "형용사",
+      "meaning": "진보적인",
+      "level": "고등"
+    },
+    {
+      "id": 2423,
+      "word": "prolong",
+      "pos": "동사",
+      "meaning": "연장하다",
+      "level": "고등"
+    },
+    {
+      "id": 2424,
+      "word": "prominent",
+      "pos": "형용사",
+      "meaning": "두드러진",
+      "level": "고등"
+    },
+    {
+      "id": 2425,
+      "word": "provoke",
+      "pos": "동사",
+      "meaning": "도발하다",
+      "level": "고등"
+    },
+    {
+      "id": 2426,
+      "word": "refine",
+      "pos": "동사",
+      "meaning": "정제하다",
+      "level": "고등"
+    },
+    {
+      "id": 2427,
+      "word": "reinstate",
+      "pos": "동사",
+      "meaning": "복원하다",
+      "level": "고등"
+    },
+    {
+      "id": 2428,
+      "word": "remedy",
+      "pos": "명사/동사",
+      "meaning": "치료법, 해결하다",
+      "level": "고등"
+    },
+    {
+      "id": 2429,
+      "word": "renew",
+      "pos": "동사",
+      "meaning": "갱신하다",
+      "level": "고등"
+    },
+    {
+      "id": 2430,
+      "word": "replenish",
+      "pos": "동사",
+      "meaning": "보충하다",
+      "level": "고등"
+    },
+    {
+      "id": 2431,
+      "word": "reproduce",
+      "pos": "동사",
+      "meaning": "재생산하다",
+      "level": "고등"
+    },
+    {
+      "id": 2432,
+      "word": "resonance",
+      "pos": "명사",
+      "meaning": "공명",
+      "level": "고등"
+    },
+    {
+      "id": 2433,
+      "word": "restraint",
+      "pos": "명사",
+      "meaning": "자제",
+      "level": "고등"
+    },
+    {
+      "id": 2434,
+      "word": "rigorous",
+      "pos": "형용사",
+      "meaning": "엄격한",
+      "level": "고등"
+    },
+    {
+      "id": 2435,
+      "word": "routine",
+      "pos": "명사/형용사",
+      "meaning": "일상, 일상적인",
+      "level": "고등"
+    },
+    {
+      "id": 2436,
+      "word": "scrutiny",
+      "pos": "명사",
+      "meaning": "면밀한 검토",
+      "level": "고등"
+    },
+    {
+      "id": 2437,
+      "word": "self-esteem",
+      "pos": "명사",
+      "meaning": "자존감",
+      "level": "고등"
+    },
+    {
+      "id": 2438,
+      "word": "skepticism",
+      "pos": "명사",
+      "meaning": "회의주의",
+      "level": "고등"
+    },
+    {
+      "id": 2439,
+      "word": "solidarity",
+      "pos": "명사",
+      "meaning": "연대",
+      "level": "고등"
+    },
+    {
+      "id": 2440,
+      "word": "spontaneous",
+      "pos": "형용사",
+      "meaning": "자발적인",
+      "level": "고등"
+    },
+    {
+      "id": 2441,
+      "word": "stability",
+      "pos": "명사",
+      "meaning": "안정성",
+      "level": "고등"
+    },
+    {
+      "id": 2442,
+      "word": "stimulate",
+      "pos": "동사",
+      "meaning": "자극하다",
+      "level": "고등"
+    },
+    {
+      "id": 2443,
+      "word": "subsidize",
+      "pos": "동사",
+      "meaning": "보조금을 주다",
+      "level": "고등"
+    },
+    {
+      "id": 2444,
+      "word": "superiority",
+      "pos": "명사",
+      "meaning": "우월성",
+      "level": "고등"
+    },
+    {
+      "id": 2445,
+      "word": "surge",
+      "pos": "동사/명사",
+      "meaning": "급증하다, 급증",
+      "level": "고등"
+    },
+    {
+      "id": 2446,
+      "word": "suspicion",
+      "pos": "명사",
+      "meaning": "의심",
+      "level": "고등"
+    },
+    {
+      "id": 2447,
+      "word": "synthesis",
+      "pos": "명사",
+      "meaning": "합성",
+      "level": "고등"
+    },
+    {
+      "id": 2448,
+      "word": "tactful",
+      "pos": "형용사",
+      "meaning": "눈치 있는",
+      "level": "고등"
+    },
+    {
+      "id": 2449,
+      "word": "terminate",
+      "pos": "동사",
+      "meaning": "종료하다",
+      "level": "고등"
+    },
+    {
+      "id": 2450,
+      "word": "transparency",
+      "pos": "명사",
+      "meaning": "투명성",
+      "level": "고등"
+    },
+    {
+      "id": 2451,
+      "word": "trespass",
+      "pos": "동사",
+      "meaning": "침입하다",
+      "level": "고등"
+    },
+    {
+      "id": 2452,
+      "word": "underpin",
+      "pos": "동사",
+      "meaning": "뒷받침하다",
+      "level": "고등"
+    },
+    {
+      "id": 2453,
+      "word": "urgency",
+      "pos": "명사",
+      "meaning": "긴급성",
+      "level": "고등"
+    },
+    {
+      "id": 2454,
+      "word": "utilitarian",
+      "pos": "형용사",
+      "meaning": "공리주의적인",
+      "level": "고등"
+    },
+    {
+      "id": 2455,
+      "word": "versatile",
+      "pos": "형용사",
+      "meaning": "다재다능한",
+      "level": "고등"
+    },
+    {
+      "id": 2456,
+      "word": "withhold",
+      "pos": "동사",
+      "meaning": "보류하다",
+      "level": "고등"
+    },
+    {
+      "id": 2457,
+      "word": "worldview",
+      "pos": "명사",
+      "meaning": "세계관",
+      "level": "고등"
+    },
+    {
+      "id": 2458,
+      "word": "worthwhile",
+      "pos": "형용사",
+      "meaning": "가치 있는",
+      "level": "고등"
+    },
+    {
+      "id": 2459,
+      "word": "bath",
+      "pos": "명사",
+      "meaning": "목욕",
+      "level": "초등"
+    },
+    {
+      "id": 2460,
+      "word": "coat",
+      "pos": "명사",
+      "meaning": "외투",
+      "level": "초등"
+    },
+    {
+      "id": 2461,
+      "word": "dad",
+      "pos": "명사",
+      "meaning": "아빠",
+      "level": "초등"
+    },
+    {
+      "id": 2462,
+      "word": "daughter",
+      "pos": "명사",
+      "meaning": "딸",
+      "level": "초등"
+    },
+    {
+      "id": 2463,
+      "word": "farm",
+      "pos": "명사",
+      "meaning": "농장",
+      "level": "초등"
+    },
+    {
+      "id": 2464,
+      "word": "fat",
+      "pos": "형용사",
+      "meaning": "뚱뚱한",
+      "level": "초등"
+    },
+    {
+      "id": 2465,
+      "word": "garden",
+      "pos": "명사",
+      "meaning": "정원",
+      "level": "초등"
+    },
+    {
+      "id": 2466,
+      "word": "glasses",
+      "pos": "명사",
+      "meaning": "안경",
+      "level": "초등"
+    },
+    {
+      "id": 2467,
+      "word": "grape",
+      "pos": "명사",
+      "meaning": "포도",
+      "level": "초등"
+    },
+    {
+      "id": 2468,
+      "word": "key",
+      "pos": "명사",
+      "meaning": "열쇠",
+      "level": "초등"
+    },
+    {
+      "id": 2469,
+      "word": "melon",
+      "pos": "명사",
+      "meaning": "멜론",
+      "level": "초등"
+    },
+    {
+      "id": 2470,
+      "word": "mom",
+      "pos": "명사",
+      "meaning": "엄마",
+      "level": "초등"
+    },
+    {
+      "id": 2471,
+      "word": "nine",
+      "pos": "수사",
+      "meaning": "아홉",
+      "level": "초등"
+    },
+    {
+      "id": 2472,
+      "word": "panda",
+      "pos": "명사",
+      "meaning": "판다",
+      "level": "초등"
+    },
+    {
+      "id": 2473,
+      "word": "penguin",
+      "pos": "명사",
+      "meaning": "펭귄",
+      "level": "초등"
+    },
+    {
+      "id": 2474,
+      "word": "playground",
+      "pos": "명사",
+      "meaning": "놀이터",
+      "level": "초등"
+    },
+    {
+      "id": 2475,
+      "word": "pool",
+      "pos": "명사",
+      "meaning": "수영장",
+      "level": "초등"
+    },
+    {
+      "id": 2476,
+      "word": "rainbow",
+      "pos": "명사",
+      "meaning": "무지개",
+      "level": "초등"
+    },
+    {
+      "id": 2477,
+      "word": "sea",
+      "pos": "명사",
+      "meaning": "바다",
+      "level": "초등"
+    },
+    {
+      "id": 2478,
+      "word": "shoes",
+      "pos": "명사",
+      "meaning": "신발",
+      "level": "초등"
+    },
+    {
+      "id": 2479,
+      "word": "six",
+      "pos": "수사",
+      "meaning": "여섯",
+      "level": "초등"
+    },
+    {
+      "id": 2480,
+      "word": "snake",
+      "pos": "명사",
+      "meaning": "뱀",
+      "level": "초등"
+    },
+    {
+      "id": 2481,
+      "word": "soccer",
+      "pos": "명사",
+      "meaning": "축구",
+      "level": "초등"
+    },
+    {
+      "id": 2482,
+      "word": "sock",
+      "pos": "명사",
+      "meaning": "양말",
+      "level": "초등"
+    },
+    {
+      "id": 2483,
+      "word": "spaghetti",
+      "pos": "명사",
+      "meaning": "스파게티",
+      "level": "초등"
+    },
+    {
+      "id": 2484,
+      "word": "truck",
+      "pos": "명사",
+      "meaning": "트럭",
+      "level": "초등"
+    },
+    {
+      "id": 2485,
+      "word": "vegetables",
+      "pos": "명사",
+      "meaning": "채소",
+      "level": "초등"
+    },
+    {
+      "id": 2486,
+      "word": "wall",
+      "pos": "명사",
+      "meaning": "벽",
+      "level": "초등"
+    },
+    {
+      "id": 2487,
+      "word": "wing",
+      "pos": "명사",
+      "meaning": "날개",
+      "level": "초등"
+    },
+    {
+      "id": 2488,
+      "word": "activity",
+      "pos": "명사",
+      "meaning": "활동",
+      "level": "중등"
+    },
+    {
+      "id": 2489,
+      "word": "adventure",
+      "pos": "명사",
+      "meaning": "모험",
+      "level": "중등"
+    },
+    {
+      "id": 2490,
+      "word": "album",
+      "pos": "명사",
+      "meaning": "앨범",
+      "level": "중등"
+    },
+    {
+      "id": 2491,
+      "word": "amazing",
+      "pos": "형용사",
+      "meaning": "놀라운",
+      "level": "중등"
+    },
+    {
+      "id": 2492,
+      "word": "army",
+      "pos": "명사",
+      "meaning": "군대",
+      "level": "중등"
+    },
+    {
+      "id": 2493,
+      "word": "assistant",
+      "pos": "명사",
+      "meaning": "조수",
+      "level": "중등"
+    },
+    {
+      "id": 2494,
+      "word": "attack",
+      "pos": "동사/명사",
+      "meaning": "공격하다, 공격",
+      "level": "중등"
+    },
+    {
+      "id": 2495,
+      "word": "audience",
+      "pos": "명사",
+      "meaning": "청중",
+      "level": "중등"
+    },
+    {
+      "id": 2496,
+      "word": "awful",
+      "pos": "형용사",
+      "meaning": "끔찍한",
+      "level": "중등"
+    },
+    {
+      "id": 2497,
+      "word": "background",
+      "pos": "명사",
+      "meaning": "배경",
+      "level": "중등"
+    },
+    {
+      "id": 2498,
+      "word": "badly",
+      "pos": "부사",
+      "meaning": "나쁘게",
+      "level": "중등"
+    },
+    {
+      "id": 2499,
+      "word": "balloon",
+      "pos": "명사",
+      "meaning": "풍선",
+      "level": "중등"
+    },
+    {
+      "id": 2500,
+      "word": "certainly",
+      "pos": "부사",
+      "meaning": "확실히",
+      "level": "중등"
+    },
+    {
+      "id": 2501,
+      "word": "cheer",
+      "pos": "동사/명사",
+      "meaning": "응원하다, 환호",
+      "level": "중등"
+    },
+    {
+      "id": 2502,
+      "word": "classwork",
+      "pos": "명사",
+      "meaning": "수업활동",
+      "level": "중등"
+    },
+    {
+      "id": 2503,
+      "word": "club",
+      "pos": "명사",
+      "meaning": "클럽",
+      "level": "중등"
+    },
+    {
+      "id": 2504,
+      "word": "coach",
+      "pos": "명사",
+      "meaning": "코치",
+      "level": "중등"
+    },
+    {
+      "id": 2505,
+      "word": "company",
+      "pos": "명사",
+      "meaning": "회사",
+      "level": "중등"
+    },
+    {
+      "id": 2506,
+      "word": "contest",
+      "pos": "명사",
+      "meaning": "대회",
+      "level": "중등"
+    },
+    {
+      "id": 2507,
+      "word": "countryside",
+      "pos": "명사",
+      "meaning": "시골",
+      "level": "중등"
+    },
+    {
+      "id": 2508,
+      "word": "court",
+      "pos": "명사",
+      "meaning": "법원, 코트",
+      "level": "중등"
+    },
+    {
+      "id": 2509,
+      "word": "cycle",
+      "pos": "명사/동사",
+      "meaning": "자전거, 순환하다",
+      "level": "중등"
+    },
+    {
+      "id": 2510,
+      "word": "delay",
+      "pos": "동사/명사",
+      "meaning": "지연시키다, 지연",
+      "level": "중등"
+    },
+    {
+      "id": 2511,
+      "word": "department",
+      "pos": "명사",
+      "meaning": "부서",
+      "level": "중등"
+    },
+    {
+      "id": 2512,
+      "word": "dirty",
+      "pos": "형용사",
+      "meaning": "더러운",
+      "level": "중등"
+    },
+    {
+      "id": 2513,
+      "word": "downstairs",
+      "pos": "부사",
+      "meaning": "아래층으로",
+      "level": "중등"
+    },
+    {
+      "id": 2514,
+      "word": "else",
+      "pos": "부사",
+      "meaning": "그 밖에",
+      "level": "중등"
+    },
+    {
+      "id": 2515,
+      "word": "enemy",
+      "pos": "명사",
+      "meaning": "적",
+      "level": "중등"
+    },
+    {
+      "id": 2516,
+      "word": "envelope",
+      "pos": "명사",
+      "meaning": "봉투",
+      "level": "중등"
+    },
+    {
+      "id": 2517,
+      "word": "even",
+      "pos": "부사/형용사",
+      "meaning": "심지어, 균일한",
+      "level": "중등"
+    },
+    {
+      "id": 2518,
+      "word": "extra",
+      "pos": "형용사/명사",
+      "meaning": "추가의, 여분",
+      "level": "중등"
+    },
+    {
+      "id": 2519,
+      "word": "field",
+      "pos": "명사",
+      "meaning": "들판, 분야",
+      "level": "중등"
+    },
+    {
+      "id": 2520,
+      "word": "fire",
+      "pos": "명사",
+      "meaning": "불",
+      "level": "중등"
+    },
+    {
+      "id": 2521,
+      "word": "flag",
+      "pos": "명사",
+      "meaning": "깃발",
+      "level": "중등"
+    },
+    {
+      "id": 2522,
+      "word": "flow",
+      "pos": "동사/명사",
+      "meaning": "흐르다, 흐름",
+      "level": "중등"
+    },
+    {
+      "id": 2523,
+      "word": "fond",
+      "pos": "형용사",
+      "meaning": "좋아하는",
+      "level": "중등"
+    },
+    {
+      "id": 2524,
+      "word": "found",
+      "pos": "동사",
+      "meaning": "설립하다",
+      "level": "중등"
+    },
+    {
+      "id": 2525,
+      "word": "frequently",
+      "pos": "부사",
+      "meaning": "자주",
+      "level": "중등"
+    },
+    {
+      "id": 2526,
+      "word": "gate",
+      "pos": "명사",
+      "meaning": "문",
+      "level": "중등"
+    },
+    {
+      "id": 2527,
+      "word": "gentle",
+      "pos": "형용사",
+      "meaning": "온화한",
+      "level": "중등"
+    },
+    {
+      "id": 2528,
+      "word": "ghost",
+      "pos": "명사",
+      "meaning": "귀신",
+      "level": "중등"
+    },
+    {
+      "id": 2529,
+      "word": "gold",
+      "pos": "명사/형용사",
+      "meaning": "금, 금색의",
+      "level": "중등"
+    },
+    {
+      "id": 2530,
+      "word": "good-looking",
+      "pos": "형용사",
+      "meaning": "잘생긴",
+      "level": "중등"
+    },
+    {
+      "id": 2531,
+      "word": "grandma",
+      "pos": "명사",
+      "meaning": "할머니",
+      "level": "중등"
+    },
+    {
+      "id": 2532,
+      "word": "grandpa",
+      "pos": "명사",
+      "meaning": "할아버지",
+      "level": "중등"
+    },
+    {
+      "id": 2533,
+      "word": "hall",
+      "pos": "명사",
+      "meaning": "복도",
+      "level": "중등"
+    },
+    {
+      "id": 2534,
+      "word": "hang",
+      "pos": "동사",
+      "meaning": "걸다",
+      "level": "중등"
+    },
+    {
+      "id": 2535,
+      "word": "have fun",
+      "pos": "동사구",
+      "meaning": "재미있게 지내다",
+      "level": "중등"
+    },
+    {
+      "id": 2536,
+      "word": "hold",
+      "pos": "동사",
+      "meaning": "잡다",
+      "level": "중등"
+    },
+    {
+      "id": 2537,
+      "word": "horrible",
+      "pos": "형용사",
+      "meaning": "끔찍한",
+      "level": "중등"
+    },
+    {
+      "id": 2538,
+      "word": "hour",
+      "pos": "명사",
+      "meaning": "시간",
+      "level": "중등"
+    },
+    {
+      "id": 2539,
+      "word": "ice cream",
+      "pos": "명사",
+      "meaning": "아이스크림",
+      "level": "중등"
+    },
+    {
+      "id": 2540,
+      "word": "if",
+      "pos": "접속사",
+      "meaning": "만약",
+      "level": "중등"
+    },
+    {
+      "id": 2541,
+      "word": "in front of",
+      "pos": "전치사구",
+      "meaning": "~앞에",
+      "level": "중등"
+    },
+    {
+      "id": 2542,
+      "word": "jealous",
+      "pos": "형용사",
+      "meaning": "질투하는",
+      "level": "중등"
+    },
+    {
+      "id": 2543,
+      "word": "jog",
+      "pos": "동사",
+      "meaning": "조깅하다",
+      "level": "중등"
+    },
+    {
+      "id": 2544,
+      "word": "juice",
+      "pos": "명사",
+      "meaning": "주스",
+      "level": "중등"
+    },
+    {
+      "id": 2545,
+      "word": "junior",
+      "pos": "명사/형용사",
+      "meaning": "하급자, 연하의",
+      "level": "중등"
+    },
+    {
+      "id": 2546,
+      "word": "kick",
+      "pos": "동사/명사",
+      "meaning": "차다, 발차기",
+      "level": "중등"
+    },
+    {
+      "id": 2547,
+      "word": "knock",
+      "pos": "동사/명사",
+      "meaning": "두드리다, 노크",
+      "level": "중등"
+    },
+    {
+      "id": 2548,
+      "word": "law",
+      "pos": "명사",
+      "meaning": "법",
+      "level": "중등"
+    },
+    {
+      "id": 2549,
+      "word": "lean",
+      "pos": "동사",
+      "meaning": "기대다",
+      "level": "중등"
+    },
+    {
+      "id": 2550,
+      "word": "lend",
+      "pos": "동사",
+      "meaning": "빌려주다",
+      "level": "중등"
+    },
+    {
+      "id": 2551,
+      "word": "lesson",
+      "pos": "명사",
+      "meaning": "수업",
+      "level": "중등"
+    },
+    {
+      "id": 2552,
+      "word": "lie",
+      "pos": "동사/명사",
+      "meaning": "거짓말하다, 눕다",
+      "level": "중등"
+    },
+    {
+      "id": 2553,
+      "word": "lift",
+      "pos": "동사/명사",
+      "meaning": "들어올리다, 리프트",
+      "level": "중등"
+    },
+    {
+      "id": 2554,
+      "word": "living room",
+      "pos": "명사",
+      "meaning": "거실",
+      "level": "중등"
+    },
+    {
+      "id": 2555,
+      "word": "lock",
+      "pos": "동사/명사",
+      "meaning": "잠그다, 자물쇠",
+      "level": "중등"
+    },
+    {
+      "id": 2556,
+      "word": "lot",
+      "pos": "명사",
+      "meaning": "많음",
+      "level": "중등"
+    },
+    {
+      "id": 2557,
+      "word": "mad",
+      "pos": "형용사",
+      "meaning": "화난, 미친",
+      "level": "중등"
+    },
+    {
+      "id": 2558,
+      "word": "magazine",
+      "pos": "명사",
+      "meaning": "잡지",
+      "level": "중등"
+    },
+    {
+      "id": 2559,
+      "word": "magic",
+      "pos": "명사/형용사",
+      "meaning": "마법, 마법의",
+      "level": "중등"
+    },
+    {
+      "id": 2560,
+      "word": "mark",
+      "pos": "명사/동사",
+      "meaning": "표시, 점수",
+      "level": "중등"
+    },
+    {
+      "id": 2561,
+      "word": "meal",
+      "pos": "명사",
+      "meaning": "식사",
+      "level": "중등"
+    },
+    {
+      "id": 2562,
+      "word": "medal",
+      "pos": "명사",
+      "meaning": "메달",
+      "level": "중등"
+    },
+    {
+      "id": 2563,
+      "word": "midnight",
+      "pos": "명사",
+      "meaning": "자정",
+      "level": "중등"
+    },
+    {
+      "id": 2564,
+      "word": "museum",
+      "pos": "명사",
+      "meaning": "박물관",
+      "level": "중등"
+    },
+    {
+      "id": 2565,
+      "word": "narrow",
+      "pos": "형용사",
+      "meaning": "좁은",
+      "level": "중등"
+    },
+    {
+      "id": 2566,
+      "word": "neat",
+      "pos": "형용사",
+      "meaning": "깔끔한",
+      "level": "중등"
+    },
+    {
+      "id": 2567,
+      "word": "other",
+      "pos": "형용사",
+      "meaning": "다른",
+      "level": "중등"
+    },
+    {
+      "id": 2568,
+      "word": "outdoor",
+      "pos": "형용사",
+      "meaning": "야외의",
+      "level": "중등"
+    },
+    {
+      "id": 2569,
+      "word": "package",
+      "pos": "명사",
+      "meaning": "소포",
+      "level": "중등"
+    },
+    {
+      "id": 2570,
+      "word": "palace",
+      "pos": "명사",
+      "meaning": "궁전",
+      "level": "중등"
+    },
+    {
+      "id": 2571,
+      "word": "parents",
+      "pos": "명사",
+      "meaning": "부모",
+      "level": "중등"
+    },
+    {
+      "id": 2572,
+      "word": "party",
+      "pos": "명사",
+      "meaning": "파티",
+      "level": "중등"
+    },
+    {
+      "id": 2573,
+      "word": "passenger",
+      "pos": "명사",
+      "meaning": "승객",
+      "level": "중등"
+    },
+    {
+      "id": 2574,
+      "word": "piano",
+      "pos": "명사",
+      "meaning": "피아노",
+      "level": "중등"
+    },
+    {
+      "id": 2575,
+      "word": "pilot",
+      "pos": "명사",
+      "meaning": "조종사",
+      "level": "중등"
+    },
+    {
+      "id": 2576,
+      "word": "post office",
+      "pos": "명사",
+      "meaning": "우체국",
+      "level": "중등"
+    },
+    {
+      "id": 2577,
+      "word": "quarter",
+      "pos": "명사",
+      "meaning": "4분의 1",
+      "level": "중등"
+    },
+    {
+      "id": 2578,
+      "word": "quiz",
+      "pos": "명사",
+      "meaning": "퀴즈",
+      "level": "중등"
+    },
+    {
+      "id": 2579,
+      "word": "race",
+      "pos": "명사/동사",
+      "meaning": "경주, 경주하다",
+      "level": "중등"
+    },
+    {
+      "id": 2580,
+      "word": "recycle",
+      "pos": "동사",
+      "meaning": "재활용하다",
+      "level": "중등"
+    },
+    {
+      "id": 2581,
+      "word": "refrigerator",
+      "pos": "명사",
+      "meaning": "냉장고",
+      "level": "중등"
+    },
+    {
+      "id": 2582,
+      "word": "relax",
+      "pos": "동사",
+      "meaning": "쉬다",
+      "level": "중등"
+    },
+    {
+      "id": 2583,
+      "word": "remind",
+      "pos": "동사",
+      "meaning": "상기시키다",
+      "level": "중등"
+    },
+    {
+      "id": 2584,
+      "word": "rough",
+      "pos": "형용사",
+      "meaning": "거친",
+      "level": "중등"
+    },
+    {
+      "id": 2585,
+      "word": "safety",
+      "pos": "명사",
+      "meaning": "안전",
+      "level": "중등"
+    },
+    {
+      "id": 2586,
+      "word": "sailor",
+      "pos": "명사",
+      "meaning": "선원",
+      "level": "중등"
+    },
+    {
+      "id": 2587,
+      "word": "scared",
+      "pos": "형용사",
+      "meaning": "무서운",
+      "level": "중등"
+    },
+    {
+      "id": 2588,
+      "word": "score",
+      "pos": "명사/동사",
+      "meaning": "점수, 득점하다",
+      "level": "중등"
+    },
+    {
+      "id": 2589,
+      "word": "senior",
+      "pos": "명사/형용사",
+      "meaning": "선배, 연상의",
+      "level": "중등"
+    },
+    {
+      "id": 2590,
+      "word": "set",
+      "pos": "동사/명사",
+      "meaning": "놓다, 세트",
+      "level": "중등"
+    },
+    {
+      "id": 2591,
+      "word": "shape",
+      "pos": "명사",
+      "meaning": "모양",
+      "level": "중등"
+    },
+    {
+      "id": 2592,
+      "word": "sharp",
+      "pos": "형용사",
+      "meaning": "날카로운",
+      "level": "중등"
+    },
+    {
+      "id": 2593,
+      "word": "shop",
+      "pos": "명사/동사",
+      "meaning": "가게, 쇼핑하다",
+      "level": "중등"
+    },
+    {
+      "id": 2594,
+      "word": "shout",
+      "pos": "동사",
+      "meaning": "소리치다",
+      "level": "중등"
+    },
+    {
+      "id": 2595,
+      "word": "sign",
+      "pos": "명사/동사",
+      "meaning": "표지판, 서명하다",
+      "level": "중등"
+    },
+    {
+      "id": 2596,
+      "word": "silver",
+      "pos": "명사/형용사",
+      "meaning": "은, 은색의",
+      "level": "중등"
+    },
+    {
+      "id": 2597,
+      "word": "singer",
+      "pos": "명사",
+      "meaning": "가수",
+      "level": "중등"
+    },
+    {
+      "id": 2598,
+      "word": "somebody",
+      "pos": "대명사",
+      "meaning": "누군가",
+      "level": "중등"
+    },
+    {
+      "id": 2599,
+      "word": "somewhere",
+      "pos": "부사",
+      "meaning": "어딘가에",
+      "level": "중등"
+    },
+    {
+      "id": 2600,
+      "word": "station",
+      "pos": "명사",
+      "meaning": "역",
+      "level": "중등"
+    },
+    {
+      "id": 2601,
+      "word": "steal",
+      "pos": "동사",
+      "meaning": "훔치다",
+      "level": "중등"
+    },
+    {
+      "id": 2602,
+      "word": "still",
+      "pos": "부사/형용사",
+      "meaning": "여전히, 조용한",
+      "level": "중등"
+    },
+    {
+      "id": 2603,
+      "word": "switch",
+      "pos": "동사/명사",
+      "meaning": "바꾸다, 스위치",
+      "level": "중등"
+    },
+    {
+      "id": 2604,
+      "word": "terrible",
+      "pos": "형용사",
+      "meaning": "끔찍한",
+      "level": "중등"
+    },
+    {
+      "id": 2605,
+      "word": "theater",
+      "pos": "명사",
+      "meaning": "극장",
+      "level": "중등"
+    },
+    {
+      "id": 2606,
+      "word": "thick",
+      "pos": "형용사",
+      "meaning": "두꺼운",
+      "level": "중등"
+    },
+    {
+      "id": 2607,
+      "word": "thin",
+      "pos": "형용사",
+      "meaning": "얇은, 마른",
+      "level": "중등"
+    },
+    {
+      "id": 2608,
+      "word": "throat",
+      "pos": "명사",
+      "meaning": "목구멍",
+      "level": "중등"
+    },
+    {
+      "id": 2609,
+      "word": "tiny",
+      "pos": "형용사",
+      "meaning": "아주 작은",
+      "level": "중등"
+    },
+    {
+      "id": 2610,
+      "word": "title",
+      "pos": "명사",
+      "meaning": "제목",
+      "level": "중등"
+    },
+    {
+      "id": 2611,
+      "word": "tomorrow",
+      "pos": "명사/부사",
+      "meaning": "내일",
+      "level": "중등"
+    },
+    {
+      "id": 2612,
+      "word": "tongue",
+      "pos": "명사",
+      "meaning": "혀",
+      "level": "중등"
+    },
+    {
+      "id": 2613,
+      "word": "traffic",
+      "pos": "명사",
+      "meaning": "교통",
+      "level": "중등"
+    },
+    {
+      "id": 2614,
+      "word": "trip",
+      "pos": "명사",
+      "meaning": "여행",
+      "level": "중등"
+    },
+    {
+      "id": 2615,
+      "word": "until",
+      "pos": "접속사/전치사",
+      "meaning": "~까지",
+      "level": "중등"
+    },
+    {
+      "id": 2616,
+      "word": "upstairs",
+      "pos": "부사",
+      "meaning": "위층에",
+      "level": "중등"
+    },
+    {
+      "id": 2617,
+      "word": "video",
+      "pos": "명사",
+      "meaning": "영상",
+      "level": "중등"
+    },
+    {
+      "id": 2618,
+      "word": "wait",
+      "pos": "동사",
+      "meaning": "기다리다",
+      "level": "중등"
+    },
+    {
+      "id": 2619,
+      "word": "war",
+      "pos": "명사",
+      "meaning": "전쟁",
+      "level": "중등"
+    },
+    {
+      "id": 2620,
+      "word": "while",
+      "pos": "접속사",
+      "meaning": "~하는 동안",
+      "level": "중등"
+    },
+    {
+      "id": 2621,
+      "word": "wood",
+      "pos": "명사",
+      "meaning": "나무",
+      "level": "중등"
+    },
+    {
+      "id": 2622,
+      "word": "writer",
+      "pos": "명사",
+      "meaning": "작가",
+      "level": "중등"
+    },
+    {
+      "id": 2623,
+      "word": "admiration",
+      "pos": "명사",
+      "meaning": "감탄",
+      "level": "고등"
+    },
+    {
+      "id": 2624,
+      "word": "adversary",
+      "pos": "명사",
+      "meaning": "적수",
+      "level": "고등"
+    },
+    {
+      "id": 2625,
+      "word": "affiliate",
+      "pos": "동사",
+      "meaning": "제휴하다",
+      "level": "고등"
+    },
+    {
+      "id": 2626,
+      "word": "afford",
+      "pos": "동사",
+      "meaning": "여유가 있다",
+      "level": "고등"
+    },
+    {
+      "id": 2627,
+      "word": "agony",
+      "pos": "명사",
+      "meaning": "고통",
+      "level": "고등"
+    },
+    {
+      "id": 2628,
+      "word": "alike",
+      "pos": "형용사/부사",
+      "meaning": "비슷한, 마찬가지로",
+      "level": "고등"
+    },
+    {
+      "id": 2629,
+      "word": "allegiance",
+      "pos": "명사",
+      "meaning": "충성",
+      "level": "고등"
+    },
+    {
+      "id": 2630,
+      "word": "allude",
+      "pos": "동사",
+      "meaning": "암시하다",
+      "level": "고등"
+    },
+    {
+      "id": 2631,
+      "word": "altruism",
+      "pos": "명사",
+      "meaning": "이타주의",
+      "level": "고등"
+    },
+    {
+      "id": 2632,
+      "word": "analogous",
+      "pos": "형용사",
+      "meaning": "유사한",
+      "level": "고등"
+    },
+    {
+      "id": 2633,
+      "word": "ancestry",
+      "pos": "명사",
+      "meaning": "조상",
+      "level": "고등"
+    },
+    {
+      "id": 2634,
+      "word": "anonymous",
+      "pos": "형용사",
+      "meaning": "익명의",
+      "level": "고등"
+    },
+    {
+      "id": 2635,
+      "word": "antagonist",
+      "pos": "명사",
+      "meaning": "적대자",
+      "level": "고등"
+    },
+    {
+      "id": 2636,
+      "word": "antiquated",
+      "pos": "형용사",
+      "meaning": "낡은",
+      "level": "고등"
+    },
+    {
+      "id": 2637,
+      "word": "apprehend",
+      "pos": "동사",
+      "meaning": "파악하다",
+      "level": "고등"
+    },
+    {
+      "id": 2638,
+      "word": "aptly",
+      "pos": "부사",
+      "meaning": "적절히",
+      "level": "고등"
+    },
+    {
+      "id": 2639,
+      "word": "articulation",
+      "pos": "명사",
+      "meaning": "표현",
+      "level": "고등"
+    },
+    {
+      "id": 2640,
+      "word": "ascertain",
+      "pos": "동사",
+      "meaning": "확인하다",
+      "level": "고등"
+    },
+    {
+      "id": 2641,
+      "word": "assimilate",
+      "pos": "동사",
+      "meaning": "동화되다",
+      "level": "고등"
+    },
+    {
+      "id": 2642,
+      "word": "atrocity",
+      "pos": "명사",
+      "meaning": "잔학행위",
+      "level": "고등"
+    },
+    {
+      "id": 2643,
+      "word": "attainment",
+      "pos": "명사",
+      "meaning": "달성",
+      "level": "고등"
+    },
+    {
+      "id": 2644,
+      "word": "avert",
+      "pos": "동사",
+      "meaning": "피하다",
+      "level": "고등"
+    },
+    {
+      "id": 2645,
+      "word": "beneath",
+      "pos": "전치사",
+      "meaning": "~아래에",
+      "level": "고등"
+    },
+    {
+      "id": 2646,
+      "word": "betray",
+      "pos": "동사",
+      "meaning": "배신하다",
+      "level": "고등"
+    },
+    {
+      "id": 2647,
+      "word": "biome",
+      "pos": "명사",
+      "meaning": "생물군계",
+      "level": "고등"
+    },
+    {
+      "id": 2648,
+      "word": "blatant",
+      "pos": "형용사",
+      "meaning": "뻔뻔스러운",
+      "level": "고등"
+    },
+    {
+      "id": 2649,
+      "word": "calamity",
+      "pos": "명사",
+      "meaning": "재난",
+      "level": "고등"
+    },
+    {
+      "id": 2650,
+      "word": "capability",
+      "pos": "명사",
+      "meaning": "능력",
+      "level": "고등"
+    },
+    {
+      "id": 2651,
+      "word": "clinically",
+      "pos": "부사",
+      "meaning": "임상적으로",
+      "level": "고등"
+    },
+    {
+      "id": 2652,
+      "word": "coexist",
+      "pos": "동사",
+      "meaning": "공존하다",
+      "level": "고등"
+    },
+    {
+      "id": 2653,
+      "word": "commission",
+      "pos": "명사/동사",
+      "meaning": "위원회, 위임하다",
+      "level": "고등"
+    },
+    {
+      "id": 2654,
+      "word": "complexity",
+      "pos": "명사",
+      "meaning": "복잡성",
+      "level": "고등"
+    },
+    {
+      "id": 2655,
+      "word": "comply",
+      "pos": "동사",
+      "meaning": "따르다",
+      "level": "고등"
+    },
+    {
+      "id": 2656,
+      "word": "conceivable",
+      "pos": "형용사",
+      "meaning": "생각할 수 있는",
+      "level": "고등"
+    },
+    {
+      "id": 2657,
+      "word": "configuration",
+      "pos": "명사",
+      "meaning": "구성",
+      "level": "고등"
+    },
+    {
+      "id": 2658,
+      "word": "consult",
+      "pos": "동사",
+      "meaning": "상의하다",
+      "level": "고등"
+    },
+    {
+      "id": 2659,
+      "word": "corporate",
+      "pos": "형용사",
+      "meaning": "기업의",
+      "level": "고등"
+    },
+    {
+      "id": 2660,
+      "word": "cynicism",
+      "pos": "명사",
+      "meaning": "냉소주의",
+      "level": "고등"
+    },
+    {
+      "id": 2661,
+      "word": "demographic",
+      "pos": "명사/형용사",
+      "meaning": "인구통계, 인구의",
+      "level": "고등"
+    },
+    {
+      "id": 2662,
+      "word": "diligence",
+      "pos": "명사",
+      "meaning": "근면",
+      "level": "고등"
+    },
+    {
+      "id": 2663,
+      "word": "discernment",
+      "pos": "명사",
+      "meaning": "통찰력",
+      "level": "고등"
+    },
+    {
+      "id": 2664,
+      "word": "disdain",
+      "pos": "명사/동사",
+      "meaning": "경멸, 경멸하다",
+      "level": "고등"
+    },
+    {
+      "id": 2665,
+      "word": "disregard",
+      "pos": "동사/명사",
+      "meaning": "무시하다, 무시",
+      "level": "고등"
+    },
+    {
+      "id": 2666,
+      "word": "distract",
+      "pos": "동사",
+      "meaning": "주의를 분산시키다",
+      "level": "고등"
+    },
+    {
+      "id": 2667,
+      "word": "docile",
+      "pos": "형용사",
+      "meaning": "온순한",
+      "level": "고등"
+    },
+    {
+      "id": 2668,
+      "word": "ecological",
+      "pos": "형용사",
+      "meaning": "생태학적인",
+      "level": "고등"
+    },
+    {
+      "id": 2669,
+      "word": "embody",
+      "pos": "동사",
+      "meaning": "구현하다",
+      "level": "고등"
+    },
+    {
+      "id": 2670,
+      "word": "emergent",
+      "pos": "형용사",
+      "meaning": "새로 나타나는",
+      "level": "고등"
+    },
+    {
+      "id": 2671,
+      "word": "emphasis",
+      "pos": "명사",
+      "meaning": "강조",
+      "level": "고등"
+    },
+    {
+      "id": 2672,
+      "word": "empirically",
+      "pos": "부사",
+      "meaning": "경험적으로",
+      "level": "고등"
+    },
+    {
+      "id": 2673,
+      "word": "explicitly",
+      "pos": "부사",
+      "meaning": "명시적으로",
+      "level": "고등"
+    },
+    {
+      "id": 2674,
+      "word": "falter",
+      "pos": "동사",
+      "meaning": "흔들리다",
+      "level": "고등"
+    },
+    {
+      "id": 2675,
+      "word": "flaw",
+      "pos": "명사",
+      "meaning": "결함",
+      "level": "고등"
+    },
+    {
+      "id": 2676,
+      "word": "inflate",
+      "pos": "동사",
+      "meaning": "부풀리다",
+      "level": "고등"
+    },
+    {
+      "id": 2677,
+      "word": "judicious",
+      "pos": "형용사",
+      "meaning": "현명한",
+      "level": "고등"
+    },
+    {
+      "id": 2678,
+      "word": "landmark",
+      "pos": "명사",
+      "meaning": "획기적인 사건",
+      "level": "고등"
+    },
+    {
+      "id": 2679,
+      "word": "mediate",
+      "pos": "동사",
+      "meaning": "중재하다",
+      "level": "고등"
+    },
+    {
+      "id": 2680,
+      "word": "optimism",
+      "pos": "명사",
+      "meaning": "낙관주의",
+      "level": "고등"
+    },
+    {
+      "id": 2681,
+      "word": "pessimism",
+      "pos": "명사",
+      "meaning": "비관주의",
+      "level": "고등"
+    },
+    {
+      "id": 2682,
+      "word": "self-awareness",
+      "pos": "명사",
+      "meaning": "자기 인식",
+      "level": "고등"
+    },
+    {
+      "id": 2683,
+      "word": "tacit",
+      "pos": "형용사",
+      "meaning": "묵시적인",
+      "level": "고등"
+    },
+    {
+      "id": 2684,
+      "word": "trajectory",
+      "pos": "명사",
+      "meaning": "궤도",
+      "level": "고등"
+    },
+    {
+      "id": 2685,
+      "word": "zealous",
+      "pos": "형용사",
+      "meaning": "열성적인",
+      "level": "고등"
+    },
+    {
+      "id": 2686,
+      "word": "abolition",
+      "pos": "명사",
+      "meaning": "폐지",
+      "level": "고등"
+    },
+    {
+      "id": 2687,
+      "word": "agile",
+      "pos": "형용사",
+      "meaning": "민첩한",
+      "level": "고등"
+    },
+    {
+      "id": 2688,
+      "word": "akin",
+      "pos": "형용사",
+      "meaning": "유사한",
+      "level": "고등"
+    },
+    {
+      "id": 2689,
+      "word": "alienation",
+      "pos": "명사",
+      "meaning": "소외",
+      "level": "고등"
+    },
+    {
+      "id": 2690,
+      "word": "biomass",
+      "pos": "명사",
+      "meaning": "생물량",
+      "level": "고등"
+    },
+    {
+      "id": 2691,
+      "word": "coherence",
+      "pos": "명사",
+      "meaning": "일관성",
+      "level": "고등"
+    },
+    {
+      "id": 2692,
+      "word": "collateral",
+      "pos": "형용사",
+      "meaning": "부수적인",
+      "level": "고등"
+    },
+    {
+      "id": 2693,
+      "word": "accountable",
+      "pos": "형용사",
+      "meaning": "책임이 있는",
+      "level": "고등"
+    },
+    {
+      "id": 2694,
+      "word": "adhere",
+      "pos": "동사",
+      "meaning": "고수하다",
+      "level": "고등"
+    },
+    {
+      "id": 2695,
+      "word": "aftermath",
+      "pos": "명사",
+      "meaning": "여파",
+      "level": "고등"
+    },
+    {
+      "id": 2696,
+      "word": "antagonize",
+      "pos": "동사",
+      "meaning": "적대시하다",
+      "level": "고등"
+    },
+    {
+      "id": 2697,
+      "word": "apprehension",
+      "pos": "명사",
+      "meaning": "불안",
+      "level": "고등"
+    },
+    {
+      "id": 2698,
+      "word": "assemble",
+      "pos": "동사",
+      "meaning": "모으다",
+      "level": "고등"
+    },
+    {
+      "id": 2699,
+      "word": "bloom",
+      "pos": "동사/명사",
+      "meaning": "꽃피다, 개화",
+      "level": "고등"
+    },
+    {
+      "id": 2700,
+      "word": "boycott",
+      "pos": "동사/명사",
+      "meaning": "불매운동하다",
+      "level": "고등"
+    },
+    {
+      "id": 2701,
+      "word": "broadly",
+      "pos": "부사",
+      "meaning": "넓게",
+      "level": "고등"
+    },
+    {
+      "id": 2702,
+      "word": "charter",
+      "pos": "명사",
+      "meaning": "헌장",
+      "level": "고등"
+    },
+    {
+      "id": 2703,
+      "word": "clarify",
+      "pos": "동사",
+      "meaning": "명확히 하다",
+      "level": "고등"
+    },
+    {
+      "id": 2704,
+      "word": "cluster",
+      "pos": "명사/동사",
+      "meaning": "무리, 모이다",
+      "level": "고등"
+    },
+    {
+      "id": 2705,
+      "word": "compliance",
+      "pos": "명사",
+      "meaning": "준수",
+      "level": "고등"
+    },
+    {
+      "id": 2706,
+      "word": "confiscate",
+      "pos": "동사",
+      "meaning": "몰수하다",
+      "level": "고등"
+    },
+    {
+      "id": 2707,
+      "word": "conserve",
+      "pos": "동사",
+      "meaning": "절약하다",
+      "level": "고등"
+    },
+    {
+      "id": 2708,
+      "word": "consortium",
+      "pos": "명사",
+      "meaning": "컨소시엄",
+      "level": "고등"
+    },
+    {
+      "id": 2709,
+      "word": "contend",
+      "pos": "동사",
+      "meaning": "주장하다",
+      "level": "고등"
+    },
+    {
+      "id": 2710,
+      "word": "currency",
+      "pos": "명사",
+      "meaning": "통화",
+      "level": "고등"
+    },
+    {
+      "id": 2711,
+      "word": "derivative",
+      "pos": "형용사",
+      "meaning": "파생적인",
+      "level": "고등"
+    },
+    {
+      "id": 2712,
+      "word": "distinctly",
+      "pos": "부사",
+      "meaning": "명확히",
+      "level": "고등"
+    },
+    {
+      "id": 2713,
+      "word": "employ",
+      "pos": "동사",
+      "meaning": "고용하다",
+      "level": "고등"
+    },
+    {
+      "id": 2714,
+      "word": "equip",
+      "pos": "동사",
+      "meaning": "갖추다",
+      "level": "고등"
+    },
+    {
+      "id": 2715,
+      "word": "estate",
+      "pos": "명사",
+      "meaning": "부동산",
+      "level": "고등"
+    },
+    {
+      "id": 2716,
+      "word": "fragility",
+      "pos": "명사",
+      "meaning": "취약성",
+      "level": "고등"
+    },
+    {
+      "id": 2717,
+      "word": "habitual",
+      "pos": "형용사",
+      "meaning": "습관적인",
+      "level": "고등"
+    },
+    {
+      "id": 2718,
+      "word": "imminent",
+      "pos": "형용사",
+      "meaning": "임박한",
+      "level": "고등"
+    },
+    {
+      "id": 2719,
+      "word": "instigate",
+      "pos": "동사",
+      "meaning": "부추기다",
+      "level": "고등"
+    },
+    {
+      "id": 2720,
+      "word": "intervene",
+      "pos": "동사",
+      "meaning": "개입하다",
+      "level": "고등"
+    },
+    {
+      "id": 2721,
+      "word": "lure",
+      "pos": "동사/명사",
+      "meaning": "유혹하다, 미끼",
+      "level": "고등"
+    },
+    {
+      "id": 2722,
+      "word": "monopolize",
+      "pos": "동사",
+      "meaning": "독점하다",
+      "level": "고등"
+    },
+    {
+      "id": 2723,
+      "word": "municipal",
+      "pos": "형용사",
+      "meaning": "지방 자치의",
+      "level": "고등"
+    },
+    {
+      "id": 2724,
+      "word": "nullify",
+      "pos": "동사",
+      "meaning": "무효화하다",
+      "level": "고등"
+    },
+    {
+      "id": 2725,
+      "word": "obscure",
+      "pos": "형용사/동사",
+      "meaning": "모호한, 가리다",
+      "level": "고등"
+    },
+    {
+      "id": 2726,
+      "word": "persist",
+      "pos": "동사",
+      "meaning": "계속하다",
+      "level": "고등"
+    },
+    {
+      "id": 2727,
+      "word": "pragmatism",
+      "pos": "명사",
+      "meaning": "실용주의",
+      "level": "고등"
+    },
+    {
+      "id": 2728,
+      "word": "preclude",
+      "pos": "동사",
+      "meaning": "막다",
+      "level": "고등"
+    },
+    {
+      "id": 2729,
+      "word": "proficiency",
+      "pos": "명사",
+      "meaning": "능숙함",
+      "level": "고등"
+    },
+    {
+      "id": 2730,
+      "word": "prominence",
+      "pos": "명사",
+      "meaning": "두각",
+      "level": "고등"
+    },
+    {
+      "id": 2731,
+      "word": "rationalize",
+      "pos": "동사",
+      "meaning": "합리화하다",
+      "level": "고등"
+    },
+    {
+      "id": 2732,
+      "word": "resilient",
+      "pos": "형용사",
+      "meaning": "회복력 있는",
+      "level": "고등"
+    },
+    {
+      "id": 2733,
+      "word": "significance",
+      "pos": "명사",
+      "meaning": "의의",
+      "level": "고등"
+    },
+    {
+      "id": 2734,
+      "word": "societal",
+      "pos": "형용사",
+      "meaning": "사회의",
+      "level": "고등"
+    },
+    {
+      "id": 2735,
+      "word": "spontaneity",
+      "pos": "명사",
+      "meaning": "자발성",
+      "level": "고등"
+    },
+    {
+      "id": 2736,
+      "word": "stabilize",
+      "pos": "동사",
+      "meaning": "안정시키다",
+      "level": "고등"
+    },
+    {
+      "id": 2737,
+      "word": "subvert",
+      "pos": "동사",
+      "meaning": "뒤집다",
+      "level": "고등"
+    },
+    {
+      "id": 2738,
+      "word": "turbulent",
+      "pos": "형용사",
+      "meaning": "혼란스러운",
+      "level": "고등"
+    },
+    {
+      "id": 2739,
+      "word": "versatility",
+      "pos": "명사",
+      "meaning": "다재다능함",
+      "level": "고등"
+    },
+    {
+      "id": 2740,
+      "word": "vigilant",
+      "pos": "형용사",
+      "meaning": "경계하는",
+      "level": "고등"
+    },
+    {
+      "id": 2741,
+      "word": "vulnerability",
+      "pos": "명사",
+      "meaning": "취약점",
+      "level": "고등"
+    },
+    {
+      "id": 2742,
+      "word": "xenophobia",
+      "pos": "명사",
+      "meaning": "외국인 혐오",
+      "level": "고등"
+    },
+    {
+      "id": 2743,
+      "word": "zealot",
+      "pos": "명사",
+      "meaning": "광신자",
+      "level": "고등"
+    },
+    {
+      "id": 2744,
+      "word": "alligator",
+      "pos": "명사",
+      "meaning": "악어",
+      "level": "초등"
+    },
+    {
+      "id": 2745,
+      "word": "ambulance",
+      "pos": "명사",
+      "meaning": "구급차",
+      "level": "초등"
+    },
+    {
+      "id": 2746,
+      "word": "ant",
+      "pos": "명사",
+      "meaning": "개미",
+      "level": "초등"
+    },
+    {
+      "id": 2747,
+      "word": "bat",
+      "pos": "명사",
+      "meaning": "박쥐, 배트",
+      "level": "초등"
+    },
+    {
+      "id": 2748,
+      "word": "bee",
+      "pos": "명사",
+      "meaning": "벌",
+      "level": "초등"
+    },
+    {
+      "id": 2749,
+      "word": "bell",
+      "pos": "명사",
+      "meaning": "종",
+      "level": "초등"
+    },
+    {
+      "id": 2750,
+      "word": "bench",
+      "pos": "명사",
+      "meaning": "벤치",
+      "level": "초등"
+    },
+    {
+      "id": 2751,
+      "word": "bug",
+      "pos": "명사",
+      "meaning": "벌레",
+      "level": "초등"
+    },
+    {
+      "id": 2752,
+      "word": "button",
+      "pos": "명사",
+      "meaning": "단추",
+      "level": "초등"
+    },
+    {
+      "id": 2753,
+      "word": "candy",
+      "pos": "명사",
+      "meaning": "사탕",
+      "level": "초등"
+    },
+    {
+      "id": 2754,
+      "word": "cap",
+      "pos": "명사",
+      "meaning": "모자",
+      "level": "초등"
+    },
+    {
+      "id": 2755,
+      "word": "castle",
+      "pos": "명사",
+      "meaning": "성",
+      "level": "초등"
+    },
+    {
+      "id": 2756,
+      "word": "ceiling",
+      "pos": "명사",
+      "meaning": "천장",
+      "level": "초등"
+    },
+    {
+      "id": 2757,
+      "word": "closed",
+      "pos": "형용사",
+      "meaning": "닫힌",
+      "level": "초등"
+    },
+    {
+      "id": 2758,
+      "word": "cloudy",
+      "pos": "형용사",
+      "meaning": "흐린",
+      "level": "초등"
+    },
+    {
+      "id": 2759,
+      "word": "corn",
+      "pos": "명사",
+      "meaning": "옥수수",
+      "level": "초등"
+    },
+    {
+      "id": 2760,
+      "word": "cow",
+      "pos": "명사",
+      "meaning": "소",
+      "level": "초등"
+    },
+    {
+      "id": 2761,
+      "word": "crocodile",
+      "pos": "명사",
+      "meaning": "악어",
+      "level": "초등"
+    },
+    {
+      "id": 2762,
+      "word": "deer",
+      "pos": "명사",
+      "meaning": "사슴",
+      "level": "초등"
+    },
+    {
+      "id": 2763,
+      "word": "fence",
+      "pos": "명사",
+      "meaning": "울타리",
+      "level": "초등"
+    },
+    {
+      "id": 2764,
+      "word": "flour",
+      "pos": "명사",
+      "meaning": "밀가루",
+      "level": "초등"
+    },
+    {
+      "id": 2765,
+      "word": "funny",
+      "pos": "형용사",
+      "meaning": "재미있는",
+      "level": "초등"
+    },
+    {
+      "id": 2766,
+      "word": "goat",
+      "pos": "명사",
+      "meaning": "염소",
+      "level": "초등"
+    },
+    {
+      "id": 2767,
+      "word": "gorilla",
+      "pos": "명사",
+      "meaning": "고릴라",
+      "level": "초등"
+    },
+    {
+      "id": 2768,
+      "word": "grandfather",
+      "pos": "명사",
+      "meaning": "할아버지",
+      "level": "초등"
+    },
+    {
+      "id": 2769,
+      "word": "grandmother",
+      "pos": "명사",
+      "meaning": "할머니",
+      "level": "초등"
+    },
+    {
+      "id": 2770,
+      "word": "guitar",
+      "pos": "명사",
+      "meaning": "기타",
+      "level": "초등"
+    },
+    {
+      "id": 2771,
+      "word": "hamburger",
+      "pos": "명사",
+      "meaning": "햄버거",
+      "level": "초등"
+    },
+    {
+      "id": 2772,
+      "word": "hamster",
+      "pos": "명사",
+      "meaning": "햄스터",
+      "level": "초등"
+    },
+    {
+      "id": 2773,
+      "word": "helicopter",
+      "pos": "명사",
+      "meaning": "헬리콥터",
+      "level": "초등"
+    },
+    {
+      "id": 2774,
+      "word": "hippo",
+      "pos": "명사",
+      "meaning": "하마",
+      "level": "초등"
+    },
+    {
+      "id": 2775,
+      "word": "jump rope",
+      "pos": "명사",
+      "meaning": "줄넘기",
+      "level": "초등"
+    },
+    {
+      "id": 2776,
+      "word": "kangaroo",
+      "pos": "명사",
+      "meaning": "캥거루",
+      "level": "초등"
+    },
+    {
+      "id": 2777,
+      "word": "ladder",
+      "pos": "명사",
+      "meaning": "사다리",
+      "level": "초등"
+    },
+    {
+      "id": 2778,
+      "word": "ladybug",
+      "pos": "명사",
+      "meaning": "무당벌레",
+      "level": "초등"
+    },
+    {
+      "id": 2779,
+      "word": "leaf",
+      "pos": "명사",
+      "meaning": "나뭇잎",
+      "level": "초등"
+    },
+    {
+      "id": 2780,
+      "word": "lighthouse",
+      "pos": "명사",
+      "meaning": "등대",
+      "level": "초등"
+    },
+    {
+      "id": 2781,
+      "word": "lizard",
+      "pos": "명사",
+      "meaning": "도마뱀",
+      "level": "초등"
+    },
+    {
+      "id": 2782,
+      "word": "mango",
+      "pos": "명사",
+      "meaning": "망고",
+      "level": "초등"
+    },
+    {
+      "id": 2783,
+      "word": "mask",
+      "pos": "명사",
+      "meaning": "마스크",
+      "level": "초등"
+    },
+    {
+      "id": 2784,
+      "word": "minute",
+      "pos": "명사",
+      "meaning": "분",
+      "level": "초등"
+    },
+    {
+      "id": 2785,
+      "word": "monkey bar",
+      "pos": "명사",
+      "meaning": "정글짐",
+      "level": "초등"
+    },
+    {
+      "id": 2786,
+      "word": "mushroom",
+      "pos": "명사",
+      "meaning": "버섯",
+      "level": "초등"
+    },
+    {
+      "id": 2787,
+      "word": "nail",
+      "pos": "명사",
+      "meaning": "손톱, 못",
+      "level": "초등"
+    },
+    {
+      "id": 2788,
+      "word": "parrot",
+      "pos": "명사",
+      "meaning": "앵무새",
+      "level": "초등"
+    },
+    {
+      "id": 2789,
+      "word": "pear",
+      "pos": "명사",
+      "meaning": "배",
+      "level": "초등"
+    },
+    {
+      "id": 2790,
+      "word": "pepper",
+      "pos": "명사",
+      "meaning": "고추",
+      "level": "초등"
+    },
+    {
+      "id": 2791,
+      "word": "photograph",
+      "pos": "명사",
+      "meaning": "사진",
+      "level": "초등"
+    },
+    {
+      "id": 2792,
+      "word": "pineapple",
+      "pos": "명사",
+      "meaning": "파인애플",
+      "level": "초등"
+    },
+    {
+      "id": 2793,
+      "word": "police officer",
+      "pos": "명사",
+      "meaning": "경찰관",
+      "level": "초등"
+    },
+    {
+      "id": 2794,
+      "word": "pony",
+      "pos": "명사",
+      "meaning": "조랑말",
+      "level": "초등"
+    },
+    {
+      "id": 2795,
+      "word": "puppy",
+      "pos": "명사",
+      "meaning": "강아지",
+      "level": "초등"
+    },
+    {
+      "id": 2796,
+      "word": "rocket",
+      "pos": "명사",
+      "meaning": "로켓",
+      "level": "초등"
+    },
+    {
+      "id": 2797,
+      "word": "sauce",
+      "pos": "명사",
+      "meaning": "소스",
+      "level": "초등"
+    },
+    {
+      "id": 2798,
+      "word": "sausage",
+      "pos": "명사",
+      "meaning": "소시지",
+      "level": "초등"
+    },
+    {
+      "id": 2799,
+      "word": "scorpion",
+      "pos": "명사",
+      "meaning": "전갈",
+      "level": "초등"
+    },
+    {
+      "id": 2800,
+      "word": "second",
+      "pos": "명사/수사",
+      "meaning": "초, 두 번째",
+      "level": "초등"
+    },
+    {
+      "id": 2801,
+      "word": "shark",
+      "pos": "명사",
+      "meaning": "상어",
+      "level": "초등"
+    },
+    {
+      "id": 2802,
+      "word": "shelf",
+      "pos": "명사",
+      "meaning": "선반",
+      "level": "초등"
+    },
+    {
+      "id": 2803,
+      "word": "shrimp",
+      "pos": "명사",
+      "meaning": "새우",
+      "level": "초등"
+    },
+    {
+      "id": 2804,
+      "word": "sidewalk",
+      "pos": "명사",
+      "meaning": "보도",
+      "level": "초등"
+    },
+    {
+      "id": 2805,
+      "word": "soccer ball",
+      "pos": "명사",
+      "meaning": "축구공",
+      "level": "초등"
+    },
+    {
+      "id": 2806,
+      "word": "soldier",
+      "pos": "명사",
+      "meaning": "군인",
+      "level": "초등"
+    },
+    {
+      "id": 2807,
+      "word": "son",
+      "pos": "명사",
+      "meaning": "아들",
+      "level": "초등"
+    },
+    {
+      "id": 2808,
+      "word": "spider",
+      "pos": "명사",
+      "meaning": "거미",
+      "level": "초등"
+    },
+    {
+      "id": 2809,
+      "word": "squid",
+      "pos": "명사",
+      "meaning": "오징어",
+      "level": "초등"
+    },
+    {
+      "id": 2810,
+      "word": "stairs",
+      "pos": "명사",
+      "meaning": "계단",
+      "level": "초등"
+    },
+    {
+      "id": 2811,
+      "word": "sticker",
+      "pos": "명사",
+      "meaning": "스티커",
+      "level": "초등"
+    },
+    {
+      "id": 2812,
+      "word": "straw",
+      "pos": "명사",
+      "meaning": "빨대",
+      "level": "초등"
+    },
+    {
+      "id": 2813,
+      "word": "suitcase",
+      "pos": "명사",
+      "meaning": "여행 가방",
+      "level": "초등"
+    },
+    {
+      "id": 2814,
+      "word": "sunny",
+      "pos": "형용사",
+      "meaning": "맑은",
+      "level": "초등"
+    },
+    {
+      "id": 2815,
+      "word": "sweater",
+      "pos": "명사",
+      "meaning": "스웨터",
+      "level": "초등"
+    },
+    {
+      "id": 2816,
+      "word": "swing",
+      "pos": "명사/동사",
+      "meaning": "그네, 흔들다",
+      "level": "초등"
+    },
+    {
+      "id": 2817,
+      "word": "teddy bear",
+      "pos": "명사",
+      "meaning": "곰 인형",
+      "level": "초등"
+    },
+    {
+      "id": 2818,
+      "word": "television",
+      "pos": "명사",
+      "meaning": "텔레비전",
+      "level": "초등"
+    },
+    {
+      "id": 2819,
+      "word": "toad",
+      "pos": "명사",
+      "meaning": "두꺼비",
+      "level": "초등"
+    },
+    {
+      "id": 2820,
+      "word": "toast",
+      "pos": "명사",
+      "meaning": "토스트",
+      "level": "초등"
+    },
+    {
+      "id": 2821,
+      "word": "toilet",
+      "pos": "명사",
+      "meaning": "변기",
+      "level": "초등"
+    },
+    {
+      "id": 2822,
+      "word": "trumpet",
+      "pos": "명사",
+      "meaning": "트럼펫",
+      "level": "초등"
+    },
+    {
+      "id": 2823,
+      "word": "turtle",
+      "pos": "명사",
+      "meaning": "거북이",
+      "level": "초등"
+    },
+    {
+      "id": 2824,
+      "word": "vase",
+      "pos": "명사",
+      "meaning": "꽃병",
+      "level": "초등"
+    },
+    {
+      "id": 2825,
+      "word": "volleyball",
+      "pos": "명사",
+      "meaning": "배구",
+      "level": "초등"
+    },
+    {
+      "id": 2826,
+      "word": "waffle",
+      "pos": "명사",
+      "meaning": "와플",
+      "level": "초등"
+    },
+    {
+      "id": 2827,
+      "word": "wagon",
+      "pos": "명사",
+      "meaning": "수레",
+      "level": "초등"
+    },
+    {
+      "id": 2828,
+      "word": "waterfall",
+      "pos": "명사",
+      "meaning": "폭포",
+      "level": "초등"
+    },
+    {
+      "id": 2829,
+      "word": "wave",
+      "pos": "명사",
+      "meaning": "파도",
+      "level": "초등"
+    },
+    {
+      "id": 2830,
+      "word": "whistle",
+      "pos": "명사",
+      "meaning": "휘파람",
+      "level": "초등"
+    },
+    {
+      "id": 2831,
+      "word": "wig",
+      "pos": "명사",
+      "meaning": "가발",
+      "level": "초등"
+    },
+    {
+      "id": 2832,
+      "word": "worm",
+      "pos": "명사",
+      "meaning": "벌레",
+      "level": "초등"
+    },
+    {
+      "id": 2833,
+      "word": "wrench",
+      "pos": "명사",
+      "meaning": "렌치",
+      "level": "초등"
+    },
+    {
+      "id": 2834,
+      "word": "accent",
+      "pos": "명사",
+      "meaning": "악센트",
+      "level": "중등"
+    },
+    {
+      "id": 2835,
+      "word": "account for",
+      "pos": "동사구",
+      "meaning": "설명하다",
+      "level": "중등"
+    },
+    {
+      "id": 2836,
+      "word": "agent",
+      "pos": "명사",
+      "meaning": "대리인",
+      "level": "중등"
+    },
+    {
+      "id": 2837,
+      "word": "alive",
+      "pos": "형용사",
+      "meaning": "살아 있는",
+      "level": "중등"
+    },
+    {
+      "id": 2838,
+      "word": "annoy",
+      "pos": "동사",
+      "meaning": "짜증나게 하다",
+      "level": "중등"
+    },
+    {
+      "id": 2839,
+      "word": "art gallery",
+      "pos": "명사",
+      "meaning": "미술관",
+      "level": "중등"
+    },
+    {
+      "id": 2840,
+      "word": "as well as",
+      "pos": "접속사구",
+      "meaning": "~뿐만 아니라",
+      "level": "중등"
+    },
+    {
+      "id": 2841,
+      "word": "average",
+      "pos": "명사/형용사",
+      "meaning": "평균, 평균의",
+      "level": "중등"
+    },
+    {
+      "id": 2842,
+      "word": "battery",
+      "pos": "명사",
+      "meaning": "전지",
+      "level": "중등"
+    },
+    {
+      "id": 2843,
+      "word": "besides",
+      "pos": "전치사",
+      "meaning": "게다가",
+      "level": "중등"
+    },
+    {
+      "id": 2844,
+      "word": "body language",
+      "pos": "명사",
+      "meaning": "몸짓 언어",
+      "level": "중등"
+    },
+    {
+      "id": 2845,
+      "word": "brain",
+      "pos": "명사",
+      "meaning": "뇌",
+      "level": "중등"
+    },
+    {
+      "id": 2846,
+      "word": "central",
+      "pos": "형용사",
+      "meaning": "중심의",
+      "level": "중등"
+    },
+    {
+      "id": 2847,
+      "word": "cleverly",
+      "pos": "부사",
+      "meaning": "영리하게",
+      "level": "중등"
+    },
+    {
+      "id": 2848,
+      "word": "code",
+      "pos": "명사/동사",
+      "meaning": "코드, 암호화하다",
+      "level": "중등"
+    },
+    {
+      "id": 2849,
+      "word": "contraction",
+      "pos": "명사",
+      "meaning": "수축",
+      "level": "중등"
+    },
+    {
+      "id": 2850,
+      "word": "darkness",
+      "pos": "명사",
+      "meaning": "어둠",
+      "level": "중등"
+    },
+    {
+      "id": 2851,
+      "word": "deadline",
+      "pos": "명사",
+      "meaning": "마감일",
+      "level": "중등"
+    },
+    {
+      "id": 2852,
+      "word": "depressed",
+      "pos": "형용사",
+      "meaning": "우울한",
+      "level": "중등"
+    },
+    {
+      "id": 2853,
+      "word": "depth",
+      "pos": "명사",
+      "meaning": "깊이",
+      "level": "중등"
+    },
+    {
+      "id": 2854,
+      "word": "description",
+      "pos": "명사",
+      "meaning": "설명",
+      "level": "중등"
+    },
+    {
+      "id": 2855,
+      "word": "dessert",
+      "pos": "명사",
+      "meaning": "디저트",
+      "level": "중등"
+    },
+    {
+      "id": 2856,
+      "word": "diet",
+      "pos": "명사",
+      "meaning": "식단",
+      "level": "중등"
+    },
+    {
+      "id": 2857,
+      "word": "disappoint",
+      "pos": "동사",
+      "meaning": "실망시키다",
+      "level": "중등"
+    },
+    {
+      "id": 2858,
+      "word": "discount",
+      "pos": "명사/동사",
+      "meaning": "할인, 할인하다",
+      "level": "중등"
+    },
+    {
+      "id": 2859,
+      "word": "discovery",
+      "pos": "명사",
+      "meaning": "발견",
+      "level": "중등"
+    },
+    {
+      "id": 2860,
+      "word": "dispose",
+      "pos": "동사",
+      "meaning": "처분하다",
+      "level": "중등"
+    },
+    {
+      "id": 2861,
+      "word": "electronic",
+      "pos": "형용사",
+      "meaning": "전자의",
+      "level": "중등"
+    },
+    {
+      "id": 2862,
+      "word": "engineering",
+      "pos": "명사",
+      "meaning": "공학",
+      "level": "중등"
+    },
+    {
+      "id": 2863,
+      "word": "entrance",
+      "pos": "명사",
+      "meaning": "입구",
+      "level": "중등"
+    },
+    {
+      "id": 2864,
+      "word": "escape",
+      "pos": "동사/명사",
+      "meaning": "탈출하다, 탈출",
+      "level": "중등"
+    },
+    {
+      "id": 2865,
+      "word": "excite",
+      "pos": "동사",
+      "meaning": "흥분시키다",
+      "level": "중등"
+    },
+    {
+      "id": 2866,
+      "word": "facility",
+      "pos": "명사",
+      "meaning": "시설",
+      "level": "중등"
+    },
+    {
+      "id": 2867,
+      "word": "fall asleep",
+      "pos": "동사구",
+      "meaning": "잠들다",
+      "level": "중등"
+    },
+    {
+      "id": 2868,
+      "word": "fantastic",
+      "pos": "형용사",
+      "meaning": "훌륭한",
+      "level": "중등"
+    },
+    {
+      "id": 2869,
+      "word": "fare",
+      "pos": "명사",
+      "meaning": "요금",
+      "level": "중등"
+    },
+    {
+      "id": 2870,
+      "word": "farmer",
+      "pos": "명사",
+      "meaning": "농부",
+      "level": "중등"
+    },
+    {
+      "id": 2871,
+      "word": "fault",
+      "pos": "명사",
+      "meaning": "잘못",
+      "level": "중등"
+    },
+    {
+      "id": 2872,
+      "word": "feeling",
+      "pos": "명사",
+      "meaning": "감정",
+      "level": "중등"
+    },
+    {
+      "id": 2873,
+      "word": "film",
+      "pos": "명사",
+      "meaning": "영화",
+      "level": "중등"
+    },
+    {
+      "id": 2874,
+      "word": "fitness",
+      "pos": "명사",
+      "meaning": "건강",
+      "level": "중등"
+    },
+    {
+      "id": 2875,
+      "word": "fortune",
+      "pos": "명사",
+      "meaning": "운",
+      "level": "중등"
+    },
+    {
+      "id": 2876,
+      "word": "fuel",
+      "pos": "명사",
+      "meaning": "연료",
+      "level": "중등"
+    },
+    {
+      "id": 2877,
+      "word": "gallery",
+      "pos": "명사",
+      "meaning": "갤러리",
+      "level": "중등"
+    },
+    {
+      "id": 2878,
+      "word": "garbage",
+      "pos": "명사",
+      "meaning": "쓰레기",
+      "level": "중등"
+    },
+    {
+      "id": 2879,
+      "word": "generation",
+      "pos": "명사",
+      "meaning": "세대",
+      "level": "중등"
+    },
+    {
+      "id": 2880,
+      "word": "handsome",
+      "pos": "형용사",
+      "meaning": "잘생긴",
+      "level": "중등"
+    },
+    {
+      "id": 2881,
+      "word": "helmet",
+      "pos": "명사",
+      "meaning": "헬멧",
+      "level": "중등"
+    },
+    {
+      "id": 2882,
+      "word": "hiking",
+      "pos": "명사",
+      "meaning": "하이킹",
+      "level": "중등"
+    },
+    {
+      "id": 2883,
+      "word": "honor",
+      "pos": "명사/동사",
+      "meaning": "명예, 기리다",
+      "level": "중등"
+    },
+    {
+      "id": 2884,
+      "word": "household",
+      "pos": "명사",
+      "meaning": "가정",
+      "level": "중등"
+    },
+    {
+      "id": 2885,
+      "word": "humid",
+      "pos": "형용사",
+      "meaning": "습한",
+      "level": "중등"
+    },
+    {
+      "id": 2886,
+      "word": "hurricane",
+      "pos": "명사",
+      "meaning": "허리케인",
+      "level": "중등"
+    },
+    {
+      "id": 2887,
+      "word": "ideal",
+      "pos": "형용사/명사",
+      "meaning": "이상적인, 이상",
+      "level": "중등"
+    },
+    {
+      "id": 2888,
+      "word": "illness",
+      "pos": "명사",
+      "meaning": "질병",
+      "level": "중등"
+    },
+    {
+      "id": 2889,
+      "word": "indeed",
+      "pos": "부사",
+      "meaning": "실제로",
+      "level": "중등"
+    },
+    {
+      "id": 2890,
+      "word": "indoor",
+      "pos": "형용사",
+      "meaning": "실내의",
+      "level": "중등"
+    },
+    {
+      "id": 2891,
+      "word": "ingredient",
+      "pos": "명사",
+      "meaning": "재료",
+      "level": "중등"
+    },
+    {
+      "id": 2892,
+      "word": "instructions",
+      "pos": "명사",
+      "meaning": "설명서",
+      "level": "중등"
+    },
+    {
+      "id": 2893,
+      "word": "invention",
+      "pos": "명사",
+      "meaning": "발명",
+      "level": "중등"
+    },
+    {
+      "id": 2894,
+      "word": "journalist",
+      "pos": "명사",
+      "meaning": "기자",
+      "level": "중등"
+    },
+    {
+      "id": 2895,
+      "word": "judge",
+      "pos": "명사/동사",
+      "meaning": "판사, 판단하다",
+      "level": "중등"
+    },
+    {
+      "id": 2896,
+      "word": "lawyer",
+      "pos": "명사",
+      "meaning": "변호사",
+      "level": "중등"
+    },
+    {
+      "id": 2897,
+      "word": "lecture",
+      "pos": "명사",
+      "meaning": "강의",
+      "level": "중등"
+    },
+    {
+      "id": 2898,
+      "word": "lowercase",
+      "pos": "명사",
+      "meaning": "소문자",
+      "level": "중등"
+    },
+    {
+      "id": 2899,
+      "word": "manner",
+      "pos": "명사",
+      "meaning": "방식",
+      "level": "중등"
+    },
+    {
+      "id": 2900,
+      "word": "master",
+      "pos": "동사",
+      "meaning": "숙달하다",
+      "level": "중등"
+    },
+    {
+      "id": 2901,
+      "word": "mild",
+      "pos": "형용사",
+      "meaning": "온화한",
+      "level": "중등"
+    },
+    {
+      "id": 2902,
+      "word": "mine",
+      "pos": "대명사",
+      "meaning": "나의 것",
+      "level": "중등"
+    },
+    {
+      "id": 2903,
+      "word": "miracle",
+      "pos": "명사",
+      "meaning": "기적",
+      "level": "중등"
+    },
+    {
+      "id": 2904,
+      "word": "mix",
+      "pos": "동사/명사",
+      "meaning": "섞다, 혼합",
+      "level": "중등"
+    },
+    {
+      "id": 2905,
+      "word": "mostly",
+      "pos": "부사",
+      "meaning": "주로",
+      "level": "중등"
+    },
+    {
+      "id": 2906,
+      "word": "motivated",
+      "pos": "형용사",
+      "meaning": "동기부여된",
+      "level": "중등"
+    },
+    {
+      "id": 2907,
+      "word": "mysterious",
+      "pos": "형용사",
+      "meaning": "신비로운",
+      "level": "중등"
+    },
+    {
+      "id": 2908,
+      "word": "nearby",
+      "pos": "형용사/부사",
+      "meaning": "가까운, 근처에",
+      "level": "중등"
+    },
+    {
+      "id": 2909,
+      "word": "negative",
+      "pos": "형용사",
+      "meaning": "부정적인",
+      "level": "중등"
+    },
+    {
+      "id": 2910,
+      "word": "neighborhood",
+      "pos": "명사",
+      "meaning": "동네",
+      "level": "중등"
+    },
+    {
+      "id": 2911,
+      "word": "outgoing",
+      "pos": "형용사",
+      "meaning": "외향적인",
+      "level": "중등"
+    },
+    {
+      "id": 2912,
+      "word": "outstanding",
+      "pos": "형용사",
+      "meaning": "뛰어난",
+      "level": "중등"
+    },
+    {
+      "id": 2913,
+      "word": "overweight",
+      "pos": "형용사",
+      "meaning": "과체중의",
+      "level": "중등"
+    },
+    {
+      "id": 2914,
+      "word": "packaging",
+      "pos": "명사",
+      "meaning": "포장",
+      "level": "중등"
+    },
+    {
+      "id": 2915,
+      "word": "permission",
+      "pos": "명사",
+      "meaning": "허가",
+      "level": "중등"
+    },
+    {
+      "id": 2916,
+      "word": "phrase",
+      "pos": "명사",
+      "meaning": "구절",
+      "level": "중등"
+    },
+    {
+      "id": 2917,
+      "word": "pleased",
+      "pos": "형용사",
+      "meaning": "기쁜",
+      "level": "중등"
+    },
+    {
+      "id": 2918,
+      "word": "plenty",
+      "pos": "명사",
+      "meaning": "충분한 양",
+      "level": "중등"
+    },
+    {
+      "id": 2919,
+      "word": "polite",
+      "pos": "형용사",
+      "meaning": "예의 바른",
+      "level": "중등"
+    },
+    {
+      "id": 2920,
+      "word": "pressure",
+      "pos": "명사",
+      "meaning": "압박",
+      "level": "중등"
+    },
+    {
+      "id": 2921,
+      "word": "pretend",
+      "pos": "동사",
+      "meaning": "~인 척하다",
+      "level": "중등"
+    },
+    {
+      "id": 2922,
+      "word": "program",
+      "pos": "명사",
+      "meaning": "프로그램",
+      "level": "중등"
+    },
+    {
+      "id": 2923,
+      "word": "punish",
+      "pos": "동사",
+      "meaning": "벌주다",
+      "level": "중등"
+    },
+    {
+      "id": 2924,
+      "word": "quality",
+      "pos": "명사",
+      "meaning": "품질",
+      "level": "중등"
+    },
+    {
+      "id": 2925,
+      "word": "recipe",
+      "pos": "명사",
+      "meaning": "요리법",
+      "level": "중등"
+    },
+    {
+      "id": 2926,
+      "word": "regret",
+      "pos": "동사/명사",
+      "meaning": "후회하다, 후회",
+      "level": "중등"
+    },
+    {
+      "id": 2927,
+      "word": "relative",
+      "pos": "명사/형용사",
+      "meaning": "친척, 상대적인",
+      "level": "중등"
+    },
+    {
+      "id": 2928,
+      "word": "relieve",
+      "pos": "동사",
+      "meaning": "안도하게 하다",
+      "level": "중등"
+    },
+    {
+      "id": 2929,
+      "word": "rush",
+      "pos": "동사/명사",
+      "meaning": "서두르다, 서두름",
+      "level": "중등"
+    },
+    {
+      "id": 2930,
+      "word": "satisfied",
+      "pos": "형용사",
+      "meaning": "만족한",
+      "level": "중등"
+    },
+    {
+      "id": 2931,
+      "word": "scenery",
+      "pos": "명사",
+      "meaning": "경치",
+      "level": "중등"
+    },
+    {
+      "id": 2932,
+      "word": "seriously",
+      "pos": "부사",
+      "meaning": "심각하게",
+      "level": "중등"
+    },
+    {
+      "id": 2933,
+      "word": "shelter",
+      "pos": "명사",
+      "meaning": "피신처",
+      "level": "중등"
+    },
+    {
+      "id": 2934,
+      "word": "silent",
+      "pos": "형용사",
+      "meaning": "조용한",
+      "level": "중등"
+    },
+    {
+      "id": 2935,
+      "word": "slight",
+      "pos": "형용사",
+      "meaning": "약간의",
+      "level": "중등"
+    },
+    {
+      "id": 2936,
+      "word": "thought",
+      "pos": "명사",
+      "meaning": "생각",
+      "level": "중등"
+    },
+    {
+      "id": 2937,
+      "word": "typical",
+      "pos": "형용사",
+      "meaning": "전형적인",
+      "level": "중등"
+    },
+    {
+      "id": 2938,
+      "word": "valuable",
+      "pos": "형용사",
+      "meaning": "귀중한",
+      "level": "중등"
+    },
+    {
+      "id": 2939,
+      "word": "variety",
+      "pos": "명사",
+      "meaning": "다양성",
+      "level": "중등"
+    },
+    {
+      "id": 2940,
+      "word": "victim",
+      "pos": "명사",
+      "meaning": "피해자",
+      "level": "중등"
+    },
+    {
+      "id": 2941,
+      "word": "violence",
+      "pos": "명사",
+      "meaning": "폭력",
+      "level": "중등"
+    },
+    {
+      "id": 2942,
+      "word": "vote",
+      "pos": "동사/명사",
+      "meaning": "투표하다, 투표",
+      "level": "중등"
+    },
+    {
+      "id": 2943,
+      "word": "voyage",
+      "pos": "명사",
+      "meaning": "항해",
+      "level": "중등"
+    },
+    {
+      "id": 2944,
+      "word": "weight",
+      "pos": "명사",
+      "meaning": "무게",
+      "level": "중등"
+    },
+    {
+      "id": 2945,
+      "word": "wooden",
+      "pos": "형용사",
+      "meaning": "나무로 된",
+      "level": "중등"
+    },
+    {
+      "id": 2946,
+      "word": "workshop",
+      "pos": "명사",
+      "meaning": "워크숍",
+      "level": "중등"
+    },
+    {
+      "id": 2947,
+      "word": "worthy",
+      "pos": "형용사",
+      "meaning": "가치 있는",
+      "level": "중등"
+    },
+    {
+      "id": 2948,
+      "word": "wrap",
+      "pos": "동사",
+      "meaning": "싸다",
+      "level": "중등"
+    },
+    {
+      "id": 2949,
+      "word": "arduous",
+      "pos": "형용사",
+      "meaning": "힘든",
+      "level": "고등"
+    },
+    {
+      "id": 2950,
+      "word": "arid",
+      "pos": "형용사",
+      "meaning": "건조한",
+      "level": "고등"
+    },
+    {
+      "id": 2951,
+      "word": "arrogant",
+      "pos": "형용사",
+      "meaning": "오만한",
+      "level": "고등"
+    },
+    {
+      "id": 2952,
+      "word": "captivate",
+      "pos": "동사",
+      "meaning": "매혹하다",
+      "level": "고등"
+    },
+    {
+      "id": 2953,
+      "word": "censure",
+      "pos": "동사/명사",
+      "meaning": "비난하다, 비난",
+      "level": "고등"
+    },
+    {
+      "id": 2954,
+      "word": "compile",
+      "pos": "동사",
+      "meaning": "편집하다",
+      "level": "고등"
+    },
+    {
+      "id": 2955,
+      "word": "concur",
+      "pos": "동사",
+      "meaning": "동의하다",
+      "level": "고등"
+    },
+    {
+      "id": 2956,
+      "word": "condescend",
+      "pos": "동사",
+      "meaning": "내려다보다",
+      "level": "고등"
+    },
+    {
+      "id": 2957,
+      "word": "constituent",
+      "pos": "명사",
+      "meaning": "구성원",
+      "level": "고등"
+    },
+    {
+      "id": 2958,
+      "word": "deficiency",
+      "pos": "명사",
+      "meaning": "결핍",
+      "level": "고등"
+    },
+    {
+      "id": 2959,
+      "word": "defy",
+      "pos": "동사",
+      "meaning": "반항하다",
+      "level": "고등"
+    },
+    {
+      "id": 2960,
+      "word": "discriminate",
+      "pos": "동사",
+      "meaning": "차별하다",
+      "level": "고등"
+    },
+    {
+      "id": 2961,
+      "word": "dread",
+      "pos": "동사/명사",
+      "meaning": "두려워하다, 공포",
+      "level": "고등"
+    },
+    {
+      "id": 2962,
+      "word": "economize",
+      "pos": "동사",
+      "meaning": "절약하다",
+      "level": "고등"
+    },
+    {
+      "id": 2963,
+      "word": "formidable",
+      "pos": "형용사",
+      "meaning": "무서운",
+      "level": "고등"
+    },
+    {
+      "id": 2964,
+      "word": "official",
+      "pos": "형용사",
+      "meaning": "공식의",
+      "level": "중등"
+    },
+    {
+      "id": 2965,
+      "word": "ordinary",
+      "pos": "형용사",
+      "meaning": "평범한",
+      "level": "중등"
+    },
+    {
+      "id": 2966,
+      "word": "plain",
+      "pos": "형용사",
+      "meaning": "평범한, 평야",
+      "level": "중등"
+    },
+    {
+      "id": 2967,
+      "word": "pleasure",
+      "pos": "명사",
+      "meaning": "즐거움",
+      "level": "중등"
+    },
+    {
+      "id": 2968,
+      "word": "poison",
+      "pos": "명사",
+      "meaning": "독",
+      "level": "중등"
+    },
+    {
+      "id": 2969,
+      "word": "primary",
+      "pos": "형용사",
+      "meaning": "주요한",
+      "level": "중등"
+    },
+    {
+      "id": 2970,
+      "word": "rapid",
+      "pos": "형용사",
+      "meaning": "빠른",
+      "level": "중등"
+    },
+    {
+      "id": 2971,
+      "word": "rare",
+      "pos": "형용사",
+      "meaning": "드문",
+      "level": "중등"
+    },
+    {
+      "id": 2972,
+      "word": "repair",
+      "pos": "동사/명사",
+      "meaning": "수리하다, 수리",
+      "level": "중등"
+    },
+    {
+      "id": 2973,
+      "word": "replace",
+      "pos": "동사",
+      "meaning": "교체하다",
+      "level": "중등"
+    },
+    {
+      "id": 2974,
+      "word": "rescue",
+      "pos": "동사/명사",
+      "meaning": "구하다, 구조",
+      "level": "중등"
+    },
+    {
+      "id": 2975,
+      "word": "solar",
+      "pos": "형용사",
+      "meaning": "태양의",
+      "level": "중등"
+    },
+    {
+      "id": 2976,
+      "word": "survey",
+      "pos": "명사/동사",
+      "meaning": "조사, 조사하다",
+      "level": "중등"
+    },
+    {
+      "id": 2977,
+      "word": "translate",
+      "pos": "동사",
+      "meaning": "번역하다",
+      "level": "중등"
+    },
+    {
+      "id": 2978,
+      "word": "ultimate",
+      "pos": "형용사",
+      "meaning": "궁극적인",
+      "level": "고등"
+    },
+    {
+      "id": 2979,
+      "word": "uncertain",
+      "pos": "형용사",
+      "meaning": "불확실한",
+      "level": "고등"
+    },
+    {
+      "id": 2980,
+      "word": "unemployment",
+      "pos": "명사",
+      "meaning": "실업",
+      "level": "고등"
+    },
+    {
+      "id": 2981,
+      "word": "update",
+      "pos": "동사/명사",
+      "meaning": "갱신하다, 업데이트",
+      "level": "중등"
+    },
+    {
+      "id": 2982,
+      "word": "victory",
+      "pos": "명사",
+      "meaning": "승리",
+      "level": "중등"
+    },
+    {
+      "id": 2983,
+      "word": "vocal",
+      "pos": "형용사",
+      "meaning": "목소리의",
+      "level": "고등"
+    },
+    {
+      "id": 2984,
+      "word": "wage",
+      "pos": "명사",
+      "meaning": "임금",
+      "level": "고등"
+    },
+    {
+      "id": 2985,
+      "word": "witness",
+      "pos": "동사/명사",
+      "meaning": "목격하다, 증인",
+      "level": "고등"
+    },
+    {
+      "id": 2986,
+      "word": "zeal",
+      "pos": "명사",
+      "meaning": "열정",
+      "level": "고등"
+    },
+    {
+      "id": 2987,
+      "word": "zone",
+      "pos": "명사",
+      "meaning": "구역",
+      "level": "중등"
+    },
+    {
+      "id": 2988,
+      "word": "ambiguity",
+      "pos": "명사",
+      "meaning": "모호함",
+      "level": "고등"
+    },
+    {
+      "id": 2989,
+      "word": "benefactor",
+      "pos": "명사",
+      "meaning": "은인",
+      "level": "고등"
+    },
+    {
+      "id": 2990,
+      "word": "decentralize",
+      "pos": "동사",
+      "meaning": "분산하다",
+      "level": "고등"
+    },
+    {
+      "id": 2991,
+      "word": "emigrate",
+      "pos": "동사",
+      "meaning": "이민 가다",
+      "level": "고등"
+    },
+    {
+      "id": 2992,
+      "word": "empiricism",
+      "pos": "명사",
+      "meaning": "경험론",
+      "level": "고등"
+    },
+    {
+      "id": 2993,
+      "word": "fallibility",
+      "pos": "명사",
+      "meaning": "오류 가능성",
+      "level": "고등"
+    },
+    {
+      "id": 2994,
+      "word": "galvanize",
+      "pos": "동사",
+      "meaning": "자극하다",
+      "level": "고등"
+    },
+    {
+      "id": 2995,
+      "word": "hypocrisy",
+      "pos": "명사",
+      "meaning": "위선",
+      "level": "고등"
+    },
+    {
+      "id": 2996,
+      "word": "imperative",
+      "pos": "형용사",
+      "meaning": "필수적인",
+      "level": "고등"
+    },
+    {
+      "id": 2997,
+      "word": "jargon",
+      "pos": "명사",
+      "meaning": "전문용어",
+      "level": "고등"
+    },
+    {
+      "id": 2998,
+      "word": "legacy",
+      "pos": "명사",
+      "meaning": "유산",
+      "level": "고등"
+    },
+    {
+      "id": 2999,
+      "word": "menace",
+      "pos": "명사",
+      "meaning": "위협",
+      "level": "고등"
+    },
+    {
+      "id": 3000,
+      "word": "neurological",
+      "pos": "형용사",
+      "meaning": "신경학적인",
       "level": "고등"
     }
   ]

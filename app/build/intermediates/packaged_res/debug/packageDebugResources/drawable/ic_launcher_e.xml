@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 영어단어테스트 앱 아이콘: 대문자 E, 미니멀 스타일 (참고: 둥근 사각 테두리 + 굵은 라운드 선) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- 둥근 사각 배경 (흰색) -->
+    <path
+        android:pathData="M4,2 L20,2 Q22,2 22,4 L22,20 Q22,22 20,22 L4,22 Q2,22 2,20 L2,4 Q2,2 4,2 Z"
+        android:fillColor="#FFFFFF" />
+    <!-- 둥근 사각 테두리 (굵은 검정 선) -->
+    <path
+        android:pathData="M4,2 L20,2 Q22,2 22,4 L22,20 Q22,22 20,22 L4,22 Q2,22 2,20 L2,4 Q2,2 4,2 Z"
+        android:strokeWidth="0.5"
+        android:strokeColor="#000000"
+        android:strokeLineJoin="round"
+        android:fillColor="@android:color/transparent" />
+    <!-- 대문자 E (굵은 라운드 스트로크) -->
+    <path
+        android:pathData="M6,5 L18,5 M6,5 L6,19 L18,19 M6,12 L18,12"
+        android:strokeWidth="1.8"
+        android:strokeColor="#000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="@android:color/transparent" />
+</vector>

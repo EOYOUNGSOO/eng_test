@@ -1,14 +1,82 @@
 [
     {
-        "merged": "com.example.engtest.app-debug-56:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "com.example.engtest.app-main-58:/drawable/ic_launcher_foreground.xml"
+        "merged": "com.example.engtest.app-debug-61:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "com.example.engtest.app-main-63:/mipmap-xxhdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.example.engtest.app-debug-56:/font_pretendard_bold.otf.flat",
-        "source": "com.example.engtest.app-main-58:/font/pretendard_bold.otf"
+        "merged": "com.example.engtest.app-debug-61:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.example.engtest.app-main-63:/mipmap-xxhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.example.engtest.app-debug-56:/font_pretendard_medium.otf.flat",
-        "source": "com.example.engtest.app-main-58:/font/pretendard_medium.otf"
+        "merged": "com.example.engtest.app-debug-61:/drawable-nodpi_app_icon.png.flat",
+        "source": "com.example.engtest.app-main-63:/drawable-nodpi/app_icon.png"
+    },
+    {
+        "merged": "com.example.engtest.app-debug-61:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "com.example.engtest.app-main-63:/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.example.engtest.app-debug-61:/drawable_ic_copyright_watermark.png.flat",
+        "source": "com.example.engtest.app-main-63:/drawable/ic_copyright_watermark.png"
+    },
+    {
+        "merged": "com.example.engtest.app-debug-61:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.example.engtest.app-main-63:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.example.engtest.app-debug-61:/font_pretendard_medium.otf.flat",
+        "source": "com.example.engtest.app-main-63:/font/pretendard_medium.otf"
+    },
+    {
+        "merged": "com.example.engtest.app-debug-61:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.engtest.app-main-63:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.engtest.app-debug-61:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.example.engtest.app-main-63:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.example.engtest.app-debug-61:/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "com.example.engtest.app-main-63:/mipmap-hdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.example.engtest.app-debug-61:/font_pretendard_bold.otf.flat",
+        "source": "com.example.engtest.app-main-63:/font/pretendard_bold.otf"
+    },
+    {
+        "merged": "com.example.engtest.app-debug-61:/drawable_app_icon.png.flat",
+        "source": "com.example.engtest.app-main-63:/drawable/app_icon.png"
+    },
+    {
+        "merged": "com.example.engtest.app-debug-61:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.engtest.app-main-63:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.engtest.app-debug-61:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.engtest.app-main-63:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.engtest.app-debug-61:/drawable_ic_launcher_e.xml.flat",
+        "source": "com.example.engtest.app-main-63:/drawable/ic_launcher_e.xml"
+    },
+    {
+        "merged": "com.example.engtest.app-debug-61:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.example.engtest.app-main-63:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.example.engtest.app-debug-61:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "com.example.engtest.app-main-63:/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.example.engtest.app-debug-61:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.engtest.app-main-63:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.engtest.app-debug-61:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.example.engtest.app-main-63:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.example.engtest.app-debug-61:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "com.example.engtest.app-main-63:/mipmap-xxxhdpi/ic_launcher_round.png"
     }
 ]

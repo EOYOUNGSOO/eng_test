@@ -7,7 +7,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.engtest.ui.debug.LogViewerScreen
 import com.example.engtest.ui.screen.MainScreen
 import com.example.engtest.ui.screen.wordmanage.WordManageScreen
 import com.example.engtest.ui.screen.wordtest.WordTestScreen
@@ -32,12 +31,6 @@ fun EngTestNavHost(
                 onNavigateToWordManage = { navController.navigate(NavRoutes.WordManage) },
                 onNavigateToWordTest = { navController.navigate(NavRoutes.WordTestSelect) },
                 onNavigateToRecords = { navController.navigate(NavRoutes.Records) },
-                onNavigateToLogViewer = { navController.navigate(NavRoutes.LogViewer) }
-            )
-        }
-        composable(NavRoutes.LogViewer) {
-            LogViewerScreen(
-                onBackClick = { navController.popBackStack() }
             )
         }
         composable(NavRoutes.WordManage) {
