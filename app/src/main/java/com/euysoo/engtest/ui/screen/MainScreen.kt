@@ -1,5 +1,6 @@
 package com.euysoo.engtest.ui.screen
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -8,11 +9,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -25,22 +28,25 @@ import androidx.compose.material.icons.outlined.BarChart
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.MenuBook
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.em
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -49,6 +55,110 @@ import com.euysoo.engtest.ui.component.AppButton
 import com.euysoo.engtest.ui.component.AppButtonStyle
 import com.euysoo.engtest.ui.theme.AppTheme
 import com.euysoo.engtest.ui.theme.EngTestTheme
+import kotlin.math.max
+import kotlin.math.roundToInt
+
+private data class MainHomeLayout(
+    val isLandscape: Boolean,
+    val horizontalPadding: Dp,
+    val topPadding: Dp,
+    val bottomPadding: Dp,
+    val gapHeaderStats: Dp,
+    val gapStatsMenu: Dp,
+    val menuCardsSpacing: Dp,
+    val gapFooter: Dp,
+    val brandSp: TextUnit,
+    val titleSp: TextUnit,
+    val badgeSp: TextUnit,
+    val statValueSp: TextUnit,
+    val statLabelSp: TextUnit,
+    val statPadV: Dp,
+    val statPadH: Dp,
+    val statCorner: Dp,
+    val menuIconBox: Dp,
+    val menuIconInner: Dp,
+    val menuTitleSp: TextUnit,
+    val menuDescSp: TextUnit,
+    val menuInnerPadH: Dp,
+    val menuRowSpace: Dp,
+    val menuCorner: Dp,
+    val chevronSize: Dp,
+    val footerSp: TextUnit,
+    val descMaxLines: Int,
+)
+
+@Composable
+private fun rememberMainHomeLayout(): MainHomeLayout {
+    val cfg = LocalConfiguration.current
+    return remember(cfg.orientation, cfg.screenWidthDp, cfg.screenHeightDp) {
+        val w = cfg.screenWidthDp.coerceAtLeast(1)
+        val land = cfg.orientation == Configuration.ORIENTATION_LANDSCAPE
+        if (land) {
+            val padH = max(12, (w * 0.024f).roundToInt()).dp.coerceAtMost(40.dp)
+            val narrow = w < 600
+            val statScale = if (narrow) 0.88f else 0.92f
+            val menuScale = if (narrow) 0.9f else 0.95f
+            MainHomeLayout(
+                isLandscape = true,
+                horizontalPadding = padH,
+                topPadding = 12.dp,
+                bottomPadding = 10.dp,
+                gapHeaderStats = 10.dp,
+                gapStatsMenu = 8.dp,
+                menuCardsSpacing = max(6, (w * 0.01f).roundToInt()).dp.coerceAtMost(12.dp),
+                gapFooter = 10.dp,
+                brandSp = 10.sp,
+                titleSp = (if (narrow) 20 else 22).sp,
+                badgeSp = 10.sp,
+                statValueSp = (22f * statScale).sp,
+                statLabelSp = (10f * statScale).sp,
+                statPadV = (14f * statScale).dp.coerceAtLeast(8.dp),
+                statPadH = (8f * statScale).dp.coerceAtLeast(4.dp),
+                statCorner = (13f * statScale).dp,
+                menuIconBox = (44f * menuScale).dp,
+                menuIconInner = (20f * menuScale).dp,
+                menuTitleSp = (15f * menuScale).sp,
+                menuDescSp = (12f * menuScale).sp,
+                menuInnerPadH = (12f * menuScale).dp.coerceAtLeast(6.dp),
+                menuRowSpace = (10f * menuScale).dp.coerceAtLeast(6.dp),
+                menuCorner = (16f * menuScale).dp,
+                chevronSize = (16f * menuScale).dp,
+                footerSp = 9.sp,
+                descMaxLines = 2,
+            )
+        } else {
+            val ratio = (w / 360f).coerceIn(0.9f, 1.12f)
+            MainHomeLayout(
+                isLandscape = false,
+                horizontalPadding = (20f * ratio).dp.coerceIn(16.dp, 26.dp),
+                topPadding = (20f * ratio).dp.coerceIn(16.dp, 24.dp),
+                bottomPadding = (20f * ratio).dp.coerceIn(16.dp, 24.dp),
+                gapHeaderStats = (20f * ratio).dp.coerceIn(16.dp, 24.dp),
+                gapStatsMenu = (16f * ratio).dp.coerceIn(12.dp, 20.dp),
+                menuCardsSpacing = (10f * ratio).dp.coerceIn(8.dp, 14.dp),
+                gapFooter = (14f * ratio).dp.coerceIn(10.dp, 18.dp),
+                brandSp = (11f * ratio).sp,
+                titleSp = (26f * ratio).sp,
+                badgeSp = (11f * ratio).sp,
+                statValueSp = (22f * ratio).sp,
+                statLabelSp = (10f * ratio).sp,
+                statPadV = (16f * ratio).dp,
+                statPadH = (8f * ratio).dp,
+                statCorner = (14f * ratio).dp,
+                menuIconBox = (44f * ratio).dp,
+                menuIconInner = (20f * ratio).dp,
+                menuTitleSp = (15f * ratio).sp,
+                menuDescSp = (12f * ratio).sp,
+                menuInnerPadH = (16f * ratio).dp,
+                menuRowSpace = 12.dp,
+                menuCorner = (18f * ratio).dp,
+                chevronSize = (16f * ratio).dp,
+                footerSp = (10f * ratio).sp,
+                descMaxLines = 1,
+            )
+        }
+    }
+}
 
 @Composable
 fun MainScreen(
@@ -63,6 +173,11 @@ fun MainScreen(
     val app = context.applicationContext as EngTestApplication
     val viewModel: MainViewModel = viewModel(factory = MainViewModelFactory(app))
     val stats by viewModel.stats.collectAsStateWithLifecycle()
+    val layout = rememberMainHomeLayout()
+    val cfg = LocalConfiguration.current
+    val needsScroll = layout.isLandscape && cfg.screenHeightDp < 360
+    val scrollState = rememberScrollState()
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -70,72 +185,157 @@ fun MainScreen(
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .align(Alignment.TopCenter)
+                .fillMaxHeight()
+                .fillMaxWidth()
+                .then(if (layout.isLandscape) Modifier.widthIn(max = 920.dp) else Modifier)
+                .then(
+                    if (needsScroll) {
+                        Modifier.verticalScroll(scrollState)
+                    } else {
+                        Modifier
+                    }
+                )
                 .systemBarsPadding()
-                .padding(horizontal = 20.dp)
-                .padding(top = 20.dp, bottom = 20.dp)
+                .padding(horizontal = layout.horizontalPadding)
+                .padding(top = layout.topPadding, bottom = layout.bottomPadding)
         ) {
-            AppHeader()
-            Spacer(modifier = Modifier.height(20.dp))
+            AppHeader(layout = layout)
+            Spacer(modifier = Modifier.height(layout.gapHeaderStats))
             StatCardRow(
+                layout = layout,
                 totalWordCount = stats.wordCount,
                 testCount = stats.testCount,
                 avgScore = if (stats.testCount > 0) stats.averageScore.toInt() else 0
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(layout.gapStatsMenu))
 
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                MenuCard(
-                    modifier = Modifier.weight(1f),
-                    icon = menuBookIcon,
-                    iconTint = colors.purpleMain,
-                    iconBg = colors.bgIcon,
-                    title = "단어 관리",
-                    description = "단어탐색, 단어 추가, 단어 수정",
-                    trailingContent = { ChevronIcon() },
-                    containerColor = colors.bgCard,
-                    borderColor = colors.borderDefault,
-                    onClick = onNavigateToWordManage
-                )
-                MenuCard(
-                    modifier = Modifier.weight(1f),
-                    icon = Icons.Outlined.CheckCircle,
-                    iconTint = colors.purpleLight,
-                    iconBg = Color(0xFF231535),
-                    title = "단어 테스트",
-                    description = "10문제 · 랜덤 출제 · 레벨 선택",
-                    trailingContent = {
-                        AppButton(
-                            text = "START",
-                            onClick = onNavigateToWordTest,
-                            style = AppButtonStyle.PRIMARY
+            if (layout.isLandscape) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .then(
+                            if (needsScroll) {
+                                Modifier.height(
+                                    maxOf(168.dp, (cfg.screenHeightDp * 0.36f).dp)
+                                )
+                            } else {
+                                Modifier.weight(1f)
+                            }
                         )
-                    },
-                    containerColor = colors.bgCardAccent,
-                    borderColor = colors.borderAccent,
-                    onClick = onNavigateToWordTest
-                )
-                MenuCard(
+                        .fillMaxHeight(),
+                    horizontalArrangement = Arrangement.spacedBy(layout.menuCardsSpacing),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    MenuCard(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight(),
+                        layout = layout,
+                        icon = menuBookIcon,
+                        iconTint = colors.purpleMain,
+                        iconBg = colors.bgIcon,
+                        title = "단어 관리",
+                        description = "단어탐색, 단어 추가, 단어 수정",
+                        trailingContent = { ChevronIcon(size = layout.chevronSize) },
+                        containerColor = colors.bgCard,
+                        borderColor = colors.borderDefault,
+                        onClick = onNavigateToWordManage
+                    )
+                    MenuCard(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight(),
+                        layout = layout,
+                        icon = Icons.Outlined.CheckCircle,
+                        iconTint = colors.purpleLight,
+                        iconBg = Color(0xFF231535),
+                        title = "단어 테스트",
+                        description = "10문제 · 랜덤 출제 · 레벨 선택",
+                        trailingContent = {
+                            AppButton(
+                                text = "START",
+                                onClick = onNavigateToWordTest,
+                                style = AppButtonStyle.PRIMARY
+                            )
+                        },
+                        containerColor = colors.bgCardAccent,
+                        borderColor = colors.borderAccent,
+                        onClick = onNavigateToWordTest
+                    )
+                    MenuCard(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight(),
+                        layout = layout,
+                        icon = Icons.Outlined.BarChart,
+                        iconTint = colors.greenMain,
+                        iconBg = colors.bgIconGreen,
+                        title = "기록 및 통계",
+                        description = "테스트결과 목록, 결과 상세보기",
+                        trailingContent = { ChevronIcon(size = layout.chevronSize) },
+                        containerColor = colors.bgCard,
+                        borderColor = colors.borderDefault,
+                        onClick = onNavigateToRecords
+                    )
+                }
+            } else {
+                Column(
                     modifier = Modifier.weight(1f),
-                    icon = Icons.Outlined.BarChart,
-                    iconTint = colors.greenMain,
-                    iconBg = colors.bgIconGreen,
-                    title = "기록 및 통계",
-                    description = "테스트결과 목록, 결과 상세보기",
-                    trailingContent = { ChevronIcon() },
-                    containerColor = colors.bgCard,
-                    borderColor = colors.borderDefault,
-                    onClick = onNavigateToRecords
-                )
+                    verticalArrangement = Arrangement.spacedBy(layout.menuCardsSpacing)
+                ) {
+                    MenuCard(
+                        modifier = Modifier.weight(1f),
+                        layout = layout,
+                        icon = menuBookIcon,
+                        iconTint = colors.purpleMain,
+                        iconBg = colors.bgIcon,
+                        title = "단어 관리",
+                        description = "단어탐색, 단어 추가, 단어 수정",
+                        trailingContent = { ChevronIcon(size = layout.chevronSize) },
+                        containerColor = colors.bgCard,
+                        borderColor = colors.borderDefault,
+                        onClick = onNavigateToWordManage
+                    )
+                    MenuCard(
+                        modifier = Modifier.weight(1f),
+                        layout = layout,
+                        icon = Icons.Outlined.CheckCircle,
+                        iconTint = colors.purpleLight,
+                        iconBg = Color(0xFF231535),
+                        title = "단어 테스트",
+                        description = "10문제 · 랜덤 출제 · 레벨 선택",
+                        trailingContent = {
+                            AppButton(
+                                text = "START",
+                                onClick = onNavigateToWordTest,
+                                style = AppButtonStyle.PRIMARY
+                            )
+                        },
+                        containerColor = colors.bgCardAccent,
+                        borderColor = colors.borderAccent,
+                        onClick = onNavigateToWordTest
+                    )
+                    MenuCard(
+                        modifier = Modifier.weight(1f),
+                        layout = layout,
+                        icon = Icons.Outlined.BarChart,
+                        iconTint = colors.greenMain,
+                        iconBg = colors.bgIconGreen,
+                        title = "기록 및 통계",
+                        description = "테스트결과 목록, 결과 상세보기",
+                        trailingContent = { ChevronIcon(size = layout.chevronSize) },
+                        containerColor = colors.bgCard,
+                        borderColor = colors.borderDefault,
+                        onClick = onNavigateToRecords
+                    )
+                }
             }
 
-            Spacer(modifier = Modifier.height(14.dp))
+            Spacer(modifier = Modifier.height(layout.gapFooter))
             Text(
                 text = "© 2026. 경주아빠. All rights reserved.",
-                fontSize = 10.sp,
+                fontSize = layout.footerSp,
                 color = Color(0xFF2E2D3D),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
@@ -145,7 +345,7 @@ fun MainScreen(
 }
 
 @Composable
-private fun AppHeader() {
+private fun AppHeader(layout: MainHomeLayout) {
     val colors = AppTheme.colors
     Column {
         Row(
@@ -160,7 +360,7 @@ private fun AppHeader() {
             )
             Text(
                 text = "VOCA MASTER",
-                fontSize = 11.sp,
+                fontSize = layout.brandSp,
                 color = colors.textDim,
                 letterSpacing = 0.10.em
             )
@@ -168,7 +368,7 @@ private fun AppHeader() {
         Spacer(modifier = Modifier.height(6.dp))
         Text(
             text = "영어단어 암기장",
-            fontSize = 26.sp,
+            fontSize = layout.titleSp,
             fontWeight = FontWeight.Medium,
             color = colors.textPrimary
         )
@@ -190,7 +390,7 @@ private fun AppHeader() {
             )
             Text(
                 text = "교육부 필수어휘 3,000개",
-                fontSize = 11.sp,
+                fontSize = layout.badgeSp,
                 color = colors.purpleMain,
                 fontWeight = FontWeight.Medium
             )
@@ -200,6 +400,7 @@ private fun AppHeader() {
 
 @Composable
 private fun StatCardRow(
+    layout: MainHomeLayout,
     totalWordCount: Int,
     testCount: Int,
     avgScore: Int
@@ -210,18 +411,21 @@ private fun StatCardRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         StatCard(
+            layout = layout,
             value = "%,d".format(totalWordCount),
             label = "전체 단어",
             valueColor = colors.purpleMain,
             modifier = Modifier.weight(1f)
         )
         StatCard(
+            layout = layout,
             value = "$testCount",
             label = "테스트 횟수",
             valueColor = colors.greenMain,
             modifier = Modifier.weight(1f)
         )
         StatCard(
+            layout = layout,
             value = "${avgScore}점",
             label = "평균 점수",
             valueColor = colors.pinkMain,
@@ -232,6 +436,7 @@ private fun StatCardRow(
 
 @Composable
 private fun StatCard(
+    layout: MainHomeLayout,
     value: String,
     label: String,
     valueColor: Color,
@@ -240,22 +445,22 @@ private fun StatCard(
     val colors = AppTheme.colors
     Box(
         modifier = modifier
-            .background(colors.bgCard, RoundedCornerShape(14.dp))
-            .border(0.5.dp, colors.borderDefault, RoundedCornerShape(14.dp))
-            .padding(vertical = 16.dp, horizontal = 8.dp),
+            .background(colors.bgCard, RoundedCornerShape(layout.statCorner))
+            .border(0.5.dp, colors.borderDefault, RoundedCornerShape(layout.statCorner))
+            .padding(vertical = layout.statPadV, horizontal = layout.statPadH),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = value,
-                fontSize = 22.sp,
+                fontSize = layout.statValueSp,
                 fontWeight = FontWeight.Medium,
                 color = valueColor
             )
             Spacer(modifier = Modifier.height(3.dp))
             Text(
                 text = label,
-                fontSize = 10.sp,
+                fontSize = layout.statLabelSp,
                 color = colors.textMuted
             )
         }
@@ -265,6 +470,7 @@ private fun StatCard(
 @Composable
 private fun MenuCard(
     modifier: Modifier = Modifier,
+    layout: MainHomeLayout,
     icon: ImageVector,
     iconTint: Color,
     iconBg: Color,
@@ -279,43 +485,43 @@ private fun MenuCard(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .background(containerColor, RoundedCornerShape(18.dp))
-            .border(0.5.dp, borderColor, RoundedCornerShape(18.dp))
+            .background(containerColor, RoundedCornerShape(layout.menuCorner))
+            .border(0.5.dp, borderColor, RoundedCornerShape(layout.menuCorner))
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = layout.menuInnerPadH),
         contentAlignment = Alignment.Center
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(layout.menuRowSpace),
             modifier = Modifier.fillMaxWidth()
         ) {
             Box(
                 modifier = Modifier
-                    .size(44.dp)
-                    .background(iconBg, RoundedCornerShape(13.dp)),
+                    .size(layout.menuIconBox)
+                    .background(iconBg, RoundedCornerShape((layout.menuCorner.value * 0.72f).dp)),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
                     tint = iconTint,
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(layout.menuIconInner)
                 )
             }
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = title,
-                    fontSize = 15.sp,
+                    fontSize = layout.menuTitleSp,
                     fontWeight = FontWeight.Medium,
                     color = colors.textSecondary
                 )
                 Spacer(modifier = Modifier.height(3.dp))
                 Text(
                     text = description,
-                    fontSize = 12.sp,
+                    fontSize = layout.menuDescSp,
                     color = colors.textMuted,
-                    maxLines = 1,
+                    maxLines = layout.descMaxLines,
                     overflow = TextOverflow.Ellipsis
                 )
             }
@@ -325,12 +531,12 @@ private fun MenuCard(
 }
 
 @Composable
-private fun ChevronIcon() {
+private fun ChevronIcon(size: Dp) {
     Icon(
         imageVector = Icons.Filled.ChevronRight,
         contentDescription = null,
         tint = Color(0xFF3D3C52),
-        modifier = Modifier.size(16.dp)
+        modifier = Modifier.size(size)
     )
 }
 

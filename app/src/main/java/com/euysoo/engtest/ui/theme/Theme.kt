@@ -1,9 +1,7 @@
 package com.euysoo.engtest.ui.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
-import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -60,26 +58,6 @@ val LightAppColors = AppColors(
     badgePurpleText = Light_BadgePurpleText
 )
 
-val DarkAppColors = AppColors(
-    bgPrimary = Dark_BgPrimary,
-    bgCard = Dark_BgCard,
-    bgIcon = Dark_BgIcon,
-    bgIconGreen = Dark_BgIconGreen,
-    bgCardAccent = Dark_BgCardAccent,
-    borderDefault = Dark_BorderDefault,
-    borderAccent = Dark_BorderAccent,
-    purpleMain = Dark_PurpleMain,
-    purpleLight = Dark_PurpleLight,
-    greenMain = Dark_GreenMain,
-    pinkMain = Dark_PinkMain,
-    textPrimary = Dark_TextPrimary,
-    textSecondary = Dark_TextSecondary,
-    textMuted = Dark_TextMuted,
-    textDim = Dark_TextDim,
-    badgePurpleBg = Dark_BadgePurpleBg,
-    badgePurpleText = Dark_BadgePurpleText
-)
-
 val LocalAppColors = staticCompositionLocalOf { LightAppColors }
 
 object AppTheme {
@@ -89,32 +67,18 @@ object AppTheme {
 
 @Composable
 fun EngTestTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val appColors = if (darkTheme) DarkAppColors else LightAppColors
-    val colorScheme = if (darkTheme) {
-        darkColorScheme(
-            background = Dark_BgPrimary,
-            surface = Dark_BgCard,
-            primary = Dark_PurpleMain,
-            secondary = Dark_GreenMain,
-            tertiary = Dark_PinkMain,
-            onBackground = Dark_TextPrimary,
-            onSurface = Dark_TextSecondary
-        )
-    } else {
-        lightColorScheme(
-            background = Light_BgPrimary,
-            surface = Light_BgCard,
-            primary = Light_PurpleMain,
-            secondary = Light_GreenMain,
-            tertiary = Light_PinkMain,
-            onBackground = Light_TextPrimary,
-            onSurface = Light_TextSecondary
-        )
-    }
-    CompositionLocalProvider(LocalAppColors provides appColors) {
+    val colorScheme = lightColorScheme(
+        background = Light_BgPrimary,
+        surface = Light_BgCard,
+        primary = Light_PurpleMain,
+        secondary = Light_GreenMain,
+        tertiary = Light_PinkMain,
+        onBackground = Light_TextPrimary,
+        onSurface = Light_TextSecondary
+    )
+    CompositionLocalProvider(LocalAppColors provides LightAppColors) {
         MaterialTheme(
             colorScheme = colorScheme,
             typography = Typography,
