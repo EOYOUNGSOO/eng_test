@@ -5,20 +5,20 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
@@ -37,6 +37,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.key
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -100,215 +101,214 @@ fun MyWordBookDetailScreen(
             )
         }
     ) { padding ->
-        Column(
+        val scrollState = rememberScrollState()
+        BoxWithConstraints(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
                 .padding(horizontal = 16.dp)
         ) {
+            val minSearchH = maxHeight * (5f / 11f)
+            val minBookH = maxHeight * (6f / 11f)
             Column(
                 modifier = Modifier
-                    .weight(3f)
                     .fillMaxWidth()
+                    .verticalScroll(scrollState)
             ) {
-                Text(
-                    text = "단어 검색",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = colors.purpleMain,
-                    modifier = Modifier.padding(top = 8.dp, bottom = 6.dp)
-                )
-                OutlinedTextField(
-                    value = searchQuery,
-                    onValueChange = viewModel::setSearchQuery,
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = true,
-                    placeholder = { Text("영단어 또는 뜻으로 검색", color = colors.textMuted) },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Filled.Search,
-                            contentDescription = null,
-                            tint = colors.textMuted
-                        )
-                    },
-                    shape = RoundedCornerShape(12.dp)
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                LazyColumn(
+                Column(
                     modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    contentPadding = PaddingValues(bottom = 4.dp)
+                        .fillMaxWidth()
+                        .heightIn(min = minSearchH)
                 ) {
+                    Text(
+                        text = "단어 검색",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = colors.purpleMain,
+                        modifier = Modifier.padding(top = 8.dp, bottom = 6.dp)
+                    )
+                    OutlinedTextField(
+                        value = searchQuery,
+                        onValueChange = viewModel::setSearchQuery,
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true,
+                        placeholder = { Text("영단어 또는 뜻으로 검색", color = colors.textMuted) },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Filled.Search,
+                                contentDescription = null,
+                                tint = colors.textMuted
+                            )
+                        },
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
                     when {
                         searchQuery.isBlank() -> {
-                            item {
-                                Text(
-                                    text = "검색어를 입력하면 추가할 단어를 고를 수 있습니다.",
-                                    fontSize = 13.sp,
-                                    color = colors.textMuted
-                                )
-                            }
-                        }
-                        searchResults.isEmpty() -> {
-                            item {
-                                Text(
-                                    text = "일치하는 단어가 없거나 이미 이 단어장에 모두 담겼습니다.",
-                                    fontSize = 13.sp,
-                                    color = colors.textMuted
-                                )
-                            }
-                        }
-                        else -> {
-                            items(searchResults, key = { it.id }) { word ->
-                                SearchResultRow(
-                                    word = word,
-                                    selected = word.id == selectedSearchWordId,
-                                    colors = colors,
-                                    onClick = {
-                                        selectedSearchWordId = word.id
-                                        selectedBookWordId = -1L
-                                    }
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-
-            HorizontalDivider(
-                modifier = Modifier.padding(vertical = 8.dp),
-                thickness = 1.dp,
-                color = colors.borderAccent
-            )
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                val upEnabled = selectedBookWordId >= 0L
-                Surface(
-                    shape = CircleShape,
-                    color = if (upEnabled) colors.pinkMain.copy(alpha = 0.12f) else colors.bgCard,
-                    border = BorderStroke(
-                        width = if (upEnabled) 1.dp else 0.5.dp,
-                        color = if (upEnabled) colors.pinkMain.copy(alpha = 0.55f)
-                        else colors.borderDefault.copy(alpha = 0.6f)
-                    ),
-                    modifier = Modifier.size(46.dp)
-                ) {
-                    IconButton(
-                        onClick = {
-                            if (selectedBookWordId >= 0L) {
-                                viewModel.removeWord(selectedBookWordId)
-                                selectedBookWordId = -1L
-                            }
-                        },
-                        enabled = upEnabled,
-                        modifier = Modifier.fillMaxSize()
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.KeyboardArrowUp,
-                            contentDescription = "단어장에서 빼기",
-                            modifier = Modifier.size(22.dp),
-                            tint = if (upEnabled) colors.pinkMain else colors.textMuted
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.padding(horizontal = 20.dp))
-                val downEnabled = selectedSearchWordId >= 0L
-                Surface(
-                    shape = CircleShape,
-                    color = if (downEnabled) colors.greenMain.copy(alpha = 0.16f) else colors.bgCard,
-                    border = BorderStroke(
-                        width = if (downEnabled) 2.5.dp else 1.dp,
-                        color = if (downEnabled) colors.greenMain else colors.borderDefault.copy(alpha = 0.55f)
-                    ),
-                    modifier = Modifier.size(56.dp)
-                ) {
-                    IconButton(
-                        onClick = {
-                            if (selectedSearchWordId >= 0L) {
-                                viewModel.addWordToBook(selectedSearchWordId)
-                                selectedSearchWordId = -1L
-                            }
-                        },
-                        enabled = downEnabled,
-                        modifier = Modifier.fillMaxSize()
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.KeyboardArrowDown,
-                            contentDescription = "단어장에 담기",
-                            modifier = Modifier.size(32.dp),
-                            tint = if (downEnabled) colors.greenMain else colors.textMuted
-                        )
-                    }
-                }
-            }
-
-            HorizontalDivider(
-                modifier = Modifier.padding(vertical = 8.dp),
-                thickness = 1.dp,
-                color = colors.borderAccent
-            )
-
-            Column(
-                modifier = Modifier
-                    .weight(7f)
-                    .fillMaxWidth()
-            ) {
-                Text(
-                    text = "나의 단어장",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = colors.purpleMain,
-                    modifier = Modifier.padding(bottom = 4.dp)
-                )
-                Text(
-                    text = "포함 단어 ${wordItems.size}개",
-                    fontSize = 13.sp,
-                    color = colors.textMuted,
-                    modifier = Modifier.padding(bottom = 6.dp)
-                )
-                LazyColumn(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    contentPadding = PaddingValues(bottom = 8.dp)
-                ) {
-                    if (wordItems.isEmpty()) {
-                        item {
                             Text(
-                                text = "이 단어장에 담긴 단어가 없습니다.\n위에서 검색한 뒤 ↓로 담거나, 단어 관리에서 추가해 보세요.",
-                                fontSize = 14.sp,
+                                text = "검색어를 입력하면 추가할 단어를 고를 수 있습니다.",
+                                fontSize = 13.sp,
                                 color = colors.textMuted
                             )
                         }
-                    } else {
-                        itemsIndexed(wordItems, key = { _, it -> it.word.id }) { index, item ->
-                            WordBookEntryRow(
-                                index = index + 1,
-                                word = item.word,
-                                highlighted = item.word.id in highlightWordIds,
-                                selected = item.word.id == selectedBookWordId,
-                                colors = colors,
-                                onRowClick = {
-                                    selectedBookWordId = item.word.id
+                        searchResults.isEmpty() -> {
+                            Text(
+                                text = "일치하는 단어가 없거나 이미 이 단어장에 모두 담겼습니다.",
+                                fontSize = 13.sp,
+                                color = colors.textMuted
+                            )
+                        }
+                        else -> {
+                            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                                searchResults.forEach { word ->
+                                    key(word.id) {
+                                        SearchResultRow(
+                                            word = word,
+                                            selected = word.id == selectedSearchWordId,
+                                            colors = colors,
+                                            onClick = {
+                                                selectedSearchWordId = word.id
+                                                selectedBookWordId = -1L
+                                            }
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                HorizontalDivider(
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    thickness = 1.dp,
+                    color = colors.borderAccent
+                )
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    val upEnabled = selectedBookWordId >= 0L
+                    Surface(
+                        shape = CircleShape,
+                        color = if (upEnabled) colors.pinkMain.copy(alpha = 0.12f) else colors.bgCard,
+                        border = BorderStroke(
+                            width = if (upEnabled) 1.dp else 0.5.dp,
+                            color = if (upEnabled) colors.pinkMain.copy(alpha = 0.55f)
+                            else colors.borderDefault.copy(alpha = 0.6f)
+                        ),
+                        modifier = Modifier.size(46.dp)
+                    ) {
+                        IconButton(
+                            onClick = {
+                                if (selectedBookWordId >= 0L) {
+                                    viewModel.removeWord(selectedBookWordId)
+                                    selectedBookWordId = -1L
+                                }
+                            },
+                            enabled = upEnabled,
+                            modifier = Modifier.fillMaxSize()
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.KeyboardArrowUp,
+                                contentDescription = "단어장에서 빼기",
+                                modifier = Modifier.size(22.dp),
+                                tint = if (upEnabled) colors.pinkMain else colors.textMuted
+                            )
+                        }
+                    }
+                    Spacer(modifier = Modifier.padding(horizontal = 20.dp))
+                    val downEnabled = selectedSearchWordId >= 0L
+                    Surface(
+                        shape = CircleShape,
+                        color = if (downEnabled) colors.greenMain.copy(alpha = 0.16f) else colors.bgCard,
+                        border = BorderStroke(
+                            width = if (downEnabled) 2.5.dp else 1.dp,
+                            color = if (downEnabled) colors.greenMain else colors.borderDefault.copy(alpha = 0.55f)
+                        ),
+                        modifier = Modifier.size(56.dp)
+                    ) {
+                        IconButton(
+                            onClick = {
+                                if (selectedSearchWordId >= 0L) {
+                                    viewModel.addWordToBook(selectedSearchWordId)
                                     selectedSearchWordId = -1L
-                                },
-                                onRemoveClick = { wordToRemove = item.word }
+                                }
+                            },
+                            enabled = downEnabled,
+                            modifier = Modifier.fillMaxSize()
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.KeyboardArrowDown,
+                                contentDescription = "단어장에 담기",
+                                modifier = Modifier.size(32.dp),
+                                tint = if (downEnabled) colors.greenMain else colors.textMuted
                             )
                         }
                     }
                 }
-            }
 
-            AppCopyrightFooter()
+                HorizontalDivider(
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    thickness = 1.dp,
+                    color = colors.borderAccent
+                )
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = minBookH)
+                ) {
+                    Text(
+                        text = "나의 단어장",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = colors.purpleMain,
+                        modifier = Modifier.padding(bottom = 4.dp)
+                    )
+                    Text(
+                        text = "포함 단어 ${wordItems.size}개",
+                        fontSize = 13.sp,
+                        color = colors.textMuted,
+                        modifier = Modifier.padding(bottom = 6.dp)
+                    )
+                    if (wordItems.isEmpty()) {
+                        Text(
+                            text = "이 단어장에 담긴 단어가 없습니다.\n위에서 검색한 뒤 ↓로 담거나, 단어 관리에서 추가해 보세요.",
+                            fontSize = 14.sp,
+                            color = colors.textMuted
+                        )
+                    } else {
+                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            wordItems.forEachIndexed { index, item ->
+                                key(item.word.id) {
+                                    WordBookEntryRow(
+                                        index = index + 1,
+                                        word = item.word,
+                                        highlighted = item.word.id in highlightWordIds,
+                                        selected = item.word.id == selectedBookWordId,
+                                        colors = colors,
+                                        onRowClick = {
+                                            selectedBookWordId = item.word.id
+                                            selectedSearchWordId = -1L
+                                        },
+                                        onRemoveClick = { wordToRemove = item.word }
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+
+                AppCopyrightFooter(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp, bottom = 24.dp)
+                )
+            }
         }
     }
 
@@ -381,17 +381,18 @@ private fun WordBookEntryRow(
     onRemoveClick: () -> Unit,
 ) {
     val borderWidth = when {
-        selected -> 1.5.dp
-        highlighted -> 1.2.dp
+        selected -> 2.dp
+        highlighted && !selected -> 1.5.dp
         else -> 0.5.dp
     }
     val borderColor = when {
         selected -> colors.purpleMain
-        highlighted -> colors.purpleLight.copy(alpha = 0.85f)
+        highlighted && !selected -> colors.greenMain.copy(alpha = 0.75f)
         else -> colors.borderDefault
     }
     val fillColor = when {
-        highlighted -> colors.badgePurpleBg.copy(alpha = 0.45f)
+        selected -> colors.purpleLight.copy(alpha = 0.18f)
+        highlighted -> colors.greenMain.copy(alpha = 0.14f)
         else -> colors.bgCard
     }
     Row(
@@ -413,7 +414,11 @@ private fun WordBookEntryRow(
                 text = "$index.",
                 fontSize = 15.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = if (highlighted) colors.badgePurpleText else colors.textMuted,
+                color = when {
+                    selected -> colors.purpleMain
+                    highlighted -> colors.greenMain
+                    else -> colors.textMuted
+                },
                 modifier = Modifier
                     .widthIn(min = 28.dp)
                     .padding(end = 8.dp)
@@ -428,7 +433,7 @@ private fun WordBookEntryRow(
                 Text(
                     text = word.meaning,
                     fontSize = 13.sp,
-                    color = colors.textSecondary,
+                    color = if (highlighted) colors.textSecondary.copy(alpha = 0.92f) else colors.textSecondary,
                     modifier = Modifier.padding(top = 4.dp)
                 )
             }
@@ -440,7 +445,7 @@ private fun WordBookEntryRow(
             Icon(
                 imageVector = Icons.Filled.Remove,
                 contentDescription = "단어장에서 제거",
-                tint = colors.purpleMain
+                tint = if (highlighted) colors.greenMain.copy(alpha = 0.9f) else colors.purpleMain
             )
         }
     }

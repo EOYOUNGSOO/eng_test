@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -43,6 +45,86 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+/** 점수·목록·완료 버튼만 (저작권 제외). 부모에서 화면 하단에 [AppCopyrightFooter]를 붙일 때 사용. */
+fun LazyListScope.testResultSummaryItemsNoFooter(
+    words: List<Word>,
+    answers: List<Boolean>,
+    score: Int,
+    testStartTimeMillis: Long,
+    onSpeak: (Word) -> Unit,
+    onFinish: () -> Unit
+) {
+    if (words.size != answers.size) return
+    val dateFormat = SimpleDateFormat("yyyy. M. d. HH:mm", Locale.getDefault())
+    item {
+        val colors = AppTheme.colors
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = AppDimens.screenPadding)
+        ) {
+            Text(
+                text = "점수: ${score}점",
+                style = MaterialTheme.typography.headlineSmall,
+                color = colors.purpleMain
+            )
+            Text(
+                text = dateFormat.format(Date(testStartTimeMillis)),
+                style = MaterialTheme.typography.bodyMedium,
+                color = colors.textMuted
+            )
+            Spacer(modifier = Modifier.height(AppDimens.screenPadding))
+        }
+    }
+    itemsIndexed(
+        words,
+        key = { _, w -> w.id }
+    ) { index, word ->
+        ResultSummaryWordItem(
+            word = word,
+            known = answers.getOrElse(index) { false },
+            onSpeak = { onSpeak(word) },
+            modifier = Modifier.padding(horizontal = AppDimens.screenPadding)
+        )
+    }
+    item {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = AppDimens.screenPadding,
+                    vertical = AppDimens.screenPadding
+                ),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            AppButton(
+                text = "완료",
+                style = AppButtonStyle.SECONDARY,
+                onClick = onFinish
+            )
+        }
+    }
+}
+
+/** 부모 [LazyColumn] 안에서 저작권까지 한 스크롤로 넣을 때. */
+fun LazyListScope.testResultSummaryItems(
+    words: List<Word>,
+    answers: List<Boolean>,
+    score: Int,
+    testStartTimeMillis: Long,
+    onSpeak: (Word) -> Unit,
+    onFinish: () -> Unit
+) {
+    testResultSummaryItemsNoFooter(
+        words, answers, score, testStartTimeMillis, onSpeak, onFinish
+    )
+    item {
+        AppCopyrightFooter(
+            modifier = Modifier.padding(horizontal = AppDimens.screenPadding)
+        )
+    }
+}
+
 @Composable
 fun TestResultSummaryContent(
     words: List<Word>,
@@ -52,55 +134,26 @@ fun TestResultSummaryContent(
     onSpeak: (Word) -> Unit,
     onFinish: () -> Unit
 ) {
-    val colors = AppTheme.colors
-    if (words.size != answers.size) return
-    val dateFormat = SimpleDateFormat("yyyy. M. d. HH:mm", Locale.getDefault())
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(AppDimens.screenPadding)
-    ) {
-        Text(
-            text = "점수: ${score}점",
-            style = MaterialTheme.typography.headlineSmall,
-            color = colors.purpleMain
-        )
-        Text(
-            text = dateFormat.format(Date(testStartTimeMillis)),
-            style = MaterialTheme.typography.bodyMedium,
-            color = colors.textMuted
-        )
-        Spacer(modifier = Modifier.height(AppDimens.screenPadding))
-
+    Column(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth(),
-            contentPadding = androidx.compose.foundation.layout.PaddingValues(vertical = AppDimens.cardPadding),
+            contentPadding = PaddingValues(vertical = AppDimens.cardPadding),
             verticalArrangement = Arrangement.spacedBy(AppDimens.listItemSpacing)
         ) {
-            itemsIndexed(words) { index, word ->
-                ResultSummaryWordItem(
-                    word = word,
-                    known = answers.getOrElse(index) { false },
-                    onSpeak = { onSpeak(word) }
-                )
-            }
-        }
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = AppDimens.screenPadding),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            AppButton(
-                text = "완료",
-                style = AppButtonStyle.SECONDARY,
-                onClick = onFinish
+            testResultSummaryItemsNoFooter(
+                words = words,
+                answers = answers,
+                score = score,
+                testStartTimeMillis = testStartTimeMillis,
+                onSpeak = onSpeak,
+                onFinish = onFinish
             )
         }
-        AppCopyrightFooter()
+        AppCopyrightFooter(
+            modifier = Modifier.padding(horizontal = AppDimens.screenPadding)
+        )
     }
 }
 
@@ -108,7 +161,8 @@ fun TestResultSummaryContent(
 private fun ResultSummaryWordItem(
     word: Word,
     known: Boolean,
-    onSpeak: () -> Unit
+    onSpeak: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val colors = AppTheme.colors
     val statsText = remember(known) {
@@ -117,7 +171,7 @@ private fun ResultSummaryWordItem(
         "정답 ${correctPct}% · 오답 ${wrongPct}% · 시도 1회"
     }
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .border(0.5.dp, colors.borderDefault, RoundedCornerShape(AppDimens.cardCornerRadius)),
         shape = RoundedCornerShape(AppDimens.cardCornerRadius),

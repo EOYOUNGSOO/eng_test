@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
@@ -68,8 +69,6 @@ import com.euysoo.engtest.EngTestApplication
 import com.euysoo.engtest.data.entity.TestResult
 import com.euysoo.engtest.data.entity.Word
 import com.euysoo.engtest.data.entity.WordDifficulty
-import com.euysoo.engtest.ui.component.AppButton
-import com.euysoo.engtest.ui.component.AppButtonStyle
 import com.euysoo.engtest.ui.components.AppCopyrightFooter
 import com.euysoo.engtest.ui.components.AppTopBar
 import com.euysoo.engtest.ui.theme.AppTheme
@@ -108,6 +107,29 @@ fun RecordsScreen(
     val resultWords by viewModel.resultWords.collectAsStateWithLifecycle()
     val resultWordStats by viewModel.resultWordStats.collectAsStateWithLifecycle()
 
+    var selectedWordForDetail by remember { mutableStateOf<String?>(null) }
+    LaunchedEffect(selectedResult) {
+        selectedWordForDetail = null
+    }
+
+    var ttsReady by remember { mutableStateOf(false) }
+    val tts = remember {
+        TextToSpeech(context.applicationContext) { status ->
+            ttsReady = (status == TextToSpeech.SUCCESS)
+        }
+    }
+    DisposableEffect(tts) {
+        onDispose {
+            try {
+                tts.stop()
+                tts.shutdown()
+            } catch (_: Exception) { }
+        }
+    }
+    LaunchedEffect(ttsReady) {
+        if (ttsReady) tts.setLanguage(Locale.US)
+    }
+
     var difficultyDetailLabel by remember { mutableStateOf("") }
     LaunchedEffect(selectedResult) {
         val r = selectedResult
@@ -122,58 +144,121 @@ fun RecordsScreen(
 
     Scaffold(
         containerColor = colors.bgPrimary,
-        topBar = {
-            AppTopBar(
-                title = if (selectedResult != null) "테스트 결과" else "기록 및 통계",
-                onBackClick = {
-                    if (selectedResult != null) viewModel.clearSelection() else onBack()
-                }
-            )
-        }
+        topBar = {}
     ) { padding ->
-        Box(modifier = Modifier.padding(padding)) {
+        Box(modifier = Modifier.fillMaxSize().padding(padding)) {
             if (selectedResult != null) {
-                ResultDetailContent(
-                    result = selectedResult!!,
-                    difficultyLabel = difficultyDetailLabel,
-                    resultWords = resultWords,
-                    resultWordStats = resultWordStats,
-                    wordDetailViewModel = wordDetailViewModel,
-                    onList = { viewModel.clearSelection() }
-                )
+                Column(modifier = Modifier.fillMaxSize()) {
+                    LazyColumn(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth()
+                    ) {
+                        item {
+                            AppTopBar(
+                                title = "테스트 결과",
+                                onBackClick = { viewModel.clearSelection() }
+                            )
+                        }
+                        resultDetailScrollItems(
+                            result = selectedResult!!,
+                            difficultyLabel = difficultyDetailLabel,
+                            resultWords = resultWords,
+                            resultWordStats = resultWordStats,
+                            onSpeakWord = { w ->
+                                if (ttsReady) {
+                                    tts.speak(w.word, TextToSpeech.QUEUE_FLUSH, null, null)
+                                }
+                            },
+                            onWordDetail = { selectedWordForDetail = it }
+                        )
+                    }
+                    AppCopyrightFooter(
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                    )
+                }
             } else {
                 var showFromPicker by remember { mutableStateOf(false) }
                 var showToPicker by remember { mutableStateOf(false) }
-                RecordsListContent(
-                    modifier = Modifier.fillMaxSize(),
-                    fromMillis = fromMillis,
-                    toMillis = toMillis,
-                    onFromClick = { showFromPicker = true },
-                    onToClick = { showToPicker = true },
-                    resultsList = resultsList,
-                    onResultClick = { viewModel.setSelectedResult(it) }
-                )
-                if (showFromPicker) {
-                    RoundedDatePickerDialog(
-                        initialMillis = fromMillis,
-                        onConfirm = { viewModel.setFromMillis(it); showFromPicker = false },
-                        onDismiss = { showFromPicker = false }
-                    )
-                }
-                if (showToPicker) {
-                    RoundedDatePickerDialog(
-                        initialMillis = toMillis,
-                        onConfirm = { viewModel.setToMillis(it); showToPicker = false },
-                        onDismiss = { showToPicker = false }
-                    )
+                val dateFormat = remember { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) }
+                Box(modifier = Modifier.fillMaxSize()) {
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        LazyColumn(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxWidth(),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            item {
+                                AppTopBar(
+                                    title = "기록 및 통계",
+                                    onBackClick = onBack
+                                )
+                            }
+                            item {
+                                DateRangeRow(
+                                    fromLabel = "언제부터?",
+                                    toLabel = "언제까지?",
+                                    fromText = dateFormat.format(Date(fromMillis)),
+                                    toText = dateFormat.format(Date(toMillis)),
+                                    onFromClick = { showFromPicker = true },
+                                    onToClick = { showToPicker = true },
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 16.dp)
+                                )
+                            }
+                            item { Spacer(modifier = Modifier.height(16.dp)) }
+                            item {
+                                Text(
+                                    "결과 목록",
+                                    style = MaterialTheme.typography.titleSmall,
+                                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                                )
+                            }
+                            items(resultsList, key = { it.id }) { result ->
+                                ResultListItem(
+                                    result = result,
+                                    onClick = { viewModel.setSelectedResult(result) },
+                                    modifier = Modifier.padding(horizontal = 16.dp)
+                                )
+                            }
+                        }
+                        AppCopyrightFooter(
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                        )
+                    }
+                    if (showFromPicker) {
+                        RoundedDatePickerDialog(
+                            initialMillis = fromMillis,
+                            onConfirm = { viewModel.setFromMillis(it); showFromPicker = false },
+                            onDismiss = { showFromPicker = false }
+                        )
+                    }
+                    if (showToPicker) {
+                        RoundedDatePickerDialog(
+                            initialMillis = toMillis,
+                            onConfirm = { viewModel.setToMillis(it); showToPicker = false },
+                            onDismiss = { showToPicker = false }
+                        )
+                    }
                 }
             }
         }
+    }
+
+    selectedWordForDetail?.let { targetWord ->
+        WordDetailBottomSheet(
+            word = targetWord,
+            viewModel = wordDetailViewModel,
+            onDismiss = { selectedWordForDetail = null }
+        )
     }
 }
 
 @Composable
 private fun DateRangeRow(
+    modifier: Modifier = Modifier,
     fromLabel: String,
     toLabel: String,
     fromText: String,
@@ -182,7 +267,7 @@ private fun DateRangeRow(
     onToClick: () -> Unit
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -327,65 +412,87 @@ private fun RoundedDatePickerDialog(
     }
 }
 
-@Composable
-private fun RecordsListContent(
-    modifier: Modifier = Modifier,
-    fromMillis: Long,
-    toMillis: Long,
-    onFromClick: () -> Unit,
-    onToClick: () -> Unit,
-    resultsList: List<TestResult>,
-    onResultClick: (TestResult) -> Unit
+private fun LazyListScope.resultDetailScrollItems(
+    result: TestResult,
+    difficultyLabel: String,
+    resultWords: List<Pair<Word, Boolean>>,
+    resultWordStats: Map<Long, Pair<Int, Int>>,
+    onSpeakWord: (Word) -> Unit,
+    onWordDetail: (String) -> Unit
 ) {
-    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    Column(modifier = modifier) {
-        LazyColumn(
+    item {
+        val colors = AppTheme.colors
+        Column(
             modifier = Modifier
-                .weight(1f)
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            contentPadding = PaddingValues(bottom = 8.dp)
+                .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
-            item {
-                DateRangeRow(
-                    fromLabel = "언제부터?",
-                    toLabel = "언제까지?",
-                    fromText = dateFormat.format(Date(fromMillis)),
-                    toText = dateFormat.format(Date(toMillis)),
-                    onFromClick = onFromClick,
-                    onToClick = onToClick
-                )
-            }
-            item { Spacer(modifier = Modifier.height(16.dp)) }
-            item {
+            Text(
+                text = "점수: ${result.score * 10}점",
+                style = MaterialTheme.typography.headlineSmall,
+                color = colors.purpleMain
+            )
+            val dateFormat = SimpleDateFormat("yyyy. M. d. HH:mm", Locale.getDefault())
+            Text(
+                text = dateFormat.format(Date(result.testDateMillis)),
+                style = MaterialTheme.typography.bodyMedium,
+                color = colors.textMuted
+            )
+            if (difficultyLabel.isNotBlank()) {
                 Text(
-                    "결과 목록",
-                    style = MaterialTheme.typography.titleSmall,
-                    modifier = Modifier.padding(vertical = 8.dp)
-                )
-            }
-            itemsIndexed(resultsList, key = { _, it -> it.id }) { _, result ->
-                ResultListItem(
-                    result = result,
-                    onClick = { onResultClick(result) }
+                    text = "범위: $difficultyLabel",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = colors.textMuted,
+                    modifier = Modifier.padding(top = 4.dp)
                 )
             }
         }
-        AppCopyrightFooter(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
+    }
+    if (resultWords.isEmpty()) {
+        item {
+            val colors = AppTheme.colors
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 32.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "단어 정보를 불러오는 중이거나 없습니다.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = colors.textMuted
+                )
+            }
+        }
+    } else {
+        itemsIndexed(
+            resultWords,
+            key = { _, pair -> pair.first.id }
+        ) { _, (word, known) ->
+            val stats = resultWordStats[word.id]
+            ResultWordItem(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                word = word,
+                known = known,
+                stats = stats,
+                onSpeak = { onSpeakWord(word) },
+                onDetail = { onWordDetail(word.word) }
+            )
+        }
     }
 }
 
 @Composable
 private fun ResultListItem(
     result: TestResult,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val colors = AppTheme.colors
     val dateFormat = SimpleDateFormat("yyyy. M. d. HH:mm", Locale.getDefault())
     Card(
         onClick = onClick,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .border(0.5.dp, colors.borderDefault, RoundedCornerShape(AppDimens.cardCornerRadius)),
         shape = RoundedCornerShape(AppDimens.cardCornerRadius),
@@ -414,133 +521,8 @@ private fun ResultListItem(
 }
 
 @Composable
-private fun ResultDetailContent(
-    result: TestResult,
-    difficultyLabel: String,
-    resultWords: List<Pair<Word, Boolean>>,
-    resultWordStats: Map<Long, Pair<Int, Int>>,
-    wordDetailViewModel: WordDetailViewModel,
-    onList: () -> Unit
-) {
-    val colors = AppTheme.colors
-    val context = LocalContext.current
-    var ttsReady by remember { mutableStateOf(false) }
-    val tts = remember {
-        TextToSpeech(context.applicationContext) { status ->
-            ttsReady = (status == TextToSpeech.SUCCESS)
-        }
-    }
-    DisposableEffect(tts) {
-        onDispose {
-            try {
-                tts.stop()
-                tts.shutdown()
-            } catch (_: Exception) { /* TTS 해제 시 예외 무시 */ }
-        }
-    }
-    LaunchedEffect(ttsReady) {
-        if (ttsReady) tts.setLanguage(Locale.US)
-    }
-    var selectedWordForDetail by remember { mutableStateOf<String?>(null) }
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        Text(
-            text = "점수: ${result.score * 10}점",
-            style = MaterialTheme.typography.headlineSmall,
-            color = colors.purpleMain
-        )
-        val dateFormat = SimpleDateFormat("yyyy. M. d. HH:mm", Locale.getDefault())
-        Text(
-            text = dateFormat.format(Date(result.testDateMillis)),
-            style = MaterialTheme.typography.bodyMedium,
-            color = colors.textMuted
-        )
-        if (difficultyLabel.isNotBlank()) {
-            Text(
-                text = "범위: $difficultyLabel",
-                style = MaterialTheme.typography.bodySmall,
-                color = colors.textMuted,
-                modifier = Modifier.padding(top = 4.dp)
-            )
-        }
-        if (resultWords.isEmpty()) {
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-            ) {
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "단어 정보를 불러오는 중이거나 없습니다.",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = colors.textMuted
-                    )
-                }
-                AppCopyrightFooter()
-            }
-        } else {
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-            ) {
-                LazyColumn(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(AppDimens.listItemSpacing),
-                    contentPadding = PaddingValues(vertical = AppDimens.cardPadding)
-                ) {
-                    itemsIndexed(
-                        resultWords,
-                        key = { _, pair -> pair.first.id }
-                    ) { _, (word, known) ->
-                        val stats = resultWordStats[word.id]
-                        ResultWordItem(
-                            word = word,
-                            known = known,
-                            stats = stats,
-                            onSpeak = { if (ttsReady) tts.speak(word.word, TextToSpeech.QUEUE_FLUSH, null, null) },
-                            onDetail = { selectedWordForDetail = word.word }
-                        )
-                    }
-                }
-                AppCopyrightFooter()
-            }
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            AppButton(
-                text = "목록",
-                style = AppButtonStyle.SECONDARY,
-                onClick = onList
-            )
-        }
-    }
-    selectedWordForDetail?.let { targetWord ->
-        WordDetailBottomSheet(
-            word = targetWord,
-            viewModel = wordDetailViewModel,
-            onDismiss = { selectedWordForDetail = null }
-        )
-    }
-}
-
-@Composable
 private fun ResultWordItem(
+    modifier: Modifier = Modifier,
     word: Word,
     known: Boolean,
     stats: Pair<Int, Int>?,
@@ -549,7 +531,7 @@ private fun ResultWordItem(
 ) {
     val colors = AppTheme.colors
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .border(0.5.dp, colors.borderDefault, RoundedCornerShape(AppDimens.cardCornerRadius)),
         shape = RoundedCornerShape(AppDimens.cardCornerRadius),

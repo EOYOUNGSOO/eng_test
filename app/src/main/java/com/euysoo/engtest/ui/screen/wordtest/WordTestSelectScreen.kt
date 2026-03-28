@@ -96,9 +96,7 @@ fun WordTestSelectScreen(
 
     Scaffold(
         containerColor = colors.bgPrimary,
-        topBar = {
-            AppTopBar(title = "단어 테스트", onBackClick = onBack)
-        }
+        topBar = {}
     ) { padding ->
         Column(
             modifier = Modifier
@@ -114,6 +112,9 @@ fun WordTestSelectScreen(
                 verticalArrangement = Arrangement.spacedBy(0.dp),
                 contentPadding = PaddingValues(bottom = 8.dp)
             ) {
+            item {
+                AppTopBar(title = "단어 테스트", onBackClick = onBack)
+            }
             item { Spacer(modifier = Modifier.height(16.dp)) }
             if (testKind == null) {
                 item {

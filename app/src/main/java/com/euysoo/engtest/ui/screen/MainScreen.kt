@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -177,7 +178,8 @@ fun MainScreen(
     val stats by viewModel.stats.collectAsStateWithLifecycle()
     val layout = rememberMainHomeLayout()
     val cfg = LocalConfiguration.current
-    val needsScroll = layout.isLandscape && cfg.screenHeightDp < 360
+    /** 가로 모드는 세로 공간이 좁아 스크롤로 전체(저작권 포함) 탐색 */
+    val needsScroll = layout.isLandscape
 
     val contentModifier = Modifier
         .fillMaxHeight()
@@ -273,103 +275,113 @@ private fun MainHomeScrollableBody(
         Spacer(modifier = Modifier.height(layout.gapStatsMenu))
 
         if (layout.isLandscape) {
-            Column(
-                modifier = Modifier
+            val menuColumnMod = if (needsScroll) {
+                Modifier.fillMaxWidth()
+            } else {
+                Modifier
                     .fillMaxWidth()
-                    .then(
-                        if (needsScroll) {
-                            Modifier.height(
-                                maxOf(220.dp, (cfg.screenHeightDp * 0.42f).dp)
-                            )
-                        } else {
-                            Modifier.weight(1f)
-                        }
-                    )
-                    .fillMaxHeight(),
+                    .weight(1f)
+                    .fillMaxHeight()
+            }
+            val rowMod = if (needsScroll) {
+                Modifier.fillMaxWidth()
+            } else {
+                Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+            }
+            Column(
+                modifier = menuColumnMod,
                 verticalArrangement = Arrangement.spacedBy(layout.menuCardsSpacing)
             ) {
                 Row(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(layout.menuCardsSpacing),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                MenuCard(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight(),
-                    layout = layout,
-                    icon = menuBookIcon,
-                    iconTint = colors.purpleMain,
-                    iconBg = colors.bgIcon,
-                    title = "단어 관리",
-                    description = "단어탐색, 단어 추가, 단어 수정",
-                    trailingContent = { ChevronIcon(size = layout.chevronSize) },
-                    containerColor = colors.bgCard,
-                    borderColor = colors.borderDefault,
-                    onClick = onNavigateToWordManage
-                )
-                MenuCard(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight(),
-                    layout = layout,
-                    icon = Icons.AutoMirrored.Outlined.LibraryBooks,
-                    iconTint = Color(0xFF7C3AED),
-                    iconBg = colors.bgIcon,
-                    title = "나의 단어장",
-                    description = "단어장 만들기 · 단어 담기",
-                    trailingContent = { ChevronIcon(size = layout.chevronSize) },
-                    containerColor = colors.bgCard,
-                    borderColor = colors.borderDefault,
-                    onClick = onNavigateToMyWordBook
-                )
-            }
-            Row(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(layout.menuCardsSpacing),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                MenuCard(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight(),
-                    layout = layout,
-                    icon = Icons.Outlined.CheckCircle,
-                    iconTint = colors.purpleLight,
-                    iconBg = Color(0xFF231535),
-                    title = "단어 테스트",
-                    description = "10문제 · 유형·난이도 선택",
-                    trailingContent = {
-                        AppButton(
-                            text = "START",
-                            onClick = onNavigateToWordTest,
-                            style = AppButtonStyle.PRIMARY
-                        )
-                    },
-                    containerColor = colors.bgCardAccent,
-                    borderColor = colors.borderAccent,
-                    onClick = onNavigateToWordTest
-                )
-                MenuCard(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight(),
-                    layout = layout,
-                    icon = Icons.Outlined.BarChart,
-                    iconTint = colors.greenMain,
-                    iconBg = colors.bgIconGreen,
-                    title = "기록 및 통계",
-                    description = "테스트결과 목록, 결과 상세보기",
-                    trailingContent = { ChevronIcon(size = layout.chevronSize) },
-                    containerColor = colors.bgCard,
-                    borderColor = colors.borderDefault,
-                    onClick = onNavigateToRecords
-                )
-            }
+                    modifier = rowMod,
+                    horizontalArrangement = Arrangement.spacedBy(layout.menuCardsSpacing),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    val landscapeCardMod = if (needsScroll) {
+                        Modifier
+                            .weight(1f)
+                            .heightIn(min = 104.dp)
+                    } else {
+                        Modifier
+                            .weight(1f)
+                            .fillMaxHeight()
+                    }
+                    MenuCard(
+                        modifier = landscapeCardMod,
+                        layout = layout,
+                        icon = menuBookIcon,
+                        iconTint = colors.purpleMain,
+                        iconBg = colors.bgIcon,
+                        title = "단어 관리",
+                        description = "단어탐색, 단어 추가, 단어 수정",
+                        trailingContent = { ChevronIcon(size = layout.chevronSize) },
+                        containerColor = colors.bgCard,
+                        borderColor = colors.borderDefault,
+                        onClick = onNavigateToWordManage
+                    )
+                    MenuCard(
+                        modifier = landscapeCardMod,
+                        layout = layout,
+                        icon = Icons.AutoMirrored.Outlined.LibraryBooks,
+                        iconTint = Color(0xFF7C3AED),
+                        iconBg = colors.bgIcon,
+                        title = "나의 단어장",
+                        description = "단어장 만들기 · 단어 담기",
+                        trailingContent = { ChevronIcon(size = layout.chevronSize) },
+                        containerColor = colors.bgCard,
+                        borderColor = colors.borderDefault,
+                        onClick = onNavigateToMyWordBook
+                    )
+                }
+                Row(
+                    modifier = rowMod,
+                    horizontalArrangement = Arrangement.spacedBy(layout.menuCardsSpacing),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    val landscapeCardMod = if (needsScroll) {
+                        Modifier
+                            .weight(1f)
+                            .heightIn(min = 104.dp)
+                    } else {
+                        Modifier
+                            .weight(1f)
+                            .fillMaxHeight()
+                    }
+                    MenuCard(
+                        modifier = landscapeCardMod,
+                        layout = layout,
+                        icon = Icons.Outlined.CheckCircle,
+                        iconTint = colors.purpleLight,
+                        iconBg = Color(0xFF231535),
+                        title = "단어 테스트",
+                        description = "10문제 · 유형·난이도 선택",
+                        trailingContent = {
+                            AppButton(
+                                text = "START",
+                                onClick = onNavigateToWordTest,
+                                style = AppButtonStyle.PRIMARY
+                            )
+                        },
+                        containerColor = colors.bgCardAccent,
+                        borderColor = colors.borderAccent,
+                        onClick = onNavigateToWordTest
+                    )
+                    MenuCard(
+                        modifier = landscapeCardMod,
+                        layout = layout,
+                        icon = Icons.Outlined.BarChart,
+                        iconTint = colors.greenMain,
+                        iconBg = colors.bgIconGreen,
+                        title = "기록 및 통계",
+                        description = "테스트결과 목록, 결과 상세보기",
+                        trailingContent = { ChevronIcon(size = layout.chevronSize) },
+                        containerColor = colors.bgCard,
+                        borderColor = colors.borderDefault,
+                        onClick = onNavigateToRecords
+                    )
+                }
             }
         } else {
             Column(

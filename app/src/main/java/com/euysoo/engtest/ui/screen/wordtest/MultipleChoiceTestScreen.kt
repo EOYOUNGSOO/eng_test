@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -44,7 +45,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.euysoo.engtest.ui.components.AppCopyrightFooter
 import com.euysoo.engtest.ui.components.AppTopBar
-import com.euysoo.engtest.ui.components.ScrollColumnWithBottomCopyright
 import com.euysoo.engtest.ui.theme.AppTheme
 import java.util.Locale
 
@@ -83,12 +83,7 @@ fun MultipleChoiceTestScreen(
 
     Scaffold(
         containerColor = colors.bgPrimary,
-        topBar = {
-            AppTopBar(
-                title = if (showResult) "객관식 결과" else "객관식 테스트",
-                onBackClick = { if (showResult) onTestFinished() else onBack() }
-            )
-        }
+        topBar = {}
     ) { padding ->
         Box(
             modifier = Modifier
@@ -98,72 +93,142 @@ fun MultipleChoiceTestScreen(
         ) {
             when {
                 !loadFinished -> {
-                    ScrollColumnWithBottomCopyright(modifier = Modifier.fillMaxSize()) {
-                        Box(
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        LazyColumn(
                             modifier = Modifier
+                                .weight(1f)
                                 .fillMaxWidth()
-                                .padding(vertical = 32.dp),
-                            contentAlignment = Alignment.Center
                         ) {
-                            Text(
-                                text = "단어를 불러오는 중...",
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = colors.textMuted
-                            )
+                            item {
+                                AppTopBar(
+                                    title = "객관식 테스트",
+                                    onBackClick = onBack
+                                )
+                            }
+                            item {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 32.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = "단어를 불러오는 중...",
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        color = colors.textMuted
+                                    )
+                                }
+                            }
                         }
+                        AppCopyrightFooter()
                     }
                 }
                 showResult -> {
-                    TestResultSummaryContent(
-                        words = words,
-                        answers = answers,
-                        score = viewModel.getScore(),
-                        testStartTimeMillis = testStartTime,
-                        onSpeak = { w ->
-                            if (ttsReady) tts.speak(w.word, TextToSpeech.QUEUE_FLUSH, null, null)
-                        },
-                        onFinish = onTestFinished
-                    )
-                }
-                questions.isEmpty() -> {
-                    ScrollColumnWithBottomCopyright(modifier = Modifier.fillMaxSize()) {
-                        Box(
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        LazyColumn(
                             modifier = Modifier
+                                .weight(1f)
                                 .fillMaxWidth()
-                                .padding(vertical = 32.dp),
-                            contentAlignment = Alignment.Center
                         ) {
-                            Text(
-                                text = "출제할 단어가 없습니다. (단어장이 비었을 수 있습니다)",
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = colors.textMuted,
-                                modifier = Modifier.padding(24.dp)
+                            item {
+                                AppTopBar(
+                                    title = "객관식 결과",
+                                    onBackClick = onTestFinished
+                                )
+                            }
+                            testResultSummaryItemsNoFooter(
+                                words = words,
+                                answers = answers,
+                                score = viewModel.getScore(),
+                                testStartTimeMillis = testStartTime,
+                                onSpeak = { w ->
+                                    if (ttsReady) tts.speak(w.word, TextToSpeech.QUEUE_FLUSH, null, null)
+                                },
+                                onFinish = onTestFinished
                             )
                         }
+                        AppCopyrightFooter()
+                    }
+                }
+                questions.isEmpty() -> {
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        LazyColumn(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxWidth()
+                        ) {
+                            item {
+                                AppTopBar(
+                                    title = "객관식 테스트",
+                                    onBackClick = onBack
+                                )
+                            }
+                            item {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 32.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = "출제할 단어가 없습니다. (단어장이 비었을 수 있습니다)",
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        color = colors.textMuted,
+                                        modifier = Modifier.padding(24.dp)
+                                    )
+                                }
+                            }
+                        }
+                        AppCopyrightFooter()
                     }
                 }
                 currentIndex >= questions.size -> {
-                    ScrollColumnWithBottomCopyright(modifier = Modifier.fillMaxSize()) {
-                        Box(
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        LazyColumn(
                             modifier = Modifier
+                                .weight(1f)
                                 .fillMaxWidth()
-                                .padding(vertical = 32.dp),
-                            contentAlignment = Alignment.Center
                         ) {
-                            Text("처리 중...", color = colors.textMuted)
+                            item {
+                                AppTopBar(
+                                    title = "객관식 테스트",
+                                    onBackClick = onBack
+                                )
+                            }
+                            item {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 32.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text("처리 중...", color = colors.textMuted)
+                                }
+                            }
                         }
+                        AppCopyrightFooter()
                     }
                 }
                 else -> {
                     val q = questions[currentIndex]
                     val total = questions.size
                     val progress = (currentIndex + 1).toFloat() / total.coerceAtLeast(1)
-                    Box(modifier = Modifier.fillMaxSize()) {
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        AppTopBar(
+                            title = "객관식 테스트",
+                            onBackClick = onBack
+                        )
+                        Column(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxWidth()
+                                .padding(horizontal = 20.dp)
+                                .padding(bottom = 8.dp)
+                        ) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(horizontal = 20.dp)
-                            .padding(bottom = 36.dp)
+                            .fillMaxWidth()
                     ) {
                         Text(
                             text = "${currentIndex + 1} / $total",
@@ -226,11 +291,8 @@ fun MultipleChoiceTestScreen(
                             }
                         }
                     }
-                    AppCopyrightFooter(
-                        modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .fillMaxWidth()
-                    )
+                        }
+                        AppCopyrightFooter()
                     }
                 }
             }

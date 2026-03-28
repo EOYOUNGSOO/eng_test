@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -34,7 +32,6 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -56,7 +53,6 @@ import com.euysoo.engtest.ui.component.AppButton
 import com.euysoo.engtest.ui.component.AppButtonStyle
 import com.euysoo.engtest.ui.components.AppCopyrightFooter
 import com.euysoo.engtest.ui.components.AppTopBar
-import com.euysoo.engtest.ui.components.ScrollColumnWithBottomCopyright
 import com.euysoo.engtest.ui.theme.AppTheme
 import com.euysoo.engtest.ui.theme.AppDimens
 import com.euysoo.engtest.util.phoneticDisplayText
@@ -100,12 +96,7 @@ fun WordTestScreen(
 
     Scaffold(
         containerColor = testBackground,
-        topBar = {
-            AppTopBar(
-                title = if (showResult) "테스트 결과" else "단어 테스트",
-                onBackClick = { if (showResult) onTestFinished() else onBack() }
-            )
-        }
+        topBar = {}
     ) { padding ->
         Box(
             modifier = Modifier
@@ -115,45 +106,90 @@ fun WordTestScreen(
         ) {
             when {
                 showResult -> {
-                    TestResultSummaryContent(
-                        words = words,
-                        answers = answers,
-                        score = viewModel.getScore(),
-                        testStartTimeMillis = testStartTime,
-                        onSpeak = { w -> if (ttsReady) tts.speak(w.word, TextToSpeech.QUEUE_FLUSH, null, null) },
-                        onFinish = onTestFinished
-                    )
-                }
-                words.isEmpty() -> {
-                    ScrollColumnWithBottomCopyright(modifier = Modifier.fillMaxSize()) {
-                        Box(
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        LazyColumn(
                             modifier = Modifier
+                                .weight(1f)
                                 .fillMaxWidth()
-                                .padding(vertical = 32.dp),
-                            contentAlignment = Alignment.Center
                         ) {
-                            Text(
-                                text = "단어를 불러오는 중...",
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = colors.textMuted
+                            item {
+                                AppTopBar(
+                                    title = "테스트 결과",
+                                    onBackClick = onTestFinished
+                                )
+                            }
+                            testResultSummaryItemsNoFooter(
+                                words = words,
+                                answers = answers,
+                                score = viewModel.getScore(),
+                                testStartTimeMillis = testStartTime,
+                                onSpeak = { w -> if (ttsReady) tts.speak(w.word, TextToSpeech.QUEUE_FLUSH, null, null) },
+                                onFinish = onTestFinished
                             )
                         }
+                        AppCopyrightFooter()
+                    }
+                }
+                words.isEmpty() -> {
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        LazyColumn(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxWidth()
+                        ) {
+                            item {
+                                AppTopBar(
+                                    title = "단어 테스트",
+                                    onBackClick = onBack
+                                )
+                            }
+                            item {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 32.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = "단어를 불러오는 중...",
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        color = colors.textMuted
+                                    )
+                                }
+                            }
+                        }
+                        AppCopyrightFooter()
                     }
                 }
                 currentIndex >= words.size -> {
-                    ScrollColumnWithBottomCopyright(modifier = Modifier.fillMaxSize()) {
-                        Box(
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        LazyColumn(
                             modifier = Modifier
+                                .weight(1f)
                                 .fillMaxWidth()
-                                .padding(vertical = 32.dp),
-                            contentAlignment = Alignment.Center
                         ) {
-                            Text(
-                                text = "테스트가 완료되었습니다.",
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = colors.textMuted
-                            )
+                            item {
+                                AppTopBar(
+                                    title = "단어 테스트",
+                                    onBackClick = onBack
+                                )
+                            }
+                            item {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 32.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = "테스트가 완료되었습니다.",
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        color = colors.textMuted
+                                    )
+                                }
+                            }
                         }
+                        AppCopyrightFooter()
                     }
                 }
                 else -> {
@@ -161,12 +197,22 @@ fun WordTestScreen(
                     val total = words.size
                     val progress = (currentIndex + 1).toFloat() / total.coerceAtLeast(1)
 
-                    Box(modifier = Modifier.fillMaxSize()) {
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        AppTopBar(
+                            title = "단어 테스트",
+                            onBackClick = onBack
+                        )
+                        Column(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxWidth()
+                                .padding(horizontal = 20.dp)
+                                .padding(bottom = 8.dp)
+                        ) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(horizontal = 20.dp)
-                            .padding(bottom = 36.dp)
+                            .fillMaxWidth()
                     ) {
                         // 색감 뚜렷한 프로그레스 바 (10문제 중 현재 진행)
                         Text(
@@ -369,11 +415,8 @@ fun WordTestScreen(
                             Spacer(modifier = Modifier.weight(0.45f))
                         }
                     }
-                    AppCopyrightFooter(
-                        modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .fillMaxWidth()
-                    )
+                        }
+                        AppCopyrightFooter()
                     }
                 }
             }

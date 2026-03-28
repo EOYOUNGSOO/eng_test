@@ -132,30 +132,27 @@ fun WordManageScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
+    var ttsReady by remember { mutableStateOf(false) }
+    val tts = remember {
+        TextToSpeech(context.applicationContext) { status: Int ->
+            ttsReady = (status == TextToSpeech.SUCCESS)
+        }
+    }
+    LaunchedEffect(ttsReady) {
+        if (ttsReady) tts.language = Locale.US
+    }
+    DisposableEffect(tts) {
+        onDispose {
+            try {
+                tts.stop()
+                tts.shutdown()
+            } catch (_: Exception) { /* TTS 해제 시 예외 무시 */ }
+        }
+    }
+
     Scaffold(
         containerColor = colors.bgPrimary,
-        topBar = {
-            AppTopBar(
-                title = "단어 관리",
-                onBackClick = onBack,
-                trailingBadgeText = "%,d".format(totalCount),
-                trailingExtras = {
-                    AppTopBarPill(
-                        text = "단어추가",
-                        enabled = syncState !is SyncUiState.Loading,
-                        onClick = { showAddWordDialog = true }
-                    )
-                    if (showInitButton) {
-                        AppTopBarPill(
-                            text = "초기화",
-                            enabled = syncState !is SyncUiState.Loading,
-                            contentColor = colors.pinkMain,
-                            onClick = { showConfirmDialog = true }
-                        )
-                    }
-                }
-            )
-        },
+        topBar = {},
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { padding ->
         Box(
@@ -163,126 +160,128 @@ fun WordManageScreen(
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(top = 12.dp),
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(bottom = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                        .background(colors.bgCard, RoundedCornerShape(14.dp))
-                        .border(0.5.dp, colors.borderDefault, RoundedCornerShape(14.dp))
-                        .padding(horizontal = 14.dp, vertical = 10.dp)
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(10.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.Search,
-                            contentDescription = null,
-                            tint = colors.textMuted,
-                            modifier = Modifier.size(16.dp)
-                        )
-                        BasicTextField(
-                            value = searchQuery,
-                            onValueChange = { viewModel.setSearchQuery(it) },
-                            singleLine = true,
-                            textStyle = androidx.compose.ui.text.TextStyle(
-                                fontSize = 14.sp,
-                                color = colors.textSecondary
-                            ),
-                            cursorBrush = SolidColor(colors.purpleMain),
-                            decorationBox = { innerTextField ->
-                                Box {
-                                    if (searchQuery.isEmpty()) {
-                                        Text(
-                                            text = "영어 단어 검색",
-                                            fontSize = 13.sp,
-                                            color = colors.textMuted
-                                        )
-                                    }
-                                    innerTextField()
-                                }
-                            },
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                    }
-                }
-
-                Row(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(6.dp)
-                ) {
-                    val levels = listOf("전체", "초등", "중등", "고등")
-                    val selectedLevel = when (filter) {
-                        null -> "전체"
-                        WordDifficulty.ELEMENTARY -> "초등"
-                        WordDifficulty.MIDDLE -> "중등"
-                        WordDifficulty.HIGH -> "고등"
-                    }
-                    levels.forEach { level ->
-                        val isSelected = selectedLevel == level
-                        AppChipButton(
-                            text = level,
-                            selected = isSelected,
-                            onClick = {
-                            when (level) {
-                                "전체" -> viewModel.setFilter(null)
-                                "초등" -> viewModel.setFilter(WordDifficulty.ELEMENTARY)
-                                "중등" -> viewModel.setFilter(WordDifficulty.MIDDLE)
-                                "고등" -> viewModel.setFilter(WordDifficulty.HIGH)
+                item {
+                    AppTopBar(
+                        title = "단어 관리",
+                        onBackClick = onBack,
+                        trailingBadgeText = "%,d".format(totalCount),
+                        trailingExtras = {
+                            AppTopBarPill(
+                                text = "단어추가",
+                                enabled = syncState !is SyncUiState.Loading,
+                                onClick = { showAddWordDialog = true }
+                            )
+                            if (showInitButton) {
+                                AppTopBarPill(
+                                    text = "초기화",
+                                    enabled = syncState !is SyncUiState.Loading,
+                                    contentColor = colors.pinkMain,
+                                    onClick = { showConfirmDialog = true }
+                                )
                             }
-                        })
+                        }
+                    )
+                }
+                item { Spacer(modifier = Modifier.height(4.dp)) }
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                            .background(colors.bgCard, RoundedCornerShape(14.dp))
+                            .border(0.5.dp, colors.borderDefault, RoundedCornerShape(14.dp))
+                            .padding(horizontal = 14.dp, vertical = 10.dp)
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Search,
+                                contentDescription = null,
+                                tint = colors.textMuted,
+                                modifier = Modifier.size(16.dp)
+                            )
+                            BasicTextField(
+                                value = searchQuery,
+                                onValueChange = { viewModel.setSearchQuery(it) },
+                                singleLine = true,
+                                textStyle = androidx.compose.ui.text.TextStyle(
+                                    fontSize = 14.sp,
+                                    color = colors.textSecondary
+                                ),
+                                cursorBrush = SolidColor(colors.purpleMain),
+                                decorationBox = { innerTextField ->
+                                    Box {
+                                        if (searchQuery.isEmpty()) {
+                                            Text(
+                                                text = "영어 단어 검색",
+                                                fontSize = 13.sp,
+                                                color = colors.textMuted
+                                            )
+                                        }
+                                        innerTextField()
+                                    }
+                                },
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
                     }
                 }
-
-                var ttsReady by remember { mutableStateOf(false) }
-                val tts = remember {
-                    TextToSpeech(context.applicationContext) { status: Int ->
-                        ttsReady = (status == TextToSpeech.SUCCESS)
+                item {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        val levels = listOf("전체", "초등", "중등", "고등")
+                        val selectedLevel = when (filter) {
+                            null -> "전체"
+                            WordDifficulty.ELEMENTARY -> "초등"
+                            WordDifficulty.MIDDLE -> "중등"
+                            WordDifficulty.HIGH -> "고등"
+                        }
+                        levels.forEach { level ->
+                            val isSelected = selectedLevel == level
+                            AppChipButton(
+                                text = level,
+                                selected = isSelected,
+                                onClick = {
+                                    when (level) {
+                                        "전체" -> viewModel.setFilter(null)
+                                        "초등" -> viewModel.setFilter(WordDifficulty.ELEMENTARY)
+                                        "중등" -> viewModel.setFilter(WordDifficulty.MIDDLE)
+                                        "고등" -> viewModel.setFilter(WordDifficulty.HIGH)
+                                    }
+                                }
+                            )
+                        }
                     }
                 }
-                LaunchedEffect(ttsReady) {
-                    if (ttsReady) tts.language = Locale.US
+                itemsIndexed(
+                    wordsWithStats,
+                    key = { _, it -> it.word.id }
+                ) { _, item ->
+                    WordListItem(
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                        item = item,
+                        isRecentlyAdded = item.word.id in recentlyAddedIds,
+                        onSpeak = { text -> if (ttsReady) tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null) },
+                        onDetail = { selectedWordForDetail = item.word.word },
+                        onEdit = { viewModel.setWordToEdit(item.word) },
+                        onDelete = { wordToDelete = item.word },
+                        onAddToBook = { wordForBook = item.word }
+                    )
                 }
-                DisposableEffect(tts) {
-                    onDispose {
-                        try {
-                            tts.stop()
-                            tts.shutdown()
-                        } catch (_: Exception) { /* TTS 해제 시 예외 무시 */ }
-                    }
+                item {
+                    AppCopyrightFooter(
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                    )
                 }
-                LazyColumn(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth(),
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 4.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    itemsIndexed(
-                        items = wordsWithStats,
-                        key = { _, it -> it.word.id }
-                    ) { _, item ->
-                        WordListItem(
-                            item = item,
-                            isRecentlyAdded = item.word.id in recentlyAddedIds,
-                            onSpeak = { text -> if (ttsReady) tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null) },
-                            onDetail = { selectedWordForDetail = item.word.word },
-                            onEdit = { viewModel.setWordToEdit(item.word) },
-                            onDelete = { wordToDelete = item.word },
-                            onAddToBook = { wordForBook = item.word }
-                        )
-                    }
-                }
-                AppCopyrightFooter(
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-                )
             }
 
             if (syncState is SyncUiState.Loading) {
@@ -561,6 +560,7 @@ private fun SyncResultRow(
 
 @Composable
 private fun WordListItem(
+    modifier: Modifier = Modifier,
     item: WordWithStats,
     isRecentlyAdded: Boolean,
     onSpeak: (String) -> Unit,
@@ -609,7 +609,7 @@ private fun WordListItem(
         }
     }
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .background(if (isRecentlyAdded) colors.bgCardAccent else colors.bgCard, RoundedCornerShape(16.dp))
             .border(0.5.dp, colors.borderDefault, RoundedCornerShape(16.dp))
