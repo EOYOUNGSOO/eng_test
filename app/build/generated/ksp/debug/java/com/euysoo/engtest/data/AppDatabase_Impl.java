@@ -13,6 +13,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 import com.euysoo.engtest.data.dao.TestResultDao;
 import com.euysoo.engtest.data.dao.TestResultDao_Impl;
+import com.euysoo.engtest.data.dao.WordBookDao;
+import com.euysoo.engtest.data.dao.WordBookDao_Impl;
 import com.euysoo.engtest.data.dao.WordDao;
 import com.euysoo.engtest.data.dao.WordDao_Impl;
 import com.euysoo.engtest.data.dao.WordDetailDao;
@@ -43,10 +45,12 @@ public final class AppDatabase_Impl extends AppDatabase {
 
   private volatile WordDetailDao _wordDetailDao;
 
+  private volatile WordBookDao _wordBookDao;
+
   @Override
   @NonNull
   protected SupportSQLiteOpenHelper createOpenHelper(@NonNull final DatabaseConfiguration config) {
-    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(7) {
+    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(9) {
       @Override
       public void createAllTables(@NonNull final SupportSQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS `words` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `word` TEXT NOT NULL, `partOfSpeech` TEXT NOT NULL, `meaning` TEXT NOT NULL, `difficulty` TEXT NOT NULL, `addedAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `sourceVersion` TEXT NOT NULL, `phonetic` TEXT)");
@@ -56,8 +60,12 @@ public final class AppDatabase_Impl extends AppDatabase {
         db.execSQL("CREATE INDEX IF NOT EXISTS `index_test_results_testDateMillis` ON `test_results` (`testDateMillis`)");
         db.execSQL("CREATE TABLE IF NOT EXISTS `word_history` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `word` TEXT NOT NULL, `action` TEXT NOT NULL, `beforePos` TEXT, `beforeMeaning` TEXT, `beforeLevel` TEXT, `afterPos` TEXT, `afterMeaning` TEXT, `afterLevel` TEXT, `sourceVersion` TEXT NOT NULL, `recordedAt` INTEGER NOT NULL)");
         db.execSQL("CREATE TABLE IF NOT EXISTS `word_details` (`word` TEXT NOT NULL, `phonetic` TEXT, `meaningsJson` TEXT NOT NULL, `fetchedAt` INTEGER NOT NULL, PRIMARY KEY(`word`))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `word_books` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `createdAt` INTEGER NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `word_book_entries` (`bookId` INTEGER NOT NULL, `wordId` INTEGER NOT NULL, `addedAt` INTEGER NOT NULL, PRIMARY KEY(`bookId`, `wordId`), FOREIGN KEY(`bookId`) REFERENCES `word_books`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`wordId`) REFERENCES `words`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )");
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_word_book_entries_bookId` ON `word_book_entries` (`bookId`)");
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_word_book_entries_wordId` ON `word_book_entries` (`wordId`)");
         db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'be120e6c0a0fa8634866f5f47dbf9619')");
+        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3a03cade2b471eef99428c4f20ebb6d5')");
       }
 
       @Override
@@ -66,6 +74,8 @@ public final class AppDatabase_Impl extends AppDatabase {
         db.execSQL("DROP TABLE IF EXISTS `test_results`");
         db.execSQL("DROP TABLE IF EXISTS `word_history`");
         db.execSQL("DROP TABLE IF EXISTS `word_details`");
+        db.execSQL("DROP TABLE IF EXISTS `word_books`");
+        db.execSQL("DROP TABLE IF EXISTS `word_book_entries`");
         final List<? extends RoomDatabase.Callback> _callbacks = mCallbacks;
         if (_callbacks != null) {
           for (RoomDatabase.Callback _callback : _callbacks) {
@@ -87,6 +97,7 @@ public final class AppDatabase_Impl extends AppDatabase {
       @Override
       public void onOpen(@NonNull final SupportSQLiteDatabase db) {
         mDatabase = db;
+        db.execSQL("PRAGMA foreign_keys = ON");
         internalInitInvalidationTracker(db);
         final List<? extends RoomDatabase.Callback> _callbacks = mCallbacks;
         if (_callbacks != null) {
@@ -181,9 +192,39 @@ public final class AppDatabase_Impl extends AppDatabase {
                   + " Expected:\n" + _infoWordDetails + "\n"
                   + " Found:\n" + _existingWordDetails);
         }
+        final HashMap<String, TableInfo.Column> _columnsWordBooks = new HashMap<String, TableInfo.Column>(3);
+        _columnsWordBooks.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsWordBooks.put("name", new TableInfo.Column("name", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsWordBooks.put("createdAt", new TableInfo.Column("createdAt", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysWordBooks = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesWordBooks = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoWordBooks = new TableInfo("word_books", _columnsWordBooks, _foreignKeysWordBooks, _indicesWordBooks);
+        final TableInfo _existingWordBooks = TableInfo.read(db, "word_books");
+        if (!_infoWordBooks.equals(_existingWordBooks)) {
+          return new RoomOpenHelper.ValidationResult(false, "word_books(com.euysoo.engtest.data.entity.WordBook).\n"
+                  + " Expected:\n" + _infoWordBooks + "\n"
+                  + " Found:\n" + _existingWordBooks);
+        }
+        final HashMap<String, TableInfo.Column> _columnsWordBookEntries = new HashMap<String, TableInfo.Column>(3);
+        _columnsWordBookEntries.put("bookId", new TableInfo.Column("bookId", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsWordBookEntries.put("wordId", new TableInfo.Column("wordId", "INTEGER", true, 2, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsWordBookEntries.put("addedAt", new TableInfo.Column("addedAt", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysWordBookEntries = new HashSet<TableInfo.ForeignKey>(2);
+        _foreignKeysWordBookEntries.add(new TableInfo.ForeignKey("word_books", "CASCADE", "NO ACTION", Arrays.asList("bookId"), Arrays.asList("id")));
+        _foreignKeysWordBookEntries.add(new TableInfo.ForeignKey("words", "CASCADE", "NO ACTION", Arrays.asList("wordId"), Arrays.asList("id")));
+        final HashSet<TableInfo.Index> _indicesWordBookEntries = new HashSet<TableInfo.Index>(2);
+        _indicesWordBookEntries.add(new TableInfo.Index("index_word_book_entries_bookId", false, Arrays.asList("bookId"), Arrays.asList("ASC")));
+        _indicesWordBookEntries.add(new TableInfo.Index("index_word_book_entries_wordId", false, Arrays.asList("wordId"), Arrays.asList("ASC")));
+        final TableInfo _infoWordBookEntries = new TableInfo("word_book_entries", _columnsWordBookEntries, _foreignKeysWordBookEntries, _indicesWordBookEntries);
+        final TableInfo _existingWordBookEntries = TableInfo.read(db, "word_book_entries");
+        if (!_infoWordBookEntries.equals(_existingWordBookEntries)) {
+          return new RoomOpenHelper.ValidationResult(false, "word_book_entries(com.euysoo.engtest.data.entity.WordBookEntry).\n"
+                  + " Expected:\n" + _infoWordBookEntries + "\n"
+                  + " Found:\n" + _existingWordBookEntries);
+        }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "be120e6c0a0fa8634866f5f47dbf9619", "9cb03e102253b355850270733b9b50ca");
+    }, "3a03cade2b471eef99428c4f20ebb6d5", "2b7b43e74c2ee6e4b14882453c50f3a2");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(config.context).name(config.name).callback(_openCallback).build();
     final SupportSQLiteOpenHelper _helper = config.sqliteOpenHelperFactory.create(_sqliteConfig);
     return _helper;
@@ -194,22 +235,34 @@ public final class AppDatabase_Impl extends AppDatabase {
   protected InvalidationTracker createInvalidationTracker() {
     final HashMap<String, String> _shadowTablesMap = new HashMap<String, String>(0);
     final HashMap<String, Set<String>> _viewTables = new HashMap<String, Set<String>>(0);
-    return new InvalidationTracker(this, _shadowTablesMap, _viewTables, "words","test_results","word_history","word_details");
+    return new InvalidationTracker(this, _shadowTablesMap, _viewTables, "words","test_results","word_history","word_details","word_books","word_book_entries");
   }
 
   @Override
   public void clearAllTables() {
     super.assertNotMainThread();
     final SupportSQLiteDatabase _db = super.getOpenHelper().getWritableDatabase();
+    final boolean _supportsDeferForeignKeys = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP;
     try {
+      if (!_supportsDeferForeignKeys) {
+        _db.execSQL("PRAGMA foreign_keys = FALSE");
+      }
       super.beginTransaction();
+      if (_supportsDeferForeignKeys) {
+        _db.execSQL("PRAGMA defer_foreign_keys = TRUE");
+      }
       _db.execSQL("DELETE FROM `words`");
       _db.execSQL("DELETE FROM `test_results`");
       _db.execSQL("DELETE FROM `word_history`");
       _db.execSQL("DELETE FROM `word_details`");
+      _db.execSQL("DELETE FROM `word_books`");
+      _db.execSQL("DELETE FROM `word_book_entries`");
       super.setTransactionSuccessful();
     } finally {
       super.endTransaction();
+      if (!_supportsDeferForeignKeys) {
+        _db.execSQL("PRAGMA foreign_keys = TRUE");
+      }
       _db.query("PRAGMA wal_checkpoint(FULL)").close();
       if (!_db.inTransaction()) {
         _db.execSQL("VACUUM");
@@ -225,6 +278,7 @@ public final class AppDatabase_Impl extends AppDatabase {
     _typeConvertersMap.put(TestResultDao.class, TestResultDao_Impl.getRequiredConverters());
     _typeConvertersMap.put(WordHistoryDao.class, WordHistoryDao_Impl.getRequiredConverters());
     _typeConvertersMap.put(WordDetailDao.class, WordDetailDao_Impl.getRequiredConverters());
+    _typeConvertersMap.put(WordBookDao.class, WordBookDao_Impl.getRequiredConverters());
     return _typeConvertersMap;
   }
 
@@ -295,6 +349,20 @@ public final class AppDatabase_Impl extends AppDatabase {
           _wordDetailDao = new WordDetailDao_Impl(this);
         }
         return _wordDetailDao;
+      }
+    }
+  }
+
+  @Override
+  public WordBookDao wordBookDao() {
+    if (_wordBookDao != null) {
+      return _wordBookDao;
+    } else {
+      synchronized(this) {
+        if(_wordBookDao == null) {
+          _wordBookDao = new WordBookDao_Impl(this);
+        }
+        return _wordBookDao;
       }
     }
   }

@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.euysoo.engtest.EngTestApplication
 import com.euysoo.engtest.data.entity.PHONETIC_UNAVAILABLE
 import com.euysoo.engtest.data.entity.Word
+import com.euysoo.engtest.data.entity.WordBook
+import com.euysoo.engtest.data.entity.WordBookEntry
 import com.euysoo.engtest.data.entity.WordDifficulty
 import com.euysoo.engtest.data.repository.WordSyncManager
 import com.euysoo.engtest.domain.model.SyncResult
@@ -39,9 +41,18 @@ class WordManageViewModel(
 ) : ViewModel() {
 
     private val wordDao = application.database.wordDao()
+    private val wordBookDao = application.database.wordBookDao()
     private val testResultDao = application.database.testResultDao()
     private val phoneticRepository: PhoneticRepository = application.phoneticRepository
     private val syncManager = WordSyncManager(application.database)
+
+    val wordBooks: StateFlow<List<WordBook>> = wordBookDao
+        .getAllBooks()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
 
     /** 등록된 단어 목록 (전체) */
     private val allWords: StateFlow<List<Word>> = wordDao
@@ -243,6 +254,28 @@ class WordManageViewModel(
 
     fun resetSyncState() {
         _syncState.value = SyncUiState.Idle
+    }
+
+    /** 단어장에 단어 추가. 이미 있으면 false */
+    suspend fun addWordToWordBook(wordId: Long, bookId: Long): Boolean =
+        withContext(Dispatchers.IO) {
+            if (wordBookDao.countEntry(bookId, wordId) > 0) return@withContext false
+            wordBookDao.insertEntry(WordBookEntry(bookId = bookId, wordId = wordId))
+            true
+        }
+
+    /** 새 단어장 생성 후 단어 추가. 생성 실패 시 null */
+    suspend fun createWordBookAndAddWord(wordId: Long, name: String): Boolean {
+        val trimmed = name.trim()
+        if (trimmed.isEmpty()) return false
+        return runCatching {
+            withContext(Dispatchers.IO) {
+                val bookId = wordBookDao.insertBook(WordBook(name = trimmed))
+                wordBookDao.insertEntry(WordBookEntry(bookId = bookId, wordId = wordId))
+            }
+            true
+        }.onFailure { e -> AppLogger.e(TAG, "createWordBookAndAddWord failed", e) }
+            .getOrElse { false }
     }
 
     private companion object {

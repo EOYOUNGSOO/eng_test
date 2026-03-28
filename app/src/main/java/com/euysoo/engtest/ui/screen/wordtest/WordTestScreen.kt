@@ -54,14 +54,14 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.euysoo.engtest.data.entity.Word
 import com.euysoo.engtest.ui.component.AppButton
 import com.euysoo.engtest.ui.component.AppButtonStyle
+import com.euysoo.engtest.ui.components.AppCopyrightFooter
 import com.euysoo.engtest.ui.components.AppTopBar
+import com.euysoo.engtest.ui.components.ScrollColumnWithBottomCopyright
 import com.euysoo.engtest.ui.theme.AppTheme
 import com.euysoo.engtest.ui.theme.AppDimens
 import com.euysoo.engtest.util.phoneticDisplayText
 import com.euysoo.engtest.util.starCount
 import android.speech.tts.TextToSpeech
-import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -115,7 +115,7 @@ fun WordTestScreen(
         ) {
             when {
                 showResult -> {
-                    TestResultContent(
+                    TestResultSummaryContent(
                         words = words,
                         answers = answers,
                         score = viewModel.getScore(),
@@ -125,27 +125,35 @@ fun WordTestScreen(
                     )
                 }
                 words.isEmpty() -> {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = "단어를 불러오는 중...",
-                            style = MaterialTheme.typography.bodyLarge,
-                        color = colors.textMuted
-                        )
+                    ScrollColumnWithBottomCopyright(modifier = Modifier.fillMaxSize()) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 32.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = "단어를 불러오는 중...",
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = colors.textMuted
+                            )
+                        }
                     }
                 }
                 currentIndex >= words.size -> {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = "테스트가 완료되었습니다.",
-                            style = MaterialTheme.typography.bodyLarge,
-                        color = colors.textMuted
-                        )
+                    ScrollColumnWithBottomCopyright(modifier = Modifier.fillMaxSize()) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 32.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = "테스트가 완료되었습니다.",
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = colors.textMuted
+                            )
+                        }
                     }
                 }
                 else -> {
@@ -153,10 +161,12 @@ fun WordTestScreen(
                     val total = words.size
                     val progress = (currentIndex + 1).toFloat() / total.coerceAtLeast(1)
 
+                    Box(modifier = Modifier.fillMaxSize()) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(horizontal = 20.dp)
+                            .padding(bottom = 36.dp)
                     ) {
                         // 색감 뚜렷한 프로그레스 바 (10문제 중 현재 진행)
                         Text(
@@ -359,179 +369,12 @@ fun WordTestScreen(
                             Spacer(modifier = Modifier.weight(0.45f))
                         }
                     }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun TestResultContent(
-    words: List<Word>,
-    answers: List<Boolean>,
-    score: Int,
-    testStartTimeMillis: Long,
-    onSpeak: (Word) -> Unit,
-    onFinish: () -> Unit
-) {
-    val colors = AppTheme.colors
-    if (words.size != answers.size) return
-    val dateFormat = SimpleDateFormat("yyyy. M. d. HH:mm", Locale.getDefault())
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(AppDimens.screenPadding)
-    ) {
-        Text(
-            text = "점수: ${score}점",
-            style = MaterialTheme.typography.headlineSmall,
-            color = colors.purpleMain
-        )
-        Text(
-            text = dateFormat.format(Date(testStartTimeMillis)),
-            style = MaterialTheme.typography.bodyMedium,
-            color = colors.textMuted
-        )
-        Spacer(modifier = Modifier.height(AppDimens.screenPadding))
-
-        LazyColumn(
-            modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(vertical = AppDimens.cardPadding),
-            verticalArrangement = Arrangement.spacedBy(AppDimens.listItemSpacing)
-        ) {
-            itemsIndexed(words) { index, word ->
-                ResultWordItem(
-                    word = word,
-                    known = answers.getOrElse(index) { false },
-                    onSpeak = { onSpeak(word) }
-                )
-            }
-        }
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = AppDimens.screenPadding),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            AppButton(
-                text = "완료",
-                style = AppButtonStyle.SECONDARY,
-                onClick = onFinish
-            )
-        }
-    }
-}
-
-@Composable
-private fun ResultWordItem(
-    word: Word,
-    known: Boolean,
-    onSpeak: () -> Unit
-) {
-    val colors = AppTheme.colors
-    // 이번 테스트 1회분만 표시 (정답 100% or 0%, 시도 1회)
-    val statsText = remember(known) {
-        val correctPct = if (known) 100 else 0
-        val wrongPct = 100 - correctPct
-        "정답 ${correctPct}% · 오답 ${wrongPct}% · 시도 1회"
-    }
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .border(0.5.dp, colors.borderDefault, RoundedCornerShape(AppDimens.cardCornerRadius)),
-        shape = RoundedCornerShape(AppDimens.cardCornerRadius),
-        elevation = CardDefaults.cardElevation(defaultElevation = AppDimens.cardElevation),
-        colors = CardDefaults.cardColors(
-            containerColor = colors.bgCard
-        )
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(AppDimens.cardPadding),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(modifier = Modifier.weight(1f)) {
-                // 1줄: 영어단어 · 발음기호
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp)
-                ) {
-                    Text(
-                        text = word.word,
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = colors.purpleMain
+                    AppCopyrightFooter(
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .fillMaxWidth()
                     )
-                    Text(
-                        text = word.phoneticDisplayText(),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = colors.textDim
-                    )
-                }
-                // 2줄: 품사 · 단어뜻 · 난이도(별) · 스피커
-                Row(
-                    modifier = Modifier.padding(top = 4.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp)
-                ) {
-                    if (word.partOfSpeech.isNotBlank()) {
-                        Text(
-                            text = word.partOfSpeech,
-                            style = MaterialTheme.typography.labelSmall,
-                            color = colors.textMuted
-                        )
                     }
-                    Text(
-                        text = word.meaning,
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Medium,
-                        color = colors.textSecondary
-                    )
-                    Text(
-                        text = "(${"★".repeat(word.difficulty.starCount)})",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = colors.purpleMain
-                    )
-                    IconButton(
-                        onClick = onSpeak,
-                        modifier = Modifier.size(AppDimens.iconButtonSize)
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.VolumeUp,
-                            contentDescription = "발음 재생",
-                            tint = colors.purpleMain
-                        )
-                    }
-                }
-                // 3줄: 정답율, 오답율, 시도회수
-                Text(
-                    text = statsText,
-                    modifier = Modifier.padding(top = 4.dp),
-                    style = MaterialTheme.typography.labelSmall,
-                    color = colors.textMuted
-                )
-            }
-            // O / X — 목록 항목 높이의 45% 크기
-            BoxWithConstraints(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(start = 8.dp)
-                    .width(56.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Box(
-                    modifier = Modifier.height(maxHeight * 0.45f),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = if (known) "O" else "X",
-                        style = MaterialTheme.typography.displayMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = if (known) colors.greenMain else colors.pinkMain
-                    )
                 }
             }
         }

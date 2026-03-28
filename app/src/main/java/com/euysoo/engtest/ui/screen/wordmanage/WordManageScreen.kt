@@ -4,6 +4,7 @@ package com.euysoo.engtest.ui.screen.wordmanage
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -59,6 +61,14 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -72,7 +82,9 @@ import com.euysoo.engtest.ui.component.AppButton
 import com.euysoo.engtest.ui.component.AppButtonStyle
 import com.euysoo.engtest.ui.component.AppChipButton
 import com.euysoo.engtest.ui.component.AppFullWidthButton
+import com.euysoo.engtest.ui.components.AppCopyrightFooter
 import com.euysoo.engtest.ui.components.AppTopBar
+import com.euysoo.engtest.ui.components.AppTopBarPill
 import com.euysoo.engtest.ui.theme.AppTheme
 import com.euysoo.engtest.util.phoneticDisplayText
 import com.euysoo.engtest.util.starCount
@@ -88,7 +100,6 @@ import java.util.Locale
 @Composable
 fun WordManageScreen(
     onBack: () -> Unit,
-    onHome: () -> Unit = {}
 ) {
     val colors = AppTheme.colors
     val context = LocalContext.current
@@ -115,6 +126,8 @@ fun WordManageScreen(
     var showConfirmDialog by remember { mutableStateOf(false) }
     var showAddWordDialog by remember { mutableStateOf(false) }
     var wordToDelete by remember { mutableStateOf<Word?>(null) }
+    var wordForBook by remember { mutableStateOf<Word?>(null) }
+    val wordBooks by viewModel.wordBooks.collectAsStateWithLifecycle()
     var selectedWordForDetail by remember { mutableStateOf<String?>(null) }
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -125,7 +138,22 @@ fun WordManageScreen(
             AppTopBar(
                 title = "단어 관리",
                 onBackClick = onBack,
-                trailingBadgeText = "%,d".format(totalCount)
+                trailingBadgeText = "%,d".format(totalCount),
+                trailingExtras = {
+                    AppTopBarPill(
+                        text = "단어추가",
+                        enabled = syncState !is SyncUiState.Loading,
+                        onClick = { showAddWordDialog = true }
+                    )
+                    if (showInitButton) {
+                        AppTopBarPill(
+                            text = "초기화",
+                            enabled = syncState !is SyncUiState.Loading,
+                            contentColor = colors.pinkMain,
+                            onClick = { showConfirmDialog = true }
+                        )
+                    }
+                }
             )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) }
@@ -247,47 +275,14 @@ fun WordManageScreen(
                             onSpeak = { text -> if (ttsReady) tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null) },
                             onDetail = { selectedWordForDetail = item.word.word },
                             onEdit = { viewModel.setWordToEdit(item.word) },
-                            onDelete = { wordToDelete = item.word }
+                            onDelete = { wordToDelete = item.word },
+                            onAddToBook = { wordForBook = item.word }
                         )
                     }
                 }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(colors.bgPrimary)
-                        .padding(horizontal = 16.dp, vertical = 12.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    if (!showInitButton) {
-                        Spacer(modifier = Modifier.weight(0.5f))
-                    }
-                    AppFullWidthButton(
-                        text = "단어추가",
-                        modifier = Modifier.weight(1f),
-                        enabled = syncState !is SyncUiState.Loading,
-                        style = AppButtonStyle.PRIMARY,
-                        onClick = { showAddWordDialog = true }
-                    )
-                    AppFullWidthButton(
-                        text = "홈",
-                        modifier = Modifier.weight(1f),
-                        enabled = syncState !is SyncUiState.Loading,
-                        style = AppButtonStyle.SECONDARY,
-                        onClick = onHome
-                    )
-                    if (showInitButton) {
-                        AppFullWidthButton(
-                            text = "초기화",
-                            modifier = Modifier.weight(1f),
-                            enabled = syncState !is SyncUiState.Loading,
-                            style = AppButtonStyle.DANGER,
-                            onClick = { showConfirmDialog = true }
-                        )
-                    } else {
-                        Spacer(modifier = Modifier.weight(0.5f))
-                    }
-                }
+                AppCopyrightFooter(
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                )
             }
 
             if (syncState is SyncUiState.Loading) {
@@ -401,6 +396,81 @@ fun WordManageScreen(
             onDismiss = { selectedWordForDetail = null }
         )
     }
+
+    wordForBook?.let { w ->
+        var newBookName by remember(w.id) { mutableStateOf("") }
+        AlertDialog(
+            onDismissRequest = { wordForBook = null },
+            title = { Text("단어장에 담기") },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(
+                        "\"${w.word}\"",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = colors.purpleMain
+                    )
+                    if (wordBooks.isEmpty()) {
+                        Text("단어장이 없습니다. 아래에서 이름을 입력해 새로 만드세요.", fontSize = 13.sp, color = colors.textMuted)
+                    } else {
+                        Text("기존 단어장", fontSize = 12.sp, color = colors.textMuted)
+                        Column(verticalArrangement = Arrangement.spacedBy(4.dp), modifier = Modifier.heightIn(max = 160.dp)) {
+                            wordBooks.forEach { book ->
+                                TextButton(
+                                    onClick = {
+                                        scope.launch {
+                                            val ok = viewModel.addWordToWordBook(w.id, book.id)
+                                            wordForBook = null
+                                            snackbarHostState.showSnackbar(
+                                                if (ok) "\"${book.name}\"에 담았습니다" else "이미 이 단어장에 있습니다"
+                                            )
+                                        }
+                                    },
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Text(book.name, modifier = Modifier.fillMaxWidth())
+                                }
+                            }
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text("새 단어장 만들어 담기", fontSize = 12.sp, color = colors.textMuted)
+                    OutlinedTextField(
+                        value = newBookName,
+                        onValueChange = { newBookName = it },
+                        singleLine = true,
+                        label = { Text("단어장 이름") },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        scope.launch {
+                            val name = newBookName.trim()
+                            if (name.isEmpty()) {
+                                snackbarHostState.showSnackbar("단어장 이름을 입력하세요")
+                            } else {
+                                val ok = viewModel.createWordBookAndAddWord(w.id, name)
+                                wordForBook = null
+                                snackbarHostState.showSnackbar(
+                                    if (ok) "새 단어장에 담았습니다" else "추가에 실패했습니다"
+                                )
+                            }
+                        }
+                    }
+                ) {
+                    Text("새 단어장에 담기", color = MaterialTheme.colorScheme.primary)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { wordForBook = null }) {
+                    Text("취소")
+                }
+            }
+        )
+    }
 }
 
 @Composable
@@ -425,6 +495,48 @@ private fun SyncResultDialog(
             TextButton(onClick = onDismiss) { Text("확인") }
         }
     )
+}
+
+/**
+ * 한 줄로 표시하며 가로 공간이 부족하면 [maxFontSp]에서 [minFontSp]까지 줄여 맞춤.
+ */
+@Composable
+private fun AutoShrinkAnnotatedLine(
+    text: AnnotatedString,
+    modifier: Modifier = Modifier,
+    maxFontSp: Float,
+    minFontSp: Float,
+    baseStyle: TextStyle = TextStyle()
+) {
+    BoxWithConstraints(modifier = modifier) {
+        val measurer = rememberTextMeasurer()
+        val maxW = constraints.maxWidth
+        val fontSp = remember(text, maxW, maxFontSp, minFontSp, baseStyle) {
+            if (!constraints.hasBoundedWidth || maxW <= 0) {
+                return@remember maxFontSp
+            }
+            var sp = maxFontSp
+            val minS = minFontSp
+            while (sp >= minS) {
+                val merged = baseStyle.merge(TextStyle(fontSize = sp.sp))
+                val layout = measurer.measure(
+                    text = text,
+                    style = merged,
+                    constraints = Constraints(maxWidth = maxW),
+                    maxLines = 1
+                )
+                if (layout.size.width <= maxW) break
+                sp -= 0.5f
+            }
+            sp.coerceAtLeast(minS)
+        }
+        Text(
+            text = text,
+            style = baseStyle.merge(TextStyle(fontSize = fontSp.sp)),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
 }
 
 @Composable
@@ -454,7 +566,8 @@ private fun WordListItem(
     onSpeak: (String) -> Unit,
     onDetail: () -> Unit,
     onEdit: () -> Unit,
-    onDelete: () -> Unit
+    onDelete: () -> Unit,
+    onAddToBook: () -> Unit
 ) {
     @Suppress("DEPRECATION")
     val volumeUpIcon = Icons.Filled.VolumeUp
@@ -467,6 +580,34 @@ private fun WordListItem(
             0 to 0
         }
     }
+    val phoneticLine = word.phoneticDisplayText()
+    val row1Text = buildAnnotatedString {
+        withStyle(SpanStyle(color = colors.purpleMain, fontWeight = FontWeight.Medium)) {
+            append(word.word)
+        }
+        if (isRecentlyAdded) {
+            append(" ")
+            withStyle(SpanStyle(color = colors.pinkMain)) { append("★") }
+        }
+        append(" · ")
+        withStyle(SpanStyle(color = colors.textMuted)) {
+            append(word.partOfSpeech)
+        }
+        append(" · ")
+        withStyle(SpanStyle(color = colors.textDim)) {
+            append(phoneticLine)
+        }
+    }
+    val stars = "★".repeat(word.difficulty.starCount)
+    val row2Text = buildAnnotatedString {
+        withStyle(SpanStyle(color = colors.textSecondary, fontWeight = FontWeight.Medium)) {
+            append(word.meaning)
+        }
+        append(" · ")
+        withStyle(SpanStyle(color = colors.purpleMain)) {
+            append(stars)
+        }
+    }
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -474,27 +615,55 @@ private fun WordListItem(
             .border(0.5.dp, colors.borderDefault, RoundedCornerShape(16.dp))
             .padding(14.dp)
     ) {
-        Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            Column(modifier = Modifier.weight(1f)) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Text(text = word.word, fontSize = 16.sp, fontWeight = FontWeight.Medium, color = colors.purpleMain)
-                    Box(
-                        modifier = Modifier
-                            .background(colors.bgIcon, RoundedCornerShape(10.dp))
-                            .padding(horizontal = 7.dp, vertical = 2.dp)
-                    ) { Text(text = word.partOfSpeech, fontSize = 10.sp, color = colors.textMuted) }
-                    if (isRecentlyAdded) Text(text = "★", fontSize = 11.sp, color = colors.pinkMain)
-                }
-                Text(text = word.phoneticDisplayText(), fontSize = 11.sp, color = colors.textDim, modifier = Modifier.padding(top = 2.dp))
-                Text(
-                    text = word.meaning,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = colors.textSecondary,
-                    modifier = Modifier.padding(top = 4.dp)
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                AutoShrinkAnnotatedLine(
+                    text = row1Text,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 8.dp),
+                    maxFontSp = 16f,
+                    minFontSp = 9f
                 )
+                Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
+                    IconActionBox(onClick = { onSpeak(word.word) }) {
+                        Icon(
+                            imageVector = volumeUpIcon,
+                            contentDescription = "발음 듣기",
+                            tint = colors.purpleMain,
+                            modifier = Modifier.size(13.dp)
+                        )
+                    }
+                    IconActionBox(onClick = onDetail) {
+                        Icon(
+                            imageVector = Icons.Filled.Info,
+                            contentDescription = "상세 정보",
+                            tint = colors.purpleMain,
+                            modifier = Modifier.size(13.dp)
+                        )
+                    }
+                }
+            }
+            AutoShrinkAnnotatedLine(
+                text = row2Text,
+                modifier = Modifier.fillMaxWidth(),
+                maxFontSp = 14f,
+                minFontSp = 9f
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
                 Row(
-                    modifier = Modifier.padding(top = 4.dp),
+                    modifier = Modifier.weight(1f).padding(end = 8.dp),
                     horizontalArrangement = Arrangement.spacedBy(6.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -504,28 +673,29 @@ private fun WordListItem(
                     Text(text = "·", fontSize = 10.sp, color = colors.textMuted)
                     Text(text = "시도 ${item.totalCount}회", fontSize = 10.sp, color = colors.textMuted)
                 }
-            }
-            Column(verticalArrangement = Arrangement.spacedBy(6.dp), horizontalAlignment = Alignment.End) {
-                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    IconActionBox(onClick = { onSpeak(word.word) }) {
-                        Icon(imageVector = volumeUpIcon, contentDescription = "발음 듣기", tint = colors.purpleMain, modifier = Modifier.size(13.dp))
-                    }
-                    IconActionBox(onClick = onDetail) {
-                        Icon(imageVector = Icons.Filled.Info, contentDescription = "상세 정보", tint = colors.purpleMain, modifier = Modifier.size(13.dp))
-                    }
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    AppButton(
+                        text = "단어장",
+                        onClick = onAddToBook,
+                        style = AppButtonStyle.SECONDARY,
+                        modifier = Modifier.wrapContentWidth()
+                    )
+                    AppButton(
+                        text = "편집",
+                        onClick = onEdit,
+                        style = AppButtonStyle.SECONDARY,
+                        modifier = Modifier.wrapContentWidth()
+                    )
+                    AppButton(
+                        text = "삭제",
+                        onClick = onDelete,
+                        style = AppButtonStyle.DANGER,
+                        modifier = Modifier.wrapContentWidth()
+                    )
                 }
-                AppButton(
-                    text = "편집",
-                    onClick = onEdit,
-                    style = AppButtonStyle.SECONDARY,
-                    modifier = Modifier.wrapContentWidth()
-                )
-                AppButton(
-                    text = "삭제",
-                    onClick = onDelete,
-                    style = AppButtonStyle.DANGER,
-                    modifier = Modifier.wrapContentWidth()
-                )
             }
         }
     }

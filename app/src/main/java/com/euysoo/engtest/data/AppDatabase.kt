@@ -5,11 +5,14 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.euysoo.engtest.data.dao.TestResultDao
+import com.euysoo.engtest.data.dao.WordBookDao
 import com.euysoo.engtest.data.dao.WordDetailDao
 import com.euysoo.engtest.data.dao.WordHistoryDao
 import com.euysoo.engtest.data.dao.WordDao
 import com.euysoo.engtest.data.entity.TestResult
 import com.euysoo.engtest.data.entity.Word
+import com.euysoo.engtest.data.entity.WordBook
+import com.euysoo.engtest.data.entity.WordBookEntry
 import com.euysoo.engtest.data.entity.WordDetailEntity
 import com.euysoo.engtest.data.entity.WordHistoryEntity
 
@@ -81,14 +84,65 @@ val MIGRATION_6_7 = object : Migration(6, 7) {
     }
 }
 
+val MIGRATION_7_8 = object : Migration(7, 8) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS word_books (
+                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                name TEXT NOT NULL,
+                createdAt INTEGER NOT NULL
+            )
+            """.trimIndent()
+        )
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS word_book_entries (
+                bookId INTEGER NOT NULL,
+                wordId INTEGER NOT NULL,
+                PRIMARY KEY(bookId, wordId),
+                FOREIGN KEY(bookId) REFERENCES word_books(id) ON DELETE CASCADE,
+                FOREIGN KEY(wordId) REFERENCES words(id) ON DELETE CASCADE
+            )
+            """.trimIndent()
+        )
+        db.execSQL("CREATE INDEX IF NOT EXISTS index_word_book_entries_bookId ON word_book_entries(bookId)")
+        db.execSQL("CREATE INDEX IF NOT EXISTS index_word_book_entries_wordId ON word_book_entries(wordId)")
+    }
+}
+
+val MIGRATION_8_9 = object : Migration(8, 9) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            "ALTER TABLE word_book_entries ADD COLUMN addedAt INTEGER NOT NULL DEFAULT 0"
+        )
+        db.execSQL(
+            """
+            UPDATE word_book_entries
+            SET addedAt = (
+                SELECT IFNULL(b.createdAt, 0) FROM word_books b WHERE b.id = word_book_entries.bookId
+            ) + word_book_entries.rowid
+            WHERE addedAt = 0
+            """.trimIndent()
+        )
+    }
+}
+
 /**
  * Room DB 정의.
  * Entity: Word, TestResult
  * 버전 올릴 때는 version 증가 + Migration 처리.
  */
 @Database(
-    entities = [Word::class, TestResult::class, WordHistoryEntity::class, WordDetailEntity::class],
-    version = 7,
+    entities = [
+        Word::class,
+        TestResult::class,
+        WordHistoryEntity::class,
+        WordDetailEntity::class,
+        WordBook::class,
+        WordBookEntry::class
+    ],
+    version = 9,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -96,4 +150,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun testResultDao(): TestResultDao
     abstract fun wordHistoryDao(): WordHistoryDao
     abstract fun wordDetailDao(): WordDetailDao
+    abstract fun wordBookDao(): WordBookDao
 }

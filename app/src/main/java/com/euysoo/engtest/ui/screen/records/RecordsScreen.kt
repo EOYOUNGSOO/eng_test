@@ -70,12 +70,16 @@ import com.euysoo.engtest.data.entity.Word
 import com.euysoo.engtest.data.entity.WordDifficulty
 import com.euysoo.engtest.ui.component.AppButton
 import com.euysoo.engtest.ui.component.AppButtonStyle
+import com.euysoo.engtest.ui.components.AppCopyrightFooter
 import com.euysoo.engtest.ui.components.AppTopBar
 import com.euysoo.engtest.ui.theme.AppTheme
 import com.euysoo.engtest.ui.theme.AppDimens
 import com.euysoo.engtest.ui.worddetail.WordDetailBottomSheet
+import com.euysoo.engtest.ui.screen.wordtest.resolveDifficultyLabelForResult
 import com.euysoo.engtest.ui.worddetail.WordDetailViewModel
 import com.euysoo.engtest.ui.worddetail.WordDetailViewModelFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import com.euysoo.engtest.util.phoneticDisplayText
 import com.euysoo.engtest.util.starCount
 import android.speech.tts.TextToSpeech
@@ -90,7 +94,6 @@ private val ShadowMint = Color(0xFFC1F0C1)
 @Composable
 fun RecordsScreen(
     onBack: () -> Unit,
-    onBackToHome: () -> Unit
 ) {
     val colors = AppTheme.colors
     val context = LocalContext.current
@@ -104,6 +107,18 @@ fun RecordsScreen(
     val selectedResult by viewModel.selectedResult.collectAsStateWithLifecycle()
     val resultWords by viewModel.resultWords.collectAsStateWithLifecycle()
     val resultWordStats by viewModel.resultWordStats.collectAsStateWithLifecycle()
+
+    var difficultyDetailLabel by remember { mutableStateOf("") }
+    LaunchedEffect(selectedResult) {
+        val r = selectedResult
+        difficultyDetailLabel = if (r != null) {
+            withContext(Dispatchers.IO) {
+                resolveDifficultyLabelForResult(r.difficulty, app.database.wordBookDao())
+            }
+        } else {
+            ""
+        }
+    }
 
     Scaffold(
         containerColor = colors.bgPrimary,
@@ -120,38 +135,24 @@ fun RecordsScreen(
             if (selectedResult != null) {
                 ResultDetailContent(
                     result = selectedResult!!,
+                    difficultyLabel = difficultyDetailLabel,
                     resultWords = resultWords,
                     resultWordStats = resultWordStats,
                     wordDetailViewModel = wordDetailViewModel,
-                    onHome = onBackToHome,
                     onList = { viewModel.clearSelection() }
                 )
             } else {
                 var showFromPicker by remember { mutableStateOf(false) }
                 var showToPicker by remember { mutableStateOf(false) }
-                Column(modifier = Modifier.fillMaxSize()) {
-                    RecordsListContent(
-                        modifier = Modifier.weight(1f),
-                        fromMillis = fromMillis,
-                        toMillis = toMillis,
-                        onFromClick = { showFromPicker = true },
-                        onToClick = { showToPicker = true },
-                        resultsList = resultsList,
-                        onResultClick = { viewModel.setSelectedResult(it) }
-                    )
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        AppButton(
-                            text = "홈",
-                            style = AppButtonStyle.SECONDARY,
-                            onClick = onBackToHome
-                        )
-                    }
-                }
+                RecordsListContent(
+                    modifier = Modifier.fillMaxSize(),
+                    fromMillis = fromMillis,
+                    toMillis = toMillis,
+                    onFromClick = { showFromPicker = true },
+                    onToClick = { showToPicker = true },
+                    resultsList = resultsList,
+                    onResultClick = { viewModel.setSelectedResult(it) }
+                )
                 if (showFromPicker) {
                     RoundedDatePickerDialog(
                         initialMillis = fromMillis,
@@ -337,31 +338,33 @@ private fun RecordsListContent(
     onResultClick: (TestResult) -> Unit
 ) {
     val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ) {
-        DateRangeRow(
-            fromLabel = "언제부터?",
-            toLabel = "언제까지?",
-            fromText = dateFormat.format(Date(fromMillis)),
-            toText = dateFormat.format(Date(toMillis)),
-            onFromClick = onFromClick,
-            onToClick = onToClick
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text(
-            "결과 목록",
-            style = MaterialTheme.typography.titleSmall,
-            modifier = Modifier.padding(vertical = 8.dp)
-        )
+    Column(modifier = modifier) {
         LazyColumn(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            contentPadding = PaddingValues(bottom = 16.dp)
+            contentPadding = PaddingValues(bottom = 8.dp)
         ) {
+            item {
+                DateRangeRow(
+                    fromLabel = "언제부터?",
+                    toLabel = "언제까지?",
+                    fromText = dateFormat.format(Date(fromMillis)),
+                    toText = dateFormat.format(Date(toMillis)),
+                    onFromClick = onFromClick,
+                    onToClick = onToClick
+                )
+            }
+            item { Spacer(modifier = Modifier.height(16.dp)) }
+            item {
+                Text(
+                    "결과 목록",
+                    style = MaterialTheme.typography.titleSmall,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+            }
             itemsIndexed(resultsList, key = { _, it -> it.id }) { _, result ->
                 ResultListItem(
                     result = result,
@@ -369,6 +372,7 @@ private fun RecordsListContent(
                 )
             }
         }
+        AppCopyrightFooter(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
     }
 }
 
@@ -412,10 +416,10 @@ private fun ResultListItem(
 @Composable
 private fun ResultDetailContent(
     result: TestResult,
+    difficultyLabel: String,
     resultWords: List<Pair<Word, Boolean>>,
     resultWordStats: Map<Long, Pair<Int, Int>>,
     wordDetailViewModel: WordDetailViewModel,
-    onHome: () -> Unit,
     onList: () -> Unit
 ) {
     val colors = AppTheme.colors
@@ -454,36 +458,62 @@ private fun ResultDetailContent(
             style = MaterialTheme.typography.bodyMedium,
             color = colors.textMuted
         )
+        if (difficultyLabel.isNotBlank()) {
+            Text(
+                text = "범위: $difficultyLabel",
+                style = MaterialTheme.typography.bodySmall,
+                color = colors.textMuted,
+                modifier = Modifier.padding(top = 4.dp)
+            )
+        }
         if (resultWords.isEmpty()) {
-            Box(
-                modifier = Modifier.weight(1f).fillMaxWidth(),
-                contentAlignment = Alignment.Center
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
             ) {
-                Text(
-                    text = "단어 정보를 불러오는 중이거나 없습니다.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = colors.textMuted
-                )
-            }
-        } else {
-            LazyColumn(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(AppDimens.listItemSpacing),
-                contentPadding = PaddingValues(vertical = AppDimens.cardPadding)
-            ) {
-                itemsIndexed(
-                    resultWords,
-                    key = { _, pair -> pair.first.id }
-                ) { _, (word, known) ->
-                    val stats = resultWordStats[word.id]
-                    ResultWordItem(
-                        word = word,
-                        known = known,
-                        stats = stats,
-                        onSpeak = { if (ttsReady) tts.speak(word.word, TextToSpeech.QUEUE_FLUSH, null, null) },
-                        onDetail = { selectedWordForDetail = word.word }
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "단어 정보를 불러오는 중이거나 없습니다.",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = colors.textMuted
                     )
                 }
+                AppCopyrightFooter()
+            }
+        } else {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+            ) {
+                LazyColumn(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(AppDimens.listItemSpacing),
+                    contentPadding = PaddingValues(vertical = AppDimens.cardPadding)
+                ) {
+                    itemsIndexed(
+                        resultWords,
+                        key = { _, pair -> pair.first.id }
+                    ) { _, (word, known) ->
+                        val stats = resultWordStats[word.id]
+                        ResultWordItem(
+                            word = word,
+                            known = known,
+                            stats = stats,
+                            onSpeak = { if (ttsReady) tts.speak(word.word, TextToSpeech.QUEUE_FLUSH, null, null) },
+                            onDetail = { selectedWordForDetail = word.word }
+                        )
+                    }
+                }
+                AppCopyrightFooter()
             }
         }
         Row(
@@ -493,12 +523,6 @@ private fun ResultDetailContent(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            AppButton(
-                text = "홈",
-                style = AppButtonStyle.SECONDARY,
-                onClick = onHome
-            )
-            Spacer(modifier = Modifier.size(12.dp))
             AppButton(
                 text = "목록",
                 style = AppButtonStyle.SECONDARY,

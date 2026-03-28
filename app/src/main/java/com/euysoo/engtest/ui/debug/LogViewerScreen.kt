@@ -47,6 +47,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.euysoo.engtest.ui.components.AppCopyrightFooter
 import com.euysoo.engtest.util.AppLogger
 import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
@@ -170,76 +171,97 @@ fun LogViewerScreen(
                 )
             }
 
-            when (selectedTab) {
-                0 -> {
-                    if (logs.isEmpty()) {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = "로그 없음",
-                                color = Color(0xFF4E4D62),
-                                fontSize = 14.sp
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+            ) {
+                when (selectedTab) {
+                    0 -> {
+                        Column(modifier = Modifier.fillMaxSize()) {
+                            if (logs.isEmpty()) {
+                                Box(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .fillMaxWidth(),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = "로그 없음",
+                                        color = Color(0xFF4E4D62),
+                                        fontSize = 14.sp
+                                    )
+                                }
+                            } else {
+                                LazyColumn(
+                                    state = listState,
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .fillMaxWidth(),
+                                    contentPadding = PaddingValues(8.dp),
+                                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                                ) {
+                                    itemsIndexed(
+                                        logs.reversed(),
+                                        key = { index, e -> "${e.timestamp}_${index}_${e.tag}" }
+                                    ) { _, entry ->
+                                        LogEntryRow(entry = entry)
+                                    }
+                                }
+                            }
+                            AppCopyrightFooter(
+                                fontSize = 10.sp,
+                                textColor = Color(0xFF4E4D62)
                             )
                         }
-                    } else {
-                        LazyColumn(
-                            state = listState,
-                            modifier = Modifier.fillMaxSize(),
-                            contentPadding = PaddingValues(8.dp),
-                            verticalArrangement = Arrangement.spacedBy(4.dp)
-                        ) {
-                            itemsIndexed(
-                                logs.reversed(),
-                                key = { index, e -> "${e.timestamp}_${index}_${e.tag}" }
-                            ) { _, entry ->
-                                LogEntryRow(entry = entry)
-                            }
-                        }
                     }
-                }
-                1 -> {
-                    Column(modifier = Modifier.fillMaxSize()) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(8.dp),
-                            horizontalArrangement = Arrangement.End
-                        ) {
-                            TextButton(
-                                onClick = {
-                                    clipboardManager.setText(AnnotatedString(crashLog))
-                                }
+                    1 -> {
+                        Column(modifier = Modifier.fillMaxSize()) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp),
+                                horizontalArrangement = Arrangement.End
                             ) {
-                                Text("복사", color = Color(0xFF34D399), fontSize = 12.sp)
-                            }
-                            TextButton(
-                                onClick = {
-                                    context.getSharedPreferences("crash_log", android.content.Context.MODE_PRIVATE)
-                                        .edit().remove("last_crash").apply()
-                                    crashLog = "크래시 기록 없음"
+                                TextButton(
+                                    onClick = {
+                                        clipboardManager.setText(AnnotatedString(crashLog))
+                                    }
+                                ) {
+                                    Text("복사", color = Color(0xFF34D399), fontSize = 12.sp)
                                 }
-                            ) {
-                                Text("삭제", color = Color(0xFFF472B6), fontSize = 12.sp)
+                                TextButton(
+                                    onClick = {
+                                        context.getSharedPreferences("crash_log", android.content.Context.MODE_PRIVATE)
+                                            .edit().remove("last_crash").apply()
+                                        crashLog = "크래시 기록 없음"
+                                    }
+                                ) {
+                                    Text("삭제", color = Color(0xFFF472B6), fontSize = 12.sp)
+                                }
                             }
-                        }
 
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(horizontal = 8.dp)
-                                .background(Color(0xFF16151F), shape = MaterialTheme.shapes.medium)
-                                .padding(12.dp)
-                                .horizontalScroll(rememberScrollState())
-                        ) {
-                            Text(
-                                text = crashLog,
-                                color = if (crashLog == "크래시 기록 없음") Color(0xFF4E4D62)
-                                else Color(0xFFF472B6),
-                                fontSize = 11.sp,
-                                fontFamily = FontFamily.Monospace,
-                                lineHeight = 16.sp
+                            Box(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 8.dp)
+                                    .background(Color(0xFF16151F), shape = MaterialTheme.shapes.medium)
+                                    .padding(12.dp)
+                                    .horizontalScroll(rememberScrollState())
+                            ) {
+                                Text(
+                                    text = crashLog,
+                                    color = if (crashLog == "크래시 기록 없음") Color(0xFF4E4D62)
+                                    else Color(0xFFF472B6),
+                                    fontSize = 11.sp,
+                                    fontFamily = FontFamily.Monospace,
+                                    lineHeight = 16.sp
+                                )
+                            }
+                            AppCopyrightFooter(
+                                fontSize = 10.sp,
+                                textColor = Color(0xFF4E4D62)
                             )
                         }
                     }

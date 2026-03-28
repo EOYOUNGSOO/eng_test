@@ -3,8 +3,10 @@ package com.euysoo.engtest.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -28,12 +30,44 @@ import com.euysoo.engtest.ui.theme.AppDimens
 
 enum class AppActionButtonStyle { Primary, Secondary, Muted }
 
+/**
+ * 상단바 우측 액션용 캡슐(단어 수 배지와 동일 테두리·배경).
+ */
+@Composable
+fun AppTopBarPill(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    contentColor: Color? = null
+) {
+    val colors = AppTheme.colors
+    val textColor = when {
+        !enabled -> colors.textMuted
+        contentColor != null -> contentColor
+        else -> colors.purpleMain
+    }
+    Box(
+        modifier = modifier
+            .background(colors.bgCard, RoundedCornerShape(AppDimens.topBarBadgeCorner))
+            .border(AppDimens.appCardBorder, colors.borderDefault, RoundedCornerShape(AppDimens.topBarBadgeCorner))
+            .clickable(enabled = enabled, onClick = onClick)
+            .padding(
+                horizontal = AppDimens.topBarBadgePaddingH,
+                vertical = AppDimens.topBarBadgePaddingV
+            )
+    ) {
+        Text(text = text, fontSize = AppDimens.topBarBadgeFont, color = textColor)
+    }
+}
+
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun AppTopBar(
     title: String,
     onBackClick: () -> Unit,
-    trailingBadgeText: String? = null
+    trailingBadgeText: String? = null,
+    trailingExtras: (@Composable RowScope.() -> Unit)? = null
 ) {
     val colors = AppTheme.colors
     TopAppBar(
@@ -64,19 +98,25 @@ fun AppTopBar(
             }
         },
         actions = {
-            trailingBadgeText?.let {
-                Box(
-                    modifier = Modifier
-                        .padding(end = 16.dp)
-                        .background(colors.bgCard, RoundedCornerShape(AppDimens.topBarBadgeCorner))
-                        .border(AppDimens.appCardBorder, colors.borderDefault, RoundedCornerShape(AppDimens.topBarBadgeCorner))
-                        .padding(
-                            horizontal = AppDimens.topBarBadgePaddingH,
-                            vertical = AppDimens.topBarBadgePaddingV
-                        )
-                ) {
-                    Text(text = it, fontSize = AppDimens.topBarBadgeFont, color = colors.purpleMain)
+            Row(
+                modifier = Modifier.padding(end = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                trailingBadgeText?.let {
+                    Box(
+                        modifier = Modifier
+                            .background(colors.bgCard, RoundedCornerShape(AppDimens.topBarBadgeCorner))
+                            .border(AppDimens.appCardBorder, colors.borderDefault, RoundedCornerShape(AppDimens.topBarBadgeCorner))
+                            .padding(
+                                horizontal = AppDimens.topBarBadgePaddingH,
+                                vertical = AppDimens.topBarBadgePaddingV
+                            )
+                    ) {
+                        Text(text = it, fontSize = AppDimens.topBarBadgeFont, color = colors.purpleMain)
+                    }
                 }
+                trailingExtras?.invoke(this)
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(containerColor = colors.bgPrimary)

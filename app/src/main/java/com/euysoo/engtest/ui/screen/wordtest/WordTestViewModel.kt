@@ -25,6 +25,7 @@ class WordTestViewModel(
 ) : ViewModel() {
 
     private val wordDao = application.database.wordDao()
+    private val wordBookDao = application.database.wordBookDao()
     private val testResultDao = application.database.testResultDao()
 
     private val _words = MutableStateFlow<List<Word>>(emptyList())
@@ -57,10 +58,12 @@ class WordTestViewModel(
         viewModelScope.launch {
             try {
                 val list = withContext(Dispatchers.IO) {
-                    when (difficultyKey) {
-                        DIFFICULTY_ELEMENTARY -> wordDao.getRandomWordsByDifficulty(WordDifficulty.ELEMENTARY, 10)
-                        DIFFICULTY_MIDDLE -> wordDao.getRandomWordsByDifficulty(WordDifficulty.MIDDLE, 10)
-                        DIFFICULTY_HIGH -> wordDao.getRandomWordsByDifficulty(WordDifficulty.HIGH, 10)
+                    val bookId = parseMyBookId(difficultyKey)
+                    when {
+                        bookId != null -> wordBookDao.getRandomWordsFromBook(bookId, 10)
+                        difficultyKey == DIFFICULTY_ELEMENTARY -> wordDao.getRandomWordsByDifficulty(WordDifficulty.ELEMENTARY, 10)
+                        difficultyKey == DIFFICULTY_MIDDLE -> wordDao.getRandomWordsByDifficulty(WordDifficulty.MIDDLE, 10)
+                        difficultyKey == DIFFICULTY_HIGH -> wordDao.getRandomWordsByDifficulty(WordDifficulty.HIGH, 10)
                         else -> wordDao.getRandomWords(10)
                     }
                 }

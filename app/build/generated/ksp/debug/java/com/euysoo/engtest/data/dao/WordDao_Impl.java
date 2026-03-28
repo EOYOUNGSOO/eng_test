@@ -940,6 +940,74 @@ public final class WordDao_Impl implements WordDao {
   }
 
   @Override
+  public Object searchWordsLike(final String query,
+      final Continuation<? super List<Word>> $completion) {
+    final String _sql = "\n"
+            + "        SELECT * FROM words\n"
+            + "        WHERE LOWER(word) LIKE '%' || LOWER(?) || '%'\n"
+            + "           OR LOWER(meaning) LIKE '%' || LOWER(?) || '%'\n"
+            + "        ORDER BY word ASC\n"
+            + "        LIMIT 300\n"
+            + "        ";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
+    int _argIndex = 1;
+    _statement.bindString(_argIndex, query);
+    _argIndex = 2;
+    _statement.bindString(_argIndex, query);
+    final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
+    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<List<Word>>() {
+      @Override
+      @NonNull
+      public List<Word> call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+          final int _cursorIndexOfWord = CursorUtil.getColumnIndexOrThrow(_cursor, "word");
+          final int _cursorIndexOfPartOfSpeech = CursorUtil.getColumnIndexOrThrow(_cursor, "partOfSpeech");
+          final int _cursorIndexOfMeaning = CursorUtil.getColumnIndexOrThrow(_cursor, "meaning");
+          final int _cursorIndexOfDifficulty = CursorUtil.getColumnIndexOrThrow(_cursor, "difficulty");
+          final int _cursorIndexOfAddedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "addedAt");
+          final int _cursorIndexOfUpdatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "updatedAt");
+          final int _cursorIndexOfSourceVersion = CursorUtil.getColumnIndexOrThrow(_cursor, "sourceVersion");
+          final int _cursorIndexOfPhonetic = CursorUtil.getColumnIndexOrThrow(_cursor, "phonetic");
+          final List<Word> _result = new ArrayList<Word>(_cursor.getCount());
+          while (_cursor.moveToNext()) {
+            final Word _item;
+            final long _tmpId;
+            _tmpId = _cursor.getLong(_cursorIndexOfId);
+            final String _tmpWord;
+            _tmpWord = _cursor.getString(_cursorIndexOfWord);
+            final String _tmpPartOfSpeech;
+            _tmpPartOfSpeech = _cursor.getString(_cursorIndexOfPartOfSpeech);
+            final String _tmpMeaning;
+            _tmpMeaning = _cursor.getString(_cursorIndexOfMeaning);
+            final WordDifficulty _tmpDifficulty;
+            _tmpDifficulty = __WordDifficulty_stringToEnum(_cursor.getString(_cursorIndexOfDifficulty));
+            final long _tmpAddedAt;
+            _tmpAddedAt = _cursor.getLong(_cursorIndexOfAddedAt);
+            final long _tmpUpdatedAt;
+            _tmpUpdatedAt = _cursor.getLong(_cursorIndexOfUpdatedAt);
+            final String _tmpSourceVersion;
+            _tmpSourceVersion = _cursor.getString(_cursorIndexOfSourceVersion);
+            final String _tmpPhonetic;
+            if (_cursor.isNull(_cursorIndexOfPhonetic)) {
+              _tmpPhonetic = null;
+            } else {
+              _tmpPhonetic = _cursor.getString(_cursorIndexOfPhonetic);
+            }
+            _item = new Word(_tmpId,_tmpWord,_tmpPartOfSpeech,_tmpMeaning,_tmpDifficulty,_tmpAddedAt,_tmpUpdatedAt,_tmpSourceVersion,_tmpPhonetic);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+          _statement.release();
+        }
+      }
+    }, $completion);
+  }
+
+  @Override
   public Object getWordsWithEmptyPhonetic(final int limit,
       final Continuation<? super List<Word>> $completion) {
     final String _sql = "SELECT * FROM words WHERE phonetic IS NULL OR phonetic = '' LIMIT ?";

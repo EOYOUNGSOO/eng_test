@@ -105,6 +105,21 @@ interface WordDao {
     @Query("SELECT COUNT(*) FROM words WHERE LOWER(word) = LOWER(:word)")
     suspend fun countByWord(word: String): Int
 
+    /**
+     * 영문/뜻 부분 일치 검색 (단어장 편집 화면용).
+     * [query]에는 사용자 입력만 넣고, 와일드카드는 쿼리에서 붙입니다.
+     */
+    @Query(
+        """
+        SELECT * FROM words
+        WHERE LOWER(word) LIKE '%' || LOWER(:query) || '%'
+           OR LOWER(meaning) LIKE '%' || LOWER(:query) || '%'
+        ORDER BY word ASC
+        LIMIT 300
+        """
+    )
+    suspend fun searchWordsLike(query: String): List<Word>
+
     /** 발음 기호가 비어 있는 단어 목록 (초기화 후 배치 조회용) */
     @Query("SELECT * FROM words WHERE phonetic IS NULL OR phonetic = '' LIMIT :limit")
     suspend fun getWordsWithEmptyPhonetic(limit: Int): List<Word>
