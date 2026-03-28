@@ -153,7 +153,8 @@ class WordTestViewModel(
                             testDateMillis = _testStartTime.value,
                             score = score,
                             details = details,
-                            difficulty = difficultyKey
+                            difficulty = difficultyKey,
+                            testType = TestResult.TEST_TYPE_SELF
                         )
                     )
                 }

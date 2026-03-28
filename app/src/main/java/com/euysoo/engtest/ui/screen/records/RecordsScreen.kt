@@ -5,6 +5,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -24,7 +26,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -74,6 +75,7 @@ import com.euysoo.engtest.ui.components.AppTopBar
 import com.euysoo.engtest.ui.theme.AppTheme
 import com.euysoo.engtest.ui.theme.AppDimens
 import com.euysoo.engtest.ui.worddetail.WordDetailBottomSheet
+import com.euysoo.engtest.ui.screen.wordtest.formatDifficultyLabel
 import com.euysoo.engtest.ui.screen.wordtest.resolveDifficultyLabelForResult
 import com.euysoo.engtest.ui.worddetail.WordDetailViewModel
 import com.euysoo.engtest.ui.worddetail.WordDetailViewModelFactory
@@ -210,15 +212,32 @@ fun RecordsScreen(
                             }
                             item { Spacer(modifier = Modifier.height(16.dp)) }
                             item {
-                                Text(
-                                    "결과 목록",
-                                    style = MaterialTheme.typography.titleSmall,
-                                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-                                )
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        "결과 목록",
+                                        style = MaterialTheme.typography.titleSmall
+                                    )
+                                    Text(
+                                        text = "시험횟수: ${resultsList.size}",
+                                        style = MaterialTheme.typography.titleSmall,
+                                        color = colors.textMuted
+                                    )
+                                }
                             }
-                            items(resultsList, key = { it.id }) { result ->
+                            itemsIndexed(
+                                resultsList,
+                                key = { _, r -> r.id }
+                            ) { index, result ->
+                                val listNumber = resultsList.size - index
                                 ResultListItem(
                                     result = result,
+                                    listNumber = listNumber,
                                     onClick = { viewModel.setSelectedResult(result) },
                                     modifier = Modifier.padding(horizontal = 16.dp)
                                 )
@@ -482,14 +501,22 @@ private fun LazyListScope.resultDetailScrollItems(
     }
 }
 
+private fun testTypeLabelForList(testType: String): String = when (testType) {
+    TestResult.TEST_TYPE_SELF -> "자기테스트"
+    TestResult.TEST_TYPE_MULTIPLE_CHOICE -> "객관식"
+    else -> if (testType.isBlank()) "—" else testType
+}
+
 @Composable
 private fun ResultListItem(
     result: TestResult,
+    listNumber: Int,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val colors = AppTheme.colors
     val dateFormat = SimpleDateFormat("yyyy. M. d. HH:mm", Locale.getDefault())
+    val leftScroll = rememberScrollState()
     Card(
         onClick = onClick,
         modifier = modifier
@@ -505,15 +532,43 @@ private fun ResultListItem(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(AppDimens.screenPadding),
-            horizontalArrangement = Arrangement.SpaceBetween
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Text(
-                text = dateFormat.format(Date(result.testDateMillis)),
-                style = MaterialTheme.typography.bodyMedium
-            )
+            Row(
+                modifier = Modifier
+                    .weight(1f)
+                    .horizontalScroll(leftScroll),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = listNumber.toString(),
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    color = colors.badgePurpleText
+                )
+                Text(
+                    text = dateFormat.format(Date(result.testDateMillis)),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = colors.textSecondary
+                )
+                Text(
+                    text = testTypeLabelForList(result.testType),
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Medium,
+                    color = colors.pinkMain
+                )
+                Text(
+                    text = formatDifficultyLabel(result.difficulty),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = colors.textMuted
+                )
+            }
             Text(
                 text = "${result.score * 10}점",
                 style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
                 color = colors.purpleMain
             )
         }

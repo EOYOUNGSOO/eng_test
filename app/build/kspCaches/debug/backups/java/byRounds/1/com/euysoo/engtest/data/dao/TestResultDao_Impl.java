@@ -42,7 +42,7 @@ public final class TestResultDao_Impl implements TestResultDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "INSERT OR ABORT INTO `test_results` (`id`,`testDateMillis`,`score`,`details`,`difficulty`) VALUES (nullif(?, 0),?,?,?,?)";
+        return "INSERT OR ABORT INTO `test_results` (`id`,`testDateMillis`,`score`,`details`,`difficulty`,`test_type`) VALUES (nullif(?, 0),?,?,?,?,?)";
       }
 
       @Override
@@ -53,6 +53,7 @@ public final class TestResultDao_Impl implements TestResultDao {
         statement.bindLong(3, entity.getScore());
         statement.bindString(4, entity.getDetails());
         statement.bindString(5, entity.getDifficulty());
+        statement.bindString(6, entity.getTestType());
       }
     };
   }
@@ -90,6 +91,7 @@ public final class TestResultDao_Impl implements TestResultDao {
           final int _cursorIndexOfScore = CursorUtil.getColumnIndexOrThrow(_cursor, "score");
           final int _cursorIndexOfDetails = CursorUtil.getColumnIndexOrThrow(_cursor, "details");
           final int _cursorIndexOfDifficulty = CursorUtil.getColumnIndexOrThrow(_cursor, "difficulty");
+          final int _cursorIndexOfTestType = CursorUtil.getColumnIndexOrThrow(_cursor, "test_type");
           final List<TestResult> _result = new ArrayList<TestResult>(_cursor.getCount());
           while (_cursor.moveToNext()) {
             final TestResult _item;
@@ -103,7 +105,9 @@ public final class TestResultDao_Impl implements TestResultDao {
             _tmpDetails = _cursor.getString(_cursorIndexOfDetails);
             final String _tmpDifficulty;
             _tmpDifficulty = _cursor.getString(_cursorIndexOfDifficulty);
-            _item = new TestResult(_tmpId,_tmpTestDateMillis,_tmpScore,_tmpDetails,_tmpDifficulty);
+            final String _tmpTestType;
+            _tmpTestType = _cursor.getString(_cursorIndexOfTestType);
+            _item = new TestResult(_tmpId,_tmpTestDateMillis,_tmpScore,_tmpDetails,_tmpDifficulty,_tmpTestType);
             _result.add(_item);
           }
           return _result;
@@ -138,6 +142,7 @@ public final class TestResultDao_Impl implements TestResultDao {
           final int _cursorIndexOfScore = CursorUtil.getColumnIndexOrThrow(_cursor, "score");
           final int _cursorIndexOfDetails = CursorUtil.getColumnIndexOrThrow(_cursor, "details");
           final int _cursorIndexOfDifficulty = CursorUtil.getColumnIndexOrThrow(_cursor, "difficulty");
+          final int _cursorIndexOfTestType = CursorUtil.getColumnIndexOrThrow(_cursor, "test_type");
           final List<TestResult> _result = new ArrayList<TestResult>(_cursor.getCount());
           while (_cursor.moveToNext()) {
             final TestResult _item;
@@ -151,7 +156,9 @@ public final class TestResultDao_Impl implements TestResultDao {
             _tmpDetails = _cursor.getString(_cursorIndexOfDetails);
             final String _tmpDifficulty;
             _tmpDifficulty = _cursor.getString(_cursorIndexOfDifficulty);
-            _item = new TestResult(_tmpId,_tmpTestDateMillis,_tmpScore,_tmpDetails,_tmpDifficulty);
+            final String _tmpTestType;
+            _tmpTestType = _cursor.getString(_cursorIndexOfTestType);
+            _item = new TestResult(_tmpId,_tmpTestDateMillis,_tmpScore,_tmpDetails,_tmpDifficulty,_tmpTestType);
             _result.add(_item);
           }
           return _result;
@@ -185,6 +192,7 @@ public final class TestResultDao_Impl implements TestResultDao {
           final int _cursorIndexOfScore = CursorUtil.getColumnIndexOrThrow(_cursor, "score");
           final int _cursorIndexOfDetails = CursorUtil.getColumnIndexOrThrow(_cursor, "details");
           final int _cursorIndexOfDifficulty = CursorUtil.getColumnIndexOrThrow(_cursor, "difficulty");
+          final int _cursorIndexOfTestType = CursorUtil.getColumnIndexOrThrow(_cursor, "test_type");
           final TestResult _result;
           if (_cursor.moveToFirst()) {
             final long _tmpId;
@@ -197,7 +205,9 @@ public final class TestResultDao_Impl implements TestResultDao {
             _tmpDetails = _cursor.getString(_cursorIndexOfDetails);
             final String _tmpDifficulty;
             _tmpDifficulty = _cursor.getString(_cursorIndexOfDifficulty);
-            _result = new TestResult(_tmpId,_tmpTestDateMillis,_tmpScore,_tmpDetails,_tmpDifficulty);
+            final String _tmpTestType;
+            _tmpTestType = _cursor.getString(_cursorIndexOfTestType);
+            _result = new TestResult(_tmpId,_tmpTestDateMillis,_tmpScore,_tmpDetails,_tmpDifficulty,_tmpTestType);
           } else {
             _result = null;
           }
@@ -227,6 +237,7 @@ public final class TestResultDao_Impl implements TestResultDao {
           final int _cursorIndexOfScore = CursorUtil.getColumnIndexOrThrow(_cursor, "score");
           final int _cursorIndexOfDetails = CursorUtil.getColumnIndexOrThrow(_cursor, "details");
           final int _cursorIndexOfDifficulty = CursorUtil.getColumnIndexOrThrow(_cursor, "difficulty");
+          final int _cursorIndexOfTestType = CursorUtil.getColumnIndexOrThrow(_cursor, "test_type");
           final List<TestResult> _result = new ArrayList<TestResult>(_cursor.getCount());
           while (_cursor.moveToNext()) {
             final TestResult _item;
@@ -240,7 +251,9 @@ public final class TestResultDao_Impl implements TestResultDao {
             _tmpDetails = _cursor.getString(_cursorIndexOfDetails);
             final String _tmpDifficulty;
             _tmpDifficulty = _cursor.getString(_cursorIndexOfDifficulty);
-            _item = new TestResult(_tmpId,_tmpTestDateMillis,_tmpScore,_tmpDetails,_tmpDifficulty);
+            final String _tmpTestType;
+            _tmpTestType = _cursor.getString(_cursorIndexOfTestType);
+            _item = new TestResult(_tmpId,_tmpTestDateMillis,_tmpScore,_tmpDetails,_tmpDifficulty,_tmpTestType);
             _result.add(_item);
           }
           return _result;

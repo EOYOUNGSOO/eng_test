@@ -50,13 +50,13 @@ public final class AppDatabase_Impl extends AppDatabase {
   @Override
   @NonNull
   protected SupportSQLiteOpenHelper createOpenHelper(@NonNull final DatabaseConfiguration config) {
-    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(9) {
+    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(10) {
       @Override
       public void createAllTables(@NonNull final SupportSQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS `words` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `word` TEXT NOT NULL, `partOfSpeech` TEXT NOT NULL, `meaning` TEXT NOT NULL, `difficulty` TEXT NOT NULL, `addedAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `sourceVersion` TEXT NOT NULL, `phonetic` TEXT)");
         db.execSQL("CREATE INDEX IF NOT EXISTS `index_words_difficulty` ON `words` (`difficulty`)");
         db.execSQL("CREATE INDEX IF NOT EXISTS `index_words_word` ON `words` (`word`)");
-        db.execSQL("CREATE TABLE IF NOT EXISTS `test_results` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `testDateMillis` INTEGER NOT NULL, `score` INTEGER NOT NULL, `details` TEXT NOT NULL, `difficulty` TEXT NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `test_results` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `testDateMillis` INTEGER NOT NULL, `score` INTEGER NOT NULL, `details` TEXT NOT NULL, `difficulty` TEXT NOT NULL, `test_type` TEXT NOT NULL)");
         db.execSQL("CREATE INDEX IF NOT EXISTS `index_test_results_testDateMillis` ON `test_results` (`testDateMillis`)");
         db.execSQL("CREATE TABLE IF NOT EXISTS `word_history` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `word` TEXT NOT NULL, `action` TEXT NOT NULL, `beforePos` TEXT, `beforeMeaning` TEXT, `beforeLevel` TEXT, `afterPos` TEXT, `afterMeaning` TEXT, `afterLevel` TEXT, `sourceVersion` TEXT NOT NULL, `recordedAt` INTEGER NOT NULL)");
         db.execSQL("CREATE TABLE IF NOT EXISTS `word_details` (`word` TEXT NOT NULL, `phonetic` TEXT, `meaningsJson` TEXT NOT NULL, `fetchedAt` INTEGER NOT NULL, PRIMARY KEY(`word`))");
@@ -65,7 +65,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         db.execSQL("CREATE INDEX IF NOT EXISTS `index_word_book_entries_bookId` ON `word_book_entries` (`bookId`)");
         db.execSQL("CREATE INDEX IF NOT EXISTS `index_word_book_entries_wordId` ON `word_book_entries` (`wordId`)");
         db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3a03cade2b471eef99428c4f20ebb6d5')");
+        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'eadb586f8c31185ddfccba5d30420ff6')");
       }
 
       @Override
@@ -141,12 +141,13 @@ public final class AppDatabase_Impl extends AppDatabase {
                   + " Expected:\n" + _infoWords + "\n"
                   + " Found:\n" + _existingWords);
         }
-        final HashMap<String, TableInfo.Column> _columnsTestResults = new HashMap<String, TableInfo.Column>(5);
+        final HashMap<String, TableInfo.Column> _columnsTestResults = new HashMap<String, TableInfo.Column>(6);
         _columnsTestResults.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsTestResults.put("testDateMillis", new TableInfo.Column("testDateMillis", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsTestResults.put("score", new TableInfo.Column("score", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsTestResults.put("details", new TableInfo.Column("details", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsTestResults.put("difficulty", new TableInfo.Column("difficulty", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsTestResults.put("test_type", new TableInfo.Column("test_type", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         final HashSet<TableInfo.ForeignKey> _foreignKeysTestResults = new HashSet<TableInfo.ForeignKey>(0);
         final HashSet<TableInfo.Index> _indicesTestResults = new HashSet<TableInfo.Index>(1);
         _indicesTestResults.add(new TableInfo.Index("index_test_results_testDateMillis", false, Arrays.asList("testDateMillis"), Arrays.asList("ASC")));
@@ -224,7 +225,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "3a03cade2b471eef99428c4f20ebb6d5", "2b7b43e74c2ee6e4b14882453c50f3a2");
+    }, "eadb586f8c31185ddfccba5d30420ff6", "ff87b39c8257e171c6c7c937094928f2");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(config.context).name(config.name).callback(_openCallback).build();
     final SupportSQLiteOpenHelper _helper = config.sqliteOpenHelperFactory.create(_sqliteConfig);
     return _helper;

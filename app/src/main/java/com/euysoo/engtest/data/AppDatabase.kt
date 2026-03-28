@@ -128,6 +128,14 @@ val MIGRATION_8_9 = object : Migration(8, 9) {
     }
 }
 
+val MIGRATION_9_10 = object : Migration(9, 10) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            "ALTER TABLE test_results ADD COLUMN test_type TEXT NOT NULL DEFAULT ''"
+        )
+    }
+}
+
 /**
  * Room DB 정의.
  * Entity: Word, TestResult
@@ -142,7 +150,7 @@ val MIGRATION_8_9 = object : Migration(8, 9) {
         WordBook::class,
         WordBookEntry::class
     ],
-    version = 9,
+    version = 10,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

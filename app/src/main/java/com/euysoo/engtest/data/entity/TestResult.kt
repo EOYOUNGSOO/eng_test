@@ -1,5 +1,6 @@
 package com.euysoo.engtest.data.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
@@ -26,5 +27,13 @@ data class TestResult(
      */
     val details: String,
     /** 테스트 난이도: all, elementary, middle, high */
-    val difficulty: String = "all"
-)
+    val difficulty: String = "all",
+    /** 테스트 유형: [TEST_TYPE_SELF], [TEST_TYPE_MULTIPLE_CHOICE]; 기존 행은 빈 문자열 */
+    @ColumnInfo(name = "test_type")
+    val testType: String = ""
+) {
+    companion object {
+        const val TEST_TYPE_SELF = "self"
+        const val TEST_TYPE_MULTIPLE_CHOICE = "multiple_choice"
+    }
+}

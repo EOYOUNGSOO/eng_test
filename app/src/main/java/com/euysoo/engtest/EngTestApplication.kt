@@ -15,6 +15,7 @@ import com.euysoo.engtest.data.MIGRATION_5_6
 import com.euysoo.engtest.data.MIGRATION_6_7
 import com.euysoo.engtest.data.MIGRATION_7_8
 import com.euysoo.engtest.data.MIGRATION_8_9
+import com.euysoo.engtest.data.MIGRATION_9_10
 import com.euysoo.engtest.data.loader.WordAssetLoader
 import com.euysoo.engtest.data.remote.DictionaryApiService
 import com.euysoo.engtest.data.repository.PhoneticRepository
@@ -56,7 +57,8 @@ class EngTestApplication : Application() {
                 MIGRATION_5_6,
                 MIGRATION_6_7,
                 MIGRATION_7_8,
-                MIGRATION_8_9
+                MIGRATION_8_9,
+                MIGRATION_9_10
             )
             .fallbackToDestructiveMigration()
             .build()
