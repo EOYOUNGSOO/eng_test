@@ -18,8 +18,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -37,8 +37,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.key
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,6 +46,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -57,7 +58,6 @@ import com.euysoo.engtest.ui.components.AppCopyrightFooter
 import com.euysoo.engtest.ui.components.AppTopBar
 import com.euysoo.engtest.ui.theme.AppColors
 import com.euysoo.engtest.ui.theme.AppTheme
-import androidx.compose.ui.platform.LocalContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -68,9 +68,10 @@ fun MyWordBookDetailScreen(
     val colors = AppTheme.colors
     val context = LocalContext.current
     val app = context.applicationContext as EngTestApplication
-    val viewModel: MyWordBookDetailViewModel = viewModel(
-        factory = MyWordBookDetailViewModelFactory(app, bookId)
-    )
+    val viewModel: MyWordBookDetailViewModel =
+        viewModel(
+            factory = MyWordBookDetailViewModelFactory(app.appContainer, bookId),
+        )
     val wordItems by viewModel.wordItems.collectAsStateWithLifecycle()
     val book by viewModel.book.collectAsStateWithLifecycle()
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
@@ -97,35 +98,38 @@ fun MyWordBookDetailScreen(
         topBar = {
             AppTopBar(
                 title = book?.name ?: "단어장",
-                onBackClick = onBack
+                onBackClick = onBack,
             )
-        }
+        },
     ) { padding ->
         val scrollState = rememberScrollState()
         BoxWithConstraints(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .padding(horizontal = 16.dp)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .padding(horizontal = 16.dp),
         ) {
             val minSearchH = maxHeight * (5f / 11f)
             val minBookH = maxHeight * (6f / 11f)
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .verticalScroll(scrollState)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .verticalScroll(scrollState),
             ) {
                 Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = minSearchH)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = minSearchH),
                 ) {
                     Text(
                         text = "단어 검색",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = colors.purpleMain,
-                        modifier = Modifier.padding(top = 8.dp, bottom = 6.dp)
+                        modifier = Modifier.padding(top = 8.dp, bottom = 6.dp),
                     )
                     OutlinedTextField(
                         value = searchQuery,
@@ -137,10 +141,10 @@ fun MyWordBookDetailScreen(
                             Icon(
                                 imageVector = Icons.Filled.Search,
                                 contentDescription = null,
-                                tint = colors.textMuted
+                                tint = colors.textMuted,
                             )
                         },
-                        shape = RoundedCornerShape(12.dp)
+                        shape = RoundedCornerShape(12.dp),
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     when {
@@ -148,14 +152,14 @@ fun MyWordBookDetailScreen(
                             Text(
                                 text = "검색어를 입력하면 추가할 단어를 고를 수 있습니다.",
                                 fontSize = 13.sp,
-                                color = colors.textMuted
+                                color = colors.textMuted,
                             )
                         }
                         searchResults.isEmpty() -> {
                             Text(
                                 text = "일치하는 단어가 없거나 이미 이 단어장에 모두 담겼습니다.",
                                 fontSize = 13.sp,
-                                color = colors.textMuted
+                                color = colors.textMuted,
                             )
                         }
                         else -> {
@@ -169,7 +173,7 @@ fun MyWordBookDetailScreen(
                                             onClick = {
                                                 selectedSearchWordId = word.id
                                                 selectedBookWordId = -1L
-                                            }
+                                            },
                                         )
                                     }
                                 }
@@ -181,26 +185,32 @@ fun MyWordBookDetailScreen(
                 HorizontalDivider(
                     modifier = Modifier.padding(vertical = 8.dp),
                     thickness = 1.dp,
-                    color = colors.borderAccent
+                    color = colors.borderAccent,
                 )
 
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 4.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 4.dp),
                     horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     val upEnabled = selectedBookWordId >= 0L
                     Surface(
                         shape = CircleShape,
                         color = if (upEnabled) colors.pinkMain.copy(alpha = 0.12f) else colors.bgCard,
-                        border = BorderStroke(
-                            width = if (upEnabled) 1.dp else 0.5.dp,
-                            color = if (upEnabled) colors.pinkMain.copy(alpha = 0.55f)
-                            else colors.borderDefault.copy(alpha = 0.6f)
-                        ),
-                        modifier = Modifier.size(46.dp)
+                        border =
+                            BorderStroke(
+                                width = if (upEnabled) 1.dp else 0.5.dp,
+                                color =
+                                    if (upEnabled) {
+                                        colors.pinkMain.copy(alpha = 0.55f)
+                                    } else {
+                                        colors.borderDefault.copy(alpha = 0.6f)
+                                    },
+                            ),
+                        modifier = Modifier.size(46.dp),
                     ) {
                         IconButton(
                             onClick = {
@@ -210,13 +220,13 @@ fun MyWordBookDetailScreen(
                                 }
                             },
                             enabled = upEnabled,
-                            modifier = Modifier.fillMaxSize()
+                            modifier = Modifier.fillMaxSize(),
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.KeyboardArrowUp,
                                 contentDescription = "단어장에서 빼기",
                                 modifier = Modifier.size(22.dp),
-                                tint = if (upEnabled) colors.pinkMain else colors.textMuted
+                                tint = if (upEnabled) colors.pinkMain else colors.textMuted,
                             )
                         }
                     }
@@ -225,11 +235,12 @@ fun MyWordBookDetailScreen(
                     Surface(
                         shape = CircleShape,
                         color = if (downEnabled) colors.greenMain.copy(alpha = 0.16f) else colors.bgCard,
-                        border = BorderStroke(
-                            width = if (downEnabled) 2.5.dp else 1.dp,
-                            color = if (downEnabled) colors.greenMain else colors.borderDefault.copy(alpha = 0.55f)
-                        ),
-                        modifier = Modifier.size(56.dp)
+                        border =
+                            BorderStroke(
+                                width = if (downEnabled) 2.5.dp else 1.dp,
+                                color = if (downEnabled) colors.greenMain else colors.borderDefault.copy(alpha = 0.55f),
+                            ),
+                        modifier = Modifier.size(56.dp),
                     ) {
                         IconButton(
                             onClick = {
@@ -239,13 +250,13 @@ fun MyWordBookDetailScreen(
                                 }
                             },
                             enabled = downEnabled,
-                            modifier = Modifier.fillMaxSize()
+                            modifier = Modifier.fillMaxSize(),
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.KeyboardArrowDown,
                                 contentDescription = "단어장에 담기",
                                 modifier = Modifier.size(32.dp),
-                                tint = if (downEnabled) colors.greenMain else colors.textMuted
+                                tint = if (downEnabled) colors.greenMain else colors.textMuted,
                             )
                         }
                     }
@@ -254,32 +265,33 @@ fun MyWordBookDetailScreen(
                 HorizontalDivider(
                     modifier = Modifier.padding(vertical = 8.dp),
                     thickness = 1.dp,
-                    color = colors.borderAccent
+                    color = colors.borderAccent,
                 )
 
                 Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = minBookH)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = minBookH),
                 ) {
                     Text(
                         text = "나의 단어장",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = colors.purpleMain,
-                        modifier = Modifier.padding(bottom = 4.dp)
+                        modifier = Modifier.padding(bottom = 4.dp),
                     )
                     Text(
                         text = "포함 단어 ${wordItems.size}개",
                         fontSize = 13.sp,
                         color = colors.textMuted,
-                        modifier = Modifier.padding(bottom = 6.dp)
+                        modifier = Modifier.padding(bottom = 6.dp),
                     )
                     if (wordItems.isEmpty()) {
                         Text(
                             text = "이 단어장에 담긴 단어가 없습니다.\n위에서 검색한 뒤 ↓로 담거나, 단어 관리에서 추가해 보세요.",
                             fontSize = 14.sp,
-                            color = colors.textMuted
+                            color = colors.textMuted,
                         )
                     } else {
                         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -295,7 +307,7 @@ fun MyWordBookDetailScreen(
                                             selectedBookWordId = item.word.id
                                             selectedSearchWordId = -1L
                                         },
-                                        onRemoveClick = { wordToRemove = item.word }
+                                        onRemoveClick = { wordToRemove = item.word },
                                     )
                                 }
                             }
@@ -304,9 +316,10 @@ fun MyWordBookDetailScreen(
                 }
 
                 AppCopyrightFooter(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp, bottom = 24.dp)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(top = 16.dp, bottom = 24.dp),
                 )
             }
         }
@@ -323,7 +336,7 @@ fun MyWordBookDetailScreen(
                         viewModel.removeWord(w.id)
                         wordToRemove = null
                         if (selectedBookWordId == w.id) selectedBookWordId = -1L
-                    }
+                    },
                 ) {
                     Text("제거")
                 }
@@ -332,7 +345,7 @@ fun MyWordBookDetailScreen(
                 TextButton(onClick = { wordToRemove = null }) {
                     Text("취소")
                 }
-            }
+            },
         )
     }
 }
@@ -347,24 +360,25 @@ private fun SearchResultRow(
     val borderWidth = if (selected) 1.5.dp else 0.5.dp
     val borderColor = if (selected) colors.purpleMain else colors.borderDefault
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .border(borderWidth, borderColor, RoundedCornerShape(14.dp))
-            .clickable(onClick = onClick)
-            .padding(12.dp)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .border(borderWidth, borderColor, RoundedCornerShape(14.dp))
+                .clickable(onClick = onClick)
+                .padding(12.dp),
     ) {
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = word.word,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Medium,
-                color = colors.purpleMain
+                color = colors.purpleMain,
             )
             Text(
                 text = word.meaning,
                 fontSize = 13.sp,
                 color = colors.textSecondary,
-                modifier = Modifier.padding(top = 4.dp)
+                modifier = Modifier.padding(top = 4.dp),
             )
         }
     }
@@ -380,72 +394,78 @@ private fun WordBookEntryRow(
     onRowClick: () -> Unit,
     onRemoveClick: () -> Unit,
 ) {
-    val borderWidth = when {
-        selected -> 2.dp
-        highlighted && !selected -> 1.5.dp
-        else -> 0.5.dp
-    }
-    val borderColor = when {
-        selected -> colors.purpleMain
-        highlighted && !selected -> colors.greenMain.copy(alpha = 0.75f)
-        else -> colors.borderDefault
-    }
-    val fillColor = when {
-        selected -> colors.purpleLight.copy(alpha = 0.18f)
-        highlighted -> colors.greenMain.copy(alpha = 0.14f)
-        else -> colors.bgCard
-    }
+    val borderWidth =
+        when {
+            selected -> 2.dp
+            highlighted && !selected -> 1.5.dp
+            else -> 0.5.dp
+        }
+    val borderColor =
+        when {
+            selected -> colors.purpleMain
+            highlighted && !selected -> colors.greenMain.copy(alpha = 0.75f)
+            else -> colors.borderDefault
+        }
+    val fillColor =
+        when {
+            selected -> colors.purpleLight.copy(alpha = 0.18f)
+            highlighted -> colors.greenMain.copy(alpha = 0.14f)
+            else -> colors.bgCard
+        }
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(14.dp))
-            .background(fillColor, RoundedCornerShape(14.dp))
-            .border(borderWidth, borderColor, RoundedCornerShape(14.dp))
-            .clickable(onClick = onRowClick)
-            .padding(12.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(14.dp))
+                .background(fillColor, RoundedCornerShape(14.dp))
+                .border(borderWidth, borderColor, RoundedCornerShape(14.dp))
+                .clickable(onClick = onRowClick)
+                .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Row(
             modifier = Modifier.weight(1f),
-            verticalAlignment = Alignment.Top
+            verticalAlignment = Alignment.Top,
         ) {
             Text(
                 text = "$index.",
                 fontSize = 15.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = when {
-                    selected -> colors.purpleMain
-                    highlighted -> colors.greenMain
-                    else -> colors.textMuted
-                },
-                modifier = Modifier
-                    .widthIn(min = 28.dp)
-                    .padding(end = 8.dp)
+                color =
+                    when {
+                        selected -> colors.purpleMain
+                        highlighted -> colors.greenMain
+                        else -> colors.textMuted
+                    },
+                modifier =
+                    Modifier
+                        .widthIn(min = 28.dp)
+                        .padding(end = 8.dp),
             )
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = word.word,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Medium,
-                    color = colors.purpleMain
+                    color = colors.purpleMain,
                 )
                 Text(
                     text = word.meaning,
                     fontSize = 13.sp,
                     color = if (highlighted) colors.textSecondary.copy(alpha = 0.92f) else colors.textSecondary,
-                    modifier = Modifier.padding(top = 4.dp)
+                    modifier = Modifier.padding(top = 4.dp),
                 )
             }
         }
         IconButton(
             onClick = onRemoveClick,
-            modifier = Modifier.padding(start = 4.dp)
+            modifier = Modifier.padding(start = 4.dp),
         ) {
             Icon(
                 imageVector = Icons.Filled.Remove,
                 contentDescription = "단어장에서 제거",
-                tint = if (highlighted) colors.greenMain.copy(alpha = 0.9f) else colors.purpleMain
+                tint = if (highlighted) colors.greenMain.copy(alpha = 0.9f) else colors.purpleMain,
             )
         }
     }

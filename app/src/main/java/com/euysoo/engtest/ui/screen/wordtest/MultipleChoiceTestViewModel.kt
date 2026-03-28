@@ -2,10 +2,10 @@ package com.euysoo.engtest.ui.screen.wordtest
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.euysoo.engtest.EngTestApplication
 import com.euysoo.engtest.data.entity.TestResult
 import com.euysoo.engtest.data.entity.Word
 import com.euysoo.engtest.data.entity.WordDifficulty
+import com.euysoo.engtest.di.AppContainer
 import com.euysoo.engtest.util.AppLogger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,17 +17,16 @@ import kotlinx.coroutines.withContext
 data class McQuestion(
     val word: Word,
     val options: List<String>,
-    val correctIndex: Int
+    val correctIndex: Int,
 )
 
 class MultipleChoiceTestViewModel(
-    private val application: EngTestApplication,
-    private val difficultyKey: String
+    private val container: AppContainer,
+    private val difficultyKey: String,
 ) : ViewModel() {
-
-    private val wordDao = application.database.wordDao()
-    private val wordBookDao = application.database.wordBookDao()
-    private val testResultDao = application.database.testResultDao()
+    private val wordDao = container.database.wordDao()
+    private val wordBookDao = container.database.wordBookDao()
+    private val testResultDao = container.database.testResultDao()
 
     private val _questions = MutableStateFlow<List<McQuestion>>(emptyList())
     val questions: StateFlow<List<McQuestion>> = _questions.asStateFlow()
@@ -83,7 +82,10 @@ class MultipleChoiceTestViewModel(
         }
     }
 
-    private suspend fun pickWrongMeanings(correct: Word, need: Int): List<String> {
+    private suspend fun pickWrongMeanings(
+        correct: Word,
+        need: Int,
+    ): List<String> {
         val blockedLower = mutableSetOf(correct.meaning.trim().lowercase())
         val result = mutableListOf<String>()
         var guard = 0
@@ -146,8 +148,8 @@ class MultipleChoiceTestViewModel(
                             score = score,
                             details = details,
                             difficulty = difficultyKey,
-                            testType = TestResult.TEST_TYPE_MULTIPLE_CHOICE
-                        )
+                            testType = TestResult.TEST_TYPE_MULTIPLE_CHOICE,
+                        ),
                     )
                 }
                 _showResult.value = true

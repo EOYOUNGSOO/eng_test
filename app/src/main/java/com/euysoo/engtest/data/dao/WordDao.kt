@@ -15,14 +15,16 @@ import kotlinx.coroutines.flow.Flow
  */
 @Dao
 interface WordDao {
-
     /** 전체 단어 Flow (변경 시마다 갱신). 목록 UI용. */
     @Query("SELECT * FROM words ORDER BY id ASC")
     fun getAllWords(): Flow<List<Word>>
 
     /** 페이징: OFFSET 구간만 조회 (대량 목록 시 메모리 최적화용). */
     @Query("SELECT * FROM words ORDER BY id ASC LIMIT :limit OFFSET :offset")
-    suspend fun getWordsPaginated(limit: Int, offset: Int): List<Word>
+    suspend fun getWordsPaginated(
+        limit: Int,
+        offset: Int,
+    ): List<Word>
 
     /** id로 단어 한 건 조회 */
     @Query("SELECT * FROM words WHERE id = :id")
@@ -50,7 +52,10 @@ interface WordDao {
 
     /** 난이도별 무작위 N개 단어 추출 (테스트용) */
     @Query("SELECT * FROM words WHERE difficulty = :difficulty ORDER BY RANDOM() LIMIT :limit")
-    suspend fun getRandomWordsByDifficulty(difficulty: WordDifficulty, limit: Int): List<Word>
+    suspend fun getRandomWordsByDifficulty(
+        difficulty: WordDifficulty,
+        limit: Int,
+    ): List<Word>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(word: Word): Long
@@ -71,7 +76,7 @@ interface WordDao {
             updatedAt = :updatedAt,
             sourceVersion = :sourceVersion
         WHERE LOWER(word) = LOWER(:word)
-        """
+        """,
     )
     suspend fun updateWord(
         word: String,
@@ -79,7 +84,7 @@ interface WordDao {
         meaning: String,
         difficulty: WordDifficulty,
         updatedAt: Long,
-        sourceVersion: String
+        sourceVersion: String,
     )
 
     @Delete
@@ -116,7 +121,7 @@ interface WordDao {
            OR LOWER(meaning) LIKE '%' || LOWER(:query) || '%'
         ORDER BY word ASC
         LIMIT 300
-        """
+        """,
     )
     suspend fun searchWordsLike(query: String): List<Word>
 

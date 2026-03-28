@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.euysoo.engtest.data.AppDatabase
 import com.euysoo.engtest.data.entity.WordDetailEntity
 import com.euysoo.engtest.data.json.AppJson
-import com.euysoo.engtest.data.remote.RetrofitClient
+import com.euysoo.engtest.data.remote.DictionaryApiService
 import com.euysoo.engtest.data.remote.model.DictionaryResponse
 import com.euysoo.engtest.data.remote.model.MeaningResponse
 import com.euysoo.engtest.domain.model.toUiModel
@@ -20,9 +20,9 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 class WordDetailViewModel(
-    private val db: AppDatabase
+    private val db: AppDatabase,
+    private val dictionaryApi: DictionaryApiService,
 ) : ViewModel() {
-
     private val _uiState = MutableStateFlow<WordDetailUiState>(WordDetailUiState.Idle)
     val uiState: StateFlow<WordDetailUiState> = _uiState.asStateFlow()
 
@@ -38,9 +38,10 @@ class WordDetailViewModel(
 
             _uiState.value = WordDetailUiState.Loading
             try {
-                val response = withContext(Dispatchers.IO) {
-                    RetrofitClient.instance.getEntries(query).execute()
-                }
+                val response =
+                    withContext(Dispatchers.IO) {
+                        dictionaryApi.getEntries(query).execute()
+                    }
                 when {
                     response.isSuccessful -> {
                         val bodyString = response.body()?.string()
@@ -49,17 +50,18 @@ class WordDetailViewModel(
                             return@launch
                         }
 
-                        val entries = try {
-                            AppJson.json.decodeFromString(
-                                ListSerializer(DictionaryResponse.serializer()),
-                                bodyString
-                            )
-                        } catch (_: Exception) {
-                            // val preview = bodyString.take(500)
-                            // AppLogger.e(TAG, "JSON 파싱 실패 (앞 500자): $preview", e)
-                            _uiState.value = WordDetailUiState.Error("데이터 파싱 오류")
-                            return@launch
-                        }
+                        val entries =
+                            try {
+                                AppJson.json.decodeFromString(
+                                    ListSerializer(DictionaryResponse.serializer()),
+                                    bodyString,
+                                )
+                            } catch (_: Exception) {
+                                // val preview = bodyString.take(500)
+                                // AppLogger.e(TAG, "JSON 파싱 실패 (앞 500자): $preview", e)
+                                _uiState.value = WordDetailUiState.Error("데이터 파싱 오류")
+                                return@launch
+                            }
 
                         // AppLogger.i(TAG, "API 파싱 완료: code=${response.code()}, entries=${entries.size}")
 
@@ -69,16 +71,17 @@ class WordDetailViewModel(
                         }
 
                         val result = entries.first()
-                        val meaningsJson = AppJson.json.encodeToString(
-                            ListSerializer(MeaningResponse.serializer()),
-                            result.meanings
-                        )
+                        val meaningsJson =
+                            AppJson.json.encodeToString(
+                                ListSerializer(MeaningResponse.serializer()),
+                                result.meanings,
+                            )
                         db.wordDetailDao().insert(
                             WordDetailEntity(
                                 word = result.word.lowercase(),
                                 phonetic = result.phonetic,
-                                meaningsJson = meaningsJson
-                            )
+                                meaningsJson = meaningsJson,
+                            ),
                         )
                         // AppLogger.i(TAG, "캐시 저장 완료: ${result.word.lowercase()}")
                         _uiState.value = WordDetailUiState.Success(result.toUiModel())

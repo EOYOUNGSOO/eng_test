@@ -12,10 +12,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.RadioButtonUnchecked
@@ -53,20 +53,22 @@ import java.util.Locale
 fun MultipleChoiceTestScreen(
     viewModel: MultipleChoiceTestViewModel,
     onBack: () -> Unit,
-    onTestFinished: () -> Unit
+    onTestFinished: () -> Unit,
 ) {
     val colors = AppTheme.colors
     val context = LocalContext.current
     var ttsReady by remember { mutableStateOf(false) }
-    val tts = remember {
-        TextToSpeech(context.applicationContext) { status -> ttsReady = (status == TextToSpeech.SUCCESS) }
-    }
+    val tts =
+        remember {
+            TextToSpeech(context.applicationContext) { status -> ttsReady = (status == TextToSpeech.SUCCESS) }
+        }
     DisposableEffect(tts) {
         onDispose {
             try {
                 tts.stop()
                 tts.shutdown()
-            } catch (_: Exception) { }
+            } catch (_: Exception) {
+            }
         }
     }
     LaunchedEffect(ttsReady) {
@@ -83,39 +85,42 @@ fun MultipleChoiceTestScreen(
 
     Scaffold(
         containerColor = colors.bgPrimary,
-        topBar = {}
+        topBar = {},
     ) { padding ->
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .background(colors.bgPrimary)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .background(colors.bgPrimary),
         ) {
             when {
                 !loadFinished -> {
                     Column(modifier = Modifier.fillMaxSize()) {
                         LazyColumn(
-                            modifier = Modifier
-                                .weight(1f)
-                                .fillMaxWidth()
+                            modifier =
+                                Modifier
+                                    .weight(1f)
+                                    .fillMaxWidth(),
                         ) {
                             item {
                                 AppTopBar(
                                     title = "객관식 테스트",
-                                    onBackClick = onBack
+                                    onBackClick = onBack,
                                 )
                             }
                             item {
                                 Box(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(vertical = 32.dp),
-                                    contentAlignment = Alignment.Center
+                                    modifier =
+                                        Modifier
+                                            .fillMaxWidth()
+                                            .padding(vertical = 32.dp),
+                                    contentAlignment = Alignment.Center,
                                 ) {
                                     Text(
                                         text = "단어를 불러오는 중...",
                                         style = MaterialTheme.typography.bodyLarge,
-                                        color = colors.textMuted
+                                        color = colors.textMuted,
                                     )
                                 }
                             }
@@ -126,14 +131,15 @@ fun MultipleChoiceTestScreen(
                 showResult -> {
                     Column(modifier = Modifier.fillMaxSize()) {
                         LazyColumn(
-                            modifier = Modifier
-                                .weight(1f)
-                                .fillMaxWidth()
+                            modifier =
+                                Modifier
+                                    .weight(1f)
+                                    .fillMaxWidth(),
                         ) {
                             item {
                                 AppTopBar(
                                     title = "객관식 결과",
-                                    onBackClick = onTestFinished
+                                    onBackClick = onTestFinished,
                                 )
                             }
                             testResultSummaryItemsNoFooter(
@@ -144,7 +150,7 @@ fun MultipleChoiceTestScreen(
                                 onSpeak = { w ->
                                     if (ttsReady) tts.speak(w.word, TextToSpeech.QUEUE_FLUSH, null, null)
                                 },
-                                onFinish = onTestFinished
+                                onFinish = onTestFinished,
                             )
                         }
                         AppCopyrightFooter()
@@ -153,28 +159,30 @@ fun MultipleChoiceTestScreen(
                 questions.isEmpty() -> {
                     Column(modifier = Modifier.fillMaxSize()) {
                         LazyColumn(
-                            modifier = Modifier
-                                .weight(1f)
-                                .fillMaxWidth()
+                            modifier =
+                                Modifier
+                                    .weight(1f)
+                                    .fillMaxWidth(),
                         ) {
                             item {
                                 AppTopBar(
                                     title = "객관식 테스트",
-                                    onBackClick = onBack
+                                    onBackClick = onBack,
                                 )
                             }
                             item {
                                 Box(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(vertical = 32.dp),
-                                    contentAlignment = Alignment.Center
+                                    modifier =
+                                        Modifier
+                                            .fillMaxWidth()
+                                            .padding(vertical = 32.dp),
+                                    contentAlignment = Alignment.Center,
                                 ) {
                                     Text(
                                         text = "출제할 단어가 없습니다. (단어장이 비었을 수 있습니다)",
                                         style = MaterialTheme.typography.bodyLarge,
                                         color = colors.textMuted,
-                                        modifier = Modifier.padding(24.dp)
+                                        modifier = Modifier.padding(24.dp),
                                     )
                                 }
                             }
@@ -185,22 +193,24 @@ fun MultipleChoiceTestScreen(
                 currentIndex >= questions.size -> {
                     Column(modifier = Modifier.fillMaxSize()) {
                         LazyColumn(
-                            modifier = Modifier
-                                .weight(1f)
-                                .fillMaxWidth()
+                            modifier =
+                                Modifier
+                                    .weight(1f)
+                                    .fillMaxWidth(),
                         ) {
                             item {
                                 AppTopBar(
                                     title = "객관식 테스트",
-                                    onBackClick = onBack
+                                    onBackClick = onBack,
                                 )
                             }
                             item {
                                 Box(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(vertical = 32.dp),
-                                    contentAlignment = Alignment.Center
+                                    modifier =
+                                        Modifier
+                                            .fillMaxWidth()
+                                            .padding(vertical = 32.dp),
+                                    contentAlignment = Alignment.Center,
                                 ) {
                                     Text("처리 중...", color = colors.textMuted)
                                 }
@@ -216,81 +226,86 @@ fun MultipleChoiceTestScreen(
                     Column(modifier = Modifier.fillMaxSize()) {
                         AppTopBar(
                             title = "객관식 테스트",
-                            onBackClick = onBack
+                            onBackClick = onBack,
                         )
                         Column(
-                            modifier = Modifier
-                                .weight(1f)
-                                .fillMaxWidth()
-                                .padding(horizontal = 20.dp)
-                                .padding(bottom = 8.dp)
-                        ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .fillMaxWidth()
-                    ) {
-                        Text(
-                            text = "${currentIndex + 1} / $total",
-                            style = MaterialTheme.typography.labelLarge,
-                            color = colors.textMuted,
-                            modifier = Modifier.padding(top = 8.dp)
-                        )
-                        Spacer(modifier = Modifier.height(6.dp))
-                        LinearProgressIndicator(
-                            progress = { progress },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(10.dp)
-                                .clip(RoundedCornerShape(5.dp)),
-                            color = MaterialTheme.colorScheme.primary,
-                            trackColor = colors.bgCard
-                        )
-                        Spacer(modifier = Modifier.height(24.dp))
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .border(2.dp, colors.borderDefault, RoundedCornerShape(24.dp))
-                                .clip(RoundedCornerShape(24.dp)),
-                            shape = RoundedCornerShape(24.dp),
-                            colors = CardDefaults.cardColors(containerColor = colors.bgCard),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+                            modifier =
+                                Modifier
+                                    .weight(1f)
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 20.dp)
+                                    .padding(bottom = 8.dp),
                         ) {
                             Column(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(28.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally
+                                modifier =
+                                    Modifier
+                                        .fillMaxSize()
+                                        .fillMaxWidth(),
                             ) {
                                 Text(
-                                    text = "뜻을 고르세요",
-                                    style = MaterialTheme.typography.labelMedium,
-                                    color = colors.textMuted
+                                    text = "${currentIndex + 1} / $total",
+                                    style = MaterialTheme.typography.labelLarge,
+                                    color = colors.textMuted,
+                                    modifier = Modifier.padding(top = 8.dp),
                                 )
-                                Spacer(modifier = Modifier.height(12.dp))
-                                Text(
-                                    text = q.word.word,
-                                    style = MaterialTheme.typography.headlineMedium,
-                                    fontWeight = FontWeight.Bold,
-                                    color = colors.purpleMain
+                                Spacer(modifier = Modifier.height(6.dp))
+                                LinearProgressIndicator(
+                                    progress = { progress },
+                                    modifier =
+                                        Modifier
+                                            .fillMaxWidth()
+                                            .height(10.dp)
+                                            .clip(RoundedCornerShape(5.dp)),
+                                    color = MaterialTheme.colorScheme.primary,
+                                    trackColor = colors.bgCard,
                                 )
+                                Spacer(modifier = Modifier.height(24.dp))
+                                Card(
+                                    modifier =
+                                        Modifier
+                                            .fillMaxWidth()
+                                            .border(2.dp, colors.borderDefault, RoundedCornerShape(24.dp))
+                                            .clip(RoundedCornerShape(24.dp)),
+                                    shape = RoundedCornerShape(24.dp),
+                                    colors = CardDefaults.cardColors(containerColor = colors.bgCard),
+                                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                                ) {
+                                    Column(
+                                        modifier =
+                                            Modifier
+                                                .fillMaxWidth()
+                                                .padding(28.dp),
+                                        horizontalAlignment = Alignment.CenterHorizontally,
+                                    ) {
+                                        Text(
+                                            text = "뜻을 고르세요",
+                                            style = MaterialTheme.typography.labelMedium,
+                                            color = colors.textMuted,
+                                        )
+                                        Spacer(modifier = Modifier.height(12.dp))
+                                        Text(
+                                            text = q.word.word,
+                                            style = MaterialTheme.typography.headlineMedium,
+                                            fontWeight = FontWeight.Bold,
+                                            color = colors.purpleMain,
+                                        )
+                                    }
+                                }
+                                Spacer(modifier = Modifier.height(20.dp))
+                                Column(
+                                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                                    modifier = Modifier.fillMaxWidth(),
+                                ) {
+                                    q.options.forEachIndexed { idx, meaning ->
+                                        MultipleChoiceOptionCell(
+                                            optionIndex = idx,
+                                            meaning = meaning,
+                                            onClick = { viewModel.submitChoice(idx) },
+                                            modifier = Modifier.fillMaxWidth(),
+                                        )
+                                    }
+                                }
                             }
-                        }
-                        Spacer(modifier = Modifier.height(20.dp))
-                        Column(
-                            verticalArrangement = Arrangement.spacedBy(10.dp),
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            q.options.forEachIndexed { idx, meaning ->
-                                MultipleChoiceOptionCell(
-                                    optionIndex = idx,
-                                    meaning = meaning,
-                                    onClick = { viewModel.submitChoice(idx) },
-                                    modifier = Modifier.fillMaxWidth()
-                                )
-                            }
-                        }
-                    }
                         }
                         AppCopyrightFooter()
                     }
@@ -305,33 +320,34 @@ private fun MultipleChoiceOptionCell(
     optionIndex: Int,
     meaning: String,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val colors = AppTheme.colors
     val number = optionIndex + 1
     Row(
-        modifier = modifier
-            .heightIn(min = 72.dp)
-            .clip(RoundedCornerShape(14.dp))
-            .border(0.5.dp, colors.borderDefault, RoundedCornerShape(14.dp))
-            .background(colors.bgCard)
-            .clickable(onClick = onClick)
-            .padding(horizontal = 10.dp, vertical = 12.dp),
+        modifier =
+            modifier
+                .heightIn(min = 72.dp)
+                .clip(RoundedCornerShape(14.dp))
+                .border(0.5.dp, colors.borderDefault, RoundedCornerShape(14.dp))
+                .background(colors.bgCard)
+                .clickable(onClick = onClick)
+                .padding(horizontal = 10.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Start
+        horizontalArrangement = Arrangement.Start,
     ) {
         Icon(
             imageVector = Icons.Outlined.RadioButtonUnchecked,
             contentDescription = null,
             tint = colors.textMuted,
-            modifier = Modifier.size(22.dp)
+            modifier = Modifier.size(22.dp),
         )
         Text(
             text = "$number.",
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.SemiBold,
             color = colors.purpleMain,
-            modifier = Modifier.padding(start = 2.dp, end = 6.dp)
+            modifier = Modifier.padding(start = 2.dp, end = 6.dp),
         )
         Text(
             text = meaning,
@@ -340,7 +356,7 @@ private fun MultipleChoiceOptionCell(
             modifier = Modifier.weight(1f),
             textAlign = TextAlign.Start,
             maxLines = 4,
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
         )
     }
 }

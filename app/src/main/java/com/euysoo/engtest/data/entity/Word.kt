@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey
  */
 @Entity(
     tableName = "words",
-    indices = [Index(value = ["difficulty"]), Index(value = ["word"])]
+    indices = [Index(value = ["difficulty"]), Index(value = ["word"])],
 )
 data class Word(
     @PrimaryKey(autoGenerate = true)
@@ -39,11 +39,11 @@ data class Word(
      * null/빈 문자열: 미조회 → "[발음 확인 중...]"
      * PHONETIC_UNAVAILABLE: 조회했으나 없음 → "[발음 확인 불가]"
      */
-    val phonetic: String? = null
+    val phonetic: String? = null,
 )
 
 enum class WordDifficulty {
-    ELEMENTARY,  // 초등
-    MIDDLE,      // 중등
-    HIGH         // 고등
+    ELEMENTARY, // 초등
+    MIDDLE, // 중등
+    HIGH, // 고등
 }

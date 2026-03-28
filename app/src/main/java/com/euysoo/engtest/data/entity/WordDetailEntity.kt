@@ -9,5 +9,5 @@ data class WordDetailEntity(
     val word: String,
     val phonetic: String?,
     val meaningsJson: String,
-    val fetchedAt: Long = System.currentTimeMillis()
+    val fetchedAt: Long = System.currentTimeMillis(),
 )

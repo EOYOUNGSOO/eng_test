@@ -3,11 +3,13 @@ package com.euysoo.engtest.ui.components
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
@@ -15,8 +17,6 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.graphics.Color
-import androidx.compose.foundation.layout.padding
 
 /** 앱 전역 저작권 문구 (메인·상세 화면 공통) */
 const val APP_COPYRIGHT_LINE = "© 2026. 경주아빠. All rights reserved."
@@ -32,9 +32,10 @@ fun AppCopyrightFooter(
         fontSize = fontSize,
         color = textColor,
         textAlign = TextAlign.Center,
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(top = 8.dp, bottom = 8.dp)
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp, bottom = 8.dp),
     )
 }
 
@@ -53,20 +54,23 @@ fun ScrollColumnWithBottomCopyright(
     BoxWithConstraints(modifier = modifier.fillMaxSize()) {
         val viewportPx = with(density) { maxHeight.roundToPx() }
         SubcomposeLayout(
-            modifier = Modifier
-                .fillMaxWidth()
-                .verticalScroll(scrollState)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(scrollState),
         ) { constraints ->
             val maxW = constraints.maxWidth
-            val loose = Constraints(
-                minWidth = constraints.minWidth,
-                maxWidth = maxW,
-                minHeight = 0,
-                maxHeight = Constraints.Infinity
-            )
-            val footerMeasurable = subcompose("footer") {
-                AppCopyrightFooter(fontSize = copyrightFontSize)
-            }.first()
+            val loose =
+                Constraints(
+                    minWidth = constraints.minWidth,
+                    maxWidth = maxW,
+                    minHeight = 0,
+                    maxHeight = Constraints.Infinity,
+                )
+            val footerMeasurable =
+                subcompose("footer") {
+                    AppCopyrightFooter(fontSize = copyrightFontSize)
+                }.first()
             val footerPlaceable = footerMeasurable.measure(loose)
             val mainPlaceable = subcompose("main", mainContent).first().measure(loose)
             val mainH = mainPlaceable.height

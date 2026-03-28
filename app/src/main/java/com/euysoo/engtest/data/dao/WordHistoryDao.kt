@@ -8,7 +8,6 @@ import com.euysoo.engtest.data.entity.WordHistoryEntity
 
 @Dao
 interface WordHistoryDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(history: WordHistoryEntity)
 
@@ -27,7 +26,7 @@ interface WordHistoryDao {
         FROM word_history
         WHERE recordedAt >= :since
         GROUP BY action
-        """
+        """,
     )
     suspend fun getSummaryAfter(since: Long): List<ActionSummary>
 
@@ -37,5 +36,5 @@ interface WordHistoryDao {
 
 data class ActionSummary(
     val action: String,
-    val count: Int
+    val count: Int,
 )

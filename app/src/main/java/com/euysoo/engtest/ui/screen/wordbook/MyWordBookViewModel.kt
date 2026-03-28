@@ -2,25 +2,25 @@ package com.euysoo.engtest.ui.screen.wordbook
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.euysoo.engtest.EngTestApplication
 import com.euysoo.engtest.data.entity.WordBook
+import com.euysoo.engtest.di.AppContainer
 import com.euysoo.engtest.util.AppLogger
+import com.euysoo.engtest.util.FlowDefaults
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MyWordBookViewModel(
-    private val application: EngTestApplication
+    private val container: AppContainer,
 ) : ViewModel() {
+    private val wordBookDao = container.database.wordBookDao()
 
-    private val wordBookDao = application.database.wordBookDao()
-
-    val books: StateFlow<List<WordBook>> = wordBookDao
-        .getAllBooks()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    val books: StateFlow<List<WordBook>> =
+        wordBookDao
+            .getAllBooks()
+            .stateIn(viewModelScope, FlowDefaults.whileSubscribed, emptyList())
 
     fun createBook(name: String) {
         val trimmed = name.trim()
@@ -36,7 +36,10 @@ class MyWordBookViewModel(
         }
     }
 
-    fun renameBook(book: WordBook, newName: String) {
+    fun renameBook(
+        book: WordBook,
+        newName: String,
+    ) {
         val trimmed = newName.trim()
         if (trimmed.isEmpty()) return
         viewModelScope.launch {

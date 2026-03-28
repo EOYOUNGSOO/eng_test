@@ -13,7 +13,7 @@ data class DictionaryEntryDto(
     @SerialName("word") val word: String = "",
     @SerialName("phonetic") val phonetic: String? = null,
     @SerialName("phonetics") val phonetics: List<PhoneticDto> = emptyList(),
-    @SerialName("meanings") val meanings: List<MeaningResponse> = emptyList()
+    @SerialName("meanings") val meanings: List<MeaningResponse> = emptyList(),
 )
 
 /**
@@ -22,5 +22,5 @@ data class DictionaryEntryDto(
 @Serializable
 data class PhoneticDto(
     @SerialName("text") val text: String? = null,
-    @SerialName("audio") val audio: String? = null
+    @SerialName("audio") val audio: String? = null,
 )

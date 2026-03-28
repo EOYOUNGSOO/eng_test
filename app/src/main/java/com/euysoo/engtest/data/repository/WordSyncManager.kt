@@ -9,24 +9,28 @@ import com.euysoo.engtest.data.model.EducationVocabRoot
 import com.euysoo.engtest.domain.model.SyncResult
 import com.euysoo.engtest.util.AppLogger
 
+/**
+ * 에셋/외부 JSON의 교육 어휘를 DB와 동기화한다. 동일 (단어·품사·의미·난이도)는 건너뛴다.
+ */
 class WordSyncManager(
-    private val db: AppDatabase
+    private val db: AppDatabase,
 ) {
-    private val sourceVersion = "1.0"
-
     private companion object {
         const val TAG = "WordSync"
+        const val DEFAULT_SOURCE_VERSION = "1.0"
     }
 
+    /** JSON 문자열을 파싱해 신규 단어만 삽입하고, 변경 이력을 남긴다. */
     suspend fun sync(jsonString: String): SyncResult {
-        val root: EducationVocabRoot = try {
-            AppJson.json.decodeFromString(EducationVocabRoot.serializer(), jsonString).also {
-                AppLogger.i(TAG, "JSON 파싱 완료: ${it.vocabulary.size}개")
+        val root: EducationVocabRoot =
+            try {
+                AppJson.json.decodeFromString(EducationVocabRoot.serializer(), jsonString).also {
+                    AppLogger.i(TAG, "JSON 파싱 완료: ${it.vocabulary.size}개")
+                }
+            } catch (e: Exception) {
+                AppLogger.e(TAG, "JSON 파싱 실패", e)
+                throw IllegalStateException("어휘 파일 파싱 실패: ${e.message}", e)
             }
-        } catch (e: Exception) {
-            AppLogger.e(TAG, "JSON 파싱 실패", e)
-            throw IllegalStateException("어휘 파일 파싱 실패: ${e.message}", e)
-        }
         val vocabList = root.vocabulary
 
         var addedCount = 0
@@ -41,11 +45,12 @@ class WordSyncManager(
             val newMeaning = item.meaning.trim()
             val newDifficulty = levelToDifficulty(item.level)
             val sameWordEntries = db.wordDao().getByWordAll(normalizedWord)
-            val exactMatch = sameWordEntries.firstOrNull { existing ->
-                existing.partOfSpeech.trim() == newPos &&
-                    existing.meaning.trim() == newMeaning &&
-                    existing.difficulty == newDifficulty
-            }
+            val exactMatch =
+                sameWordEntries.firstOrNull { existing ->
+                    existing.partOfSpeech.trim() == newPos &&
+                        existing.meaning.trim() == newMeaning &&
+                        existing.difficulty == newDifficulty
+                }
 
             when {
                 exactMatch == null -> {
@@ -57,8 +62,8 @@ class WordSyncManager(
                             difficulty = newDifficulty,
                             addedAt = now,
                             updatedAt = now,
-                            sourceVersion = sourceVersion
-                        )
+                            sourceVersion = DEFAULT_SOURCE_VERSION,
+                        ),
                     )
                     historyList.add(
                         WordHistoryEntity(
@@ -67,9 +72,9 @@ class WordSyncManager(
                             afterPos = newPos,
                             afterMeaning = newMeaning,
                             afterLevel = item.level,
-                            sourceVersion = sourceVersion,
-                            recordedAt = now
-                        )
+                            sourceVersion = DEFAULT_SOURCE_VERSION,
+                            recordedAt = now,
+                        ),
                     )
                     addedCount++
                 }
@@ -86,21 +91,23 @@ class WordSyncManager(
             addedCount = addedCount,
             updatedCount = updatedCount,
             skippedCount = skippedCount,
-            sourceVersion = sourceVersion
+            sourceVersion = DEFAULT_SOURCE_VERSION,
         )
     }
 
-    private fun levelToDifficulty(level: String): WordDifficulty = when (level) {
-        "초등" -> WordDifficulty.ELEMENTARY
-        "중등" -> WordDifficulty.MIDDLE
-        "고등" -> WordDifficulty.HIGH
-        else -> WordDifficulty.ELEMENTARY
-    }
+    private fun levelToDifficulty(level: String): WordDifficulty =
+        when (level) {
+            "초등" -> WordDifficulty.ELEMENTARY
+            "중등" -> WordDifficulty.MIDDLE
+            "고등" -> WordDifficulty.HIGH
+            else -> WordDifficulty.ELEMENTARY
+        }
 
     @Suppress("unused")
-    private fun difficultyToLevel(difficulty: WordDifficulty): String = when (difficulty) {
-        WordDifficulty.ELEMENTARY -> "초등"
-        WordDifficulty.MIDDLE -> "중등"
-        WordDifficulty.HIGH -> "고등"
-    }
+    private fun difficultyToLevel(difficulty: WordDifficulty): String =
+        when (difficulty) {
+            WordDifficulty.ELEMENTARY -> "초등"
+            WordDifficulty.MIDDLE -> "중등"
+            WordDifficulty.HIGH -> "고등"
+        }
 }

@@ -28,7 +28,6 @@ import java.io.InputStreamReader
  * - difficulty: ELEMENTARY | MIDDLE | HIGH
  */
 object WordAssetLoader {
-
     private const val ASSET_FILE_NAME = "words.json"
 
     /**
@@ -37,23 +36,29 @@ object WordAssetLoader {
      * @param wordDao WordDao (insertAll 사용)
      * @return 삽입된 단어 개수
      */
-    suspend fun loadFromAssets(context: Context, wordDao: WordDao): Int =
+    suspend fun loadFromAssets(
+        context: Context,
+        wordDao: WordDao,
+    ): Int =
         withContext(Dispatchers.IO) {
             runCatching {
-                val jsonString = context.assets.open(ASSET_FILE_NAME).use { input ->
-                    InputStreamReader(input, Charsets.UTF_8).use { it.readText() }
-                }
-                val words = AppJson.json.decodeFromString(
-                    ListSerializer(WordJson.serializer()),
-                    jsonString
-                ).map { json ->
-                    Word(
-                        word = json.word,
-                        partOfSpeech = json.partOfSpeech,
-                        meaning = json.meaning,
-                        difficulty = WordDifficulty.valueOf(json.difficulty)
-                    )
-                }
+                val jsonString =
+                    context.assets.open(ASSET_FILE_NAME).use { input ->
+                        InputStreamReader(input, Charsets.UTF_8).use { it.readText() }
+                    }
+                val words =
+                    AppJson.json
+                        .decodeFromString(
+                            ListSerializer(WordJson.serializer()),
+                            jsonString,
+                        ).map { json ->
+                            Word(
+                                word = json.word,
+                                partOfSpeech = json.partOfSpeech,
+                                meaning = json.meaning,
+                                difficulty = WordDifficulty.valueOf(json.difficulty),
+                            )
+                        }
                 wordDao.insertAll(words)
                 words.size
             }.onFailure { e ->
@@ -69,7 +74,10 @@ object WordAssetLoader {
      * @param wordDao WordDao
      * @return 삽입된 단어 개수
      */
-    suspend fun resetDatabase(context: Context, wordDao: WordDao): Int =
+    suspend fun resetDatabase(
+        context: Context,
+        wordDao: WordDao,
+    ): Int =
         withContext(Dispatchers.IO) {
             runCatching {
                 wordDao.deleteAll()
@@ -86,22 +94,26 @@ object WordAssetLoader {
      *
      * @return 등록된 단어 개수
      */
-    suspend fun loadEducationVocabFromAssets(context: Context, wordDao: WordDao): Int =
+    suspend fun loadEducationVocabFromAssets(
+        context: Context,
+        wordDao: WordDao,
+    ): Int =
         withContext(Dispatchers.IO) {
             runCatching {
                 wordDao.deleteAll()
                 val jsonString = AssetsUtil.readAsString(context, ASSET_EDUCATION_VOCAB)
                 if (jsonString.isBlank()) return@runCatching 0
                 val root = AppJson.json.decodeFromString(EducationVocabRoot.serializer(), jsonString)
-                val words = root.vocabulary.map { item ->
-                    Word(
-                        id = item.id.toLong(),
-                        word = item.word,
-                        partOfSpeech = item.pos,
-                        meaning = item.meaning,
-                        difficulty = levelToDifficulty(item.level)
-                    )
-                }
+                val words =
+                    root.vocabulary.map { item ->
+                        Word(
+                            id = item.id.toLong(),
+                            word = item.word,
+                            partOfSpeech = item.pos,
+                            meaning = item.meaning,
+                            difficulty = levelToDifficulty(item.level),
+                        )
+                    }
                 wordDao.insertAll(words)
                 words.size
             }.onFailure { e ->
@@ -109,12 +121,13 @@ object WordAssetLoader {
             }.getOrElse { 0 }
         }
 
-    private fun levelToDifficulty(level: String): WordDifficulty = when (level) {
-        "초등" -> WordDifficulty.ELEMENTARY
-        "중등" -> WordDifficulty.MIDDLE
-        "고등" -> WordDifficulty.HIGH
-        else -> WordDifficulty.ELEMENTARY
-    }
+    private fun levelToDifficulty(level: String): WordDifficulty =
+        when (level) {
+            "초등" -> WordDifficulty.ELEMENTARY
+            "중등" -> WordDifficulty.MIDDLE
+            "고등" -> WordDifficulty.HIGH
+            else -> WordDifficulty.ELEMENTARY
+        }
 
     private const val TAG = "WordAssetLoader"
 
@@ -123,6 +136,6 @@ object WordAssetLoader {
         val word: String,
         @SerialName("partOfSpeech") val partOfSpeech: String,
         val meaning: String,
-        val difficulty: String // "ELEMENTARY" | "MIDDLE" | "HIGH"
+        val difficulty: String, // "ELEMENTARY" | "MIDDLE" | "HIGH"
     )
 }

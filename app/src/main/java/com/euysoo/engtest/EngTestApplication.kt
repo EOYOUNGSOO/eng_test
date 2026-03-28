@@ -2,7 +2,6 @@ package com.euysoo.engtest
 
 import android.app.Application
 import androidx.room.Room
-import com.euysoo.engtest.util.AppLogger
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
@@ -18,14 +17,17 @@ import com.euysoo.engtest.data.MIGRATION_8_9
 import com.euysoo.engtest.data.MIGRATION_9_10
 import com.euysoo.engtest.data.loader.WordAssetLoader
 import com.euysoo.engtest.data.remote.DictionaryApiService
+import com.euysoo.engtest.data.remote.DictionaryNetworkConfig
 import com.euysoo.engtest.data.repository.PhoneticRepository
+import com.euysoo.engtest.di.AppContainer
+import com.euysoo.engtest.util.AppLogger
 import com.euysoo.engtest.worker.PhoneticFetchWorker
-import okhttp3.OkHttpClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -42,14 +44,16 @@ import java.util.concurrent.TimeUnit
  * 백그라운드에서 미리 초기화(워밍업)하여, UI 진입 시에는 이미 빌드된 인스턴스만 사용하도록 함.
  */
 class EngTestApplication : Application() {
+    /** ViewModel·Worker 등에 주입할 공통 의존성 */
+    val appContainer: AppContainer by lazy { AppContainer(this) }
 
     val database: AppDatabase by lazy {
-        Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java,
-            "eng_test_db"
-        )
-            .addMigrations(
+        Room
+            .databaseBuilder(
+                applicationContext,
+                AppDatabase::class.java,
+                "eng_test_db",
+            ).addMigrations(
                 MIGRATION_1_2,
                 MIGRATION_2_3,
                 MIGRATION_3_4,
@@ -58,26 +62,32 @@ class EngTestApplication : Application() {
                 MIGRATION_6_7,
                 MIGRATION_7_8,
                 MIGRATION_8_9,
-                MIGRATION_9_10
-            )
-            .fallbackToDestructiveMigration()
+                MIGRATION_9_10,
+            ).fallbackToDestructiveMigration()
             .build()
     }
 
-    /** Free Dictionary API용 Retrofit 싱글톤 */
+    /** 동일 Retrofit·API 서비스로 발음 조회·단어 상세(사전 본문) 공유 */
     private val dictionaryRetrofit: Retrofit by lazy {
-        val client = OkHttpClient.Builder()
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .readTimeout(10, TimeUnit.SECONDS)
-            .build()
-        Retrofit.Builder()
-            .baseUrl("https://api.dictionaryapi.dev/")
+        val client =
+            OkHttpClient
+                .Builder()
+                .connectTimeout(DictionaryNetworkConfig.CLIENT_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+                .readTimeout(DictionaryNetworkConfig.CLIENT_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+                .build()
+        Retrofit
+            .Builder()
+            .baseUrl(DictionaryNetworkConfig.BASE_URL)
             .client(client)
             .build()
     }
 
+    val dictionaryApi: DictionaryApiService by lazy {
+        dictionaryRetrofit.create(DictionaryApiService::class.java)
+    }
+
     val phoneticRepository: PhoneticRepository by lazy {
-        PhoneticRepository(dictionaryRetrofit.create(DictionaryApiService::class.java))
+        PhoneticRepository(dictionaryApi)
     }
 
     override fun onCreate() {
@@ -88,7 +98,7 @@ class EngTestApplication : Application() {
             AppLogger.e(
                 tag = "CRASH",
                 msg = "미처리 예외 발생 (Thread: ${thread.name})",
-                throwable = throwable
+                throwable = throwable,
             )
             saveCrashLog(throwable)
             defaultHandler?.uncaughtException(thread, throwable)
@@ -103,13 +113,14 @@ class EngTestApplication : Application() {
         try {
             val prefs = getSharedPreferences("crash_log", MODE_PRIVATE)
             val fmt = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-            val log = buildString {
-                append("시각: ${fmt.format(Date())}\n")
-                append("오류: ${throwable.javaClass.simpleName}\n")
-                append("메시지: ${throwable.message}\n\n")
-                append("스택트레이스:\n")
-                append(throwable.stackTraceToString())
-            }
+            val log =
+                buildString {
+                    append("시각: ${fmt.format(Date())}\n")
+                    append("오류: ${throwable.javaClass.simpleName}\n")
+                    append("메시지: ${throwable.message}\n\n")
+                    append("스택트레이스:\n")
+                    append(throwable.stackTraceToString())
+                }
             prefs.edit().putString("last_crash", log).apply()
         } catch (_: Exception) {
             // 저장 실패 시 무시
@@ -118,12 +129,13 @@ class EngTestApplication : Application() {
 
     /** 와이파이 시 15분마다 발음기호 없는 단어 최대 10개 API 조회 (WorkManager 최소 주기 15분) */
     private fun schedulePhoneticFetchWork() {
-        val request = PeriodicWorkRequestBuilder<PhoneticFetchWorker>(15, TimeUnit.MINUTES)
-            .build()
+        val request =
+            PeriodicWorkRequestBuilder<PhoneticFetchWorker>(15, TimeUnit.MINUTES)
+                .build()
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
             "phonetic_fetch",
             ExistingPeriodicWorkPolicy.KEEP,
-            request
+            request,
         )
     }
 

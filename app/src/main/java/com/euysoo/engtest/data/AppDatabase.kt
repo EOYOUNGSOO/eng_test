@@ -6,9 +6,9 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.euysoo.engtest.data.dao.TestResultDao
 import com.euysoo.engtest.data.dao.WordBookDao
+import com.euysoo.engtest.data.dao.WordDao
 import com.euysoo.engtest.data.dao.WordDetailDao
 import com.euysoo.engtest.data.dao.WordHistoryDao
-import com.euysoo.engtest.data.dao.WordDao
 import com.euysoo.engtest.data.entity.TestResult
 import com.euysoo.engtest.data.entity.Word
 import com.euysoo.engtest.data.entity.WordBook
@@ -16,125 +16,134 @@ import com.euysoo.engtest.data.entity.WordBookEntry
 import com.euysoo.engtest.data.entity.WordDetailEntity
 import com.euysoo.engtest.data.entity.WordHistoryEntity
 
-val MIGRATION_1_2 = object : Migration(1, 2) {
-    override fun migrate(db: SupportSQLiteDatabase) {
-        db.execSQL("ALTER TABLE test_results ADD COLUMN difficulty TEXT NOT NULL DEFAULT 'all'")
+val MIGRATION_1_2 =
+    object : Migration(1, 2) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            db.execSQL("ALTER TABLE test_results ADD COLUMN difficulty TEXT NOT NULL DEFAULT 'all'")
+        }
     }
-}
 
-val MIGRATION_2_3 = object : Migration(2, 3) {
-    override fun migrate(db: SupportSQLiteDatabase) {
-        db.execSQL("CREATE INDEX IF NOT EXISTS index_words_difficulty ON words(difficulty)")
-        db.execSQL("CREATE INDEX IF NOT EXISTS index_words_word ON words(word)")
-        db.execSQL("CREATE INDEX IF NOT EXISTS index_test_results_testDateMillis ON test_results(testDateMillis)")
+val MIGRATION_2_3 =
+    object : Migration(2, 3) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            db.execSQL("CREATE INDEX IF NOT EXISTS index_words_difficulty ON words(difficulty)")
+            db.execSQL("CREATE INDEX IF NOT EXISTS index_words_word ON words(word)")
+            db.execSQL("CREATE INDEX IF NOT EXISTS index_test_results_testDateMillis ON test_results(testDateMillis)")
+        }
     }
-}
 
-val MIGRATION_3_4 = object : Migration(3, 4) {
-    override fun migrate(db: SupportSQLiteDatabase) {
-        db.execSQL("ALTER TABLE words ADD COLUMN phonetic TEXT")
+val MIGRATION_3_4 =
+    object : Migration(3, 4) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            db.execSQL("ALTER TABLE words ADD COLUMN phonetic TEXT")
+        }
     }
-}
 
-val MIGRATION_4_5 = object : Migration(4, 5) {
-    override fun migrate(db: SupportSQLiteDatabase) {
-        val migrationNow = System.currentTimeMillis()
-        db.execSQL("ALTER TABLE words ADD COLUMN addedAt INTEGER NOT NULL DEFAULT $migrationNow")
-        db.execSQL("ALTER TABLE words ADD COLUMN updatedAt INTEGER NOT NULL DEFAULT $migrationNow")
-        db.execSQL("ALTER TABLE words ADD COLUMN sourceVersion TEXT NOT NULL DEFAULT '1.0'")
-        db.execSQL(
-            """
-            CREATE TABLE IF NOT EXISTS word_history (
-                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                word TEXT NOT NULL,
-                action TEXT NOT NULL,
-                beforePos TEXT,
-                beforeMeaning TEXT,
-                beforeLevel TEXT,
-                afterPos TEXT,
-                afterMeaning TEXT,
-                afterLevel TEXT,
-                sourceVersion TEXT NOT NULL DEFAULT '1.0',
-                recordedAt INTEGER NOT NULL
+val MIGRATION_4_5 =
+    object : Migration(4, 5) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            val migrationNow = System.currentTimeMillis()
+            db.execSQL("ALTER TABLE words ADD COLUMN addedAt INTEGER NOT NULL DEFAULT $migrationNow")
+            db.execSQL("ALTER TABLE words ADD COLUMN updatedAt INTEGER NOT NULL DEFAULT $migrationNow")
+            db.execSQL("ALTER TABLE words ADD COLUMN sourceVersion TEXT NOT NULL DEFAULT '1.0'")
+            db.execSQL(
+                """
+                CREATE TABLE IF NOT EXISTS word_history (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                    word TEXT NOT NULL,
+                    action TEXT NOT NULL,
+                    beforePos TEXT,
+                    beforeMeaning TEXT,
+                    beforeLevel TEXT,
+                    afterPos TEXT,
+                    afterMeaning TEXT,
+                    afterLevel TEXT,
+                    sourceVersion TEXT NOT NULL DEFAULT '1.0',
+                    recordedAt INTEGER NOT NULL
+                )
+                """.trimIndent(),
             )
-            """.trimIndent()
-        )
+        }
     }
-}
 
-val MIGRATION_5_6 = object : Migration(5, 6) {
-    override fun migrate(db: SupportSQLiteDatabase) {
-        db.execSQL(
-            """
-            CREATE TABLE IF NOT EXISTS word_details (
-                word TEXT NOT NULL PRIMARY KEY,
-                phonetic TEXT,
-                meaningsJson TEXT NOT NULL,
-                fetchedAt INTEGER NOT NULL
+val MIGRATION_5_6 =
+    object : Migration(5, 6) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            db.execSQL(
+                """
+                CREATE TABLE IF NOT EXISTS word_details (
+                    word TEXT NOT NULL PRIMARY KEY,
+                    phonetic TEXT,
+                    meaningsJson TEXT NOT NULL,
+                    fetchedAt INTEGER NOT NULL
+                )
+                """.trimIndent(),
             )
-            """.trimIndent()
-        )
+        }
     }
-}
 
 /** Gson → kotlinx.serialization 전환으로 meaningsJson 형식이 달라짐: 기존 캐시 무효화 */
-val MIGRATION_6_7 = object : Migration(6, 7) {
-    override fun migrate(db: SupportSQLiteDatabase) {
-        db.execSQL("DELETE FROM word_details")
+val MIGRATION_6_7 =
+    object : Migration(6, 7) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            db.execSQL("DELETE FROM word_details")
+        }
     }
-}
 
-val MIGRATION_7_8 = object : Migration(7, 8) {
-    override fun migrate(db: SupportSQLiteDatabase) {
-        db.execSQL(
-            """
-            CREATE TABLE IF NOT EXISTS word_books (
-                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                name TEXT NOT NULL,
-                createdAt INTEGER NOT NULL
+val MIGRATION_7_8 =
+    object : Migration(7, 8) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            db.execSQL(
+                """
+                CREATE TABLE IF NOT EXISTS word_books (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                    name TEXT NOT NULL,
+                    createdAt INTEGER NOT NULL
+                )
+                """.trimIndent(),
             )
-            """.trimIndent()
-        )
-        db.execSQL(
-            """
-            CREATE TABLE IF NOT EXISTS word_book_entries (
-                bookId INTEGER NOT NULL,
-                wordId INTEGER NOT NULL,
-                PRIMARY KEY(bookId, wordId),
-                FOREIGN KEY(bookId) REFERENCES word_books(id) ON DELETE CASCADE,
-                FOREIGN KEY(wordId) REFERENCES words(id) ON DELETE CASCADE
+            db.execSQL(
+                """
+                CREATE TABLE IF NOT EXISTS word_book_entries (
+                    bookId INTEGER NOT NULL,
+                    wordId INTEGER NOT NULL,
+                    PRIMARY KEY(bookId, wordId),
+                    FOREIGN KEY(bookId) REFERENCES word_books(id) ON DELETE CASCADE,
+                    FOREIGN KEY(wordId) REFERENCES words(id) ON DELETE CASCADE
+                )
+                """.trimIndent(),
             )
-            """.trimIndent()
-        )
-        db.execSQL("CREATE INDEX IF NOT EXISTS index_word_book_entries_bookId ON word_book_entries(bookId)")
-        db.execSQL("CREATE INDEX IF NOT EXISTS index_word_book_entries_wordId ON word_book_entries(wordId)")
+            db.execSQL("CREATE INDEX IF NOT EXISTS index_word_book_entries_bookId ON word_book_entries(bookId)")
+            db.execSQL("CREATE INDEX IF NOT EXISTS index_word_book_entries_wordId ON word_book_entries(wordId)")
+        }
     }
-}
 
-val MIGRATION_8_9 = object : Migration(8, 9) {
-    override fun migrate(db: SupportSQLiteDatabase) {
-        db.execSQL(
-            "ALTER TABLE word_book_entries ADD COLUMN addedAt INTEGER NOT NULL DEFAULT 0"
-        )
-        db.execSQL(
-            """
-            UPDATE word_book_entries
-            SET addedAt = (
-                SELECT IFNULL(b.createdAt, 0) FROM word_books b WHERE b.id = word_book_entries.bookId
-            ) + word_book_entries.rowid
-            WHERE addedAt = 0
-            """.trimIndent()
-        )
+val MIGRATION_8_9 =
+    object : Migration(8, 9) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            db.execSQL(
+                "ALTER TABLE word_book_entries ADD COLUMN addedAt INTEGER NOT NULL DEFAULT 0",
+            )
+            db.execSQL(
+                """
+                UPDATE word_book_entries
+                SET addedAt = (
+                    SELECT IFNULL(b.createdAt, 0) FROM word_books b WHERE b.id = word_book_entries.bookId
+                ) + word_book_entries.rowid
+                WHERE addedAt = 0
+                """.trimIndent(),
+            )
+        }
     }
-}
 
-val MIGRATION_9_10 = object : Migration(9, 10) {
-    override fun migrate(db: SupportSQLiteDatabase) {
-        db.execSQL(
-            "ALTER TABLE test_results ADD COLUMN test_type TEXT NOT NULL DEFAULT ''"
-        )
+val MIGRATION_9_10 =
+    object : Migration(9, 10) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            db.execSQL(
+                "ALTER TABLE test_results ADD COLUMN test_type TEXT NOT NULL DEFAULT ''",
+            )
+        }
     }
-}
 
 /**
  * Room DB 정의.
@@ -148,15 +157,19 @@ val MIGRATION_9_10 = object : Migration(9, 10) {
         WordHistoryEntity::class,
         WordDetailEntity::class,
         WordBook::class,
-        WordBookEntry::class
+        WordBookEntry::class,
     ],
     version = 10,
-    exportSchema = false
+    exportSchema = false,
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun wordDao(): WordDao
+
     abstract fun testResultDao(): TestResultDao
+
     abstract fun wordHistoryDao(): WordHistoryDao
+
     abstract fun wordDetailDao(): WordDetailDao
+
     abstract fun wordBookDao(): WordBookDao
 }

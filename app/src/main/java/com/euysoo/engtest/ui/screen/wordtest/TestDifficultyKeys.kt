@@ -20,24 +20,31 @@ fun parseMyBookId(difficultyKey: String): Long? =
         null
     }
 
-suspend fun resolveDifficultyLabelForResult(key: String, wordBookDao: WordBookDao): String {
+suspend fun resolveDifficultyLabelForResult(
+    key: String,
+    wordBookDao: WordBookDao,
+): String {
     val bid = parseMyBookId(key) ?: return formatDifficultyLabel(key)
     val name = wordBookDao.getBookById(bid)?.name
     return formatDifficultyLabel(key) { id -> if (id == bid) name else null }
 }
 
-fun formatDifficultyLabel(key: String, bookNameById: (Long) -> String? = { null }): String = when (key) {
-    DIFFICULTY_ALL -> "전체"
-    DIFFICULTY_ELEMENTARY -> "초등"
-    DIFFICULTY_MIDDLE -> "중등"
-    DIFFICULTY_HIGH -> "고등"
-    else -> {
-        val id = parseMyBookId(key)
-        if (id != null) {
-            val n = bookNameById(id)
-            if (n != null) "나의 단어장 · $n" else "나의 단어장 #$id"
-        } else {
-            key
+fun formatDifficultyLabel(
+    key: String,
+    bookNameById: (Long) -> String? = { null },
+): String =
+    when (key) {
+        DIFFICULTY_ALL -> "전체"
+        DIFFICULTY_ELEMENTARY -> "초등"
+        DIFFICULTY_MIDDLE -> "중등"
+        DIFFICULTY_HIGH -> "고등"
+        else -> {
+            val id = parseMyBookId(key)
+            if (id != null) {
+                val n = bookNameById(id)
+                if (n != null) "나의 단어장 · $n" else "나의 단어장 #$id"
+            } else {
+                key
+            }
         }
     }
-}

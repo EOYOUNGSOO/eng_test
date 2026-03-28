@@ -27,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -39,7 +40,6 @@ import com.euysoo.engtest.ui.component.AppButtonStyle
 import com.euysoo.engtest.ui.components.AppCopyrightFooter
 import com.euysoo.engtest.ui.components.AppTopBar
 import com.euysoo.engtest.ui.theme.AppTheme
-import androidx.compose.ui.platform.LocalContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,7 +50,7 @@ fun MyWordBookScreen(
     val colors = AppTheme.colors
     val context = LocalContext.current
     val app = context.applicationContext as EngTestApplication
-    val viewModel: MyWordBookViewModel = viewModel(factory = MyWordBookViewModelFactory(app))
+    val viewModel: MyWordBookViewModel = viewModel(factory = MyWordBookViewModelFactory(app.appContainer))
     val books by viewModel.books.collectAsStateWithLifecycle()
 
     var showCreateDialog by remember { mutableStateOf(false) }
@@ -61,20 +61,22 @@ fun MyWordBookScreen(
         containerColor = colors.bgPrimary,
         topBar = {
             AppTopBar(title = "나의 단어장", onBackClick = onBack)
-        }
+        },
     ) { padding ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .padding(horizontal = 16.dp)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .padding(horizontal = 16.dp),
         ) {
             LazyColumn(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
-                contentPadding = PaddingValues(bottom = 8.dp)
+                contentPadding = PaddingValues(bottom = 8.dp),
             ) {
                 item { Spacer(modifier = Modifier.height(12.dp)) }
                 item {
@@ -82,7 +84,7 @@ fun MyWordBookScreen(
                         text = "새 단어장 만들기",
                         onClick = { showCreateDialog = true },
                         style = AppButtonStyle.PRIMARY,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     )
                 }
                 item { Spacer(modifier = Modifier.height(8.dp)) }
@@ -92,7 +94,7 @@ fun MyWordBookScreen(
                             text = "등록된 단어장이 없습니다.\n단어 관리에서 단어를 단어장에 담을 수 있습니다.",
                             fontSize = 14.sp,
                             color = colors.textMuted,
-                            modifier = Modifier.padding(8.dp)
+                            modifier = Modifier.padding(8.dp),
                         )
                     }
                 } else {
@@ -101,7 +103,7 @@ fun MyWordBookScreen(
                             book = book,
                             onOpen = { onOpenBook(book.id) },
                             onRename = { bookToRename = book },
-                            onDelete = { bookToDelete = book }
+                            onDelete = { bookToDelete = book },
                         )
                     }
                 }
@@ -120,7 +122,7 @@ fun MyWordBookScreen(
                     value = name,
                     onValueChange = { name = it },
                     singleLine = true,
-                    label = { Text("이름") }
+                    label = { Text("이름") },
                 )
             },
             confirmButton = {
@@ -128,7 +130,7 @@ fun MyWordBookScreen(
                     onClick = {
                         viewModel.createBook(name)
                         showCreateDialog = false
-                    }
+                    },
                 ) {
                     Text("만들기", color = MaterialTheme.colorScheme.primary)
                 }
@@ -137,7 +139,7 @@ fun MyWordBookScreen(
                 TextButton(onClick = { showCreateDialog = false }) {
                     Text("취소")
                 }
-            }
+            },
         )
     }
 
@@ -150,7 +152,7 @@ fun MyWordBookScreen(
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    singleLine = true
+                    singleLine = true,
                 )
             },
             confirmButton = {
@@ -158,7 +160,7 @@ fun MyWordBookScreen(
                     onClick = {
                         viewModel.renameBook(book, name)
                         bookToRename = null
-                    }
+                    },
                 ) {
                     Text("저장", color = MaterialTheme.colorScheme.primary)
                 }
@@ -167,7 +169,7 @@ fun MyWordBookScreen(
                 TextButton(onClick = { bookToRename = null }) {
                     Text("취소")
                 }
-            }
+            },
         )
     }
 
@@ -181,7 +183,7 @@ fun MyWordBookScreen(
                     onClick = {
                         viewModel.deleteBook(book.id)
                         bookToDelete = null
-                    }
+                    },
                 ) {
                     Text("삭제", color = MaterialTheme.colorScheme.error)
                 }
@@ -190,7 +192,7 @@ fun MyWordBookScreen(
                 TextButton(onClick = { bookToDelete = null }) {
                     Text("취소")
                 }
-            }
+            },
         )
     }
 }
@@ -200,26 +202,27 @@ private fun WordBookRow(
     book: WordBook,
     onOpen: () -> Unit,
     onRename: () -> Unit,
-    onDelete: () -> Unit
+    onDelete: () -> Unit,
 ) {
     val colors = AppTheme.colors
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .border(0.5.dp, colors.borderDefault, RoundedCornerShape(16.dp))
-            .padding(14.dp)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .border(0.5.dp, colors.borderDefault, RoundedCornerShape(16.dp))
+                .padding(14.dp),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = book.name,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,
-                    color = colors.textPrimary
+                    color = colors.textPrimary,
                 )
             }
             AppButton(text = "열기", onClick = onOpen, style = AppButtonStyle.PRIMARY)

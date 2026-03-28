@@ -12,23 +12,23 @@ import androidx.room.Index
             entity = WordBook::class,
             parentColumns = ["id"],
             childColumns = ["bookId"],
-            onDelete = ForeignKey.CASCADE
+            onDelete = ForeignKey.CASCADE,
         ),
         ForeignKey(
             entity = Word::class,
             parentColumns = ["id"],
             childColumns = ["wordId"],
-            onDelete = ForeignKey.CASCADE
-        )
+            onDelete = ForeignKey.CASCADE,
+        ),
     ],
     indices = [
         Index(value = ["bookId"]),
-        Index(value = ["wordId"])
-    ]
+        Index(value = ["wordId"]),
+    ],
 )
 data class WordBookEntry(
     val bookId: Long,
     val wordId: Long,
     /** 이 단어장에 연결된 시각(ms). 최근 추가가 위로 오도록 정렬에 사용 */
-    val addedAt: Long = System.currentTimeMillis()
+    val addedAt: Long = System.currentTimeMillis(),
 )

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -14,7 +15,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -52,55 +52,57 @@ fun LazyListScope.testResultSummaryItemsNoFooter(
     score: Int,
     testStartTimeMillis: Long,
     onSpeak: (Word) -> Unit,
-    onFinish: () -> Unit
+    onFinish: () -> Unit,
 ) {
     if (words.size != answers.size) return
     val dateFormat = SimpleDateFormat("yyyy. M. d. HH:mm", Locale.getDefault())
     item {
         val colors = AppTheme.colors
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = AppDimens.screenPadding)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = AppDimens.screenPadding),
         ) {
             Text(
                 text = "점수: ${score}점",
                 style = MaterialTheme.typography.headlineSmall,
-                color = colors.purpleMain
+                color = colors.purpleMain,
             )
             Text(
                 text = dateFormat.format(Date(testStartTimeMillis)),
                 style = MaterialTheme.typography.bodyMedium,
-                color = colors.textMuted
+                color = colors.textMuted,
             )
             Spacer(modifier = Modifier.height(AppDimens.screenPadding))
         }
     }
     itemsIndexed(
         words,
-        key = { _, w -> w.id }
+        key = { _, w -> w.id },
     ) { index, word ->
         ResultSummaryWordItem(
             word = word,
             known = answers.getOrElse(index) { false },
             onSpeak = { onSpeak(word) },
-            modifier = Modifier.padding(horizontal = AppDimens.screenPadding)
+            modifier = Modifier.padding(horizontal = AppDimens.screenPadding),
         )
     }
     item {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    horizontal = AppDimens.screenPadding,
-                    vertical = AppDimens.screenPadding
-                ),
-            horizontalArrangement = Arrangement.Center
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        horizontal = AppDimens.screenPadding,
+                        vertical = AppDimens.screenPadding,
+                    ),
+            horizontalArrangement = Arrangement.Center,
         ) {
             AppButton(
                 text = "완료",
                 style = AppButtonStyle.SECONDARY,
-                onClick = onFinish
+                onClick = onFinish,
             )
         }
     }
@@ -113,14 +115,19 @@ fun LazyListScope.testResultSummaryItems(
     score: Int,
     testStartTimeMillis: Long,
     onSpeak: (Word) -> Unit,
-    onFinish: () -> Unit
+    onFinish: () -> Unit,
 ) {
     testResultSummaryItemsNoFooter(
-        words, answers, score, testStartTimeMillis, onSpeak, onFinish
+        words,
+        answers,
+        score,
+        testStartTimeMillis,
+        onSpeak,
+        onFinish,
     )
     item {
         AppCopyrightFooter(
-            modifier = Modifier.padding(horizontal = AppDimens.screenPadding)
+            modifier = Modifier.padding(horizontal = AppDimens.screenPadding),
         )
     }
 }
@@ -132,15 +139,16 @@ fun TestResultSummaryContent(
     score: Int,
     testStartTimeMillis: Long,
     onSpeak: (Word) -> Unit,
-    onFinish: () -> Unit
+    onFinish: () -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth(),
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
             contentPadding = PaddingValues(vertical = AppDimens.cardPadding),
-            verticalArrangement = Arrangement.spacedBy(AppDimens.listItemSpacing)
+            verticalArrangement = Arrangement.spacedBy(AppDimens.listItemSpacing),
         ) {
             testResultSummaryItemsNoFooter(
                 words = words,
@@ -148,11 +156,11 @@ fun TestResultSummaryContent(
                 score = score,
                 testStartTimeMillis = testStartTimeMillis,
                 onSpeak = onSpeak,
-                onFinish = onFinish
+                onFinish = onFinish,
             )
         }
         AppCopyrightFooter(
-            modifier = Modifier.padding(horizontal = AppDimens.screenPadding)
+            modifier = Modifier.padding(horizontal = AppDimens.screenPadding),
         )
     }
 }
@@ -162,79 +170,83 @@ private fun ResultSummaryWordItem(
     word: Word,
     known: Boolean,
     onSpeak: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val colors = AppTheme.colors
-    val statsText = remember(known) {
-        val correctPct = if (known) 100 else 0
-        val wrongPct = 100 - correctPct
-        "정답 ${correctPct}% · 오답 ${wrongPct}% · 시도 1회"
-    }
+    val statsText =
+        remember(known) {
+            val correctPct = if (known) 100 else 0
+            val wrongPct = 100 - correctPct
+            "정답 $correctPct% · 오답 $wrongPct% · 시도 1회"
+        }
     Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .border(0.5.dp, colors.borderDefault, RoundedCornerShape(AppDimens.cardCornerRadius)),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .border(0.5.dp, colors.borderDefault, RoundedCornerShape(AppDimens.cardCornerRadius)),
         shape = RoundedCornerShape(AppDimens.cardCornerRadius),
         elevation = CardDefaults.cardElevation(defaultElevation = AppDimens.cardElevation),
-        colors = CardDefaults.cardColors(
-            containerColor = colors.bgCard
-        )
+        colors =
+            CardDefaults.cardColors(
+                containerColor = colors.bgCard,
+            ),
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(AppDimens.cardPadding),
-            verticalAlignment = Alignment.CenterVertically
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(AppDimens.cardPadding),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
                 ) {
                     Text(
                         text = word.word,
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
-                        color = colors.purpleMain
+                        color = colors.purpleMain,
                     )
                     Text(
                         text = word.phoneticDisplayText(),
                         style = MaterialTheme.typography.bodySmall,
-                        color = colors.textDim
+                        color = colors.textDim,
                     )
                 }
                 Row(
                     modifier = Modifier.padding(top = 4.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
                 ) {
                     if (word.partOfSpeech.isNotBlank()) {
                         Text(
                             text = word.partOfSpeech,
                             style = MaterialTheme.typography.labelSmall,
-                            color = colors.textMuted
+                            color = colors.textMuted,
                         )
                     }
                     Text(
                         text = word.meaning,
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Medium,
-                        color = colors.textSecondary
+                        color = colors.textSecondary,
                     )
                     Text(
                         text = "(${"★".repeat(word.difficulty.starCount)})",
                         style = MaterialTheme.typography.bodySmall,
-                        color = colors.purpleMain
+                        color = colors.purpleMain,
                     )
                     IconButton(
                         onClick = onSpeak,
-                        modifier = Modifier.size(AppDimens.iconButtonSize)
+                        modifier = Modifier.size(AppDimens.iconButtonSize),
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.VolumeUp,
                             contentDescription = "발음 재생",
-                            tint = colors.purpleMain
+                            tint = colors.purpleMain,
                         )
                     }
                 }
@@ -242,25 +254,26 @@ private fun ResultSummaryWordItem(
                     text = statsText,
                     modifier = Modifier.padding(top = 4.dp),
                     style = MaterialTheme.typography.labelSmall,
-                    color = colors.textMuted
+                    color = colors.textMuted,
                 )
             }
             BoxWithConstraints(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(start = 8.dp)
-                    .width(56.dp),
-                contentAlignment = Alignment.Center
+                modifier =
+                    Modifier
+                        .fillMaxHeight()
+                        .padding(start = 8.dp)
+                        .width(56.dp),
+                contentAlignment = Alignment.Center,
             ) {
                 Box(
                     modifier = Modifier.height(maxHeight * 0.45f),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     Text(
                         text = if (known) "O" else "X",
                         style = MaterialTheme.typography.displayMedium,
                         fontWeight = FontWeight.Bold,
-                        color = if (known) colors.greenMain else colors.pinkMain
+                        color = if (known) colors.greenMain else colors.pinkMain,
                     )
                 }
             }

@@ -5,5 +5,5 @@ data class SyncResult(
     val addedCount: Int,
     val updatedCount: Int,
     val skippedCount: Int,
-    val sourceVersion: String
+    val sourceVersion: String,
 )

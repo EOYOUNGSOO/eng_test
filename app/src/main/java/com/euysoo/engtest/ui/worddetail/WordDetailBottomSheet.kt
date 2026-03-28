@@ -1,6 +1,5 @@
 package com.euysoo.engtest.ui.worddetail
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -34,7 +33,7 @@ import com.euysoo.engtest.domain.model.WordDetailUiModel
 fun WordDetailBottomSheet(
     word: String,
     viewModel: WordDetailViewModel,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -46,21 +45,23 @@ fun WordDetailBottomSheet(
         onDismissRequest = {
             viewModel.resetState()
             onDismiss()
-        }
+        },
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp)
-                .padding(bottom = 32.dp)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+                    .padding(bottom = 32.dp),
         ) {
             when (val state = uiState) {
                 WordDetailUiState.Loading -> {
                     Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp),
-                        contentAlignment = Alignment.Center
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .height(200.dp),
+                        contentAlignment = Alignment.Center,
                     ) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             CircularProgressIndicator()
@@ -73,29 +74,31 @@ fun WordDetailBottomSheet(
                 is WordDetailUiState.Success -> WordDetailContent(data = state.data)
                 WordDetailUiState.NotFound -> {
                     Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp),
-                        contentAlignment = Alignment.Center
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .height(200.dp),
+                        contentAlignment = Alignment.Center,
                     ) {
                         Text(
                             text = "「$word」의 상세 정보를 찾을 수 없습니다.",
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
                 }
 
                 is WordDetailUiState.Error -> {
                     Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp),
-                        contentAlignment = Alignment.Center
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .height(200.dp),
+                        contentAlignment = Alignment.Center,
                     ) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Text(
                                 text = state.message,
-                                color = MaterialTheme.colorScheme.error
+                                color = MaterialTheme.colorScheme.error,
                             )
                             Spacer(modifier = Modifier.height(12.dp))
                             Button(onClick = { viewModel.loadWordDetail(word) }) {
@@ -114,21 +117,22 @@ fun WordDetailBottomSheet(
 @Composable
 fun WordDetailContent(data: WordDetailUiModel) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .verticalScroll(rememberScrollState())
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState()),
     ) {
         Text(
             text = data.word,
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
+            color = MaterialTheme.colorScheme.primary,
         )
         if (data.phonetic.isNotBlank()) {
             Text(
                 text = data.phonetic,
                 fontSize = 16.sp,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
 
@@ -139,14 +143,14 @@ fun WordDetailContent(data: WordDetailUiModel) {
         data.meanings.forEachIndexed { index, meaning ->
             Surface(
                 color = MaterialTheme.colorScheme.secondaryContainer,
-                shape = MaterialTheme.shapes.small
+                shape = MaterialTheme.shapes.small,
             ) {
                 Text(
                     text = "${meaning.partOfSpeechKo} (${meaning.partOfSpeech})",
                     modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
                     fontSize = 13.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
                 )
             }
 
@@ -156,7 +160,7 @@ fun WordDetailContent(data: WordDetailUiModel) {
                 Text(
                     text = "${i + 1}. $definition",
                     fontSize = 15.sp,
-                    modifier = Modifier.padding(start = 4.dp)
+                    modifier = Modifier.padding(start = 4.dp),
                 )
                 Spacer(modifier = Modifier.height(4.dp))
             }
@@ -167,14 +171,14 @@ fun WordDetailContent(data: WordDetailUiModel) {
                     Surface(
                         color = MaterialTheme.colorScheme.surfaceVariant,
                         shape = MaterialTheme.shapes.small,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text(
                             text = "💬 $example",
                             modifier = Modifier.padding(10.dp),
                             fontSize = 14.sp,
                             fontStyle = FontStyle.Italic,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
                     Spacer(modifier = Modifier.height(6.dp))
@@ -186,7 +190,7 @@ fun WordDetailContent(data: WordDetailUiModel) {
                 Text(
                     text = "유의어: ${meaning.synonyms.joinToString(", ")}",
                     fontSize = 13.sp,
-                    color = MaterialTheme.colorScheme.tertiary
+                    color = MaterialTheme.colorScheme.tertiary,
                 )
             }
 
@@ -194,7 +198,7 @@ fun WordDetailContent(data: WordDetailUiModel) {
                 Text(
                     text = "반의어: ${meaning.antonyms.joinToString(", ")}",
                     fontSize = 13.sp,
-                    color = MaterialTheme.colorScheme.error
+                    color = MaterialTheme.colorScheme.error,
                 )
             }
 

@@ -16,5 +16,5 @@ data class WordHistoryEntity(
     val afterMeaning: String? = null,
     val afterLevel: String? = null,
     val sourceVersion: String = "1.0",
-    val recordedAt: Long = System.currentTimeMillis()
+    val recordedAt: Long = System.currentTimeMillis(),
 )

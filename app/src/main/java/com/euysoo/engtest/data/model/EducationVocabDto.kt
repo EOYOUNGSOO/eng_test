@@ -13,7 +13,7 @@ data class EducationVocabRoot(
     @SerialName("source") val source: String? = null,
     @SerialName("description") val description: String? = null,
     @SerialName("total") val total: Int? = null,
-    @SerialName("vocabulary") val vocabulary: List<EducationVocabItem> = emptyList()
+    @SerialName("vocabulary") val vocabulary: List<EducationVocabItem> = emptyList(),
 )
 
 /**
@@ -25,5 +25,5 @@ data class EducationVocabItem(
     @SerialName("word") val word: String,
     @SerialName("pos") val pos: String,
     @SerialName("meaning") val meaning: String,
-    @SerialName("level") val level: String
+    @SerialName("level") val level: String,
 )

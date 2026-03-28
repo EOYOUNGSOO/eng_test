@@ -2,94 +2,77 @@ package com.euysoo.engtest.ui.screen.records
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.euysoo.engtest.EngTestApplication
+import com.euysoo.engtest.R
 import com.euysoo.engtest.data.entity.PHONETIC_UNAVAILABLE
-import com.euysoo.engtest.util.AppLogger
 import com.euysoo.engtest.data.entity.TestResult
 import com.euysoo.engtest.data.entity.Word
-import com.euysoo.engtest.data.repository.PhoneticRepository
-import com.euysoo.engtest.util.TestResultDetailsParser
+import com.euysoo.engtest.di.AppContainer
+import com.euysoo.engtest.domain.testresult.TestResultWordStats
+import com.euysoo.engtest.domain.testresult.TestResultWordsLoader
+import com.euysoo.engtest.util.AppLogger
+import com.euysoo.engtest.util.CalendarDateBounds
+import com.euysoo.engtest.util.FlowDefaults
+import com.euysoo.engtest.util.TimeConstants
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.util.Calendar
-import java.util.Locale
+import kotlinx.coroutines.withContext
 
 private const val TAG = "RecordsVM"
 
+/**
+ * 기록 목록(날짜 구간)과 선택한 시험의 상세 단어·통계·발음 보강을 담당한다.
+ */
 @OptIn(ExperimentalCoroutinesApi::class)
 class RecordsViewModel(
-    private val application: EngTestApplication
+    private val container: AppContainer,
 ) : ViewModel() {
+    private val testResultDao = container.database.testResultDao()
+    private val wordDao = container.database.wordDao()
+    private val phoneticRepository = container.phoneticRepository
+    private val appContext = container.applicationContext
+    private val dateBounds = CalendarDateBounds()
 
-    private val testResultDao = application.database.testResultDao()
-    private val wordDao = application.database.wordDao()
-    private val phoneticRepository: PhoneticRepository = application.phoneticRepository
-    private val calendar = Calendar.getInstance(Locale.getDefault())
-
-    private fun startOfDayMillis(millis: Long): Long {
-        calendar.timeInMillis = millis
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
-        return calendar.timeInMillis
-    }
-
-    private fun defaultFromMillis(): Long {
-        calendar.timeInMillis = System.currentTimeMillis()
-        calendar.add(Calendar.DAY_OF_MONTH, -30)
-        return startOfDayMillis(calendar.timeInMillis)
-    }
-
-    private fun defaultToMillis(): Long {
-        return startOfDayMillis(System.currentTimeMillis()) + 86400_000L - 1
-    }
-
-    private val _fromMillis = MutableStateFlow(defaultFromMillis())
-    private val _toMillis = MutableStateFlow(defaultToMillis())
+    private val _fromMillis = MutableStateFlow(dateBounds.defaultFromMillis())
+    private val _toMillis = MutableStateFlow(dateBounds.defaultToEndOfDayMillis())
 
     val fromMillis: StateFlow<Long> = _fromMillis.asStateFlow()
     val toMillis: StateFlow<Long> = _toMillis.asStateFlow()
 
-    private val _resultsList = MutableStateFlow<List<TestResult>>(emptyList())
-    val resultsList: StateFlow<List<TestResult>> = _resultsList.asStateFlow()
-
-    init {
-        combine(_fromMillis, _toMillis) { f, t -> Pair(f, t) }
+    /** DAO Flow를 그대로 stateIn — 중간 MutableStateFlow 복사 제거로 이중 갱신 방지 */
+    val resultsList: StateFlow<List<TestResult>> =
+        combine(_fromMillis, _toMillis) { f, t -> f to t }
             .flatMapLatest { (f, t) -> testResultDao.getResultsBetween(f, t) }
-            .onEach { list ->
-                _resultsList.value = list
-            }
-            .launchIn(viewModelScope)
-    }
+            .stateIn(
+                scope = viewModelScope,
+                started = FlowDefaults.whileSubscribed,
+                initialValue = emptyList(),
+            )
 
-    fun setDateRange(fromMillis: Long, toMillis: Long) {
-        _fromMillis.value = startOfDayMillis(fromMillis)
-        _toMillis.value = startOfDayMillis(toMillis) + 86400_000L - 1
-    }
+    private var detailLoadJob: Job? = null
 
     fun setFromMillis(millis: Long) {
-        _fromMillis.value = startOfDayMillis(millis)
+        _fromMillis.value = dateBounds.startOfDayMillis(millis)
         if (_toMillis.value < _fromMillis.value) {
-            _toMillis.value = _fromMillis.value + 86400_000L - 1
+            _toMillis.value = _fromMillis.value + TimeConstants.MILLIS_PER_DAY - 1
         }
     }
 
     fun setToMillis(millis: Long) {
-        val endOfDay = startOfDayMillis(millis) + 86400_000L - 1
+        val endOfDay = dateBounds.startOfDayMillis(millis) + TimeConstants.MILLIS_PER_DAY - 1
         _toMillis.value = endOfDay
         if (_fromMillis.value > _toMillis.value) {
-            _fromMillis.value = startOfDayMillis(millis)
+            _fromMillis.value = dateBounds.startOfDayMillis(millis)
         }
     }
 
@@ -99,63 +82,74 @@ class RecordsViewModel(
     private val _resultWords = MutableStateFlow<List<Pair<Word, Boolean>>>(emptyList())
     val resultWords: StateFlow<List<Pair<Word, Boolean>>> = _resultWords.asStateFlow()
 
-    /** 단어별 (정답 횟수, 시도 횟수) — 테스트 결과 상세 4줄에서 정답율/오답율/시도회수 표시용 */
     private val _resultWordStats = MutableStateFlow<Map<Long, Pair<Int, Int>>>(emptyMap())
     val resultWordStats: StateFlow<Map<Long, Pair<Int, Int>>> = _resultWordStats.asStateFlow()
 
+    private val _snackbarMessage = MutableStateFlow<String?>(null)
+    val snackbarMessage: StateFlow<String?> = _snackbarMessage.asStateFlow()
+
+    fun consumeSnackbarMessage() {
+        _snackbarMessage.value = null
+    }
+
+    /**
+     * 상세 패널에 표시할 결과를 바꾼다. 이전 로드 [Job]은 취소되며,
+     * 단어 목록·누적 통계를 IO에서 로드한 뒤 발음이 비어 있으면 순차로 API를 시도한다.
+     */
     fun setSelectedResult(result: TestResult?) {
+        detailLoadJob?.cancel()
+        detailLoadJob = null
         _selectedResult.value = result
         if (result == null) {
             _resultWords.value = emptyList()
             _resultWordStats.value = emptyMap()
             return
         }
-        viewModelScope.launch {
-            try {
-                _resultWords.value = withContext(Dispatchers.IO) { loadWordsByDetails(result.details) }
-                _resultWordStats.value = withContext(Dispatchers.IO) { loadWordStatsMap() }
-                _resultWords.value.forEach { (word, _) ->
-                    if (word.phonetic.isNullOrBlank()) {
-                        try {
-                            val phonetic = phoneticRepository.getPhonetic(word.word) ?: PHONETIC_UNAVAILABLE
-                            withContext(Dispatchers.IO) { wordDao.update(word.copy(phonetic = phonetic)) }
-                        } catch (e: Exception) {
-                            AppLogger.w(TAG, "fetchPhonetic failed: ${word.word}", e)
+        detailLoadJob =
+            viewModelScope.launch {
+                try {
+                    val words =
+                        withContext(Dispatchers.IO) {
+                            TestResultWordsLoader.loadWordPairs(result.details, wordDao)
+                        }
+                    _resultWords.value = words
+                    _resultWordStats.value = withContext(Dispatchers.IO) { loadWordStatsMap() }
+                    for ((word, _) in words) {
+                        ensureActive()
+                        if (word.phonetic.isNullOrBlank()) {
+                            try {
+                                val phonetic = phoneticRepository.getPhonetic(word.word) ?: PHONETIC_UNAVAILABLE
+                                withContext(Dispatchers.IO) { wordDao.update(word.copy(phonetic = phonetic)) }
+                            } catch (e: Exception) {
+                                AppLogger.w(TAG, "fetchPhonetic failed: ${word.word}", e)
+                            }
                         }
                     }
+                    ensureActive()
+                    _resultWords.value =
+                        withContext(Dispatchers.IO) {
+                            TestResultWordsLoader.loadWordPairs(result.details, wordDao)
+                        }
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Exception) {
+                    AppLogger.e(TAG, "setSelectedResult failed", e)
+                    _resultWords.value = emptyList()
+                    _resultWordStats.value = emptyMap()
+                    _snackbarMessage.value = appContext.getString(R.string.snackbar_records_detail_failed)
                 }
-                _resultWords.value = withContext(Dispatchers.IO) { loadWordsByDetails(result.details) }
-            } catch (e: Exception) {
-                AppLogger.e(TAG, "setSelectedResult failed", e)
             }
-        }
     }
 
-    /** 전체 테스트 이력에서 단어별 (정답 횟수, 시도 횟수) 집계 */
-    private suspend fun loadWordStatsMap(): Map<Long, Pair<Int, Int>> = withContext(Dispatchers.IO) {
-        val results = testResultDao.getAllResults().first()
-        val map = mutableMapOf<Long, Pair<Int, Int>>()
-        results.forEach { testResult ->
-            TestResultDetailsParser.parseToWordIdAndKnown(testResult.details).forEach { (wordId, known) ->
-                val (c, t) = map.getOrDefault(wordId, 0 to 0)
-                map[wordId] = (c + if (known) 1 else 0) to (t + 1)
-            }
+    private suspend fun loadWordStatsMap(): Map<Long, Pair<Int, Int>> =
+        withContext(Dispatchers.IO) {
+            val results = testResultDao.getAllResults().first()
+            TestResultWordStats.aggregateCorrectTotals(results)
         }
-        map
-    }
-
-    /** details 문자열 파싱 후 단어 ID 목록으로 일괄 조회 (N+1 방지) */
-    private suspend fun loadWordsByDetails(details: String): List<Pair<Word, Boolean>> {
-        val idAndKnown = TestResultDetailsParser.parseToWordIdAndKnown(details)
-        if (idAndKnown.isEmpty()) return emptyList()
-        val ids = idAndKnown.map { it.first }.distinct()
-        val wordsById = wordDao.getWordsByIds(ids).associateBy { it.id }
-        return idAndKnown.mapNotNull { (id, known) ->
-            wordsById[id]?.let { word -> word to known }
-        }
-    }
 
     fun clearSelection() {
+        detailLoadJob?.cancel()
+        detailLoadJob = null
         _selectedResult.value = null
         _resultWords.value = emptyList()
         _resultWordStats.value = emptyMap()

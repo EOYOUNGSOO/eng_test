@@ -1,19 +1,18 @@
 package com.euysoo.engtest.ui.screen.records
 
+import android.speech.tts.TextToSpeech
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -23,18 +22,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.outlined.CalendarMonth
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DatePicker
@@ -43,10 +39,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -69,21 +66,19 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.euysoo.engtest.EngTestApplication
 import com.euysoo.engtest.data.entity.TestResult
 import com.euysoo.engtest.data.entity.Word
-import com.euysoo.engtest.data.entity.WordDifficulty
 import com.euysoo.engtest.ui.components.AppCopyrightFooter
 import com.euysoo.engtest.ui.components.AppTopBar
-import com.euysoo.engtest.ui.theme.AppTheme
-import com.euysoo.engtest.ui.theme.AppDimens
-import com.euysoo.engtest.ui.worddetail.WordDetailBottomSheet
 import com.euysoo.engtest.ui.screen.wordtest.formatDifficultyLabel
 import com.euysoo.engtest.ui.screen.wordtest.resolveDifficultyLabelForResult
+import com.euysoo.engtest.ui.theme.AppDimens
+import com.euysoo.engtest.ui.theme.AppTheme
+import com.euysoo.engtest.ui.worddetail.WordDetailBottomSheet
 import com.euysoo.engtest.ui.worddetail.WordDetailViewModel
 import com.euysoo.engtest.ui.worddetail.WordDetailViewModelFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import com.euysoo.engtest.util.phoneticDisplayText
 import com.euysoo.engtest.util.starCount
-import android.speech.tts.TextToSpeech
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -93,14 +88,12 @@ private val ShadowMint = Color(0xFFC1F0C1)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecordsScreen(
-    onBack: () -> Unit,
-) {
+fun RecordsScreen(onBack: () -> Unit) {
     val colors = AppTheme.colors
     val context = LocalContext.current
     val app = context.applicationContext as EngTestApplication
-    val viewModel: RecordsViewModel = viewModel(factory = RecordsViewModelFactory(app))
-    val wordDetailViewModel: WordDetailViewModel = viewModel(factory = WordDetailViewModelFactory(app))
+    val viewModel: RecordsViewModel = viewModel(factory = RecordsViewModelFactory(app.appContainer))
+    val wordDetailViewModel: WordDetailViewModel = viewModel(factory = WordDetailViewModelFactory(app.appContainer))
 
     val resultsList by viewModel.resultsList.collectAsStateWithLifecycle()
     val fromMillis by viewModel.fromMillis.collectAsStateWithLifecycle()
@@ -108,6 +101,14 @@ fun RecordsScreen(
     val selectedResult by viewModel.selectedResult.collectAsStateWithLifecycle()
     val resultWords by viewModel.resultWords.collectAsStateWithLifecycle()
     val resultWordStats by viewModel.resultWordStats.collectAsStateWithLifecycle()
+    val recordsSnackbarMessage by viewModel.snackbarMessage.collectAsStateWithLifecycle()
+    val recordsSnackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(recordsSnackbarMessage) {
+        val msg = recordsSnackbarMessage ?: return@LaunchedEffect
+        recordsSnackbarHostState.showSnackbar(msg)
+        viewModel.consumeSnackbarMessage()
+    }
 
     var selectedWordForDetail by remember { mutableStateOf<String?>(null) }
     LaunchedEffect(selectedResult) {
@@ -115,17 +116,19 @@ fun RecordsScreen(
     }
 
     var ttsReady by remember { mutableStateOf(false) }
-    val tts = remember {
-        TextToSpeech(context.applicationContext) { status ->
-            ttsReady = (status == TextToSpeech.SUCCESS)
+    val tts =
+        remember {
+            TextToSpeech(context.applicationContext) { status ->
+                ttsReady = (status == TextToSpeech.SUCCESS)
+            }
         }
-    }
     DisposableEffect(tts) {
         onDispose {
             try {
                 tts.stop()
                 tts.shutdown()
-            } catch (_: Exception) { }
+            } catch (_: Exception) {
+            }
         }
     }
     LaunchedEffect(ttsReady) {
@@ -135,31 +138,34 @@ fun RecordsScreen(
     var difficultyDetailLabel by remember { mutableStateOf("") }
     LaunchedEffect(selectedResult) {
         val r = selectedResult
-        difficultyDetailLabel = if (r != null) {
-            withContext(Dispatchers.IO) {
-                resolveDifficultyLabelForResult(r.difficulty, app.database.wordBookDao())
+        difficultyDetailLabel =
+            if (r != null) {
+                withContext(Dispatchers.IO) {
+                    resolveDifficultyLabelForResult(r.difficulty, app.database.wordBookDao())
+                }
+            } else {
+                ""
             }
-        } else {
-            ""
-        }
     }
 
     Scaffold(
         containerColor = colors.bgPrimary,
-        topBar = {}
+        topBar = {},
+        snackbarHost = { SnackbarHost(recordsSnackbarHostState) },
     ) { padding ->
         Box(modifier = Modifier.fillMaxSize().padding(padding)) {
             if (selectedResult != null) {
                 Column(modifier = Modifier.fillMaxSize()) {
                     LazyColumn(
-                        modifier = Modifier
-                            .weight(1f)
-                            .fillMaxWidth()
+                        modifier =
+                            Modifier
+                                .weight(1f)
+                                .fillMaxWidth(),
                     ) {
                         item {
                             AppTopBar(
                                 title = "테스트 결과",
-                                onBackClick = { viewModel.clearSelection() }
+                                onBackClick = { viewModel.clearSelection() },
                             )
                         }
                         resultDetailScrollItems(
@@ -172,11 +178,11 @@ fun RecordsScreen(
                                     tts.speak(w.word, TextToSpeech.QUEUE_FLUSH, null, null)
                                 }
                             },
-                            onWordDetail = { selectedWordForDetail = it }
+                            onWordDetail = { selectedWordForDetail = it },
                         )
                     }
                     AppCopyrightFooter(
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                     )
                 }
             } else {
@@ -186,15 +192,16 @@ fun RecordsScreen(
                 Box(modifier = Modifier.fillMaxSize()) {
                     Column(modifier = Modifier.fillMaxSize()) {
                         LazyColumn(
-                            modifier = Modifier
-                                .weight(1f)
-                                .fillMaxWidth(),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                            modifier =
+                                Modifier
+                                    .weight(1f)
+                                    .fillMaxWidth(),
+                            verticalArrangement = Arrangement.spacedBy(8.dp),
                         ) {
                             item {
                                 AppTopBar(
                                     title = "기록 및 통계",
-                                    onBackClick = onBack
+                                    onBackClick = onBack,
                                 )
                             }
                             item {
@@ -205,60 +212,68 @@ fun RecordsScreen(
                                     toText = dateFormat.format(Date(toMillis)),
                                     onFromClick = { showFromPicker = true },
                                     onToClick = { showToPicker = true },
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 16.dp)
+                                    modifier =
+                                        Modifier
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 16.dp),
                                 )
                             }
                             item { Spacer(modifier = Modifier.height(16.dp)) }
                             item {
                                 Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                                    modifier =
+                                        Modifier
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 16.dp, vertical = 8.dp),
                                     horizontalArrangement = Arrangement.SpaceBetween,
-                                    verticalAlignment = Alignment.CenterVertically
+                                    verticalAlignment = Alignment.CenterVertically,
                                 ) {
                                     Text(
                                         "결과 목록",
-                                        style = MaterialTheme.typography.titleSmall
+                                        style = MaterialTheme.typography.titleSmall,
                                     )
                                     Text(
                                         text = "시험횟수: ${resultsList.size}",
                                         style = MaterialTheme.typography.titleSmall,
-                                        color = colors.textMuted
+                                        color = colors.textMuted,
                                     )
                                 }
                             }
                             itemsIndexed(
                                 resultsList,
-                                key = { _, r -> r.id }
+                                key = { _, r -> r.id },
                             ) { index, result ->
                                 val listNumber = resultsList.size - index
                                 ResultListItem(
                                     result = result,
                                     listNumber = listNumber,
                                     onClick = { viewModel.setSelectedResult(result) },
-                                    modifier = Modifier.padding(horizontal = 16.dp)
+                                    modifier = Modifier.padding(horizontal = 16.dp),
                                 )
                             }
                         }
                         AppCopyrightFooter(
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                         )
                     }
                     if (showFromPicker) {
                         RoundedDatePickerDialog(
                             initialMillis = fromMillis,
-                            onConfirm = { viewModel.setFromMillis(it); showFromPicker = false },
-                            onDismiss = { showFromPicker = false }
+                            onConfirm = {
+                                viewModel.setFromMillis(it)
+                                showFromPicker = false
+                            },
+                            onDismiss = { showFromPicker = false },
                         )
                     }
                     if (showToPicker) {
                         RoundedDatePickerDialog(
                             initialMillis = toMillis,
-                            onConfirm = { viewModel.setToMillis(it); showToPicker = false },
-                            onDismiss = { showToPicker = false }
+                            onConfirm = {
+                                viewModel.setToMillis(it)
+                                showToPicker = false
+                            },
+                            onDismiss = { showToPicker = false },
                         )
                     }
                 }
@@ -270,7 +285,7 @@ fun RecordsScreen(
         WordDetailBottomSheet(
             word = targetWord,
             viewModel = wordDetailViewModel,
-            onDismiss = { selectedWordForDetail = null }
+            onDismiss = { selectedWordForDetail = null },
         )
     }
 }
@@ -283,32 +298,32 @@ private fun DateRangeRow(
     fromText: String,
     toText: String,
     onFromClick: () -> Unit,
-    onToClick: () -> Unit
+    onToClick: () -> Unit,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(10.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         DateBox(
             modifier = Modifier.weight(1f),
             label = fromLabel,
             dateText = fromText,
             shadowColor = ShadowPurple,
-            onClick = onFromClick
+            onClick = onFromClick,
         )
         Text(
             text = "~",
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
         DateBox(
             modifier = Modifier.weight(1f),
             label = toLabel,
             dateText = toText,
             shadowColor = ShadowMint,
-            onClick = onToClick
+            onClick = onToClick,
         )
     }
 }
@@ -319,66 +334,69 @@ private fun DateBox(
     label: String,
     dateText: String,
     shadowColor: Color,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     val colors = AppTheme.colors
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
     val scale by animateFloatAsState(
         targetValue = if (isPressed) 0.98f else 1f,
-        animationSpec = tween(durationMillis = 80)
+        animationSpec = tween(durationMillis = 80),
     )
 
     Box(modifier = modifier) {
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 4.dp, start = 4.dp)
-                .height(56.dp)
-                .clip(RoundedCornerShape(16.dp))
-                .background(shadowColor)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(top = 4.dp, start = 4.dp)
+                    .height(56.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(shadowColor),
         )
         Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .scale(scale)
-                .border(0.5.dp, colors.borderDefault, RoundedCornerShape(16.dp))
-                .clip(RoundedCornerShape(16.dp))
-                .clickable(
-                    interactionSource = interactionSource,
-                    indication = null,
-                    onClick = onClick
-                ),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .scale(scale)
+                    .border(0.5.dp, colors.borderDefault, RoundedCornerShape(16.dp))
+                    .clip(RoundedCornerShape(16.dp))
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = null,
+                        onClick = onClick,
+                    ),
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(containerColor = colors.bgCard),
-            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
         ) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp, vertical = 10.dp),
-                verticalAlignment = Alignment.CenterVertically
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp, vertical = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = label,
                         style = MaterialTheme.typography.labelSmall,
-                        color = colors.textMuted
+                        color = colors.textMuted,
                     )
                     Text(
                         text = dateText,
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
-                        color = colors.textSecondary
+                        color = colors.textSecondary,
                     )
                 }
                 IconButton(
                     onClick = onClick,
-                    modifier = Modifier.size(40.dp)
+                    modifier = Modifier.size(40.dp),
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.CalendarMonth,
-                        contentDescription = "날짜 선택"
+                        contentDescription = "날짜 선택",
                     )
                 }
             }
@@ -391,29 +409,31 @@ private fun DateBox(
 private fun RoundedDatePickerDialog(
     initialMillis: Long,
     onConfirm: (Long) -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
 ) {
-    val state = rememberDatePickerState(
-        initialSelectedDateMillis = initialMillis,
-        initialDisplayedMonthMillis = initialMillis
-    )
+    val state =
+        rememberDatePickerState(
+            initialSelectedDateMillis = initialMillis,
+            initialDisplayedMonthMillis = initialMillis,
+        )
     Dialog(onDismissRequest = onDismiss) {
         Surface(
-            modifier = Modifier
-                .padding(24.dp)
-                .clip(RoundedCornerShape(24.dp)),
-            shape = RoundedCornerShape(24.dp)
+            modifier =
+                Modifier
+                    .padding(24.dp)
+                    .clip(RoundedCornerShape(24.dp)),
+            shape = RoundedCornerShape(24.dp),
         ) {
             Column(
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(16.dp),
             ) {
                 DatePicker(
                     state = state,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End
+                    horizontalArrangement = Arrangement.End,
                 ) {
                     TextButton(onClick = onDismiss) {
                         Text("취소")
@@ -421,7 +441,7 @@ private fun RoundedDatePickerDialog(
                     TextButton(
                         onClick = {
                             state.selectedDateMillis?.let { onConfirm(it) }
-                        }
+                        },
                     ) {
                         Text("확인", fontWeight = FontWeight.Bold)
                     }
@@ -437,32 +457,33 @@ private fun LazyListScope.resultDetailScrollItems(
     resultWords: List<Pair<Word, Boolean>>,
     resultWordStats: Map<Long, Pair<Int, Int>>,
     onSpeakWord: (Word) -> Unit,
-    onWordDetail: (String) -> Unit
+    onWordDetail: (String) -> Unit,
 ) {
     item {
         val colors = AppTheme.colors
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
         ) {
             Text(
                 text = "점수: ${result.score * 10}점",
                 style = MaterialTheme.typography.headlineSmall,
-                color = colors.purpleMain
+                color = colors.purpleMain,
             )
             val dateFormat = SimpleDateFormat("yyyy. M. d. HH:mm", Locale.getDefault())
             Text(
                 text = dateFormat.format(Date(result.testDateMillis)),
                 style = MaterialTheme.typography.bodyMedium,
-                color = colors.textMuted
+                color = colors.textMuted,
             )
             if (difficultyLabel.isNotBlank()) {
                 Text(
                     text = "범위: $difficultyLabel",
                     style = MaterialTheme.typography.bodySmall,
                     color = colors.textMuted,
-                    modifier = Modifier.padding(top = 4.dp)
+                    modifier = Modifier.padding(top = 4.dp),
                 )
             }
         }
@@ -471,22 +492,23 @@ private fun LazyListScope.resultDetailScrollItems(
         item {
             val colors = AppTheme.colors
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 32.dp),
-                contentAlignment = Alignment.Center
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 32.dp),
+                contentAlignment = Alignment.Center,
             ) {
                 Text(
                     text = "단어 정보를 불러오는 중이거나 없습니다.",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = colors.textMuted
+                    color = colors.textMuted,
                 )
             }
         }
     } else {
         itemsIndexed(
             resultWords,
-            key = { _, pair -> pair.first.id }
+            key = { _, pair -> pair.first.id },
         ) { _, (word, known) ->
             val stats = resultWordStats[word.id]
             ResultWordItem(
@@ -495,81 +517,86 @@ private fun LazyListScope.resultDetailScrollItems(
                 known = known,
                 stats = stats,
                 onSpeak = { onSpeakWord(word) },
-                onDetail = { onWordDetail(word.word) }
+                onDetail = { onWordDetail(word.word) },
             )
         }
     }
 }
 
-private fun testTypeLabelForList(testType: String): String = when (testType) {
-    TestResult.TEST_TYPE_SELF -> "자기테스트"
-    TestResult.TEST_TYPE_MULTIPLE_CHOICE -> "객관식"
-    else -> if (testType.isBlank()) "—" else testType
-}
+private fun testTypeLabelForList(testType: String): String =
+    when (testType) {
+        TestResult.TEST_TYPE_SELF -> "자기테스트"
+        TestResult.TEST_TYPE_MULTIPLE_CHOICE -> "객관식"
+        else -> if (testType.isBlank()) "—" else testType
+    }
 
 @Composable
 private fun ResultListItem(
     result: TestResult,
     listNumber: Int,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val colors = AppTheme.colors
     val dateFormat = SimpleDateFormat("yyyy. M. d. HH:mm", Locale.getDefault())
     val leftScroll = rememberScrollState()
     Card(
         onClick = onClick,
-        modifier = modifier
-            .fillMaxWidth()
-            .border(0.5.dp, colors.borderDefault, RoundedCornerShape(AppDimens.cardCornerRadius)),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .border(0.5.dp, colors.borderDefault, RoundedCornerShape(AppDimens.cardCornerRadius)),
         shape = RoundedCornerShape(AppDimens.cardCornerRadius),
         elevation = CardDefaults.cardElevation(defaultElevation = AppDimens.cardElevation),
-        colors = CardDefaults.cardColors(
-            containerColor = colors.bgCard
-        )
+        colors =
+            CardDefaults.cardColors(
+                containerColor = colors.bgCard,
+            ),
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(AppDimens.screenPadding),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(AppDimens.screenPadding),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             Row(
-                modifier = Modifier
-                    .weight(1f)
-                    .horizontalScroll(leftScroll),
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .horizontalScroll(leftScroll),
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
                     text = listNumber.toString(),
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.SemiBold,
-                    color = colors.badgePurpleText
+                    color = colors.badgePurpleText,
                 )
                 Text(
                     text = dateFormat.format(Date(result.testDateMillis)),
                     style = MaterialTheme.typography.bodyMedium,
-                    color = colors.textSecondary
+                    color = colors.textSecondary,
                 )
                 Text(
                     text = testTypeLabelForList(result.testType),
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Medium,
-                    color = colors.pinkMain
+                    color = colors.pinkMain,
                 )
                 Text(
                     text = formatDifficultyLabel(result.difficulty),
                     style = MaterialTheme.typography.bodyMedium,
-                    color = colors.textMuted
+                    color = colors.textMuted,
                 )
             }
             Text(
                 text = "${result.score * 10}점",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
-                color = colors.purpleMain
+                color = colors.purpleMain,
             )
         }
     }
@@ -582,125 +609,131 @@ private fun ResultWordItem(
     known: Boolean,
     stats: Pair<Int, Int>?,
     onSpeak: () -> Unit,
-    onDetail: () -> Unit
+    onDetail: () -> Unit,
 ) {
     val colors = AppTheme.colors
     Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .border(0.5.dp, colors.borderDefault, RoundedCornerShape(AppDimens.cardCornerRadius)),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .border(0.5.dp, colors.borderDefault, RoundedCornerShape(AppDimens.cardCornerRadius)),
         shape = RoundedCornerShape(AppDimens.cardCornerRadius),
         elevation = CardDefaults.cardElevation(defaultElevation = AppDimens.cardElevation),
-        colors = CardDefaults.cardColors(
-            containerColor = colors.bgCard
-        )
+        colors =
+            CardDefaults.cardColors(
+                containerColor = colors.bgCard,
+            ),
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(AppDimens.cardPadding),
-            verticalAlignment = Alignment.CenterVertically
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(AppDimens.cardPadding),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 // 1줄: 영어단어 · 발음기호
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
                 ) {
                     Text(
                         text = word.word,
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
-                        color = colors.purpleMain
+                        color = colors.purpleMain,
                     )
                     Text(
                         text = word.phoneticDisplayText(),
                         style = MaterialTheme.typography.bodySmall,
-                        color = colors.textDim
+                        color = colors.textDim,
                     )
                 }
                 // 2줄: 품사 · 단어뜻 · 난이도(별) · 스피커
                 Row(
                     modifier = Modifier.padding(top = 4.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
                 ) {
                     if (word.partOfSpeech.isNotBlank()) {
                         Text(
                             text = word.partOfSpeech,
                             style = MaterialTheme.typography.labelSmall,
-                            color = colors.textMuted
+                            color = colors.textMuted,
                         )
                     }
                     Text(
                         text = word.meaning,
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Medium,
-                        color = colors.textSecondary
+                        color = colors.textSecondary,
                     )
                     Text(
                         text = "(${"★".repeat(word.difficulty.starCount)})",
                         style = MaterialTheme.typography.bodySmall,
-                        color = colors.pinkMain
+                        color = colors.pinkMain,
                     )
                     IconButton(
                         onClick = onSpeak,
-                        modifier = Modifier.size(32.dp)
+                        modifier = Modifier.size(32.dp),
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.VolumeUp,
                             contentDescription = "발음 재생",
-                            tint = colors.purpleMain
+                            tint = colors.purpleMain,
                         )
                     }
                 }
                 // 3줄: 정답율, 오답율, 시도회수
                 Text(
-                    text = if (stats != null && stats.second > 0) {
-                        val (c, t) = stats
-                        val correctPct = (c * 100 / t).toInt()
-                        val wrongPct = 100 - correctPct
-                        "정답 ${correctPct}% · 오답 ${wrongPct}% · 시도 ${t}회"
-                    } else {
-                        "시도 0회"
-                    },
+                    text =
+                        if (stats != null && stats.second > 0) {
+                            val (c, t) = stats
+                            val correctPct = (c * 100 / t).toInt()
+                            val wrongPct = 100 - correctPct
+                            "정답 $correctPct% · 오답 $wrongPct% · 시도 ${t}회"
+                        } else {
+                            "시도 0회"
+                        },
                     modifier = Modifier.padding(top = 4.dp),
                     style = MaterialTheme.typography.labelSmall,
-                    color = colors.textMuted
+                    color = colors.textMuted,
                 )
             }
             Row(
-                modifier = Modifier
-                    .padding(start = 8.dp),
-                verticalAlignment = Alignment.CenterVertically
+                modifier =
+                    Modifier
+                        .padding(start = 8.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 IconButton(
                     onClick = onDetail,
-                    modifier = Modifier.size(32.dp)
+                    modifier = Modifier.size(32.dp),
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Info,
                         contentDescription = "상세보기",
-                        tint = colors.purpleMain
+                        tint = colors.purpleMain,
                     )
                 }
                 // O / X — 목록 항목 높이의 45% 크기
                 BoxWithConstraints(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .width(56.dp),
-                    contentAlignment = Alignment.Center
+                    modifier =
+                        Modifier
+                            .fillMaxHeight()
+                            .width(56.dp),
+                    contentAlignment = Alignment.Center,
                 ) {
                     Box(
                         modifier = Modifier.height(maxHeight * 0.45f),
-                        contentAlignment = Alignment.Center
+                        contentAlignment = Alignment.Center,
                     ) {
                         Text(
                             text = if (known) "O" else "X",
                             style = MaterialTheme.typography.displayMedium,
                             fontWeight = FontWeight.Bold,
-                            color = if (known) colors.greenMain else colors.pinkMain
+                            color = if (known) colors.greenMain else colors.pinkMain,
                         )
                     }
                 }

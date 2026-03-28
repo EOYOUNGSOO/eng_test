@@ -7,9 +7,10 @@ import kotlinx.serialization.json.Json
  * Retrofit 컨버터·캐시 직렬화·assets 파싱에 동일 인스턴스 사용.
  */
 object AppJson {
-    val json = Json {
-        ignoreUnknownKeys = true
-        isLenient = true
-        coerceInputValues = true
-    }
+    val json =
+        Json {
+            ignoreUnknownKeys = true
+            isLenient = true
+            coerceInputValues = true
+        }
 }

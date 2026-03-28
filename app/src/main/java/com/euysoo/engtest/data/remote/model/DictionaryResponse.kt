@@ -9,7 +9,7 @@ data class DictionaryResponse(
     @SerialName("word") val word: String,
     @SerialName("phonetic") val phonetic: String? = null,
     @SerialName("phonetics") val phonetics: List<PhoneticDto>? = null,
-    @SerialName("meanings") val meanings: List<MeaningResponse> = emptyList()
+    @SerialName("meanings") val meanings: List<MeaningResponse> = emptyList(),
 )
 
 @Serializable
@@ -17,11 +17,11 @@ data class MeaningResponse(
     @SerialName("partOfSpeech") val partOfSpeech: String = "",
     @SerialName("definitions") val definitions: List<DefinitionResponse> = emptyList(),
     @SerialName("synonyms") val synonyms: List<String> = emptyList(),
-    @SerialName("antonyms") val antonyms: List<String> = emptyList()
+    @SerialName("antonyms") val antonyms: List<String> = emptyList(),
 )
 
 @Serializable
 data class DefinitionResponse(
     @SerialName("definition") val definition: String = "",
-    @SerialName("example") val example: String? = null
+    @SerialName("example") val example: String? = null,
 )

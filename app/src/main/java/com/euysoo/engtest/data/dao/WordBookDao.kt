@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WordBookDao {
-
     @Query("SELECT * FROM word_books ORDER BY createdAt DESC, id DESC")
     fun getAllBooks(): Flow<List<WordBook>>
 
@@ -33,7 +32,10 @@ interface WordBookDao {
     suspend fun insertEntry(entry: WordBookEntry)
 
     @Query("DELETE FROM word_book_entries WHERE bookId = :bookId AND wordId = :wordId")
-    suspend fun deleteEntry(bookId: Long, wordId: Long)
+    suspend fun deleteEntry(
+        bookId: Long,
+        wordId: Long,
+    )
 
     @Query(
         """
@@ -41,7 +43,7 @@ interface WordBookDao {
         INNER JOIN word_book_entries e ON w.id = e.wordId
         WHERE e.bookId = :bookId
         ORDER BY e.addedAt DESC, w.word ASC
-        """
+        """,
     )
     fun getWordsInBook(bookId: Long): Flow<List<WordWithBookEntryMeta>>
 
@@ -52,10 +54,16 @@ interface WordBookDao {
         WHERE e.bookId = :bookId
         ORDER BY RANDOM()
         LIMIT :limit
-        """
+        """,
     )
-    suspend fun getRandomWordsFromBook(bookId: Long, limit: Int): List<Word>
+    suspend fun getRandomWordsFromBook(
+        bookId: Long,
+        limit: Int,
+    ): List<Word>
 
     @Query("SELECT COUNT(*) FROM word_book_entries WHERE bookId = :bookId AND wordId = :wordId")
-    suspend fun countEntry(bookId: Long, wordId: Long): Int
+    suspend fun countEntry(
+        bookId: Long,
+        wordId: Long,
+    ): Int
 }

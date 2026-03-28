@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey
  */
 @Entity(
     tableName = "test_results",
-    indices = [Index(value = ["testDateMillis"])]
+    indices = [Index(value = ["testDateMillis"])],
 )
 data class TestResult(
     @PrimaryKey(autoGenerate = true)
@@ -30,7 +30,7 @@ data class TestResult(
     val difficulty: String = "all",
     /** 테스트 유형: [TEST_TYPE_SELF], [TEST_TYPE_MULTIPLE_CHOICE]; 기존 행은 빈 문자열 */
     @ColumnInfo(name = "test_type")
-    val testType: String = ""
+    val testType: String = "",
 ) {
     companion object {
         const val TEST_TYPE_SELF = "self"

@@ -13,7 +13,8 @@ import retrofit2.http.Path
  * 동기 [Call] + [execute] 로만 정의한다 (본문은 [ResponseBody], 파싱은 호출부).
  */
 interface DictionaryApiService {
-
     @GET("api/v2/entries/en/{word}")
-    fun getEntries(@Path("word") word: String): Call<ResponseBody>
+    fun getEntries(
+        @Path("word") word: String,
+    ): Call<ResponseBody>
 }

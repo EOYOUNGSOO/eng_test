@@ -12,20 +12,20 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.LibraryBooks
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.outlined.BarChart
 import androidx.compose.material.icons.outlined.CheckCircle
-import androidx.compose.material.icons.automirrored.outlined.LibraryBooks
 import androidx.compose.material.icons.outlined.MenuBook
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -40,9 +40,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -174,69 +173,72 @@ fun MainScreen(
     val colors = AppTheme.colors
     val context = LocalContext.current
     val app = context.applicationContext as EngTestApplication
-    val viewModel: MainViewModel = viewModel(factory = MainViewModelFactory(app))
+    val viewModel: MainViewModel = viewModel(factory = MainViewModelFactory(app.appContainer))
     val stats by viewModel.stats.collectAsStateWithLifecycle()
     val layout = rememberMainHomeLayout()
-    val cfg = LocalConfiguration.current
+
     /** 가로 모드는 세로 공간이 좁아 스크롤로 전체(저작권 포함) 탐색 */
     val needsScroll = layout.isLandscape
 
-    val contentModifier = Modifier
-        .fillMaxHeight()
-        .fillMaxWidth()
-        .then(if (layout.isLandscape) Modifier.widthIn(max = 920.dp) else Modifier)
-        .systemBarsPadding()
-        .padding(horizontal = layout.horizontalPadding)
-        .padding(top = layout.topPadding, bottom = layout.bottomPadding)
+    val contentModifier =
+        Modifier
+            .fillMaxHeight()
+            .fillMaxWidth()
+            .then(if (layout.isLandscape) Modifier.widthIn(max = 920.dp) else Modifier)
+            .systemBarsPadding()
+            .padding(horizontal = layout.horizontalPadding)
+            .padding(top = layout.topPadding, bottom = layout.bottomPadding)
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(colors.bgPrimary)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(colors.bgPrimary),
     ) {
         if (needsScroll) {
             ScrollColumnWithBottomCopyright(
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .then(contentModifier),
+                modifier =
+                    Modifier
+                        .align(Alignment.TopCenter)
+                        .then(contentModifier),
                 copyrightFontSize = layout.footerSp,
                 mainContent = {
                     MainHomeScrollableBody(
                         layout = layout,
-                        cfg = cfg,
                         needsScroll = true,
                         stats = stats,
                         menuBookIcon = menuBookIcon,
                         onNavigateToWordManage = onNavigateToWordManage,
                         onNavigateToMyWordBook = onNavigateToMyWordBook,
                         onNavigateToWordTest = onNavigateToWordTest,
-                        onNavigateToRecords = onNavigateToRecords
+                        onNavigateToRecords = onNavigateToRecords,
                     )
-                }
+                },
             )
         } else {
             Column(
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .then(contentModifier)
+                modifier =
+                    Modifier
+                        .align(Alignment.TopCenter)
+                        .then(contentModifier),
             ) {
                 // 본문만 세로로 확장 — 루트에서 fillMaxHeight를 쓰면 저작권이 화면 밖으로 밀림
                 Column(
-                    modifier = Modifier
-                        .weight(1f, fill = true)
-                        .fillMaxWidth()
-                        .fillMaxHeight()
+                    modifier =
+                        Modifier
+                            .weight(1f, fill = true)
+                            .fillMaxWidth()
+                            .fillMaxHeight(),
                 ) {
                     MainHomeScrollableBody(
                         layout = layout,
-                        cfg = cfg,
                         needsScroll = false,
                         stats = stats,
                         menuBookIcon = menuBookIcon,
                         onNavigateToWordManage = onNavigateToWordManage,
                         onNavigateToMyWordBook = onNavigateToMyWordBook,
                         onNavigateToWordTest = onNavigateToWordTest,
-                        onNavigateToRecords = onNavigateToRecords
+                        onNavigateToRecords = onNavigateToRecords,
                     )
                 }
                 Spacer(modifier = Modifier.height(layout.gapFooter))
@@ -249,7 +251,6 @@ fun MainScreen(
 @Composable
 private fun MainHomeScrollableBody(
     layout: MainHomeLayout,
-    cfg: Configuration,
     needsScroll: Boolean,
     stats: HomeStats,
     menuBookIcon: ImageVector,
@@ -260,9 +261,10 @@ private fun MainHomeScrollableBody(
 ) {
     val colors = AppTheme.colors
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .then(if (!needsScroll) Modifier.fillMaxHeight() else Modifier)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .then(if (!needsScroll) Modifier.fillMaxHeight() else Modifier),
     ) {
         AppHeader(layout = layout)
         Spacer(modifier = Modifier.height(layout.gapHeaderStats))
@@ -270,44 +272,47 @@ private fun MainHomeScrollableBody(
             layout = layout,
             totalWordCount = stats.wordCount,
             testCount = stats.testCount,
-            avgScore = if (stats.testCount > 0) stats.averageScore.toInt() else 0
+            avgScore = if (stats.testCount > 0) stats.averageScore.toInt() else 0,
         )
         Spacer(modifier = Modifier.height(layout.gapStatsMenu))
 
         if (layout.isLandscape) {
-            val menuColumnMod = if (needsScroll) {
-                Modifier.fillMaxWidth()
-            } else {
-                Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-                    .fillMaxHeight()
-            }
-            val rowMod = if (needsScroll) {
-                Modifier.fillMaxWidth()
-            } else {
-                Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-            }
+            val menuColumnMod =
+                if (needsScroll) {
+                    Modifier.fillMaxWidth()
+                } else {
+                    Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .fillMaxHeight()
+                }
+            val rowMod =
+                if (needsScroll) {
+                    Modifier.fillMaxWidth()
+                } else {
+                    Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                }
             Column(
                 modifier = menuColumnMod,
-                verticalArrangement = Arrangement.spacedBy(layout.menuCardsSpacing)
+                verticalArrangement = Arrangement.spacedBy(layout.menuCardsSpacing),
             ) {
                 Row(
                     modifier = rowMod,
                     horizontalArrangement = Arrangement.spacedBy(layout.menuCardsSpacing),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    val landscapeCardMod = if (needsScroll) {
-                        Modifier
-                            .weight(1f)
-                            .heightIn(min = 104.dp)
-                    } else {
-                        Modifier
-                            .weight(1f)
-                            .fillMaxHeight()
-                    }
+                    val landscapeCardMod =
+                        if (needsScroll) {
+                            Modifier
+                                .weight(1f)
+                                .heightIn(min = 104.dp)
+                        } else {
+                            Modifier
+                                .weight(1f)
+                                .fillMaxHeight()
+                        }
                     MenuCard(
                         modifier = landscapeCardMod,
                         layout = layout,
@@ -319,7 +324,7 @@ private fun MainHomeScrollableBody(
                         trailingContent = { ChevronIcon(size = layout.chevronSize) },
                         containerColor = colors.bgCard,
                         borderColor = colors.borderDefault,
-                        onClick = onNavigateToWordManage
+                        onClick = onNavigateToWordManage,
                     )
                     MenuCard(
                         modifier = landscapeCardMod,
@@ -332,23 +337,24 @@ private fun MainHomeScrollableBody(
                         trailingContent = { ChevronIcon(size = layout.chevronSize) },
                         containerColor = colors.bgCard,
                         borderColor = colors.borderDefault,
-                        onClick = onNavigateToMyWordBook
+                        onClick = onNavigateToMyWordBook,
                     )
                 }
                 Row(
                     modifier = rowMod,
                     horizontalArrangement = Arrangement.spacedBy(layout.menuCardsSpacing),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    val landscapeCardMod = if (needsScroll) {
-                        Modifier
-                            .weight(1f)
-                            .heightIn(min = 104.dp)
-                    } else {
-                        Modifier
-                            .weight(1f)
-                            .fillMaxHeight()
-                    }
+                    val landscapeCardMod =
+                        if (needsScroll) {
+                            Modifier
+                                .weight(1f)
+                                .heightIn(min = 104.dp)
+                        } else {
+                            Modifier
+                                .weight(1f)
+                                .fillMaxHeight()
+                        }
                     MenuCard(
                         modifier = landscapeCardMod,
                         layout = layout,
@@ -361,12 +367,12 @@ private fun MainHomeScrollableBody(
                             AppButton(
                                 text = "START",
                                 onClick = onNavigateToWordTest,
-                                style = AppButtonStyle.PRIMARY
+                                style = AppButtonStyle.PRIMARY,
                             )
                         },
                         containerColor = colors.bgCardAccent,
                         borderColor = colors.borderAccent,
-                        onClick = onNavigateToWordTest
+                        onClick = onNavigateToWordTest,
                     )
                     MenuCard(
                         modifier = landscapeCardMod,
@@ -379,73 +385,73 @@ private fun MainHomeScrollableBody(
                         trailingContent = { ChevronIcon(size = layout.chevronSize) },
                         containerColor = colors.bgCard,
                         borderColor = colors.borderDefault,
-                        onClick = onNavigateToRecords
+                        onClick = onNavigateToRecords,
                     )
                 }
             }
         } else {
             Column(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(layout.menuCardsSpacing)
-        ) {
-            MenuCard(
                 modifier = Modifier.weight(1f),
-                layout = layout,
-                icon = menuBookIcon,
-                iconTint = colors.purpleMain,
-                iconBg = colors.bgIcon,
-                title = "단어 관리",
-                description = "단어탐색, 단어 추가, 단어 수정",
-                trailingContent = { ChevronIcon(size = layout.chevronSize) },
-                containerColor = colors.bgCard,
-                borderColor = colors.borderDefault,
-                onClick = onNavigateToWordManage
-            )
-            MenuCard(
-                modifier = Modifier.weight(1f),
-                layout = layout,
-                icon = Icons.AutoMirrored.Outlined.LibraryBooks,
-                iconTint = Color(0xFF7C3AED),
-                iconBg = colors.bgIcon,
-                title = "나의 단어장",
-                description = "단어장 만들기 · 단어 담기",
-                trailingContent = { ChevronIcon(size = layout.chevronSize) },
-                containerColor = colors.bgCard,
-                borderColor = colors.borderDefault,
-                onClick = onNavigateToMyWordBook
-            )
-            MenuCard(
-                modifier = Modifier.weight(1f),
-                layout = layout,
-                icon = Icons.Outlined.CheckCircle,
-                iconTint = colors.purpleLight,
-                iconBg = Color(0xFF231535),
-                title = "단어 테스트",
-                description = "10문제 · 유형·난이도 선택",
-                trailingContent = {
-                    AppButton(
-                        text = "START",
-                        onClick = onNavigateToWordTest,
-                        style = AppButtonStyle.PRIMARY
-                    )
-                },
-                containerColor = colors.bgCardAccent,
-                borderColor = colors.borderAccent,
-                onClick = onNavigateToWordTest
-            )
-            MenuCard(
-                modifier = Modifier.weight(1f),
-                layout = layout,
-                icon = Icons.Outlined.BarChart,
-                iconTint = colors.greenMain,
-                iconBg = colors.bgIconGreen,
-                title = "기록 및 통계",
-                description = "테스트결과 목록, 결과 상세보기",
-                trailingContent = { ChevronIcon(size = layout.chevronSize) },
-                containerColor = colors.bgCard,
-                borderColor = colors.borderDefault,
-                onClick = onNavigateToRecords
-            )
+                verticalArrangement = Arrangement.spacedBy(layout.menuCardsSpacing),
+            ) {
+                MenuCard(
+                    modifier = Modifier.weight(1f),
+                    layout = layout,
+                    icon = menuBookIcon,
+                    iconTint = colors.purpleMain,
+                    iconBg = colors.bgIcon,
+                    title = "단어 관리",
+                    description = "단어탐색, 단어 추가, 단어 수정",
+                    trailingContent = { ChevronIcon(size = layout.chevronSize) },
+                    containerColor = colors.bgCard,
+                    borderColor = colors.borderDefault,
+                    onClick = onNavigateToWordManage,
+                )
+                MenuCard(
+                    modifier = Modifier.weight(1f),
+                    layout = layout,
+                    icon = Icons.AutoMirrored.Outlined.LibraryBooks,
+                    iconTint = Color(0xFF7C3AED),
+                    iconBg = colors.bgIcon,
+                    title = "나의 단어장",
+                    description = "단어장 만들기 · 단어 담기",
+                    trailingContent = { ChevronIcon(size = layout.chevronSize) },
+                    containerColor = colors.bgCard,
+                    borderColor = colors.borderDefault,
+                    onClick = onNavigateToMyWordBook,
+                )
+                MenuCard(
+                    modifier = Modifier.weight(1f),
+                    layout = layout,
+                    icon = Icons.Outlined.CheckCircle,
+                    iconTint = colors.purpleLight,
+                    iconBg = Color(0xFF231535),
+                    title = "단어 테스트",
+                    description = "10문제 · 유형·난이도 선택",
+                    trailingContent = {
+                        AppButton(
+                            text = "START",
+                            onClick = onNavigateToWordTest,
+                            style = AppButtonStyle.PRIMARY,
+                        )
+                    },
+                    containerColor = colors.bgCardAccent,
+                    borderColor = colors.borderAccent,
+                    onClick = onNavigateToWordTest,
+                )
+                MenuCard(
+                    modifier = Modifier.weight(1f),
+                    layout = layout,
+                    icon = Icons.Outlined.BarChart,
+                    iconTint = colors.greenMain,
+                    iconBg = colors.bgIconGreen,
+                    title = "기록 및 통계",
+                    description = "테스트결과 목록, 결과 상세보기",
+                    trailingContent = { ChevronIcon(size = layout.chevronSize) },
+                    containerColor = colors.bgCard,
+                    borderColor = colors.borderDefault,
+                    onClick = onNavigateToRecords,
+                )
             }
         }
     }
@@ -457,19 +463,20 @@ private fun AppHeader(layout: MainHomeLayout) {
     Column {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Box(
-                modifier = Modifier
-                    .size(8.dp)
-                    .clip(CircleShape)
-                    .background(colors.purpleMain)
+                modifier =
+                    Modifier
+                        .size(8.dp)
+                        .clip(CircleShape)
+                        .background(colors.purpleMain),
             )
             Text(
                 text = "VOCA MASTER",
                 fontSize = layout.brandSp,
                 color = colors.textDim,
-                letterSpacing = 0.10.em
+                letterSpacing = 0.10.em,
             )
         }
         Spacer(modifier = Modifier.height(6.dp))
@@ -477,29 +484,31 @@ private fun AppHeader(layout: MainHomeLayout) {
             text = "영어단어 암기장",
             fontSize = layout.titleSp,
             fontWeight = FontWeight.Medium,
-            color = colors.textPrimary
+            color = colors.textPrimary,
         )
         Spacer(modifier = Modifier.height(8.dp))
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .wrapContentWidth()
-                .background(colors.bgIcon, RoundedCornerShape(20.dp))
-                .border(0.5.dp, colors.borderDefault, RoundedCornerShape(20.dp))
-                .padding(horizontal = 12.dp, vertical = 5.dp),
-            horizontalArrangement = Arrangement.spacedBy(6.dp)
+            modifier =
+                Modifier
+                    .wrapContentWidth()
+                    .background(colors.bgIcon, RoundedCornerShape(20.dp))
+                    .border(0.5.dp, colors.borderDefault, RoundedCornerShape(20.dp))
+                    .padding(horizontal = 12.dp, vertical = 5.dp),
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
         ) {
             Box(
-                modifier = Modifier
-                    .size(5.dp)
-                    .clip(CircleShape)
-                    .background(colors.purpleMain)
+                modifier =
+                    Modifier
+                        .size(5.dp)
+                        .clip(CircleShape)
+                        .background(colors.purpleMain),
             )
             Text(
                 text = "교육부 필수어휘 3,000개",
                 fontSize = layout.badgeSp,
                 color = colors.purpleMain,
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
             )
         }
     }
@@ -510,33 +519,33 @@ private fun StatCardRow(
     layout: MainHomeLayout,
     totalWordCount: Int,
     testCount: Int,
-    avgScore: Int
+    avgScore: Int,
 ) {
     val colors = AppTheme.colors
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         StatCard(
             layout = layout,
             value = "%,d".format(totalWordCount),
             label = "전체 단어",
             valueColor = colors.purpleMain,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
         StatCard(
             layout = layout,
             value = "$testCount",
             label = "테스트 횟수",
             valueColor = colors.greenMain,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
         StatCard(
             layout = layout,
             value = "${avgScore}점",
             label = "평균 점수",
             valueColor = colors.pinkMain,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
     }
 }
@@ -547,28 +556,29 @@ private fun StatCard(
     value: String,
     label: String,
     valueColor: Color,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val colors = AppTheme.colors
     Box(
-        modifier = modifier
-            .background(colors.bgCard, RoundedCornerShape(layout.statCorner))
-            .border(0.5.dp, colors.borderDefault, RoundedCornerShape(layout.statCorner))
-            .padding(vertical = layout.statPadV, horizontal = layout.statPadH),
-        contentAlignment = Alignment.Center
+        modifier =
+            modifier
+                .background(colors.bgCard, RoundedCornerShape(layout.statCorner))
+                .border(0.5.dp, colors.borderDefault, RoundedCornerShape(layout.statCorner))
+                .padding(vertical = layout.statPadV, horizontal = layout.statPadH),
+        contentAlignment = Alignment.Center,
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = value,
                 fontSize = layout.statValueSp,
                 fontWeight = FontWeight.Medium,
-                color = valueColor
+                color = valueColor,
             )
             Spacer(modifier = Modifier.height(3.dp))
             Text(
                 text = label,
                 fontSize = layout.statLabelSp,
-                color = colors.textMuted
+                color = colors.textMuted,
             )
         }
     }
@@ -586,34 +596,36 @@ private fun MenuCard(
     trailingContent: @Composable () -> Unit,
     containerColor: Color,
     borderColor: Color,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     val colors = AppTheme.colors
     Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(containerColor, RoundedCornerShape(layout.menuCorner))
-            .border(0.5.dp, borderColor, RoundedCornerShape(layout.menuCorner))
-            .clickable(onClick = onClick)
-            .padding(horizontal = layout.menuInnerPadH),
-        contentAlignment = Alignment.Center
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .background(containerColor, RoundedCornerShape(layout.menuCorner))
+                .border(0.5.dp, borderColor, RoundedCornerShape(layout.menuCorner))
+                .clickable(onClick = onClick)
+                .padding(horizontal = layout.menuInnerPadH),
+        contentAlignment = Alignment.Center,
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(layout.menuRowSpace),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         ) {
             Box(
-                modifier = Modifier
-                    .size(layout.menuIconBox)
-                    .background(iconBg, RoundedCornerShape((layout.menuCorner.value * 0.72f).dp)),
-                contentAlignment = Alignment.Center
+                modifier =
+                    Modifier
+                        .size(layout.menuIconBox)
+                        .background(iconBg, RoundedCornerShape((layout.menuCorner.value * 0.72f).dp)),
+                contentAlignment = Alignment.Center,
             ) {
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
                     tint = iconTint,
-                    modifier = Modifier.size(layout.menuIconInner)
+                    modifier = Modifier.size(layout.menuIconInner),
                 )
             }
             Column(modifier = Modifier.weight(1f)) {
@@ -621,7 +633,7 @@ private fun MenuCard(
                     text = title,
                     fontSize = layout.menuTitleSp,
                     fontWeight = FontWeight.Medium,
-                    color = colors.textSecondary
+                    color = colors.textSecondary,
                 )
                 Spacer(modifier = Modifier.height(3.dp))
                 Text(
@@ -629,7 +641,7 @@ private fun MenuCard(
                     fontSize = layout.menuDescSp,
                     color = colors.textMuted,
                     maxLines = layout.descMaxLines,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
                 )
             }
             trailingContent()
@@ -643,7 +655,7 @@ private fun ChevronIcon(size: Dp) {
         imageVector = Icons.Filled.ChevronRight,
         contentDescription = null,
         tint = Color(0xFF3D3C52),
-        modifier = Modifier.size(size)
+        modifier = Modifier.size(size),
     )
 }
 

@@ -9,5 +9,5 @@ import androidx.room.Embedded
  */
 data class WordWithBookEntryMeta(
     @Embedded val word: Word,
-    @ColumnInfo(name = "entryAddedAt") val entryAddedAt: Long
+    @ColumnInfo(name = "entryAddedAt") val entryAddedAt: Long,
 )

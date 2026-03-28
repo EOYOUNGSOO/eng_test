@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Pure Black 다크 테마 -->
-    <color name="pure_black">#FF000000</color>
-    <color name="surface_dark">#FF1A1A1A</color>
-    <color name="outline_dark">#FF252525</color>
-    <color name="outline_variant_dark">#FF1F1F1F</color>
-    <color name="card_border_dark">#FF1A1A1A</color>
-    <!-- 라이트 테마 -->
+    <!-- 시스템 윈도우 배경 (themes.xml) -->
     <color name="background_light">#FFF8F9FA</color>
-    <color name="background_light_pink">#FFFDE2E4</color>
 </resources>

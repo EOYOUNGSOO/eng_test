@@ -11,22 +11,16 @@ import kotlinx.coroutines.flow.Flow
  */
 @Dao
 interface TestResultDao {
-
     /** 전체 테스트 이력 (최신순) */
     @Query("SELECT * FROM test_results ORDER BY testDateMillis DESC")
     fun getAllResults(): Flow<List<TestResult>>
 
     /** 기간별 테스트 이력 (FROM ~ TO, 최신순) */
     @Query("SELECT * FROM test_results WHERE testDateMillis >= :fromMillis AND testDateMillis <= :toMillis ORDER BY testDateMillis DESC")
-    fun getResultsBetween(fromMillis: Long, toMillis: Long): Flow<List<TestResult>>
-
-    /** id로 결과 한 건 조회 */
-    @Query("SELECT * FROM test_results WHERE id = :id")
-    suspend fun getResultById(id: Long): TestResult?
-
-    /** 최근 N건만 조회 (통계/기록 화면용) */
-    @Query("SELECT * FROM test_results ORDER BY testDateMillis DESC LIMIT :limit")
-    fun getRecentResults(limit: Int): Flow<List<TestResult>>
+    fun getResultsBetween(
+        fromMillis: Long,
+        toMillis: Long,
+    ): Flow<List<TestResult>>
 
     @Insert
     suspend fun insert(result: TestResult): Long
