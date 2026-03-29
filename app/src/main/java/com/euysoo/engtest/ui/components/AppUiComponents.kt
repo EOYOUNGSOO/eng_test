@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -78,22 +79,30 @@ fun AppTopBar(
             )
         },
         navigationIcon = {
-            Box(
-                modifier =
-                    Modifier
-                        .padding(start = 8.dp)
-                        .size(AppDimens.topBarBackBoxSize)
-                        .background(colors.bgCard, RoundedCornerShape(AppDimens.topBarBackCorner))
-                        .border(AppDimens.appCardBorder, colors.borderDefault, RoundedCornerShape(AppDimens.topBarBackCorner))
-                        .clickable(onClick = onBackClick),
-                contentAlignment = Alignment.Center,
+            // IconButton으로 최소 터치 영역(48dp) 확보 — 작은 Box+clickable은 LazyColumn 등에서 누락되기 쉬움
+            IconButton(
+                onClick = onBackClick,
+                modifier = Modifier.padding(start = 4.dp),
             ) {
-                Icon(
-                    imageVector = Icons.Filled.ChevronLeft,
-                    contentDescription = "뒤로가기",
-                    tint = colors.purpleMain,
-                    modifier = Modifier.size(AppDimens.topBarBackIconSize),
-                )
+                Box(
+                    modifier =
+                        Modifier
+                            .size(AppDimens.topBarBackBoxSize)
+                            .background(colors.bgCard, RoundedCornerShape(AppDimens.topBarBackCorner))
+                            .border(
+                                AppDimens.appCardBorder,
+                                colors.borderDefault,
+                                RoundedCornerShape(AppDimens.topBarBackCorner),
+                            ),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.ChevronLeft,
+                        contentDescription = "뒤로가기",
+                        tint = colors.purpleMain,
+                        modifier = Modifier.size(AppDimens.topBarBackIconSize),
+                    )
+                }
             }
         },
         actions = {

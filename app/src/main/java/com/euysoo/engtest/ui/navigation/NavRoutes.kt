@@ -9,7 +9,11 @@ object NavRoutes {
     const val MULTIPLE_CHOICE_TEST = "multiple_choice_test"
     const val RECORDS = "records"
 
+    const val RECORDS_DETAIL_ROUTE = "records_detail/{resultId}"
+
     const val MY_WORD_BOOK_DETAIL_ROUTE = "my_word_book_detail/{bookId}"
+
+    fun recordsDetail(resultId: Long) = "records_detail/$resultId"
 
     /** 단어 테스트 화면 라우트 (난이도: all, elementary, middle, high, my_book_{id}) */
     fun wordTest(difficulty: String) = "$WORD_TEST/$difficulty"

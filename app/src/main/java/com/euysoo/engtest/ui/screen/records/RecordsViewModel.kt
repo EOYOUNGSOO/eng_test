@@ -154,4 +154,14 @@ class RecordsViewModel(
         _resultWords.value = emptyList()
         _resultWordStats.value = emptyMap()
     }
+
+    /**
+     * 기록 상세 화면 진입 시 id로 조회 후 [setSelectedResult]와 동일 파이프라인으로 로드.
+     * @return DB에 해당 id가 있으면 true
+     */
+    suspend fun loadResultByIdForDetailAwait(id: Long): Boolean {
+        val result = withContext(Dispatchers.IO) { testResultDao.getById(id) }
+        setSelectedResult(result)
+        return result != null
+    }
 }

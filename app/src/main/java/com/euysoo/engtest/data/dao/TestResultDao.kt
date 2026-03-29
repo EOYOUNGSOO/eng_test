@@ -25,6 +25,9 @@ interface TestResultDao {
     @Insert
     suspend fun insert(result: TestResult): Long
 
+    @Query("SELECT * FROM test_results WHERE id = :id")
+    suspend fun getById(id: Long): TestResult?
+
     /** 테스트 건수 Flow (통계용, 전체 목록 로드 없음) */
     @Query("SELECT COUNT(*) FROM test_results")
     fun getCountFlow(): Flow<Int>

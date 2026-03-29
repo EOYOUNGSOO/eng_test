@@ -1,6 +1,7 @@
 package com.euysoo.engtest.data.dao;
 
 import android.database.Cursor;
+import android.os.CancellationSignal;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.CoroutinesRoom;
@@ -171,6 +172,52 @@ public final class TestResultDao_Impl implements TestResultDao {
         _statement.release();
       }
     });
+  }
+
+  @Override
+  public Object getById(final long id, final Continuation<? super TestResult> $completion) {
+    final String _sql = "SELECT * FROM test_results WHERE id = ?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    _statement.bindLong(_argIndex, id);
+    final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
+    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<TestResult>() {
+      @Override
+      @Nullable
+      public TestResult call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+          final int _cursorIndexOfTestDateMillis = CursorUtil.getColumnIndexOrThrow(_cursor, "testDateMillis");
+          final int _cursorIndexOfScore = CursorUtil.getColumnIndexOrThrow(_cursor, "score");
+          final int _cursorIndexOfDetails = CursorUtil.getColumnIndexOrThrow(_cursor, "details");
+          final int _cursorIndexOfDifficulty = CursorUtil.getColumnIndexOrThrow(_cursor, "difficulty");
+          final int _cursorIndexOfTestType = CursorUtil.getColumnIndexOrThrow(_cursor, "test_type");
+          final TestResult _result;
+          if (_cursor.moveToFirst()) {
+            final long _tmpId;
+            _tmpId = _cursor.getLong(_cursorIndexOfId);
+            final long _tmpTestDateMillis;
+            _tmpTestDateMillis = _cursor.getLong(_cursorIndexOfTestDateMillis);
+            final int _tmpScore;
+            _tmpScore = _cursor.getInt(_cursorIndexOfScore);
+            final String _tmpDetails;
+            _tmpDetails = _cursor.getString(_cursorIndexOfDetails);
+            final String _tmpDifficulty;
+            _tmpDifficulty = _cursor.getString(_cursorIndexOfDifficulty);
+            final String _tmpTestType;
+            _tmpTestType = _cursor.getString(_cursorIndexOfTestType);
+            _result = new TestResult(_tmpId,_tmpTestDateMillis,_tmpScore,_tmpDetails,_tmpDifficulty,_tmpTestType);
+          } else {
+            _result = null;
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+          _statement.release();
+        }
+      }
+    }, $completion);
   }
 
   @Override

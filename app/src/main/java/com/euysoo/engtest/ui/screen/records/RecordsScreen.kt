@@ -61,6 +61,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.activity.compose.BackHandler
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.euysoo.engtest.EngTestApplication
@@ -70,6 +71,7 @@ import com.euysoo.engtest.ui.components.AppCopyrightFooter
 import com.euysoo.engtest.ui.components.AppTopBar
 import com.euysoo.engtest.ui.screen.wordtest.formatDifficultyLabel
 import com.euysoo.engtest.ui.screen.wordtest.resolveDifficultyLabelForResult
+import com.euysoo.engtest.ui.navigation.NavRoutes
 import com.euysoo.engtest.ui.theme.AppDimens
 import com.euysoo.engtest.ui.theme.AppTheme
 import com.euysoo.engtest.ui.worddetail.WordDetailBottomSheet
@@ -86,18 +88,161 @@ import java.util.Locale
 private val ShadowPurple = Color(0xFFE2D1F9)
 private val ShadowMint = Color(0xFFC1F0C1)
 
+/**
+ * 기록 목록(날짜 필터 + 결과 카드). 상세는 [NavRoutes.RECORDS_DETAIL_ROUTE]로 이동해
+ * NavController 백 스택이 2단계가 되므로 시스템/상단 뒤로가기가 목록만 pop한다.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecordsScreen(onBack: () -> Unit) {
+fun RecordsListScreen(
+    onBack: () -> Unit,
+    onOpenResultDetail: (Long) -> Unit,
+) {
     val colors = AppTheme.colors
     val context = LocalContext.current
     val app = context.applicationContext as EngTestApplication
     val viewModel: RecordsViewModel = viewModel(factory = RecordsViewModelFactory(app.appContainer))
-    val wordDetailViewModel: WordDetailViewModel = viewModel(factory = WordDetailViewModelFactory(app.appContainer))
 
     val resultsList by viewModel.resultsList.collectAsStateWithLifecycle()
     val fromMillis by viewModel.fromMillis.collectAsStateWithLifecycle()
     val toMillis by viewModel.toMillis.collectAsStateWithLifecycle()
+    val recordsSnackbarMessage by viewModel.snackbarMessage.collectAsStateWithLifecycle()
+    val recordsSnackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(recordsSnackbarMessage) {
+        val msg = recordsSnackbarMessage ?: return@LaunchedEffect
+        recordsSnackbarHostState.showSnackbar(msg)
+        viewModel.consumeSnackbarMessage()
+    }
+
+    var showFromPicker by remember { mutableStateOf(false) }
+    var showToPicker by remember { mutableStateOf(false) }
+
+    BackHandler {
+        when {
+            showFromPicker || showToPicker -> {
+                showFromPicker = false
+                showToPicker = false
+            }
+            else -> onBack()
+        }
+    }
+
+    Scaffold(
+        containerColor = colors.bgPrimary,
+        topBar = {},
+        snackbarHost = { SnackbarHost(recordsSnackbarHostState) },
+    ) { padding ->
+        val dateFormat = remember { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) }
+        Box(modifier = Modifier.fillMaxSize().padding(padding)) {
+            Column(modifier = Modifier.fillMaxSize()) {
+                AppTopBar(
+                    title = "기록 및 통계",
+                    onBackClick = onBack,
+                )
+                LazyColumn(
+                    modifier =
+                        Modifier
+                            .weight(1f)
+                            .fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    item {
+                        DateRangeRow(
+                            fromLabel = "언제부터?",
+                            toLabel = "언제까지?",
+                            fromText = dateFormat.format(Date(fromMillis)),
+                            toText = dateFormat.format(Date(toMillis)),
+                            onFromClick = { showFromPicker = true },
+                            onToClick = { showToPicker = true },
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 16.dp),
+                        )
+                    }
+                    item { Spacer(modifier = Modifier.height(16.dp)) }
+                    item {
+                        Row(
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Text(
+                                "결과 목록",
+                                style = MaterialTheme.typography.titleSmall,
+                            )
+                            Text(
+                                text = "시험횟수: ${resultsList.size}",
+                                style = MaterialTheme.typography.titleSmall,
+                                color = colors.textMuted,
+                            )
+                        }
+                    }
+                    itemsIndexed(
+                        resultsList,
+                        key = { _, r -> r.id },
+                    ) { index, result ->
+                        val listNumber = resultsList.size - index
+                        ResultListItem(
+                            result = result,
+                            listNumber = listNumber,
+                            onClick = { onOpenResultDetail(result.id) },
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                        )
+                    }
+                }
+                AppCopyrightFooter(
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                )
+            }
+            if (showFromPicker) {
+                RoundedDatePickerDialog(
+                    initialMillis = fromMillis,
+                    onConfirm = {
+                        viewModel.setFromMillis(it)
+                        showFromPicker = false
+                    },
+                    onDismiss = { showFromPicker = false },
+                )
+            }
+            if (showToPicker) {
+                RoundedDatePickerDialog(
+                    initialMillis = toMillis,
+                    onConfirm = {
+                        viewModel.setToMillis(it)
+                        showToPicker = false
+                    },
+                    onDismiss = { showToPicker = false },
+                )
+            }
+        }
+    }
+}
+
+/**
+ * 단일 시험 결과 상세. [viewModel]은 목록 화면과 동일한 [NavBackStackEntry]에 묶어 날짜 필터 등 상태를 공유한다.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun RecordsResultDetailScreen(
+    resultId: Long,
+    viewModel: RecordsViewModel,
+    onBack: () -> Unit,
+) {
+    val colors = AppTheme.colors
+    val context = LocalContext.current
+    val app = context.applicationContext as EngTestApplication
+    val wordDetailViewModel: WordDetailViewModel = viewModel(factory = WordDetailViewModelFactory(app.appContainer))
+
+    LaunchedEffect(resultId) {
+        val ok = viewModel.loadResultByIdForDetailAwait(resultId)
+        if (!ok) onBack()
+    }
+
     val selectedResult by viewModel.selectedResult.collectAsStateWithLifecycle()
     val resultWords by viewModel.resultWords.collectAsStateWithLifecycle()
     val resultWordStats by viewModel.resultWordStats.collectAsStateWithLifecycle()
@@ -111,8 +256,12 @@ fun RecordsScreen(onBack: () -> Unit) {
     }
 
     var selectedWordForDetail by remember { mutableStateOf<String?>(null) }
-    LaunchedEffect(selectedResult) {
-        selectedWordForDetail = null
+
+    BackHandler {
+        when {
+            selectedWordForDetail != null -> selectedWordForDetail = null
+            else -> onBack()
+        }
     }
 
     var ttsReady by remember { mutableStateOf(false) }
@@ -154,22 +303,21 @@ fun RecordsScreen(onBack: () -> Unit) {
         snackbarHost = { SnackbarHost(recordsSnackbarHostState) },
     ) { padding ->
         Box(modifier = Modifier.fillMaxSize().padding(padding)) {
-            if (selectedResult != null) {
+            val result = selectedResult
+            if (result != null && result.id == resultId) {
                 Column(modifier = Modifier.fillMaxSize()) {
+                    AppTopBar(
+                        title = "테스트 결과",
+                        onBackClick = onBack,
+                    )
                     LazyColumn(
                         modifier =
                             Modifier
                                 .weight(1f)
                                 .fillMaxWidth(),
                     ) {
-                        item {
-                            AppTopBar(
-                                title = "테스트 결과",
-                                onBackClick = { viewModel.clearSelection() },
-                            )
-                        }
                         resultDetailScrollItems(
-                            result = selectedResult!!,
+                            result = result,
                             difficultyLabel = difficultyDetailLabel,
                             resultWords = resultWords,
                             resultWordStats = resultWordStats,
@@ -186,96 +334,15 @@ fun RecordsScreen(onBack: () -> Unit) {
                     )
                 }
             } else {
-                var showFromPicker by remember { mutableStateOf(false) }
-                var showToPicker by remember { mutableStateOf(false) }
-                val dateFormat = remember { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) }
-                Box(modifier = Modifier.fillMaxSize()) {
-                    Column(modifier = Modifier.fillMaxSize()) {
-                        LazyColumn(
-                            modifier =
-                                Modifier
-                                    .weight(1f)
-                                    .fillMaxWidth(),
-                            verticalArrangement = Arrangement.spacedBy(8.dp),
-                        ) {
-                            item {
-                                AppTopBar(
-                                    title = "기록 및 통계",
-                                    onBackClick = onBack,
-                                )
-                            }
-                            item {
-                                DateRangeRow(
-                                    fromLabel = "언제부터?",
-                                    toLabel = "언제까지?",
-                                    fromText = dateFormat.format(Date(fromMillis)),
-                                    toText = dateFormat.format(Date(toMillis)),
-                                    onFromClick = { showFromPicker = true },
-                                    onToClick = { showToPicker = true },
-                                    modifier =
-                                        Modifier
-                                            .fillMaxWidth()
-                                            .padding(horizontal = 16.dp),
-                                )
-                            }
-                            item { Spacer(modifier = Modifier.height(16.dp)) }
-                            item {
-                                Row(
-                                    modifier =
-                                        Modifier
-                                            .fillMaxWidth()
-                                            .padding(horizontal = 16.dp, vertical = 8.dp),
-                                    horizontalArrangement = Arrangement.SpaceBetween,
-                                    verticalAlignment = Alignment.CenterVertically,
-                                ) {
-                                    Text(
-                                        "결과 목록",
-                                        style = MaterialTheme.typography.titleSmall,
-                                    )
-                                    Text(
-                                        text = "시험횟수: ${resultsList.size}",
-                                        style = MaterialTheme.typography.titleSmall,
-                                        color = colors.textMuted,
-                                    )
-                                }
-                            }
-                            itemsIndexed(
-                                resultsList,
-                                key = { _, r -> r.id },
-                            ) { index, result ->
-                                val listNumber = resultsList.size - index
-                                ResultListItem(
-                                    result = result,
-                                    listNumber = listNumber,
-                                    onClick = { viewModel.setSelectedResult(result) },
-                                    modifier = Modifier.padding(horizontal = 16.dp),
-                                )
-                            }
-                        }
-                        AppCopyrightFooter(
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                        )
-                    }
-                    if (showFromPicker) {
-                        RoundedDatePickerDialog(
-                            initialMillis = fromMillis,
-                            onConfirm = {
-                                viewModel.setFromMillis(it)
-                                showFromPicker = false
-                            },
-                            onDismiss = { showFromPicker = false },
-                        )
-                    }
-                    if (showToPicker) {
-                        RoundedDatePickerDialog(
-                            initialMillis = toMillis,
-                            onConfirm = {
-                                viewModel.setToMillis(it)
-                                showToPicker = false
-                            },
-                            onDismiss = { showToPicker = false },
-                        )
-                    }
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(
+                        text = "불러오는 중...",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = colors.textMuted,
+                    )
                 }
             }
         }

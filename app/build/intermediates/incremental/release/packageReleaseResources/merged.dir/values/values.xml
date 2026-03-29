@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background_light">#FFF8F9FA</color>
+    <string name="app_name">영어단어 암기장</string>
+    <string name="snackbar_records_detail_failed">결과 상세를 불러오지 못했습니다.</string>
+    <string name="snackbar_word_add_failed">단어를 추가하지 못했습니다.</string>
+    <string name="snackbar_word_delete_failed">단어를 삭제하지 못했습니다.</string>
+    <string name="snackbar_word_save_failed">단어를 저장하지 못했습니다.</string>
+    <string name="word_manage_sync_init_failed">초기화 실패: %1$s</string>
+    <style name="Theme.EngTest" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/background_light</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowBackground">@color/background_light</item>
+        <item name="android:colorBackground">@color/background_light</item>
+    </style>
+</resources>
