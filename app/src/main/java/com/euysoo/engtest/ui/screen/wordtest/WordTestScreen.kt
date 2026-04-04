@@ -219,24 +219,34 @@ fun WordTestScreen(
                                         .fillMaxWidth(),
                             ) {
                                 // 색감 뚜렷한 프로그레스 바 (10문제 중 현재 진행)
-                                Text(
-                                    text = "${currentIndex + 1} / $total",
-                                    style = MaterialTheme.typography.labelLarge,
-                                    color = colors.textMuted,
-                                    modifier = Modifier.padding(top = 8.dp),
-                                )
-                                Spacer(modifier = Modifier.height(6.dp))
-                                LinearProgressIndicator(
-                                    progress = { progress },
+                                Column(
                                     modifier =
                                         Modifier
                                             .fillMaxWidth()
-                                            .height(10.dp)
-                                            .clip(RoundedCornerShape(5.dp)),
-                                    color = MaterialTheme.colorScheme.primary,
-                                    trackColor = colors.bgCard,
-                                )
-                                Spacer(modifier = Modifier.height(28.dp))
+                                            .padding(top = 8.dp)
+                                            .clip(RoundedCornerShape(16.dp))
+                                            .background(colors.bgCard, RoundedCornerShape(16.dp))
+                                            .border(0.5.dp, colors.borderDefault, RoundedCornerShape(16.dp))
+                                            .padding(horizontal = 12.dp, vertical = 10.dp),
+                                ) {
+                                    Text(
+                                        text = "${currentIndex + 1} / $total",
+                                        style = MaterialTheme.typography.labelLarge,
+                                        color = colors.textMuted,
+                                    )
+                                    Spacer(modifier = Modifier.height(6.dp))
+                                    LinearProgressIndicator(
+                                        progress = { progress },
+                                        modifier =
+                                            Modifier
+                                                .fillMaxWidth()
+                                                .height(10.dp)
+                                                .clip(RoundedCornerShape(5.dp)),
+                                        color = MaterialTheme.colorScheme.primary,
+                                        trackColor = colors.bgPrimary,
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(20.dp))
 
                                 // 단어 카드 상단 시작 위치: 상하의 35% (위 35% / 아래 65%)
                                 Spacer(modifier = Modifier.weight(0.35f))

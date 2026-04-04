@@ -17,12 +17,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.RadioButtonUnchecked
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -42,10 +39,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.euysoo.engtest.ui.components.AppCopyrightFooter
 import com.euysoo.engtest.ui.components.AppTopBar
 import com.euysoo.engtest.ui.theme.AppTheme
+import com.euysoo.engtest.ui.theme.mzChoiceKeycap
+import com.euysoo.engtest.ui.theme.mzIconAccent
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -242,24 +242,34 @@ fun MultipleChoiceTestScreen(
                                         .fillMaxSize()
                                         .fillMaxWidth(),
                             ) {
-                                Text(
-                                    text = "${currentIndex + 1} / $total",
-                                    style = MaterialTheme.typography.labelLarge,
-                                    color = colors.textMuted,
-                                    modifier = Modifier.padding(top = 8.dp),
-                                )
-                                Spacer(modifier = Modifier.height(6.dp))
-                                LinearProgressIndicator(
-                                    progress = { progress },
+                                Column(
                                     modifier =
                                         Modifier
                                             .fillMaxWidth()
-                                            .height(10.dp)
-                                            .clip(RoundedCornerShape(5.dp)),
-                                    color = MaterialTheme.colorScheme.primary,
-                                    trackColor = colors.bgCard,
-                                )
-                                Spacer(modifier = Modifier.height(24.dp))
+                                            .padding(top = 8.dp)
+                                            .clip(RoundedCornerShape(16.dp))
+                                            .background(colors.bgCard, RoundedCornerShape(16.dp))
+                                            .border(0.5.dp, colors.borderDefault, RoundedCornerShape(16.dp))
+                                            .padding(horizontal = 12.dp, vertical = 10.dp),
+                                ) {
+                                    Text(
+                                        text = "${currentIndex + 1} / $total",
+                                        style = MaterialTheme.typography.labelLarge,
+                                        color = colors.textMuted,
+                                    )
+                                    Spacer(modifier = Modifier.height(6.dp))
+                                    LinearProgressIndicator(
+                                        progress = { progress },
+                                        modifier =
+                                            Modifier
+                                                .fillMaxWidth()
+                                                .height(10.dp)
+                                                .clip(RoundedCornerShape(5.dp)),
+                                        color = MaterialTheme.colorScheme.primary,
+                                        trackColor = colors.bgPrimary,
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(18.dp))
                                 Card(
                                     modifier =
                                         Modifier
@@ -323,32 +333,33 @@ private fun MultipleChoiceOptionCell(
     modifier: Modifier = Modifier,
 ) {
     val colors = AppTheme.colors
-    val number = optionIndex + 1
+    val accent = mzIconAccent(optionIndex)
     Row(
         modifier =
             modifier
                 .heightIn(min = 72.dp)
                 .clip(RoundedCornerShape(14.dp))
                 .border(0.5.dp, colors.borderDefault, RoundedCornerShape(14.dp))
-                .background(colors.bgCard)
+                .background(colors.bgPrimary)
                 .clickable(onClick = onClick)
                 .padding(horizontal = 10.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Start,
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        Icon(
-            imageVector = Icons.Outlined.RadioButtonUnchecked,
-            contentDescription = null,
-            tint = colors.textMuted,
-            modifier = Modifier.size(22.dp),
-        )
-        Text(
-            text = "$number.",
-            style = MaterialTheme.typography.titleSmall,
-            fontWeight = FontWeight.SemiBold,
-            color = colors.purpleMain,
-            modifier = Modifier.padding(start = 2.dp, end = 6.dp),
-        )
+        Box(
+            modifier =
+                Modifier
+                    .size(40.dp)
+                    .clip(RoundedCornerShape(11.dp))
+                    .background(accent.background),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(
+                text = mzChoiceKeycap(optionIndex),
+                fontSize = 17.sp,
+                maxLines = 1,
+            )
+        }
         Text(
             text = meaning,
             style = MaterialTheme.typography.bodyMedium,

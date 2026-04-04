@@ -124,6 +124,50 @@ public final class TestResultDao_Impl implements TestResultDao {
   }
 
   @Override
+  public Object getAllResultsOnce(final Continuation<? super List<TestResult>> $completion) {
+    final String _sql = "SELECT * FROM test_results ORDER BY testDateMillis DESC";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
+    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<List<TestResult>>() {
+      @Override
+      @NonNull
+      public List<TestResult> call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+          final int _cursorIndexOfTestDateMillis = CursorUtil.getColumnIndexOrThrow(_cursor, "testDateMillis");
+          final int _cursorIndexOfScore = CursorUtil.getColumnIndexOrThrow(_cursor, "score");
+          final int _cursorIndexOfDetails = CursorUtil.getColumnIndexOrThrow(_cursor, "details");
+          final int _cursorIndexOfDifficulty = CursorUtil.getColumnIndexOrThrow(_cursor, "difficulty");
+          final int _cursorIndexOfTestType = CursorUtil.getColumnIndexOrThrow(_cursor, "test_type");
+          final List<TestResult> _result = new ArrayList<TestResult>(_cursor.getCount());
+          while (_cursor.moveToNext()) {
+            final TestResult _item;
+            final long _tmpId;
+            _tmpId = _cursor.getLong(_cursorIndexOfId);
+            final long _tmpTestDateMillis;
+            _tmpTestDateMillis = _cursor.getLong(_cursorIndexOfTestDateMillis);
+            final int _tmpScore;
+            _tmpScore = _cursor.getInt(_cursorIndexOfScore);
+            final String _tmpDetails;
+            _tmpDetails = _cursor.getString(_cursorIndexOfDetails);
+            final String _tmpDifficulty;
+            _tmpDifficulty = _cursor.getString(_cursorIndexOfDifficulty);
+            final String _tmpTestType;
+            _tmpTestType = _cursor.getString(_cursorIndexOfTestType);
+            _item = new TestResult(_tmpId,_tmpTestDateMillis,_tmpScore,_tmpDetails,_tmpDifficulty,_tmpTestType);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+          _statement.release();
+        }
+      }
+    }, $completion);
+  }
+
+  @Override
   public Flow<List<TestResult>> getResultsBetween(final long fromMillis, final long toMillis) {
     final String _sql = "SELECT * FROM test_results WHERE testDateMillis >= ? AND testDateMillis <= ? ORDER BY testDateMillis DESC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);

@@ -22,7 +22,12 @@ enum class AppButtonStyle {
     PRIMARY,
     SECONDARY,
     DANGER,
+    /** 오답노트 등 — 빨간 배경 */
+    WRONG_NOTE,
 }
+
+private val WrongNoteRed = Color(0xFFDC2626)
+private val WrongNoteRedDisabled = Color(0xFF7F1D1D)
 
 @Composable
 fun AppButton(
@@ -31,6 +36,8 @@ fun AppButton(
     style: AppButtonStyle = AppButtonStyle.SECONDARY,
     enabled: Boolean = true,
     modifier: Modifier = Modifier,
+    /** true이면 가로로 꽉 채움(일렬 버튼 등) */
+    fillMaxWidth: Boolean = false,
 ) {
     val colors = AppTheme.colors
     val bgColor =
@@ -38,23 +45,25 @@ fun AppButton(
             AppButtonStyle.PRIMARY -> if (enabled) colors.purpleMain else Color(0xFF2A2740)
             AppButtonStyle.SECONDARY -> colors.bgCard
             AppButtonStyle.DANGER -> colors.bgCard
+            AppButtonStyle.WRONG_NOTE -> if (enabled) WrongNoteRed else WrongNoteRedDisabled
         }
     val textColor =
         when (style) {
             AppButtonStyle.PRIMARY -> if (enabled) Color.White else colors.textMuted
             AppButtonStyle.SECONDARY -> colors.textSecondary
             AppButtonStyle.DANGER -> colors.pinkMain
+            AppButtonStyle.WRONG_NOTE -> if (enabled) Color.White else colors.textMuted
         }
     val borderColor =
         when (style) {
-            AppButtonStyle.PRIMARY -> Color.Transparent
+            AppButtonStyle.PRIMARY, AppButtonStyle.WRONG_NOTE -> Color.Transparent
             else -> colors.borderDefault
         }
 
     Box(
         modifier =
             modifier
-                .wrapContentWidth()
+                .then(if (fillMaxWidth) Modifier.fillMaxWidth() else Modifier.wrapContentWidth())
                 .background(bgColor, RoundedCornerShape(10.dp))
                 .then(
                     if (borderColor != Color.Transparent) {
@@ -69,7 +78,12 @@ fun AppButton(
         Text(
             text = text,
             fontSize = 13.sp,
-            fontWeight = if (style == AppButtonStyle.PRIMARY) FontWeight.Medium else FontWeight.Normal,
+            fontWeight =
+                if (style == AppButtonStyle.PRIMARY || style == AppButtonStyle.WRONG_NOTE) {
+                    FontWeight.Medium
+                } else {
+                    FontWeight.Normal
+                },
             color = textColor,
             maxLines = 1,
         )
@@ -93,11 +107,12 @@ fun AppFullWidthButton(
                     color =
                         when (style) {
                             AppButtonStyle.PRIMARY -> if (enabled) colors.purpleMain else Color(0xFF2A2740)
+                            AppButtonStyle.WRONG_NOTE -> if (enabled) WrongNoteRed else WrongNoteRedDisabled
                             else -> colors.bgPrimary
                         },
                     shape = RoundedCornerShape(12.dp),
                 ).then(
-                    if (style != AppButtonStyle.PRIMARY) {
+                    if (style != AppButtonStyle.PRIMARY && style != AppButtonStyle.WRONG_NOTE) {
                         Modifier.border(0.5.dp, colors.borderDefault, RoundedCornerShape(12.dp))
                     } else {
                         Modifier
@@ -109,12 +124,18 @@ fun AppFullWidthButton(
         Text(
             text = text,
             fontSize = 13.sp,
-            fontWeight = if (style == AppButtonStyle.PRIMARY) FontWeight.Medium else FontWeight.Normal,
+            fontWeight =
+                if (style == AppButtonStyle.PRIMARY || style == AppButtonStyle.WRONG_NOTE) {
+                    FontWeight.Medium
+                } else {
+                    FontWeight.Normal
+                },
             color =
                 when (style) {
                     AppButtonStyle.PRIMARY -> if (enabled) Color.White else colors.textMuted
                     AppButtonStyle.SECONDARY -> colors.textSecondary
                     AppButtonStyle.DANGER -> colors.pinkMain
+                    AppButtonStyle.WRONG_NOTE -> if (enabled) Color.White else colors.textMuted
                 },
             maxLines = 1,
         )

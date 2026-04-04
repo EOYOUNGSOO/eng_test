@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -27,7 +28,6 @@ import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -57,7 +57,10 @@ import com.euysoo.engtest.data.entity.Word
 import com.euysoo.engtest.ui.components.AppCopyrightFooter
 import com.euysoo.engtest.ui.components.AppTopBar
 import com.euysoo.engtest.ui.theme.AppColors
+import com.euysoo.engtest.ui.theme.AppDimens
 import com.euysoo.engtest.ui.theme.AppTheme
+import com.euysoo.engtest.ui.theme.mzBookEmoji
+import com.euysoo.engtest.ui.theme.mzIconAccent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -118,18 +121,23 @@ fun MyWordBookDetailScreen(
                         .fillMaxWidth()
                         .verticalScroll(scrollState),
             ) {
-                Column(
+                Surface(
                     modifier =
                         Modifier
                             .fillMaxWidth()
                             .heightIn(min = minSearchH),
+                    shape = RoundedCornerShape(16.dp),
+                    color = colors.bgCard,
+                    border = BorderStroke(AppDimens.appCardBorder, colors.borderDefault),
+                    shadowElevation = 2.dp,
                 ) {
+                    Column(modifier = Modifier.padding(14.dp)) {
                     Text(
                         text = "단어 검색",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = colors.purpleMain,
-                        modifier = Modifier.padding(top = 8.dp, bottom = 6.dp),
+                        modifier = Modifier.padding(bottom = 6.dp),
                     )
                     OutlinedTextField(
                         value = searchQuery,
@@ -164,9 +172,10 @@ fun MyWordBookDetailScreen(
                         }
                         else -> {
                             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                                searchResults.forEach { word ->
+                                searchResults.forEachIndexed { idx, word ->
                                     key(word.id) {
                                         SearchResultRow(
+                                            listIndex = idx,
                                             word = word,
                                             selected = word.id == selectedSearchWordId,
                                             colors = colors,
@@ -180,19 +189,23 @@ fun MyWordBookDetailScreen(
                             }
                         }
                     }
+                    }
                 }
 
-                HorizontalDivider(
-                    modifier = Modifier.padding(vertical = 8.dp),
-                    thickness = 1.dp,
-                    color = colors.borderAccent,
-                )
+                Spacer(modifier = Modifier.height(12.dp))
 
+                Surface(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(16.dp),
+                    color = colors.bgCard,
+                    border = BorderStroke(AppDimens.appCardBorder, colors.borderAccent.copy(alpha = 0.45f)),
+                    shadowElevation = 1.dp,
+                ) {
                 Row(
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 4.dp),
+                            .padding(vertical = 10.dp, horizontal = 8.dp),
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
@@ -261,19 +274,21 @@ fun MyWordBookDetailScreen(
                         }
                     }
                 }
+                }
 
-                HorizontalDivider(
-                    modifier = Modifier.padding(vertical = 8.dp),
-                    thickness = 1.dp,
-                    color = colors.borderAccent,
-                )
+                Spacer(modifier = Modifier.height(12.dp))
 
-                Column(
+                Surface(
                     modifier =
                         Modifier
                             .fillMaxWidth()
                             .heightIn(min = minBookH),
+                    shape = RoundedCornerShape(16.dp),
+                    color = colors.bgCard,
+                    border = BorderStroke(AppDimens.appCardBorder, colors.borderDefault),
+                    shadowElevation = 2.dp,
                 ) {
+                    Column(modifier = Modifier.padding(14.dp)) {
                     Text(
                         text = "나의 단어장",
                         fontSize = 14.sp,
@@ -312,6 +327,7 @@ fun MyWordBookDetailScreen(
                                 }
                             }
                         }
+                    }
                     }
                 }
 
@@ -352,6 +368,7 @@ fun MyWordBookDetailScreen(
 
 @Composable
 private fun SearchResultRow(
+    listIndex: Int,
     word: Word,
     selected: Boolean,
     colors: AppColors,
@@ -359,14 +376,29 @@ private fun SearchResultRow(
 ) {
     val borderWidth = if (selected) 1.5.dp else 0.5.dp
     val borderColor = if (selected) colors.purpleMain else colors.borderDefault
+    val accent = mzIconAccent(listIndex)
     Row(
         modifier =
             Modifier
                 .fillMaxWidth()
+                .clip(RoundedCornerShape(14.dp))
+                .background(colors.bgPrimary, RoundedCornerShape(14.dp))
                 .border(borderWidth, borderColor, RoundedCornerShape(14.dp))
                 .clickable(onClick = onClick)
                 .padding(12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
+        Box(
+            modifier =
+                Modifier
+                    .size(40.dp)
+                    .clip(RoundedCornerShape(11.dp))
+                    .background(accent.background),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(text = mzBookEmoji(listIndex), fontSize = 20.sp)
+        }
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = word.word,
@@ -410,7 +442,7 @@ private fun WordBookEntryRow(
         when {
             selected -> colors.purpleLight.copy(alpha = 0.18f)
             highlighted -> colors.greenMain.copy(alpha = 0.14f)
-            else -> colors.bgCard
+            else -> colors.bgPrimary
         }
     Row(
         modifier =
@@ -427,7 +459,19 @@ private fun WordBookEntryRow(
         Row(
             modifier = Modifier.weight(1f),
             verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
+            val accent = mzIconAccent(index - 1)
+            Box(
+                modifier =
+                    Modifier
+                        .size(36.dp)
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(accent.background),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(text = mzBookEmoji(index - 1), fontSize = 18.sp)
+            }
             Text(
                 text = "$index.",
                 fontSize = 15.sp,
@@ -440,8 +484,8 @@ private fun WordBookEntryRow(
                     },
                 modifier =
                     Modifier
-                        .widthIn(min = 28.dp)
-                        .padding(end = 8.dp),
+                        .widthIn(min = 24.dp)
+                        .padding(end = 4.dp),
             )
             Column(modifier = Modifier.weight(1f)) {
                 Text(

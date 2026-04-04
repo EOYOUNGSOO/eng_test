@@ -15,6 +15,10 @@ interface TestResultDao {
     @Query("SELECT * FROM test_results ORDER BY testDateMillis DESC")
     fun getAllResults(): Flow<List<TestResult>>
 
+    /** 오답 집계 등 일회 로드용 */
+    @Query("SELECT * FROM test_results ORDER BY testDateMillis DESC")
+    suspend fun getAllResultsOnce(): List<TestResult>
+
     /** 기간별 테스트 이력 (FROM ~ TO, 최신순) */
     @Query("SELECT * FROM test_results WHERE testDateMillis >= :fromMillis AND testDateMillis <= :toMillis ORDER BY testDateMillis DESC")
     fun getResultsBetween(

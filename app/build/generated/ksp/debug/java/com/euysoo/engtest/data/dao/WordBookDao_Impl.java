@@ -8,6 +8,7 @@ import androidx.room.CoroutinesRoom;
 import androidx.room.EntityDeletionOrUpdateAdapter;
 import androidx.room.EntityInsertionAdapter;
 import androidx.room.RoomDatabase;
+import androidx.room.RoomDatabaseKt;
 import androidx.room.RoomSQLiteQuery;
 import androidx.room.SharedSQLiteStatement;
 import androidx.room.util.CursorUtil;
@@ -170,6 +171,12 @@ public final class WordBookDao_Impl implements WordBookDao {
         }
       }
     }, $completion);
+  }
+
+  @Override
+  public Object createBookWithWordIds(final String name, final List<Long> wordIds,
+      final Continuation<? super Long> $completion) {
+    return RoomDatabaseKt.withTransaction(__db, (__cont) -> WordBookDao.DefaultImpls.createBookWithWordIds(WordBookDao_Impl.this, name, wordIds, __cont), $completion);
   }
 
   @Override

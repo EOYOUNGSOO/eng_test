@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import com.euysoo.engtest.data.entity.Word
 import com.euysoo.engtest.data.entity.WordBook
@@ -66,4 +67,18 @@ interface WordBookDao {
         bookId: Long,
         wordId: Long,
     ): Int
+
+    /** 단어장 생성 후 단어 ID 목록을 한 번에 연결 (오답노트 등) */
+    @Transaction
+    suspend fun createBookWithWordIds(
+        name: String,
+        wordIds: List<Long>,
+    ): Long {
+        val bookId = insertBook(WordBook(name = name))
+        val base = System.currentTimeMillis()
+        wordIds.distinct().forEachIndexed { i, wId ->
+            insertEntry(WordBookEntry(bookId = bookId, wordId = wId, addedAt = base + i))
+        }
+        return bookId
+    }
 }

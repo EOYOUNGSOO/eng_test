@@ -1,25 +1,31 @@
 package com.euysoo.engtest.ui.screen.wordtest
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.border
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.List
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.School
-import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -38,15 +44,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.euysoo.engtest.EngTestApplication
 import com.euysoo.engtest.ui.components.AppCard
 import com.euysoo.engtest.ui.components.AppCopyrightFooter
 import com.euysoo.engtest.ui.components.AppTopBar
+import com.euysoo.engtest.ui.theme.AppDimens
 import com.euysoo.engtest.ui.theme.AppTheme
-import androidx.compose.foundation.lazy.items as lazyItems
+import com.euysoo.engtest.ui.theme.mzBookEmoji
+import com.euysoo.engtest.ui.theme.mzIconAccent
 
 private const val INTERNAL_MY_BOOK = "__my_book__"
 
@@ -133,7 +144,7 @@ fun WordTestSelectScreen(
                             title = "자기 테스트",
                             subtitle = "알겠음 / 모름 · 뜻 확인",
                             icon = Icons.Outlined.CheckCircle,
-                            tint = Color(0xFF5B4FCF),
+                            accentOrdinal = 0,
                             colors = colors,
                             onClick = { testKind = TestKind.Self },
                         )
@@ -144,7 +155,7 @@ fun WordTestSelectScreen(
                             title = "객관식",
                             subtitle = "4지선다 · 뜻 고르기",
                             icon = Icons.AutoMirrored.Outlined.List,
-                            tint = Color(0xFF0F9E75),
+                            accentOrdinal = 1,
                             colors = colors,
                             onClick = { testKind = TestKind.MultipleChoice },
                         )
@@ -169,9 +180,10 @@ fun WordTestSelectScreen(
                         }
                     }
                     item { Spacer(modifier = Modifier.height(12.dp)) }
-                    items(difficultyOptions, key = { it.key }) { option ->
+                    itemsIndexed(difficultyOptions, key = { _, o -> o.key }) { index, option ->
                         DifficultyCard(
                             option = option,
+                            accentOrdinal = index,
                             colors = colors,
                             onClick = {
                                 if (option.key == INTERNAL_MY_BOOK) {
@@ -194,43 +206,120 @@ fun WordTestSelectScreen(
     }
 
     if (showEmptyBookHint) {
-        AlertDialog(
-            onDismissRequest = { showEmptyBookHint = false },
-            title = { Text("나의 단어장") },
-            text = { Text("등록된 단어장이 없습니다. 메인 화면의 \"나의 단어장\"에서 단어장을 만든 뒤, 단어 관리에서 단어를 담아 주세요.") },
-            confirmButton = {
+        AppStyledDialog(onDismiss = { showEmptyBookHint = false }) {
+            Text(
+                text = "나의 단어장",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                color = colors.textPrimary,
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                text = "등록된 단어장이 없습니다. 메인 화면의 \"나의 단어장\"에서 단어장을 만든 뒤, 단어 관리에서 단어를 담아 주세요.",
+                style = MaterialTheme.typography.bodyMedium,
+                color = colors.textSecondary,
+            )
+            Spacer(modifier = Modifier.height(18.dp))
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                 TextButton(onClick = { showEmptyBookHint = false }) {
-                    Text("확인")
+                    Text("확인", color = colors.purpleMain, fontWeight = FontWeight.SemiBold)
                 }
-            },
-        )
+            }
+        }
     }
 
     if (showBookPicker) {
-        AlertDialog(
-            onDismissRequest = { showBookPicker = false },
-            title = { Text("단어장 선택") },
-            text = {
-                LazyColumn(modifier = Modifier.height(220.dp)) {
-                    lazyItems(books, key = { it.id }) { book ->
-                        TextButton(
-                            onClick = {
-                                showBookPicker = false
-                                navigateWithDifficulty(myBookDifficultyKey(book.id))
-                            },
-                            modifier = Modifier.fillMaxWidth(),
+        AppStyledDialog(onDismiss = { showBookPicker = false }) {
+            Text(
+                text = "단어장 선택",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                color = colors.textPrimary,
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            LazyColumn(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .heightIn(max = 280.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                itemsIndexed(books, key = { _, b -> b.id }) { index, book ->
+                    val accent = mzIconAccent(index)
+                    Row(
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(14.dp))
+                                .background(colors.bgPrimary, RoundedCornerShape(14.dp))
+                                .border(AppDimens.appCardBorder, colors.borderDefault, RoundedCornerShape(14.dp))
+                                .clickable {
+                                    showBookPicker = false
+                                    navigateWithDifficulty(myBookDifficultyKey(book.id))
+                                }
+                                .padding(horizontal = 12.dp, vertical = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    ) {
+                        Box(
+                            modifier =
+                                Modifier
+                                    .size(44.dp)
+                                    .clip(RoundedCornerShape(12.dp))
+                                    .background(accent.background),
+                            contentAlignment = Alignment.Center,
                         ) {
-                            Text(book.name, modifier = Modifier.fillMaxWidth())
+                            Text(text = mzBookEmoji(index), fontSize = 22.sp)
+                        }
+                        Row(
+                            modifier = Modifier.weight(1f),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        ) {
+                            Text(
+                                text = "${index + 1}.",
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = colors.purpleMain,
+                            )
+                            Text(
+                                text = book.name,
+                                style = MaterialTheme.typography.titleSmall,
+                                color = colors.textPrimary,
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis,
+                                modifier = Modifier.weight(1f),
+                            )
                         }
                     }
                 }
-            },
-            confirmButton = {
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                 TextButton(onClick = { showBookPicker = false }) {
-                    Text("닫기")
+                    Text("닫기", color = colors.purpleMain, fontWeight = FontWeight.SemiBold)
                 }
-            },
-        )
+            }
+        }
+    }
+}
+
+@Composable
+private fun AppStyledDialog(
+    onDismiss: () -> Unit,
+    content: @Composable ColumnScope.() -> Unit,
+) {
+    val colors = AppTheme.colors
+    Dialog(onDismissRequest = onDismiss) {
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(22.dp),
+            colors = CardDefaults.cardColors(containerColor = colors.bgCard),
+            border = BorderStroke(AppDimens.appCardBorder, colors.borderDefault),
+            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        ) {
+            Column(modifier = Modifier.padding(20.dp), content = content)
+        }
     }
 }
 
@@ -239,10 +328,11 @@ private fun TypeCard(
     title: String,
     subtitle: String,
     icon: ImageVector,
-    tint: Color,
+    accentOrdinal: Int,
     colors: com.euysoo.engtest.ui.theme.AppColors,
     onClick: () -> Unit,
 ) {
+    val accent = mzIconAccent(accentOrdinal)
     AppCard(
         modifier = Modifier.fillMaxWidth(),
         containerColor = colors.bgCard,
@@ -262,13 +352,13 @@ private fun TypeCard(
                     Modifier
                         .size(48.dp)
                         .clip(RoundedCornerShape(14.dp))
-                        .background(tint.copy(alpha = 0.2f)),
+                        .background(accent.background),
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    tint = tint,
+                    tint = accent.foreground,
                     modifier = Modifier.size(28.dp),
                 )
             }
@@ -292,9 +382,11 @@ private fun TypeCard(
 @Composable
 private fun DifficultyCard(
     option: DifficultyOption,
+    accentOrdinal: Int,
     colors: com.euysoo.engtest.ui.theme.AppColors,
     onClick: () -> Unit,
 ) {
+    val accent = mzIconAccent(accentOrdinal)
     AppCard(
         modifier = Modifier.fillMaxWidth(),
         containerColor = colors.bgCard,
@@ -314,13 +406,13 @@ private fun DifficultyCard(
                     Modifier
                         .size(48.dp)
                         .clip(RoundedCornerShape(14.dp))
-                        .background(option.tint.copy(alpha = 0.2f)),
+                        .background(accent.background),
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(
                     imageVector = Icons.Outlined.School,
                     contentDescription = null,
-                    tint = option.tint,
+                    tint = accent.foreground,
                     modifier = Modifier.size(28.dp),
                 )
             }

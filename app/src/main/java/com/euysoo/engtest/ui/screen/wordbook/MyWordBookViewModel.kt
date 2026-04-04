@@ -4,6 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.euysoo.engtest.data.entity.WordBook
 import com.euysoo.engtest.di.AppContainer
+import com.euysoo.engtest.domain.wrongnote.WrongNoteBookRepository
+import com.euysoo.engtest.domain.wrongnote.WrongNoteDifficultyOption
+import com.euysoo.engtest.domain.wrongnote.WrongNoteFillSelection
+import com.euysoo.engtest.domain.wrongnote.WrongNoteOutcome
 import com.euysoo.engtest.util.AppLogger
 import com.euysoo.engtest.util.FlowDefaults
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +20,12 @@ class MyWordBookViewModel(
     private val container: AppContainer,
 ) : ViewModel() {
     private val wordBookDao = container.database.wordBookDao()
+    private val wrongNoteRepo =
+        WrongNoteBookRepository(
+            container.database.testResultDao(),
+            container.database.wordDao(),
+            wordBookDao,
+        )
 
     val books: StateFlow<List<WordBook>> =
         wordBookDao
@@ -59,6 +69,26 @@ class MyWordBookViewModel(
                 withContext(Dispatchers.IO) { wordBookDao.deleteBookById(bookId) }
             } catch (e: Exception) {
                 AppLogger.e(TAG, "deleteBook failed", e)
+            }
+        }
+    }
+
+    fun createWrongNoteBook(
+        title: String,
+        difficulty: WrongNoteDifficultyOption,
+        fill: WrongNoteFillSelection,
+        onOutcome: (WrongNoteOutcome) -> Unit,
+    ) {
+        viewModelScope.launch {
+            try {
+                val outcome =
+                    withContext(Dispatchers.IO) {
+                        wrongNoteRepo.createWrongNoteBook(title, difficulty, fill)
+                    }
+                onOutcome(outcome)
+            } catch (e: Exception) {
+                AppLogger.e(TAG, "createWrongNoteBook failed", e)
+                onOutcome(WrongNoteOutcome.CreateFailed)
             }
         }
     }

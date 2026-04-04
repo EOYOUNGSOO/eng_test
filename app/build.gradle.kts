@@ -41,8 +41,8 @@ android {
         applicationId = "com.euysoo.engtest"
         minSdk = 26
         targetSdk = 35
-        versionCode = 3
-        versionName = "1.2.1"
+        versionCode = 4
+        versionName = "1.2.2"
     }
     androidResources {
         localeFilters += listOf("ko", "en")
@@ -75,6 +75,28 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.8"
+    }
+}
+
+// Windows: dexBuilder 증분 단계에서 기존 .dex deleteIfExists 가 AccessDenied 로 실패하는 경우 완화.
+// 해당 variant 의 project_dex_archive .../out 을 task 시작 시 통째로 제거(증분 DEX는 느려질 수 있음).
+tasks.matching {
+    it.name.startsWith("dexBuilder") && it.name.length > "dexBuilder".length
+}.configureEach {
+    doFirst {
+        val suffix = name.removePrefix("dexBuilder")
+        if (suffix.isEmpty()) return@doFirst
+        val variantDir = suffix.replaceFirstChar { it.lowercaseChar() }
+        val outDir =
+            layout.buildDirectory
+                .get()
+                .asFile
+                .resolve("intermediates/project_dex_archive/$variantDir/dexBuilder$suffix/out")
+        runCatching {
+            if (outDir.exists()) {
+                outDir.deleteRecursively()
+            }
+        }
     }
 }
 

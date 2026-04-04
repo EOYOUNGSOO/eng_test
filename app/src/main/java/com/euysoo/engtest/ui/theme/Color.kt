@@ -3,7 +3,7 @@ package com.euysoo.engtest.ui.theme
 import androidx.compose.ui.graphics.Color
 
 // LIGHT THEME
-val Light_BgPrimary = Color(0xFFF5F3EF)
+val Light_BgPrimary = Color(0xFFF3F1FA)
 val Light_BgCard = Color(0xFFFFFFFF)
 val Light_BgIcon = Color(0xFFEEEDFE)
 val Light_BgIconGreen = Color(0xFFE1F5EE)
