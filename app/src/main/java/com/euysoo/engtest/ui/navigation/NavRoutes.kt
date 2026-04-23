@@ -8,6 +8,8 @@ object NavRoutes {
     const val WORD_TEST = "word_test"
     const val MULTIPLE_CHOICE_TEST = "multiple_choice_test"
     const val RECORDS = "records"
+    const val SETTINGS = "settings"
+    const val OCR_GUIDE = "ocr_guide"
 
     const val RECORDS_DETAIL_ROUTE = "records_detail/{resultId}"
 

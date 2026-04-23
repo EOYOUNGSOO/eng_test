@@ -48,6 +48,8 @@ class WordManageViewModel(
 ) : ViewModel() {
     private val wordDao = container.database.wordDao()
     private val wordBookDao = container.database.wordBookDao()
+    private val wordHistoryDao = container.database.wordHistoryDao()
+    private val wordDetailDao = container.database.wordDetailDao()
     private val testResultDao = container.database.testResultDao()
     private val phoneticRepository = container.phoneticRepository
     private val syncManager get() = container.wordSyncManager
@@ -237,11 +239,15 @@ class WordManageViewModel(
         viewModelScope.launch {
             _syncState.value = SyncUiState.Loading
             try {
-                val jsonString =
+                val result =
                     withContext(Dispatchers.IO) {
-                        EducationVocabAssets.readJsonOrThrow(appContext.assets)
+                        wordDao.deleteAll()
+                        wordHistoryDao.clearAll()
+                        wordDetailDao.clearAll()
+                        val jsonString =
+                            EducationVocabAssets.readJsonForInitialVocabularyReset(appContext.assets)
+                        syncManager.sync(jsonString)
                     }
-                val result = withContext(Dispatchers.IO) { syncManager.sync(jsonString) }
                 _syncState.value = SyncUiState.Success(result)
                 if (result.addedCount > 0) {
                     _showInitButton.value = false

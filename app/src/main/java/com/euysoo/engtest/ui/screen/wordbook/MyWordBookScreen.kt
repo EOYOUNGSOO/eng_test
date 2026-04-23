@@ -54,6 +54,7 @@ import com.euysoo.engtest.domain.wrongnote.WrongNoteFillSelection
 import com.euysoo.engtest.domain.wrongnote.WrongNoteOutcome
 import com.euysoo.engtest.ui.component.AppButton
 import com.euysoo.engtest.ui.component.AppButtonStyle
+import com.euysoo.engtest.ui.component.AppFullWidthButton
 import com.euysoo.engtest.ui.components.AppCopyrightFooter
 import com.euysoo.engtest.ui.components.AppTopBar
 import com.euysoo.engtest.ui.theme.AppColors
@@ -67,6 +68,7 @@ import com.euysoo.engtest.ui.theme.mzIconAccent
 fun MyWordBookScreen(
     onBack: () -> Unit,
     onOpenBook: (Long) -> Unit,
+    onNavigateToOcrGuide: () -> Unit,
 ) {
     val colors = AppTheme.colors
     val context = LocalContext.current
@@ -104,24 +106,24 @@ fun MyWordBookScreen(
             ) {
                 item { Spacer(modifier = Modifier.height(12.dp)) }
                 item {
-                    Row(
+                    Column(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalAlignment = Alignment.CenterVertically,
+                        verticalArrangement = Arrangement.spacedBy(10.dp),
                     ) {
-                        AppButton(
+                        AppFullWidthButton(
                             text = "새 단어장 만들기",
                             onClick = { showCreateDialog = true },
                             style = AppButtonStyle.PRIMARY,
-                            modifier = Modifier.weight(1f),
-                            fillMaxWidth = true,
                         )
-                        AppButton(
+                        AppFullWidthButton(
+                            text = "📷  이미지로 단어 추가",
+                            onClick = onNavigateToOcrGuide,
+                            style = AppButtonStyle.SECONDARY,
+                        )
+                        AppFullWidthButton(
                             text = "오답노트 만들기",
                             onClick = { showWrongNoteDialog = true },
-                            style = AppButtonStyle.WRONG_NOTE,
-                            modifier = Modifier.weight(1f),
-                            fillMaxWidth = true,
+                            style = AppButtonStyle.DANGER,
                         )
                     }
                 }

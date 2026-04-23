@@ -1,2 +1,0 @@
-#- File Locator -
-listingFile=../../../../../../../../createApp/engTest/release/output-metadata.json

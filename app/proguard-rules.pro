@@ -52,3 +52,7 @@
 -dontwarn okio.**
 -keep class okhttp3.** { *; }
 -keep interface okhttp3.** { *; }
+
+# Google AI (Gemini) 클라이언트
+-dontwarn com.google.ai.client.generativeai.**
+-keep class com.google.ai.client.generativeai.** { *; }

@@ -42,6 +42,10 @@ interface WordDao {
     @Query("SELECT * FROM words WHERE id IN (:ids)")
     suspend fun getWordsByIds(ids: List<Long>): List<Word>
 
+    /** OCR 보정용 전체 스펠링 사전 */
+    @Query("SELECT word FROM words")
+    suspend fun getAllWordSpellings(): List<String>
+
     /** 난이도별 단어 목록 */
     @Query("SELECT * FROM words WHERE difficulty = :difficulty ORDER BY id ASC")
     fun getWordsByDifficulty(difficulty: WordDifficulty): Flow<List<Word>>
@@ -59,6 +63,10 @@ interface WordDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(word: Word): Long
+
+    /** 동일 단어(대소문자 무시)가 있으면 무시 — OCR 등 수동 추가 시 중복 방지 */
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertIgnore(word: Word): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(words: List<Word>)

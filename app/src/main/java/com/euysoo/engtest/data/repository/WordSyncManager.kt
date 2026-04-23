@@ -1,8 +1,10 @@
 package com.euysoo.engtest.data.repository
 
 import com.euysoo.engtest.data.AppDatabase
+import com.euysoo.engtest.data.entity.PartOfSpeech
 import com.euysoo.engtest.data.entity.Word
 import com.euysoo.engtest.data.entity.WordDifficulty
+import com.euysoo.engtest.util.OcrHelper
 import com.euysoo.engtest.data.entity.WordHistoryEntity
 import com.euysoo.engtest.data.json.AppJson
 import com.euysoo.engtest.data.model.EducationVocabRoot
@@ -41,7 +43,11 @@ class WordSyncManager(
 
         vocabList.forEach { item ->
             val normalizedWord = item.word.trim().lowercase()
-            val newPos = item.pos.trim()
+            val rawPos = item.pos.trim()
+            val newPos =
+                OcrHelper.normalizePartOfSpeech(rawPos).ifBlank {
+                    PartOfSpeech.fromAbbr(rawPos)?.label ?: rawPos
+                }
             val newMeaning = item.meaning.trim()
             val newDifficulty = levelToDifficulty(item.level)
             val sameWordEntries = db.wordDao().getByWordAll(normalizedWord)

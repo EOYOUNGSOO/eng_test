@@ -27,7 +27,9 @@ import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.outlined.BarChart
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.MenuBook
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -168,6 +170,7 @@ fun MainScreen(
     onNavigateToMyWordBook: () -> Unit,
     onNavigateToWordTest: () -> Unit,
     onNavigateToRecords: () -> Unit,
+    onNavigateToSettings: () -> Unit,
 ) {
     @Suppress("DEPRECATION")
     val menuBookIcon = Icons.Outlined.MenuBook
@@ -213,6 +216,7 @@ fun MainScreen(
                         onNavigateToMyWordBook = onNavigateToMyWordBook,
                         onNavigateToWordTest = onNavigateToWordTest,
                         onNavigateToRecords = onNavigateToRecords,
+                        onNavigateToSettings = onNavigateToSettings,
                     )
                 },
             )
@@ -240,6 +244,7 @@ fun MainScreen(
                         onNavigateToMyWordBook = onNavigateToMyWordBook,
                         onNavigateToWordTest = onNavigateToWordTest,
                         onNavigateToRecords = onNavigateToRecords,
+                        onNavigateToSettings = onNavigateToSettings,
                     )
                 }
                 Spacer(modifier = Modifier.height(layout.gapFooter))
@@ -259,6 +264,7 @@ private fun MainHomeScrollableBody(
     onNavigateToMyWordBook: () -> Unit,
     onNavigateToWordTest: () -> Unit,
     onNavigateToRecords: () -> Unit,
+    onNavigateToSettings: () -> Unit,
 ) {
     val colors = AppTheme.colors
     Column(
@@ -267,7 +273,7 @@ private fun MainHomeScrollableBody(
                 .fillMaxWidth()
                 .then(if (!needsScroll) Modifier.fillMaxHeight() else Modifier),
     ) {
-        AppHeader(layout = layout)
+        AppHeader(layout = layout, onSettingsClick = onNavigateToSettings)
         Spacer(modifier = Modifier.height(layout.gapHeaderStats))
         StatCardRow(
             layout = layout,
@@ -459,26 +465,43 @@ private fun MainHomeScrollableBody(
 }
 
 @Composable
-private fun AppHeader(layout: MainHomeLayout) {
+private fun AppHeader(
+    layout: MainHomeLayout,
+    onSettingsClick: () -> Unit,
+) {
     val colors = AppTheme.colors
     Column {
         Row(
+            modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            Box(
-                modifier =
-                    Modifier
-                        .size(8.dp)
-                        .clip(CircleShape)
-                        .background(colors.purpleMain),
-            )
-            Text(
-                text = "VOCA MASTER",
-                fontSize = layout.brandSp,
-                color = colors.textDim,
-                letterSpacing = 0.10.em,
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                Box(
+                    modifier =
+                        Modifier
+                            .size(8.dp)
+                            .clip(CircleShape)
+                            .background(colors.purpleMain),
+                )
+                Text(
+                    text = "VOCA MASTER",
+                    fontSize = layout.brandSp,
+                    color = colors.textDim,
+                    letterSpacing = 0.10.em,
+                )
+            }
+            IconButton(onClick = onSettingsClick) {
+                Icon(
+                    imageVector = Icons.Outlined.Settings,
+                    contentDescription = "설정",
+                    tint = colors.textMuted,
+                    modifier = Modifier.size(22.dp),
+                )
+            }
         }
         Spacer(modifier = Modifier.height(6.dp))
         Text(
@@ -669,6 +692,7 @@ private fun MainScreenPreview() {
             onNavigateToMyWordBook = {},
             onNavigateToWordTest = {},
             onNavigateToRecords = {},
+            onNavigateToSettings = {},
         )
     }
 }

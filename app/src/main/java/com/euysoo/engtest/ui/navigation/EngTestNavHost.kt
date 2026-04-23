@@ -1,6 +1,11 @@
 package com.euysoo.engtest.ui.navigation
 
+import android.graphics.Bitmap
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -11,7 +16,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.euysoo.engtest.EngTestApplication
+import com.euysoo.engtest.ui.ocr.OcrGuideScreen
+import com.euysoo.engtest.ui.ocr.OcrImportScreen
 import com.euysoo.engtest.ui.screen.MainScreen
+import com.euysoo.engtest.ui.screen.settings.SettingsScreen
 import com.euysoo.engtest.ui.screen.records.RecordsListScreen
 import com.euysoo.engtest.ui.screen.records.RecordsResultDetailScreen
 import com.euysoo.engtest.ui.screen.records.RecordsViewModel
@@ -60,6 +68,7 @@ fun EngTestNavHost(navController: NavHostController = rememberNavController()) {
                 onNavigateToMyWordBook = { navController.navigate(NavRoutes.MY_WORD_BOOK) },
                 onNavigateToWordTest = { navController.navigate(NavRoutes.WORD_TEST_SELECT) },
                 onNavigateToRecords = { navController.navigate(NavRoutes.RECORDS) },
+                onNavigateToSettings = { navController.navigate(NavRoutes.SETTINGS) },
             )
         }
         composable(NavRoutes.WORD_MANAGE) {
@@ -71,7 +80,36 @@ fun EngTestNavHost(navController: NavHostController = rememberNavController()) {
             MyWordBookScreen(
                 onBack = { navController.popBackToMainOrNavigate() },
                 onOpenBook = { id -> navController.navigate(NavRoutes.myWordBookDetail(id)) },
+                onNavigateToOcrGuide = { navController.navigate(NavRoutes.OCR_GUIDE) },
             )
+        }
+        composable(NavRoutes.SETTINGS) {
+            SettingsScreen(onBack = { navController.popBackStack() })
+        }
+        composable(NavRoutes.OCR_GUIDE) {
+            var pendingBitmap by remember { mutableStateOf<Bitmap?>(null) }
+            val bmp = pendingBitmap
+            if (bmp != null) {
+                OcrImportScreen(
+                    initialBitmap = bmp,
+                    onBack = {
+                        pendingBitmap = null
+                        navController.popBackStack()
+                    },
+                    onShowGuide = { pendingBitmap = null },
+                    onSaveComplete = { bookId ->
+                        pendingBitmap = null
+                        navController.navigate(NavRoutes.myWordBookDetail(bookId)) {
+                            popUpTo(NavRoutes.OCR_GUIDE) { inclusive = true }
+                        }
+                    },
+                )
+            } else {
+                OcrGuideScreen(
+                    onBack = { navController.popBackStack() },
+                    onImageReady = { bitmap -> pendingBitmap = bitmap },
+                )
+            }
         }
         composable(
             route = NavRoutes.MY_WORD_BOOK_DETAIL_ROUTE,

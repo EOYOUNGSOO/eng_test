@@ -73,6 +73,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.euysoo.engtest.EngTestApplication
 import com.euysoo.engtest.R
+import com.euysoo.engtest.data.entity.PartOfSpeech
 import com.euysoo.engtest.data.entity.Word
 import com.euysoo.engtest.data.entity.WordDifficulty
 import com.euysoo.engtest.domain.model.WordWithStats
@@ -80,10 +81,12 @@ import com.euysoo.engtest.ui.component.AppButton
 import com.euysoo.engtest.ui.component.AppButtonStyle
 import com.euysoo.engtest.ui.component.AppChipButton
 import com.euysoo.engtest.ui.component.AppFullWidthButton
+import com.euysoo.engtest.ui.components.PartOfSpeechSelector
 import com.euysoo.engtest.ui.components.AppCopyrightFooter
 import com.euysoo.engtest.ui.components.AppTopBar
 import com.euysoo.engtest.ui.components.AppTopBarPill
 import com.euysoo.engtest.ui.theme.AppTheme
+import com.euysoo.engtest.util.OcrHelper
 import com.euysoo.engtest.ui.worddetail.WordDetailBottomSheet
 import com.euysoo.engtest.ui.worddetail.WordDetailViewModel
 import com.euysoo.engtest.ui.worddetail.WordDetailViewModelFactory
@@ -167,131 +170,130 @@ fun WordManageScreen(onBack: () -> Unit) {
                     .fillMaxSize()
                     .padding(padding),
         ) {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(bottom = 8.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                item {
-                    AppTopBar(
-                        title = "단어 관리",
-                        onBackClick = onBack,
-                        trailingBadgeText = "%,d".format(totalCount),
-                        trailingExtras = {
+            Column(modifier = Modifier.fillMaxSize()) {
+                AppTopBar(
+                    title = "단어 관리",
+                    onBackClick = onBack,
+                    trailingBadgeText = "%,d".format(totalCount),
+                    trailingExtras = {
+                        AppTopBarPill(
+                            text = "단어추가",
+                            enabled = syncState !is SyncUiState.Loading,
+                            onClick = { showAddWordDialog = true },
+                        )
+                        if (showInitButton) {
                             AppTopBarPill(
-                                text = "단어추가",
+                                text = "초기화",
                                 enabled = syncState !is SyncUiState.Loading,
-                                onClick = { showAddWordDialog = true },
-                            )
-                            if (showInitButton) {
-                                AppTopBarPill(
-                                    text = "초기화",
-                                    enabled = syncState !is SyncUiState.Loading,
-                                    contentColor = colors.pinkMain,
-                                    onClick = { showConfirmDialog = true },
-                                )
-                            }
-                        },
-                    )
-                }
-                item { Spacer(modifier = Modifier.height(4.dp)) }
-                item {
-                    Box(
-                        modifier =
-                            Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp)
-                                .background(colors.bgCard, RoundedCornerShape(14.dp))
-                                .border(0.5.dp, colors.borderDefault, RoundedCornerShape(14.dp))
-                                .padding(horizontal = 14.dp, vertical = 10.dp),
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(10.dp),
-                        ) {
-                            Icon(
-                                imageVector = Icons.Filled.Search,
-                                contentDescription = null,
-                                tint = colors.textMuted,
-                                modifier = Modifier.size(16.dp),
-                            )
-                            BasicTextField(
-                                value = searchQuery,
-                                onValueChange = { viewModel.setSearchQuery(it) },
-                                singleLine = true,
-                                textStyle =
-                                    androidx.compose.ui.text.TextStyle(
-                                        fontSize = 14.sp,
-                                        color = colors.textSecondary,
-                                    ),
-                                cursorBrush = SolidColor(colors.purpleMain),
-                                decorationBox = { innerTextField ->
-                                    Box {
-                                        if (searchQuery.isEmpty()) {
-                                            Text(
-                                                text = "영어 단어 검색",
-                                                fontSize = 13.sp,
-                                                color = colors.textMuted,
-                                            )
-                                        }
-                                        innerTextField()
-                                    }
-                                },
-                                modifier = Modifier.fillMaxWidth(),
+                                contentColor = colors.pinkMain,
+                                onClick = { showConfirmDialog = true },
                             )
                         }
-                    }
-                }
-                item {
+                    },
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Box(
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                            .background(colors.bgCard, RoundedCornerShape(14.dp))
+                            .border(0.5.dp, colors.borderDefault, RoundedCornerShape(14.dp))
+                            .padding(horizontal = 14.dp, vertical = 10.dp),
+                ) {
                     Row(
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
                     ) {
-                        val levels = listOf("전체", "초등", "중등", "고등")
-                        val selectedLevel =
-                            when (filter) {
-                                null -> "전체"
-                                WordDifficulty.ELEMENTARY -> "초등"
-                                WordDifficulty.MIDDLE -> "중등"
-                                WordDifficulty.HIGH -> "고등"
-                            }
-                        levels.forEach { level ->
-                            val isSelected = selectedLevel == level
-                            AppChipButton(
-                                text = level,
-                                selected = isSelected,
-                                onClick = {
-                                    when (level) {
-                                        "전체" -> viewModel.setFilter(null)
-                                        "초등" -> viewModel.setFilter(WordDifficulty.ELEMENTARY)
-                                        "중등" -> viewModel.setFilter(WordDifficulty.MIDDLE)
-                                        "고등" -> viewModel.setFilter(WordDifficulty.HIGH)
+                        Icon(
+                            imageVector = Icons.Filled.Search,
+                            contentDescription = null,
+                            tint = colors.textMuted,
+                            modifier = Modifier.size(16.dp),
+                        )
+                        BasicTextField(
+                            value = searchQuery,
+                            onValueChange = { viewModel.setSearchQuery(it) },
+                            singleLine = true,
+                            textStyle =
+                                androidx.compose.ui.text.TextStyle(
+                                    fontSize = 14.sp,
+                                    color = colors.textSecondary,
+                                ),
+                            cursorBrush = SolidColor(colors.purpleMain),
+                            decorationBox = { innerTextField ->
+                                Box {
+                                    if (searchQuery.isEmpty()) {
+                                        Text(
+                                            text = "영어 단어 검색",
+                                            fontSize = 13.sp,
+                                            color = colors.textMuted,
+                                        )
                                     }
-                                },
-                            )
-                        }
+                                    innerTextField()
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                        )
                     }
                 }
-                itemsIndexed(
-                    wordsWithStats,
-                    key = { _, it -> it.word.id },
-                ) { _, item ->
-                    WordListItem(
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                        item = item,
-                        isRecentlyAdded = item.word.id in recentlyAddedIds,
-                        onSpeak = { text -> if (ttsReady) tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null) },
-                        onDetail = { selectedWordForDetail = item.word.word },
-                        onEdit = { viewModel.setWordToEdit(item.word) },
-                        onDelete = { wordToDelete = item.word },
-                        onAddToBook = { wordForBook = item.word },
-                    )
+                Spacer(modifier = Modifier.height(12.dp))
+                Row(
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                ) {
+                    val levels = listOf("전체", "초등", "중등", "고등")
+                    val selectedLevel =
+                        when (filter) {
+                            null -> "전체"
+                            WordDifficulty.ELEMENTARY -> "초등"
+                            WordDifficulty.MIDDLE -> "중등"
+                            WordDifficulty.HIGH -> "고등"
+                        }
+                    levels.forEach { level ->
+                        val isSelected = selectedLevel == level
+                        AppChipButton(
+                            text = level,
+                            selected = isSelected,
+                            onClick = {
+                                when (level) {
+                                    "전체" -> viewModel.setFilter(null)
+                                    "초등" -> viewModel.setFilter(WordDifficulty.ELEMENTARY)
+                                    "중등" -> viewModel.setFilter(WordDifficulty.MIDDLE)
+                                    "고등" -> viewModel.setFilter(WordDifficulty.HIGH)
+                                }
+                            },
+                        )
+                    }
                 }
-                item {
-                    AppCopyrightFooter(
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                    )
+                Spacer(modifier = Modifier.height(12.dp))
+                LazyColumn(
+                    modifier =
+                        Modifier
+                            .weight(1f)
+                            .fillMaxWidth(),
+                    contentPadding = PaddingValues(bottom = 8.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                    itemsIndexed(
+                        wordsWithStats,
+                        key = { _, it -> it.word.id },
+                    ) { _, item ->
+                        WordListItem(
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            item = item,
+                            isRecentlyAdded = item.word.id in recentlyAddedIds,
+                            onSpeak = { text -> if (ttsReady) tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null) },
+                            onDetail = { selectedWordForDetail = item.word.word },
+                            onEdit = { viewModel.setWordToEdit(item.word) },
+                            onDelete = { wordToDelete = item.word },
+                            onAddToBook = { wordForBook = item.word },
+                        )
+                    }
                 }
+                AppCopyrightFooter(
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                )
             }
 
             if (syncState is SyncUiState.Loading) {
@@ -755,7 +757,8 @@ private fun WordEditDialog(
 
     LaunchedEffect(word.id) {
         wordText = word.word
-        posText = word.partOfSpeech
+        posText =
+            OcrHelper.normalizePartOfSpeech(word.partOfSpeech).ifBlank { word.partOfSpeech.trim() }
         meaningText = word.meaning
         difficulty = word.difficulty
     }
@@ -817,13 +820,17 @@ private fun WordEditDialog(
                             .background(inputBg)
                             .padding(12.dp),
                 ) {
-                    OutlinedTextField(
-                        value = posText,
-                        onValueChange = { posText = it },
-                        label = { Text("품사") },
-                        modifier = Modifier.fillMaxWidth(),
-                        keyboardOptions = keyboardOptions,
-                        colors = textFieldColors,
+                    Text(
+                        text = "품사",
+                        fontSize = 12.sp,
+                        color = colors.textMuted,
+                        modifier = Modifier.padding(bottom = 8.dp),
+                    )
+                    PartOfSpeechSelector(
+                        selectedLabels = PartOfSpeech.parseLabels(posText),
+                        onSelectionChange = { selected ->
+                            posText = PartOfSpeech.toStorageString(selected)
+                        },
                     )
                 }
                 HorizontalDivider(color = dividerColor, thickness = 1.dp)
@@ -942,12 +949,15 @@ private fun AddWordDialog(
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = keyboardOptions,
                 )
-                OutlinedTextField(
-                    value = posText,
-                    onValueChange = { posText = it },
-                    label = { Text("품사") },
-                    modifier = Modifier.fillMaxWidth(),
-                    keyboardOptions = keyboardOptions,
+                Text(
+                    text = "품사",
+                    fontSize = 12.sp,
+                    color = colors.textMuted,
+                    modifier = Modifier.padding(bottom = 8.dp),
+                )
+                PartOfSpeechSelector(
+                    selectedLabels = PartOfSpeech.parseLabels(posText),
+                    onSelectionChange = { selected -> posText = PartOfSpeech.toStorageString(selected) },
                 )
                 OutlinedTextField(
                     value = meaningText,
@@ -1000,7 +1010,7 @@ private fun AddWordDialog(
                             Word(
                                 id = 0,
                                 word = w,
-                                partOfSpeech = p.ifBlank { "-" },
+                                partOfSpeech = p,
                                 meaning = m,
                                 difficulty = difficulty,
                             ),

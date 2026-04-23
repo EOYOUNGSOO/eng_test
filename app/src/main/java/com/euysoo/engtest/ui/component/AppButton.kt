@@ -108,7 +108,7 @@ fun AppFullWidthButton(
                         when (style) {
                             AppButtonStyle.PRIMARY -> if (enabled) colors.purpleMain else Color(0xFF2A2740)
                             AppButtonStyle.WRONG_NOTE -> if (enabled) WrongNoteRed else WrongNoteRedDisabled
-                            else -> colors.bgPrimary
+                            else -> colors.bgCard
                         },
                     shape = RoundedCornerShape(12.dp),
                 ).then(

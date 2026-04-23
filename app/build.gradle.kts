@@ -1,5 +1,6 @@
 import java.io.FileOutputStream
 import java.net.URL
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.androidApplication)
@@ -41,8 +42,27 @@ android {
         applicationId = "com.euysoo.engtest"
         minSdk = 26
         targetSdk = 35
-        versionCode = 4
-        versionName = "1.2.2"
+        versionCode = 7
+        versionName = "1.2.4"
+
+        val localPropsFile = rootProject.file("local.properties")
+        val geminiApiKey =
+            if (localPropsFile.exists()) {
+                Properties().apply { localPropsFile.inputStream().use { load(it) } }
+                    .getProperty("gemini.api.key", "")
+                    .orEmpty()
+            } else {
+                ""
+            }
+        buildConfigField(
+            "String",
+            "GEMINI_API_KEY",
+            "\"${geminiApiKey.replace("\\", "\\\\").replace("\"", "\\\"")}\"",
+        )
+        // 16KB 메모리 페이지 기기: 64비트 ABI만 포함(ML Kit/CameraX 등 .so 정렬·용량 정리)
+        ndk {
+            abiFilters += listOf("arm64-v8a", "x86_64")
+        }
     }
     androidResources {
         localeFilters += listOf("ko", "en")
@@ -75,6 +95,12 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.8"
+    }
+    // APK/AAB 내 JNI를 비압축·ZIP 16KB 정렬로 넣어 16KB 페이지 크기 기기 호환성 향상
+    packaging {
+        jniLibs {
+            useLegacyPackaging = false
+        }
     }
 }
 
@@ -129,6 +155,18 @@ dependencies {
 
     // WorkManager (발음기호 백그라운드 조회)
     implementation("androidx.work:work-runtime-ktx:2.9.0")
+
+    // ML Kit OCR (온디바이스, 번들) — Latin + Korean 이중 인식
+    implementation("com.google.mlkit:text-recognition:16.0.1")
+    implementation("com.google.mlkit:text-recognition-korean:16.0.1")
+    val cameraxVersion = "1.3.4"
+    implementation("androidx.camera:camera-camera2:$cameraxVersion")
+    implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
+    implementation("androidx.camera:camera-view:$cameraxVersion")
+    implementation("com.google.accompanist:accompanist-permissions:0.34.0")
+
+    // Gemini (Google AI SDK) — 온라인 고정밀 OCR
+    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
